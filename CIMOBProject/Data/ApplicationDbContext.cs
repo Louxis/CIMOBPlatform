@@ -15,6 +15,10 @@ namespace CIMOBProject.Data
         {
         }
 
+        public DbSet<Document> Documents { get; set; }
+        public DbSet<Student> Students { get; set; }
+        public DbSet<ApplicationUser> ApplicationUsers { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);

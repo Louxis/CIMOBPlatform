@@ -13,6 +13,7 @@ using Microsoft.Extensions.Options;
 using CIMOBProject.Models;
 using CIMOBProject.Models.AccountViewModels;
 using CIMOBProject.Services;
+using CIMOBProject.Data;
 
 namespace CIMOBProject.Controllers
 {
@@ -24,17 +25,20 @@ namespace CIMOBProject.Controllers
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly IEmailSender _emailSender;
         private readonly ILogger _logger;
+        private readonly ApplicationDbContext _context;
 
         public AccountController(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
             IEmailSender emailSender,
-            ILogger<AccountController> logger)
+            ILogger<AccountController> logger,
+            ApplicationDbContext context)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _emailSender = emailSender;
             _logger = logger;
+            _context = context;
         }
 
         [TempData]
@@ -220,8 +224,23 @@ namespace CIMOBProject.Controllers
             ViewData["ReturnUrl"] = returnUrl;
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new ApplicationUser
+                {
+                    UserName = model.Email,
+                    UserFullname = model.UserName,
+                    Email = model.Email,
+                    UserCc = model.UserCc,
+                    PhoneNumber = model.PhoneNumber,
+                    UserAddress = model.UserAddress,
+                    PostalCode = model.PostalCode,
+                    BirthDate = model.BirthDate};
                 var result = await _userManager.CreateAsync(user, model.Password);
+                _context.Add(new Student()
+                            {
+                                StudentNumber = model.StudentNumber,
+                                ApplicationUser = user
+                            });
+                await _context.SaveChangesAsync();
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User created a new account with password.");
