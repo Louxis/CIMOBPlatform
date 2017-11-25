@@ -1,6 +1,7 @@
 ﻿body {
-    padding-top: 50px;
+    padding-top: 40px;
     padding-bottom: 20px;
+    background-color: #EEEEEE;
 }
 
 /* Wrapping element */
@@ -26,10 +27,94 @@
     margin: 15px;
 }
 
+/* Nav properties*/
+nav {
+    background-color: #FFC261;
+}
+
+/* Nav hover properties*/
+.navbar-nav li a:hover {
+    background-color: #FF9D00;
+}
+
+/* Header properties*/
+header {
+    background-color: #EEEEEE;
+    width: 100%;
+}
+
+div.banner {
+    padding-left: 5%;
+    padding-right: 5%;
+    max-width: 100%;
+}
+
+
+div.ipslogo {
+    background-image: url('../images/_ips-logotipo-site.png');
+    min-height: 25vh;
+    width: 27%;
+    background-size: contain;
+    background-repeat: no-repeat;
+    float:left;
+}
+
+div.title {
+    margin-left: 28%;
+    height: 25vh;
+    width: 67%;
+    text-align: center;
+    padding-top: 1em;
+}
+
+div.title h1{
+    font-size: 3em;
+    font-weight: bold;
+}
+
+div.title h2 {
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+@media only screen and (max-width: 810px){
+    div.banner{
+        height: 18vh;
+    }
+    
+    div.title {
+        padding-top: 0;
+        margin-left: 0;
+        width: 100%;
+        height:18vh;
+    }
+
+    div.title h1{
+        font-size: 3em;
+    }
+
+        div.title h2 {
+            font-size: 1.5em;
+        }
+
+    div.ipslogo {
+        display: none;
+    }
+}
+
 /* Hide/rearrange for smaller screens */
-@media screen and (max-width: 767px) {
+@media only screen and (max-width: 767px) {
     /* Hide captions */
     .carousel-caption {
         display: none;
     }
+}
+
+div.menubar {
+    padding-right: 0;
+    padding-left: 0;
+    height: 2.5em;
+    background-color: #FFC261;
+    border-top: 1px solid #9E9B96;
+    border-bottom: 1px solid #9E9B96;
 }
