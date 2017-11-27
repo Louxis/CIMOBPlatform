@@ -238,6 +238,8 @@ namespace CIMOBProject.Controllers
                 _context.Add(new Student()
                             {
                                 StudentNumber = model.StudentNumber,
+                                CollegeID = (from item in _context.Colleges where item.CollegeName == model.CollegeName select item).First().Id,
+                                College = (from item in _context.Colleges where item.CollegeName == model.CollegeName select item).First(),
                                 ApplicationUser = user
                             });
                 await _context.SaveChangesAsync();
