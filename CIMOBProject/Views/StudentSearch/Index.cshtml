@@ -20,7 +20,7 @@
                     @Html.DisplayNameFor(model => model.StudentNumber)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.ApplicationUser.UserName)
+                    @Html.DisplayNameFor(model => model.ApplicationUser.UserFullname)
                 </th>
 
             <th></th>
@@ -33,7 +33,7 @@
                 @Html.DisplayFor(modelItem => item.StudentNumber)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.ApplicationUser.UserName)
+                @Html.DisplayFor(modelItem => item.ApplicationUser.UserFullname)
             </td>
             <td>
                 <!--Ou faz-se um botão com a asp-action em que os Details vão ser o perfil do moço que se quer ver
