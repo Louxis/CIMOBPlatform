@@ -13,6 +13,7 @@ namespace CIMOBProject.Controllers
     public class StudentsController : Controller
     {
         private readonly ApplicationDbContext _context;
+
         public StudentsController(ApplicationDbContext context)
         {
             _context = context;
@@ -21,7 +22,8 @@ namespace CIMOBProject.Controllers
         // GET: Students
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Students.ToListAsync());
+            var applicationDbContext = _context.Students.Include(s => s.ApplicationUser).Include(s => s.College);
+            return View(await applicationDbContext.ToListAsync());
         }
 
         // GET: Students/Details/5
@@ -33,6 +35,8 @@ namespace CIMOBProject.Controllers
             }
 
             var student = await _context.Students
+                .Include(s => s.ApplicationUser)
+                .Include(s => s.College)
                 .SingleOrDefaultAsync(m => m.Id == id);
             if (student == null)
             {
@@ -45,6 +49,8 @@ namespace CIMOBProject.Controllers
         // GET: Students/Create
         public IActionResult Create()
         {
+            ViewData["ApplicationUserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id");
+            ViewData["CollegeID"] = new SelectList(_context.Colleges, "Id", "CollegeName");
             return View();
         }
 
@@ -53,7 +59,7 @@ namespace CIMOBProject.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,StudentNumber,ALOGrade")] Student student)
+        public async Task<IActionResult> Create([Bind("Id,StudentNumber,ALOGrade,CollegeID,ApplicationUserId")] Student student)
         {
             if (ModelState.IsValid)
             {
@@ -61,6 +67,8 @@ namespace CIMOBProject.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["ApplicationUserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", student.ApplicationUserId);
+            ViewData["CollegeID"] = new SelectList(_context.Colleges, "Id", "CollegeName", student.CollegeID);
             return View(student);
         }
 
@@ -77,6 +85,8 @@ namespace CIMOBProject.Controllers
             {
                 return NotFound();
             }
+            ViewData["ApplicationUserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", student.ApplicationUserId);
+            ViewData["CollegeID"] = new SelectList(_context.Colleges, "Id", "CollegeName", student.CollegeID);
             return View(student);
         }
 
@@ -85,7 +95,7 @@ namespace CIMOBProject.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,StudentNumber,ALOGrade")] Student student)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,StudentNumber,ALOGrade,CollegeID,ApplicationUserId")] Student student)
         {
             if (id != student.Id)
             {
@@ -112,6 +122,8 @@ namespace CIMOBProject.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["ApplicationUserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", student.ApplicationUserId);
+            ViewData["CollegeID"] = new SelectList(_context.Colleges, "Id", "CollegeName", student.CollegeID);
             return View(student);
         }
 
@@ -124,6 +136,8 @@ namespace CIMOBProject.Controllers
             }
 
             var student = await _context.Students
+                .Include(s => s.ApplicationUser)
+                .Include(s => s.College)
                 .SingleOrDefaultAsync(m => m.Id == id);
             if (student == null)
             {

@@ -8,13 +8,12 @@ using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.EntityFrameworkCore.Storage.Internal;
 using System;
 
-namespace CIMOBProject.Data.Migrations
+namespace CIMOBProject.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20171127211148_CreateCollegeAndSubjects")]
-    partial class CreateCollegeAndSubjects
+    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -96,7 +95,7 @@ namespace CIMOBProject.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("College");
+                    b.ToTable("Colleges");
                 });
 
             modelBuilder.Entity("CIMOBProject.Models.CollegeSubject", b =>
@@ -116,7 +115,7 @@ namespace CIMOBProject.Data.Migrations
 
                     b.HasIndex("CollegeId");
 
-                    b.ToTable("CollegeSubject");
+                    b.ToTable("CollgeSubjects");
                 });
 
             modelBuilder.Entity("CIMOBProject.Models.Document", b =>
@@ -145,7 +144,8 @@ namespace CIMOBProject.Data.Migrations
 
                     b.Property<int>("ALOGrade");
 
-                    b.Property<string>("ApplicationUserId");
+                    b.Property<string>("ApplicationUserId")
+                        .IsRequired();
 
                     b.Property<int>("CollegeID");
 
@@ -289,7 +289,8 @@ namespace CIMOBProject.Data.Migrations
                 {
                     b.HasOne("CIMOBProject.Models.ApplicationUser", "ApplicationUser")
                         .WithMany()
-                        .HasForeignKey("ApplicationUserId");
+                        .HasForeignKey("ApplicationUserId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("CIMOBProject.Models.College", "College")
                         .WithMany("Students")

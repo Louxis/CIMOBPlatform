@@ -8,12 +8,13 @@ using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.EntityFrameworkCore.Storage.Internal;
 using System;
 
-namespace CIMOBProject.Data.Migrations
+namespace CIMOBProject.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20171128192903_useridadded")]
+    partial class useridadded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -139,12 +140,14 @@ namespace CIMOBProject.Data.Migrations
 
             modelBuilder.Entity("CIMOBProject.Models.Student", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("StudentId")
                         .ValueGeneratedOnAdd();
 
                     b.Property<int>("ALOGrade");
 
-                    b.Property<string>("ApplicationUserId");
+                    b.Property<int>("ApplicationUserId");
+
+                    b.Property<string>("ApplicationUserId1");
 
                     b.Property<int>("CollegeID");
 
@@ -152,9 +155,9 @@ namespace CIMOBProject.Data.Migrations
                         .IsRequired()
                         .HasMaxLength(12);
 
-                    b.HasKey("Id");
+                    b.HasKey("StudentId");
 
-                    b.HasIndex("ApplicationUserId");
+                    b.HasIndex("ApplicationUserId1");
 
                     b.HasIndex("CollegeID");
 
@@ -288,7 +291,7 @@ namespace CIMOBProject.Data.Migrations
                 {
                     b.HasOne("CIMOBProject.Models.ApplicationUser", "ApplicationUser")
                         .WithMany()
-                        .HasForeignKey("ApplicationUserId");
+                        .HasForeignKey("ApplicationUserId1");
 
                     b.HasOne("CIMOBProject.Models.College", "College")
                         .WithMany("Students")

@@ -101,8 +101,7 @@ namespace CIMOBProject.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,StudentNumber,ALOGrade")] Student student)
         {
-            if (id != student.Id)
-            {
+            if (id != student.Id) {
                 return NotFound();
             }
 

@@ -8,11 +8,11 @@ using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.EntityFrameworkCore.Storage.Internal;
 using System;
 
-namespace CIMOBProject.Data.Migrations
+namespace CIMOBProject.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20171127212301_CreateCollegeAndSubjectsFixedVersion")]
-    partial class CreateCollegeAndSubjectsFixedVersion
+    [Migration("20171128192354_Firstreset")]
+    partial class Firstreset
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -140,7 +140,7 @@ namespace CIMOBProject.Data.Migrations
 
             modelBuilder.Entity("CIMOBProject.Models.Student", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("StudentId")
                         .ValueGeneratedOnAdd();
 
                     b.Property<int>("ALOGrade");
@@ -149,11 +149,13 @@ namespace CIMOBProject.Data.Migrations
 
                     b.Property<int>("CollegeID");
 
+                    b.Property<int>("Id");
+
                     b.Property<string>("StudentNumber")
                         .IsRequired()
                         .HasMaxLength(12);
 
-                    b.HasKey("Id");
+                    b.HasKey("StudentId");
 
                     b.HasIndex("ApplicationUserId");
 
