@@ -32,7 +32,7 @@ namespace CIMOBProject.Controllers
             if (Regex.IsMatch(searchString, @"^\d+$") && !String.IsNullOrEmpty(searchString)){
                 students = students.Where(s => s.StudentNumber.Contains(searchString));
             }else if (!String.IsNullOrEmpty(searchString)){
-                students = students.Where(s => s.ApplicationUser.UserName.Contains(searchString));
+                students = students.Where(s => s.ApplicationUser.UserFullname.Contains(searchString));
             }
 
             return View(await students.ToListAsync());
