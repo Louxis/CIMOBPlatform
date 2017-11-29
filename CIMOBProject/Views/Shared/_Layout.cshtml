@@ -30,13 +30,12 @@
 
             <div class="navbar-left">
                 <form asp-controller="StudentSearch" asp-action="Index" method="get">
-                    <label for="searchType"></label>
-                    <select for="searchType">
+                    <select for="searchType" name="searchType">
                         <option>Escolha uma opção</option>
-                        <option id="studentName">Nome do estudante</option>
-                        <option id="studentNumer">Número do estudante</option>
-                        <option id="studentCollege">Escola</option>
-                    </select>
+                        <option value="studentName">Nome do estudante</option>
+                        <option value="studentNumber">Número do estudante</option>
+                        <option value="studentCollege">Escola</option>
+                    </select>      
 
                     <input type="text"  name="searchString" placeholder="Nome ou número do estudante" size="30px"/>
                     
