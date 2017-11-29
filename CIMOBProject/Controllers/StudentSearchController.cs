@@ -19,22 +19,34 @@ namespace CIMOBProject.Controllers
         public StudentSearchController(ApplicationDbContext context)
         {
             _context = context;
+            ViewData["SearchOptions"] = new SelectList(new List<SelectListItem>
+            {
+                new SelectListItem { Selected = true, Text = string.Empty, Value = "Escolha a opção"},
+                new SelectListItem { Selected = false, Text = "studentNumber", Value = "Número de estudante" },
+                new SelectListItem { Selected = false, Text = "studentName", Value = "Nome do estudante"},
+                new SelectListItem { Selected = false, Text = "studentCollege", Value = "Escola"},
+            }, "Value", "Text");
         }
 
         // GET: StudentSearch
-        public async Task<IActionResult> Index(string searchString)
+        public async Task<IActionResult> Index(string searchType,string searchString)
         {
             var students = _context.Students.Include(s => s.ApplicationUser).Include(s => s.College);
-            if (String.IsNullOrEmpty(searchString))
+
+
+            if (String.IsNullOrEmpty(searchType))
             {
                 return View(await students.ToListAsync());
             }
 
-            if (Regex.IsMatch(searchString, @"^\d+$") && !String.IsNullOrEmpty(searchString)){
+            if (searchType.Equals("studentNumber") && !String.IsNullOrEmpty(searchString)){
                 var filteredStudents = students.Where(s => s.StudentNumber.Contains(searchString));
                 return View(await filteredStudents.ToListAsync());
-            }else if (!String.IsNullOrEmpty(searchString)){
+            }else if (searchType.Equals("studentName") && !String.IsNullOrEmpty(searchString)){
                 var filteredStudents = students.Where(s => s.ApplicationUser.UserFullname.Contains(searchString));
+                return View(await filteredStudents.ToListAsync());
+            }else if ( searchType.Equals("studentCollege") && !String.IsNullOrEmpty(searchString)){
+                var filteredStudents = students.Where(s => s.College.CollegeName.Contains(searchString));
                 return View(await filteredStudents.ToListAsync());
             }            
             return View(await students.ToListAsync());
