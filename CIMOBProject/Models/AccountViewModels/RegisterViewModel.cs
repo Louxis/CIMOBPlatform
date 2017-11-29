@@ -60,6 +60,6 @@ namespace CIMOBProject.Models.AccountViewModels
         [RegularExpression(@"^[0-9]{9}$", ErrorMessage = "O número de estudante não é válido.")]
         public string StudentNumber { get; set; }
         [Required(ErrorMessage = "Não foi selecionada uma faculdade")]
-        public string CollegeName { get; set; }
+        public int CollegeId { get; set; }
     }
 }

@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using CIMOBProject.Data;
 using CIMOBProject.Models;
 using System.Text.RegularExpressions;
+using System.Diagnostics;
 
 namespace CIMOBProject.Controllers
 {
@@ -23,18 +24,19 @@ namespace CIMOBProject.Controllers
         // GET: StudentSearch
         public async Task<IActionResult> Index(string searchString)
         {
-            var students = from i in _context.Students select i;
-
+            var students = _context.Students.Include(s => s.ApplicationUser).Include(s => s.College);
             if (String.IsNullOrEmpty(searchString))
             {
                 return View(await students.ToListAsync());
             }
-            if (Regex.IsMatch(searchString, @"^\d+$") && !String.IsNullOrEmpty(searchString)){
-                students = students.Where(s => s.StudentNumber.Contains(searchString));
-            }else if (!String.IsNullOrEmpty(searchString)){
-                students = students.Where(s => s.ApplicationUser.UserFullname.Contains(searchString));
-            }
 
+            if (Regex.IsMatch(searchString, @"^\d+$") && !String.IsNullOrEmpty(searchString)){
+                var filteredStudents = students.Where(s => s.StudentNumber.Contains(searchString));
+                return View(await filteredStudents.ToListAsync());
+            }else if (!String.IsNullOrEmpty(searchString)){
+                var filteredStudents = students.Where(s => s.ApplicationUser.UserFullname.Contains(searchString));
+                return View(await filteredStudents.ToListAsync());
+            }            
             return View(await students.ToListAsync());
         }
 
@@ -101,8 +103,7 @@ namespace CIMOBProject.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,StudentNumber,ALOGrade")] Student student)
         {
-            if (id != student.Id)
-            {
+            if (id != student.Id) {
                 return NotFound();
             }
 

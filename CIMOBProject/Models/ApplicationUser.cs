@@ -11,6 +11,7 @@ namespace CIMOBProject.Models
     public class ApplicationUser : IdentityUser
     {
         [Required]
+        [Display(Name = "Nome completo")]
         public string UserFullname { get; set; }
         [Required]
         public String PostalCode { get; set; }

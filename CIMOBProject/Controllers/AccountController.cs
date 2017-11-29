@@ -213,6 +213,8 @@ namespace CIMOBProject.Controllers
         public IActionResult Register(string returnUrl = null)
         {
             ViewData["ReturnUrl"] = returnUrl;
+            List<College> collegeList = (from col in _context.Colleges select col).ToList();
+            ViewData["CollegeID"] = new SelectList(_context.Colleges, "Id", "CollegeName");
             return View();
         }
 
@@ -235,13 +237,13 @@ namespace CIMOBProject.Controllers
                     PostalCode = model.PostalCode,
                     BirthDate = model.BirthDate};
                 var result = await _userManager.CreateAsync(user, model.Password);
-                _context.Add(new Student()
-                            {
-                                StudentNumber = model.StudentNumber,
-                                CollegeID = (from item in _context.Colleges where item.CollegeName == model.CollegeName select item).First().Id,
-                                College = (from item in _context.Colleges where item.CollegeName == model.CollegeName select item).First(),
-                                ApplicationUser = user
-                            });
+                _context.Add(
+                    new Student() {
+                        StudentNumber = model.StudentNumber,
+                        CollegeID = model.CollegeId,
+                        //(from ids in _context.Colleges where ids.CollegeName.Equals(model.CollegeName) select ids.Id).First(),
+                        ApplicationUser = user
+                                    });
                 await _context.SaveChangesAsync();
                 if (result.Succeeded)
                 {
