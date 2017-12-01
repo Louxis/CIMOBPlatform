@@ -243,14 +243,6 @@ namespace CIMOBProject.Controllers
                     ((_context.CollegeSubjects.Include(c => c.College)).Where(s => s.Id == model.CollegeSubjectId).Select(c => c.College.Id)).First(),
                     StudentNumber = model.StudentNumber};
                 var result = await _userManager.CreateAsync(user, model.Password);
-                /*_context.Add(
-                    new Student() {
-                        StudentNumber = model.StudentNumber,
-                        CollegeID = model.CollegeId,
-                        //(from ids in _context.Colleges where ids.CollegeName.Equals(model.CollegeName) select ids.Id).First(),
-                        //ApplicationUser = user
-                                    });
-                await _context.SaveChangesAsync();*/
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User created a new account with password.");
