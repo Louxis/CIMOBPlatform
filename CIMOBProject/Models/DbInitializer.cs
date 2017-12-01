@@ -22,7 +22,7 @@ namespace CIMOBProject.Models {
                 context.Roles.Add(new IdentityRole { Name = "Employee", NormalizedName = "Employee" });
                 context.SaveChanges();
             }
-
+            /*
             if(context.Colleges.First() == null) {
                 context.Colleges.Add(new College { CollegeAlias = "ESTS", CollegeName = "Escola Superior de Tecnologia de Setúbal"});
                 context.Colleges.Add(new College { CollegeAlias = "ESCE", CollegeName = "Escola Superior de Ciências Empresariais" });
@@ -35,7 +35,7 @@ namespace CIMOBProject.Models {
                 context.CollegeSubjects.Add(new CollegeSubject { SubjectAlias = "EI", SubjectName = "Engenharia Informática", College = new College { Id = 1 } });
                 context.CollegeSubjects.Add(new CollegeSubject { SubjectAlias = "EM", SubjectName = "Engenharia Mecânica", College = new College { Id = 1 } });
                 context.SaveChanges();
-            }
+            }*/
         }
     }
 

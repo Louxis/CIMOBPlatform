@@ -60,7 +60,11 @@
                 <input asp-for="StudentNumber" class="form-control" />
                 <span asp-validation-for="StudentNumber" class="text-danger"></span>
             </div>
-            @Html.Partial("SubjectsView")
+            <div id="listCS" class="form-group">
+                <label asp-for="CollegeSubjectId"></label>
+                <select asp-for="CollegeSubjectId" class="form-control"
+                        asp-items="@ViewBag.CollegeSubjectId"></select>
+            </div>
             <button type="submit" class="btn btn-default">Register</button>
         </form>
     </div>
