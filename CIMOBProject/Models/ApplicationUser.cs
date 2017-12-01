@@ -13,14 +13,25 @@ namespace CIMOBProject.Models
         [Required]
         [Display(Name = "Nome completo")]
         public string UserFullname { get; set; }
+
         [Required]
+        [Display(Name = "Código Postal")]
         public String PostalCode { get; set; }
+
         [Required]
+        [Display(Name = "Data de Nascimento")]
         public DateTime BirthDate { get; set; }
+
         [Required]
+        [Display(Name = "Morada")]
         public String UserAddress { get; set; }
+
         [Required]
+        [Display(Name = "Número de Cartão de Cidadão")]
         public int UserCc { get; set; }
+
+        [Display(Name = "Número de Telefone")]
+        public override string PhoneNumber { get => base.PhoneNumber; set => base.PhoneNumber = value; }
 
     }
 }
