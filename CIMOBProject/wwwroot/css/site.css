@@ -219,3 +219,8 @@ footer {
     margin-top:0px;
     font-weight:bold;
 }
+
+li .btn{
+    padding: 10px 15px;
+    border: 0px;
+}
