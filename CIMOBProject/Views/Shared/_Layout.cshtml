@@ -18,7 +18,7 @@
 </head>
 <body>
     <nav class="navbar navbar-fixed-top">
-        <div class="container">
+        <div class="header-container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                     <span class="sr-only">Toggle navigation</span>
@@ -34,8 +34,7 @@
                     <input type="submit" value="Pesquisar">
                 </form>
             </div>
-            <div class="navbar-collapse collapse">
-                
+            <div class="navbar-collapse collapse">           
                 @await Html.PartialAsync("_LoginPartial")
             </div>
         </div>
@@ -47,22 +46,37 @@
             <div class="ipslogo"></div>
             <div class="title">
                 <h1>CIMOB ONLINE</h1>
-                <h2>Plataforma de Apoio à Mobilização</h2>
+                <h2>Plataforma de Apoio à Mobilidade</h2>
             </div>
         </div>
-        <div class="menubar">
-
+        <div class="menu-container">
+            <ul class="menubar">
+                <li><a asp-area="" asp-controller="Account" asp-action="Register">Home</a></li>
+                <li><a asp-area="" asp-controller="Account" asp-action="Register">Publicações</a></li>
+                <li><a asp-area="" asp-controller="Account" asp-action="Register">Candidatura</a></li>
+                <li><a asp-area="" asp-controller="Account" asp-action="Register">Contactos</a></li>
+            </ul>
         </div>
+        
+        <ul class="breadcrumb">
+            @await Html.PartialAsync("_Breadcrumbs")
+        </ul>            
     </header>
 
 
     <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; 2017 - CIMOBProject</p>
-        </footer>
+        @RenderBody()    
     </div>
+    <footer>
+        <div class="bottom-content">
+            <div class="socialmedia">
+
+            </div>
+            <div class="contacts">
+
+            </div>
+        </div>
+    </footer>
 
     <environment include="Development">
         <script src="~/lib/jquery/dist/jquery.js"></script>
@@ -86,5 +100,6 @@
     </environment>
 
     @RenderSection("Scripts", required: false)
+
 </body>
 </html>
