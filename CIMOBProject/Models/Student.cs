@@ -10,11 +10,18 @@ namespace CIMOBProject.Models
 
         [Required]
         [StringLength(12)]
+        [Display(Name = "Número de Estudante")]
         public string StudentNumber { get; set; }
+
+        [Display(Name = "Nota do teste de Línguas")]
         public int ALOGrade { get; set; }
+
         [Required]
         public int CollegeID { get; set; }
+
         public virtual List<Document> Documents { get; set; }
+
+        [Display(Name = "Escola")]
         public virtual College College { get; set; }
 
     }

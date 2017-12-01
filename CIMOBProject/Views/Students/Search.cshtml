@@ -10,10 +10,10 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>Index</title>
+    <title>Resultados de pesquisa</title>
 </head>
 <body>
-
+    <h1>Resultados da Pesquisa</h1>
     <table class="table">
         <thead>
             <tr>
@@ -39,8 +39,7 @@
                     <td>
                         <!--Ou faz-se um botão com a asp-action em que os Details vão ser o perfil do moço que se quer ver
                             Ou faz-se um botão que irá fazer o mesmo c: -->
-                        <button>Ver Perfil</button>
-                        <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                        <input type="button" value="Ver Perfil" onclick="location.href='@Url.Action("Details", "Students", new {id = item.Id})'" />
                     </td>
                 </tr>
             }
