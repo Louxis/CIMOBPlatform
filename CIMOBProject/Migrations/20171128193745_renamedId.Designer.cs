@@ -6,15 +6,15 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.EntityFrameworkCore.Storage.Internal;
-using Microsoft.EntityFrameworkCore.ValueGeneration;
 using System;
 
 namespace CIMOBProject.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20171128193745_renamedId")]
+    partial class renamedId
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -32,9 +32,6 @@ namespace CIMOBProject.Migrations
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();
-
-                    b.Property<string>("Discriminator")
-                        .IsRequired();
 
                     b.Property<string>("Email")
                         .HasMaxLength(256);
@@ -86,8 +83,6 @@ namespace CIMOBProject.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers");
-
-                    b.HasDiscriminator<string>("Discriminator").HasValue("ApplicationUser");
                 });
 
             modelBuilder.Entity("CIMOBProject.Models.College", b =>
@@ -134,15 +129,38 @@ namespace CIMOBProject.Migrations
 
                     b.Property<int>("StudentId");
 
-                    b.Property<string>("StudentId1");
-
                     b.Property<DateTime>("UploadDate");
 
                     b.HasKey("DocumentId");
 
-                    b.HasIndex("StudentId1");
+                    b.HasIndex("StudentId");
 
                     b.ToTable("Documents");
+                });
+
+            modelBuilder.Entity("CIMOBProject.Models.Student", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("ALOGrade");
+
+                    b.Property<string>("ApplicationUserId")
+                        .IsRequired();
+
+                    b.Property<int>("CollegeID");
+
+                    b.Property<string>("StudentNumber")
+                        .IsRequired()
+                        .HasMaxLength(12);
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ApplicationUserId");
+
+                    b.HasIndex("CollegeID");
+
+                    b.ToTable("Students");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -253,25 +271,6 @@ namespace CIMOBProject.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("CIMOBProject.Models.Student", b =>
-                {
-                    b.HasBaseType("CIMOBProject.Models.ApplicationUser");
-
-                    b.Property<int>("ALOGrade");
-
-                    b.Property<int>("CollegeID");
-
-                    b.Property<string>("StudentNumber")
-                        .IsRequired()
-                        .HasMaxLength(12);
-
-                    b.HasIndex("CollegeID");
-
-                    b.ToTable("Student");
-
-                    b.HasDiscriminator().HasValue("Student");
-                });
-
             modelBuilder.Entity("CIMOBProject.Models.CollegeSubject", b =>
                 {
                     b.HasOne("CIMOBProject.Models.College", "College")
@@ -283,7 +282,21 @@ namespace CIMOBProject.Migrations
                 {
                     b.HasOne("CIMOBProject.Models.Student", "Student")
                         .WithMany("Documents")
-                        .HasForeignKey("StudentId1");
+                        .HasForeignKey("StudentId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("CIMOBProject.Models.Student", b =>
+                {
+                    b.HasOne("CIMOBProject.Models.ApplicationUser", "ApplicationUser")
+                        .WithMany()
+                        .HasForeignKey("ApplicationUserId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("CIMOBProject.Models.College", "College")
+                        .WithMany("Students")
+                        .HasForeignKey("CollegeID")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -328,14 +341,6 @@ namespace CIMOBProject.Migrations
                     b.HasOne("CIMOBProject.Models.ApplicationUser")
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("CIMOBProject.Models.Student", b =>
-                {
-                    b.HasOne("CIMOBProject.Models.College", "College")
-                        .WithMany("Students")
-                        .HasForeignKey("CollegeID")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
