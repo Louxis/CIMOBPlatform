@@ -74,6 +74,9 @@ namespace CIMOBProject.Controllers
             return View(student);
         }
 
+
+
+
         // GET: Students/Edit/5
         public async Task<IActionResult> Edit(string id)
         {

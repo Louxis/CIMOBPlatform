@@ -369,6 +369,7 @@ namespace CIMOBProject.Controllers
             }
             var result = await _userManager.ConfirmEmailAsync(user, code);
             return View(result.Succeeded ? "ConfirmEmail" : "Error");
+            
         }
 
         [HttpGet]
