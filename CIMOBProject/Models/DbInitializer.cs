@@ -13,13 +13,14 @@ namespace CIMOBProject.Models {
 
             if (context.Roles.SingleOrDefault(r => r.Name == "Student") == null)
             {
-                context.Roles.Add(new IdentityRole { Name = "Student" });
+                
+                context.Roles.Add(new IdentityRole { Name = "Student", NormalizedName = "Student" });
                 context.SaveChanges();
             }
 
             if (context.Roles.SingleOrDefault(r => r.Name == "Employee") == null)
             {
-                context.Roles.Add(new IdentityRole("Employee"));
+                context.Roles.Add(new IdentityRole { Name = "Employee", NormalizedName = "Employee" });
                 context.SaveChanges();
             }
         }
