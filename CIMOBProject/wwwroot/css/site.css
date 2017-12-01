@@ -9,6 +9,12 @@ h1 {
     padding-bottom: 10px;
 }
 
+h3 {
+    font-size: 2em;
+    color: #FF9D00;
+    padding-bottom: 10px;
+}
+
 /* Wrapping element */
 /* Set some basic padding to keep content from hitting the edges */
 .body-content {
@@ -204,4 +210,12 @@ footer {
     padding-left: 5%;
     margin-right: auto;
     margin-left: auto;
+}
+
+.description {
+    font-size: 16px;
+    color:black;
+    padding-bottom: 10px;
+    margin-top:0px;
+    font-weight:bold;
 }
