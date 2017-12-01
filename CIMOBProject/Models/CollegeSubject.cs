@@ -13,7 +13,11 @@ namespace CIMOBProject.Models
         [StringLength(100)]
         public string SubjectName { get; set; }
         [Required]
-        public int Credits { get; set; }
+        public string SubjectAlias { get; set; }
+        
+        //public int CollegeId { get; set; }
+        //TO-DO: Delete?
+
         public virtual College College { get; set; }
     }
 }

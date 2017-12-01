@@ -13,6 +13,9 @@ namespace CIMOBProject.Models
         [Required]
         [StringLength(100)]
         public string CollegeName { get; set; }
+        [Required]
+        public string CollegeAlias { get; set; }
+
         public virtual List<Student> Students { get; set; }
         public virtual List<CollegeSubject> Subjects { get; set; }
     }
