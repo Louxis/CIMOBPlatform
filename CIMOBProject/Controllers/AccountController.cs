@@ -397,11 +397,11 @@ namespace CIMOBProject.Controllers
                 // visit https://go.microsoft.com/fwlink/?LinkID=532713
                 var code = await _userManager.GeneratePasswordResetTokenAsync(user);
                 var callbackUrl = Url.ResetPasswordCallbackLink(user.Id, code, Request.Scheme);
-                await _emailSender.SendEmailAsync(model.Email, "Reset Password",
-                   $"Please reset your password by clicking here: <a href='{callbackUrl}'>link</a>");
+                await _emailSender.SendEmailAsync(model.Email, "Reiniciar Password",
+                   $"Se solicitou um reinicio de password, visite este link: <a href='{callbackUrl}'>link</a>." +
+                   $"<br>Senão, pode ignorar este email.");
                 return RedirectToAction(nameof(ForgotPasswordConfirmation));
             }
-
             // If we got this far, something failed, redisplay form
             return View(model);
         }

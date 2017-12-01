@@ -13,8 +13,8 @@ namespace CIMOBProject.Services
         {
             return emailSender.SendEmailAsync(email, "Confirma o teu email!",
                 $"Bem vindo ao CIMOB! Para teres acesso a todas as funcionalidades precisas" +
-                $" de ativar a tua conta. </br>" +
-                $"Por favor visita a seguinte ligação: <a href='{HtmlEncoder.Default.Encode(link)}'>link</a>");
+                $" de ativar a tua conta. <br>" +
+                $"Por favor visita a seguinte ligação: <a href='{HtmlEncoder.Default.Encode(link)}'>link</a>.");
         }
     }
 }
