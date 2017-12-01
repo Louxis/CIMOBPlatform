@@ -12,8 +12,8 @@ using System;
 namespace CIMOBProject.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20171129231930_NewStudentVersion")]
-    partial class NewStudentVersion
+    [Migration("20171201153412_MailTesting")]
+    partial class MailTesting
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
