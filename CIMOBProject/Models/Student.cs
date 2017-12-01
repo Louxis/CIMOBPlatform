@@ -13,7 +13,7 @@ namespace CIMOBProject.Models
         public string StudentNumber { get; set; }
         public int ALOGrade { get; set; }
         [Required]
-        public int CollegeID { get; set; }
+        public int CollegeId { get; set; }
         public int CollegeSubjectId { get; set; }
         public virtual List<Document> Documents { get; set; }
         public virtual College College { get; set; }

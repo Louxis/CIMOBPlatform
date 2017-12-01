@@ -12,8 +12,8 @@ using System;
 namespace CIMOBProject.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20171201144905_Subjectid")]
-    partial class Subjectid
+    [Migration("20171201152905_GrammarFix")]
+    partial class GrammarFix
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -260,7 +260,7 @@ namespace CIMOBProject.Migrations
 
                     b.Property<int>("ALOGrade");
 
-                    b.Property<int>("CollegeID");
+                    b.Property<int>("CollegeId");
 
                     b.Property<int>("CollegeSubjectId");
 
@@ -268,7 +268,7 @@ namespace CIMOBProject.Migrations
                         .IsRequired()
                         .HasMaxLength(12);
 
-                    b.HasIndex("CollegeID");
+                    b.HasIndex("CollegeId");
 
                     b.HasIndex("CollegeSubjectId");
 
@@ -340,7 +340,7 @@ namespace CIMOBProject.Migrations
                 {
                     b.HasOne("CIMOBProject.Models.College", "College")
                         .WithMany("Students")
-                        .HasForeignKey("CollegeID")
+                        .HasForeignKey("CollegeId")
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("CIMOBProject.Models.CollegeSubject", "CollegeSubject")

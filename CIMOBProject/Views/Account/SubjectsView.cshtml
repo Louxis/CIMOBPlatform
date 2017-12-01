@@ -11,6 +11,7 @@
         $.ajax({
             url: "AccountController/SubjectView/2",
             type: "get",
+            data: {id: 3},
             success: function (result) {
                 $("#listCS").html(result);
             }

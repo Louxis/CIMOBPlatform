@@ -14,6 +14,7 @@ using CIMOBProject.Models;
 using CIMOBProject.Models.AccountViewModels;
 using CIMOBProject.Services;
 using CIMOBProject.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace CIMOBProject.Controllers
 {
@@ -237,8 +238,9 @@ namespace CIMOBProject.Controllers
                     UserAddress = model.UserAddress,
                     PostalCode = model.PostalCode,
                     BirthDate = model.BirthDate,
-                    CollegeID = model.CollegeId,
                     CollegeSubjectId = model.CollegeSubjectId,
+                    CollegeId = 
+                    ((_context.CollegeSubjects.Include(c => c.College)).Where(s => s.Id == model.CollegeSubjectId).Select(c => c.College.Id)).First(),
                     StudentNumber = model.StudentNumber};
                 var result = await _userManager.CreateAsync(user, model.Password);
                 /*_context.Add(
@@ -270,7 +272,7 @@ namespace CIMOBProject.Controllers
 
         public ActionResult SubjectView(int id)
         {
-            ViewData["CollegeSubjectId"] = new SelectList(_context.CollegeSubjects.Where(s => s.Id == id), "Id", "SubjectName");
+            ViewData["CollegeSubjectId"] = new SelectList(_context.CollegeSubjects.Where(s => s.Id == 3), "Id", "SubjectName");
             return View();
         }
 
@@ -394,7 +396,7 @@ namespace CIMOBProject.Controllers
             if (ModelState.IsValid)
             {
                 var user = await _userManager.FindByEmailAsync(model.Email);
-                if (user == null || !(await _userManager.IsEmailConfirmedAsync(user)))
+                if (user == null)
                 {
                     // Don't reveal that the user does not exist or is not confirmed
                     return RedirectToAction(nameof(ForgotPasswordConfirmation));
