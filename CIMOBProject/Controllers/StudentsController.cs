@@ -26,9 +26,32 @@ namespace CIMOBProject.Controllers
             return View(await applicationDbContext.ToListAsync());
         }
 
-        public async Task<IActionResult> Search(String searchString) {
+        // GET: Students
+        public async Task<IActionResult> Search(string searchType, string searchString) {
 
-            return View();
+            var students = _context.Students.Include(s => s.College);
+
+            if (String.IsNullOrEmpty(searchType) || String.IsNullOrEmpty(searchString))
+            {
+                return View("~/Views/Students/ErrorSearch.cshtml");
+            }
+
+            if (searchType.Equals("studentNumber") && !String.IsNullOrEmpty(searchString))
+            {
+                var filteredStudents = students.Where(s => s.StudentNumber.Contains(searchString));
+                return View(await filteredStudents.ToListAsync());
+            }
+            else if (searchType.Equals("studentName") && !String.IsNullOrEmpty(searchString))
+            {
+                var filteredStudents = students.Where(s => s.UserFullname.Contains(searchString));
+                return View(await filteredStudents.ToListAsync());
+            }
+            else if (searchType.Equals("studentCollege") && !String.IsNullOrEmpty(searchString))
+            {
+                var filteredStudents = students.Where(s => s.College.CollegeName.Contains(searchString));
+                return View(await filteredStudents.ToListAsync());
+            }
+            return View(await students.ToListAsync());
         }
 
         // GET: Students/Details/5
