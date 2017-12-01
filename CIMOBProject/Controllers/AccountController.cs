@@ -226,7 +226,7 @@ namespace CIMOBProject.Controllers
             ViewData["ReturnUrl"] = returnUrl;
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser
+                var user = new Student
                 {
                     UserName = model.Email,
                     UserFullname = model.UserName,
@@ -235,16 +235,18 @@ namespace CIMOBProject.Controllers
                     PhoneNumber = model.PhoneNumber,
                     UserAddress = model.UserAddress,
                     PostalCode = model.PostalCode,
-                    BirthDate = model.BirthDate};
+                    BirthDate = model.BirthDate,
+                    CollegeID = model.CollegeId,
+                    StudentNumber = model.StudentNumber};
                 var result = await _userManager.CreateAsync(user, model.Password);
-                _context.Add(
+                /*_context.Add(
                     new Student() {
                         StudentNumber = model.StudentNumber,
                         CollegeID = model.CollegeId,
                         //(from ids in _context.Colleges where ids.CollegeName.Equals(model.CollegeName) select ids.Id).First(),
-                        ApplicationUser = user
+                        //ApplicationUser = user
                                     });
-                await _context.SaveChangesAsync();
+                await _context.SaveChangesAsync();*/
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User created a new account with password.");

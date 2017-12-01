@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace CIMOBProject.Migrations
 {
-    public partial class Firstreset : Migration
+    public partial class NewStudentVersion : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -21,36 +21,6 @@ namespace CIMOBProject.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetRoles", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "AspNetUsers",
-                columns: table => new
-                {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    AccessFailedCount = table.Column<int>(type: "int", nullable: false),
-                    BirthDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    ConcurrencyStamp = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
-                    EmailConfirmed = table.Column<bool>(type: "bit", nullable: false),
-                    LockoutEnabled = table.Column<bool>(type: "bit", nullable: false),
-                    LockoutEnd = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
-                    NormalizedEmail = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
-                    NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
-                    PasswordHash = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    PhoneNumberConfirmed = table.Column<bool>(type: "bit", nullable: false),
-                    PostalCode = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    SecurityStamp = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    TwoFactorEnabled = table.Column<bool>(type: "bit", nullable: false),
-                    UserAddress = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    UserCc = table.Column<int>(type: "int", nullable: false),
-                    UserFullname = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AspNetUsers", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -85,6 +55,67 @@ namespace CIMOBProject.Migrations
                         principalTable: "AspNetRoles",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AspNetUsers",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    AccessFailedCount = table.Column<int>(type: "int", nullable: false),
+                    BirthDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ConcurrencyStamp = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Discriminator = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
+                    EmailConfirmed = table.Column<bool>(type: "bit", nullable: false),
+                    LockoutEnabled = table.Column<bool>(type: "bit", nullable: false),
+                    LockoutEnd = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
+                    NormalizedEmail = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
+                    NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
+                    PasswordHash = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PhoneNumberConfirmed = table.Column<bool>(type: "bit", nullable: false),
+                    PostalCode = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    SecurityStamp = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    TwoFactorEnabled = table.Column<bool>(type: "bit", nullable: false),
+                    UserAddress = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    UserCc = table.Column<int>(type: "int", nullable: false),
+                    UserFullname = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
+                    ALOGrade = table.Column<int>(type: "int", nullable: true),
+                    CollegeID = table.Column<int>(type: "int", nullable: true),
+                    StudentNumber = table.Column<string>(type: "nvarchar(12)", maxLength: 12, nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_AspNetUsers_Colleges_CollegeID",
+                        column: x => x.CollegeID,
+                        principalTable: "Colleges",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "CollgeSubjects",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    CollegeId = table.Column<int>(type: "int", nullable: true),
+                    Credits = table.Column<int>(type: "int", nullable: false),
+                    SubjectName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CollgeSubjects", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_CollgeSubjects_Colleges_CollegeId",
+                        column: x => x.CollegeId,
+                        principalTable: "Colleges",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -173,56 +204,6 @@ namespace CIMOBProject.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "CollgeSubjects",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    CollegeId = table.Column<int>(type: "int", nullable: true),
-                    Credits = table.Column<int>(type: "int", nullable: false),
-                    SubjectName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_CollgeSubjects", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_CollgeSubjects_Colleges_CollegeId",
-                        column: x => x.CollegeId,
-                        principalTable: "Colleges",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Students",
-                columns: table => new
-                {
-                    StudentId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    ALOGrade = table.Column<int>(type: "int", nullable: false),
-                    ApplicationUserId = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    CollegeID = table.Column<int>(type: "int", nullable: false),
-                    Id = table.Column<int>(type: "int", nullable: false),
-                    StudentNumber = table.Column<string>(type: "nvarchar(12)", maxLength: 12, nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Students", x => x.StudentId);
-                    table.ForeignKey(
-                        name: "FK_Students_AspNetUsers_ApplicationUserId",
-                        column: x => x.ApplicationUserId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Students_Colleges_CollegeID",
-                        column: x => x.CollegeID,
-                        principalTable: "Colleges",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Documents",
                 columns: table => new
                 {
@@ -230,17 +211,18 @@ namespace CIMOBProject.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     FileUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     StudentId = table.Column<int>(type: "int", nullable: false),
+                    StudentId1 = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     UploadDate = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Documents", x => x.DocumentId);
                     table.ForeignKey(
-                        name: "FK_Documents_Students_StudentId",
-                        column: x => x.StudentId,
-                        principalTable: "Students",
-                        principalColumn: "StudentId",
-                        onDelete: ReferentialAction.Cascade);
+                        name: "FK_Documents_AspNetUsers_StudentId1",
+                        column: x => x.StudentId1,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
@@ -283,24 +265,19 @@ namespace CIMOBProject.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
+                name: "IX_AspNetUsers_CollegeID",
+                table: "AspNetUsers",
+                column: "CollegeID");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_CollgeSubjects_CollegeId",
                 table: "CollgeSubjects",
                 column: "CollegeId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Documents_StudentId",
+                name: "IX_Documents_StudentId1",
                 table: "Documents",
-                column: "StudentId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Students_ApplicationUserId",
-                table: "Students",
-                column: "ApplicationUserId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Students_CollegeID",
-                table: "Students",
-                column: "CollegeID");
+                column: "StudentId1");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -328,9 +305,6 @@ namespace CIMOBProject.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
-
-            migrationBuilder.DropTable(
-                name: "Students");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
