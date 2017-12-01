@@ -1,0 +1,20 @@
+﻿@model RegisterViewModel
+
+<div id="listCS" class="form-group">
+    <label asp-for="CollegeSubjectId"></label>
+    <select id="CollegeSubList" asp-for="CollegeSubjectId" class="form-control"
+            asp-items="@ViewBag.CollegeSubjectID"></select>
+</div>
+
+<script>
+    $("#CollegeSubList").change(function () {
+        $.ajax({
+            url: "AccountController/SubjectView/2",
+            type: "get",
+            data: {id: 3},
+            success: function (result) {
+                $("#listCS").html(result);
+            }
+        });
+    }
+</script>

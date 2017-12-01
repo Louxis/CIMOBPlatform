@@ -14,6 +14,7 @@ using CIMOBProject.Models;
 using CIMOBProject.Models.AccountViewModels;
 using CIMOBProject.Services;
 using CIMOBProject.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace CIMOBProject.Controllers
 {
@@ -215,6 +216,7 @@ namespace CIMOBProject.Controllers
             ViewData["ReturnUrl"] = returnUrl;
             List<College> collegeList = (from col in _context.Colleges select col).ToList();
             ViewData["CollegeID"] = new SelectList(_context.Colleges, "Id", "CollegeName");
+            ViewData["CollegeSubjectId"] = new SelectList(_context.CollegeSubjects, "Id", "SubjectName");
             return View();
         }
 
@@ -236,17 +238,11 @@ namespace CIMOBProject.Controllers
                     UserAddress = model.UserAddress,
                     PostalCode = model.PostalCode,
                     BirthDate = model.BirthDate,
-                    CollegeID = model.CollegeId,
+                    CollegeSubjectId = model.CollegeSubjectId,
+                    CollegeId = 
+                    ((_context.CollegeSubjects.Include(c => c.College)).Where(s => s.Id == model.CollegeSubjectId).Select(c => c.College.Id)).First(),
                     StudentNumber = model.StudentNumber};
                 var result = await _userManager.CreateAsync(user, model.Password);
-                /*_context.Add(
-                    new Student() {
-                        StudentNumber = model.StudentNumber,
-                        CollegeID = model.CollegeId,
-                        //(from ids in _context.Colleges where ids.CollegeName.Equals(model.CollegeName) select ids.Id).First(),
-                        //ApplicationUser = user
-                                    });
-                await _context.SaveChangesAsync();*/
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User created a new account with password.");
@@ -264,6 +260,12 @@ namespace CIMOBProject.Controllers
 
             // If we got this far, something failed, redisplay form
             return View(model);
+        }
+
+        public ActionResult SubjectView(int id)
+        {
+            ViewData["CollegeSubjectId"] = new SelectList(_context.CollegeSubjects.Where(s => s.Id == 3), "Id", "SubjectName");
+            return View();
         }
 
         [HttpPost]
@@ -386,7 +388,7 @@ namespace CIMOBProject.Controllers
             if (ModelState.IsValid)
             {
                 var user = await _userManager.FindByEmailAsync(model.Email);
-                if (user == null || !(await _userManager.IsEmailConfirmedAsync(user)))
+                if (user == null)
                 {
                     // Don't reveal that the user does not exist or is not confirmed
                     return RedirectToAction(nameof(ForgotPasswordConfirmation));

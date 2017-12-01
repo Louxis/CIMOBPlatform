@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace CIMOBProject.Migrations
 {
-    public partial class NewStudentVersion : Migration
+    public partial class GrammarFix : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -58,6 +58,27 @@ namespace CIMOBProject.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "CollegeSubjects",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    CollegeId = table.Column<int>(type: "int", nullable: true),
+                    Credits = table.Column<int>(type: "int", nullable: false),
+                    SubjectName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CollegeSubjects", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_CollegeSubjects_Colleges_CollegeId",
+                        column: x => x.CollegeId,
+                        principalTable: "Colleges",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "AspNetUsers",
                 columns: table => new
                 {
@@ -83,39 +104,25 @@ namespace CIMOBProject.Migrations
                     UserFullname = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     ALOGrade = table.Column<int>(type: "int", nullable: true),
-                    CollegeID = table.Column<int>(type: "int", nullable: true),
+                    CollegeId = table.Column<int>(type: "int", nullable: true),
+                    CollegeSubjectId = table.Column<int>(type: "int", nullable: true),
                     StudentNumber = table.Column<string>(type: "nvarchar(12)", maxLength: 12, nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_AspNetUsers_Colleges_CollegeID",
-                        column: x => x.CollegeID,
-                        principalTable: "Colleges",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "CollgeSubjects",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    CollegeId = table.Column<int>(type: "int", nullable: true),
-                    Credits = table.Column<int>(type: "int", nullable: false),
-                    SubjectName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_CollgeSubjects", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_CollgeSubjects_Colleges_CollegeId",
+                        name: "FK_AspNetUsers_Colleges_CollegeId",
                         column: x => x.CollegeId,
                         principalTable: "Colleges",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_AspNetUsers_CollegeSubjects_CollegeSubjectId",
+                        column: x => x.CollegeSubjectId,
+                        principalTable: "CollegeSubjects",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -265,13 +272,18 @@ namespace CIMOBProject.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_AspNetUsers_CollegeID",
+                name: "IX_AspNetUsers_CollegeId",
                 table: "AspNetUsers",
-                column: "CollegeID");
+                column: "CollegeId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_CollgeSubjects_CollegeId",
-                table: "CollgeSubjects",
+                name: "IX_AspNetUsers_CollegeSubjectId",
+                table: "AspNetUsers",
+                column: "CollegeSubjectId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CollegeSubjects_CollegeId",
+                table: "CollegeSubjects",
                 column: "CollegeId");
 
             migrationBuilder.CreateIndex(
@@ -298,9 +310,6 @@ namespace CIMOBProject.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "CollgeSubjects");
-
-            migrationBuilder.DropTable(
                 name: "Documents");
 
             migrationBuilder.DropTable(
@@ -308,6 +317,9 @@ namespace CIMOBProject.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "CollegeSubjects");
 
             migrationBuilder.DropTable(
                 name: "Colleges");
