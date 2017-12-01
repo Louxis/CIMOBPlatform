@@ -12,9 +12,10 @@ using System;
 namespace CIMOBProject.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20171201102656_FirstMigration")]
+    partial class FirstMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -121,7 +122,7 @@ namespace CIMOBProject.Migrations
 
                     b.HasIndex("CollegeId");
 
-                    b.ToTable("CollegeSubjects");
+                    b.ToTable("CollgeSubjects");
                 });
 
             modelBuilder.Entity("CIMOBProject.Models.Document", b =>
@@ -259,17 +260,13 @@ namespace CIMOBProject.Migrations
 
                     b.Property<int>("ALOGrade");
 
-                    b.Property<int>("CollegeId");
-
-                    b.Property<int>("CollegeSubjectId");
+                    b.Property<int>("CollegeID");
 
                     b.Property<string>("StudentNumber")
                         .IsRequired()
                         .HasMaxLength(12);
 
-                    b.HasIndex("CollegeId");
-
-                    b.HasIndex("CollegeSubjectId");
+                    b.HasIndex("CollegeID");
 
                     b.ToTable("Student");
 
@@ -339,12 +336,7 @@ namespace CIMOBProject.Migrations
                 {
                     b.HasOne("CIMOBProject.Models.College", "College")
                         .WithMany("Students")
-                        .HasForeignKey("CollegeId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("CIMOBProject.Models.CollegeSubject", "CollegeSubject")
-                        .WithMany()
-                        .HasForeignKey("CollegeSubjectId")
+                        .HasForeignKey("CollegeID")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
