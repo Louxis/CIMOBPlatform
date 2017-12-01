@@ -36,7 +36,10 @@ namespace CIMOBProject
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(connection));
 
-            services.AddIdentity<ApplicationUser, IdentityRole>()
+            services.AddIdentity<ApplicationUser, IdentityRole>(config =>
+            {
+                config.SignIn.RequireConfirmedEmail = true;
+            })            
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
 
@@ -69,6 +72,8 @@ namespace CIMOBProject
                 options.AccessDeniedPath = "/Account/AccessDenied"; // If the AccessDeniedPath is not set here, ASP.NET Core will default to /Account/AccessDenied
                 options.SlidingExpiration = true;
             });
+
+            services.Configure<AuthMessageSenderOptions>(Configuration);
 
 
             // Add application services.

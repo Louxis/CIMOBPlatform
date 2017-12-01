@@ -20,7 +20,7 @@ namespace CIMOBProject.Models.AccountViewModels
         public string Email { get; set; }
 
         [Required]
-        [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
+        [StringLength(16, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
         [DataType(DataType.Password)]
         [Display(Name = "Password")]
         public string Password { get; set; }
@@ -59,7 +59,8 @@ namespace CIMOBProject.Models.AccountViewModels
         [Required(ErrorMessage = "Número de estudante é obrigatório.")]
         [RegularExpression(@"^[0-9]{9}$", ErrorMessage = "O número de estudante não é válido.")]
         public string StudentNumber { get; set; }
-        [Required(ErrorMessage = "Não foi selecionada uma faculdade")]
-        public int CollegeId { get; set; }
+
+        [Required(ErrorMessage = "Não foi selecionado um curso.")]
+        public int CollegeSubjectId { get; set; }
     }
 }
