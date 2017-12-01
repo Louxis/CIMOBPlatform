@@ -12,28 +12,17 @@ namespace CIMOBProject.Services
     // For more details see https://go.microsoft.com/fwlink/?LinkID=532713
     public class EmailSender : IEmailSender
     {
-        public EmailSender(IOptions<AuthMessageSenderOptions> optionsAccessor)
-        {
-            Options = optionsAccessor.Value;
-        }
-
-        public AuthMessageSenderOptions Options { get; } //set only via Secret Manager
         public Task SendEmailAsync(string email, string subject, string message)
         {
-            return Task.CompletedTask;
+            return Execute(subject, message, email);
         }
 
-        public Task Execute(string apiKey, string subject, string message, string email)
+        public Task Execute(string subject, string message, string email)
         {
-            var client = new SendGridClient(apiKey);
-            var msg = new SendGridMessage()
-            {
-                From = new EmailAddress("zelxgaming@gmail.com", "CIMOB Support"),
-                Subject = subject,
-                PlainTextContent = message,
-                HtmlContent = message
-            };
-            msg.AddTo(new EmailAddress(email));
+            var client = new SendGridClient("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");
+            var from = new EmailAddress("dontreply@cimob.ips.pt", "CIMOB Support");
+            var to = new EmailAddress(email);
+            var msg = MailHelper.CreateSingleEmail(from, to, subject, message, message);
             return client.SendEmailAsync(msg);
         }
     }

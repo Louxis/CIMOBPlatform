@@ -215,8 +215,7 @@ namespace CIMOBProject.Controllers
         {
             ViewData["ReturnUrl"] = returnUrl;
             List<College> collegeList = (from col in _context.Colleges select col).ToList();
-            ViewData["CollegeID"] = new SelectList(_context.Colleges, "Id", "CollegeName");
-            ViewData["CollegeSubjectId"] = new SelectList(_context.CollegeSubjects, "Id", "SubjectName");
+            //ViewData["CollegeID"] = new SelectList(_context.Colleges, "Id", "CollegeName");            
             return View();
         }
 
@@ -225,6 +224,7 @@ namespace CIMOBProject.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Register(RegisterViewModel model, string returnUrl = null)
         {
+            ViewData["CollegeSubjectId"] = new SelectList(_context.CollegeSubjects, "Id", "SubjectName");
             ViewData["ReturnUrl"] = returnUrl;
             if (ModelState.IsValid)
             {
@@ -250,8 +250,7 @@ namespace CIMOBProject.Controllers
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                     var callbackUrl = Url.EmailConfirmationLink(user.Id, code, Request.Scheme);
                     await _emailSender.SendEmailConfirmationAsync(model.Email, callbackUrl);
-
-                    await _signInManager.SignInAsync(user, isPersistent: false);
+                    //await _signInManager.SignInAsync(user, isPersistent: false);
                     _logger.LogInformation("User created a new account with password.");
                     return RedirectToLocal(returnUrl);
                 }

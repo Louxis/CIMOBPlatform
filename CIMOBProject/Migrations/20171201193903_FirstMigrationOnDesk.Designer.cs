@@ -12,8 +12,8 @@ using System;
 namespace CIMOBProject.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20171201152905_GrammarFix")]
-    partial class GrammarFix
+    [Migration("20171201193903_FirstMigrationOnDesk")]
+    partial class FirstMigrationOnDesk
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

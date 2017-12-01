@@ -11,8 +11,10 @@ namespace CIMOBProject.Services
     {
         public static Task SendEmailConfirmationAsync(this IEmailSender emailSender, string email, string link)
         {
-            return emailSender.SendEmailAsync(email, "Confirm your email",
-                $"Please confirm your account by clicking this link: <a href='{HtmlEncoder.Default.Encode(link)}'>link</a>");
+            return emailSender.SendEmailAsync(email, "Confirma o teu email!",
+                $"Bem vindo ao CIMOB! Para teres acesso a todas as funcionalidades precisas" +
+                $" de ativar a tua conta. </br>" +
+                $"Por favor visita a seguinte ligação: <a href='{HtmlEncoder.Default.Encode(link)}'>link</a>");
         }
     }
 }

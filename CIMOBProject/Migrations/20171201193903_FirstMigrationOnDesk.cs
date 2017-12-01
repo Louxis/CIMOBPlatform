@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace CIMOBProject.Migrations
 {
-    public partial class GrammarFix : Migration
+    public partial class FirstMigrationOnDesk : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
