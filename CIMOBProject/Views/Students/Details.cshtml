@@ -4,9 +4,29 @@
     ViewData["Title"] = "Details";
 }
 
-<h2>Details</h2>
+<h2>Estudante @Html.DisplayFor(model => model.UserFullname)</h2>
 
 <div>
+    <h3>Infomação Básica</h3><br/>
+    <label>@Html.DisplayNameFor(model => model.UserFullname):&nbsp;</label>@Html.DisplayFor(model => model.UserFullname)
+    <br/>
+    <label>@Html.DisplayNameFor(model => model.Email):&nbsp;</label>@Html.DisplayFor(model => model.Email)
+    <br />
+    <label>@Html.DisplayNameFor(model => model.BirthDate):&nbsp;</label>@Html.DisplayFor(model => model.BirthDate)
+    <br />
+    <label>@Html.DisplayNameFor(model => model.UserAddress):&nbsp;</label>@Html.DisplayFor(model => model.UserAddress)
+    <br />
+    <label>@Html.DisplayNameFor(model => model.PostalCode):&nbsp;</label>@Html.DisplayFor(model => model.PostalCode)
+    <br />
+    <label>@Html.DisplayNameFor(model => model.PhoneNumber):&nbsp;</label>@Html.DisplayFor(model => model.PhoneNumber)
+    <br />
+    <label>@Html.DisplayNameFor(model => model.UserCc):&nbsp;</label>@Html.DisplayFor(model => model.UserCc)
+    <br />
+    <label>@Html.DisplayNameFor(model => model.College):&nbsp;</label>@Html.DisplayFor(model => model.College.CollegeName)
+    <br />
+    <label>@Html.DisplayNameFor(model => model.StudentNumber):&nbsp;</label>@Html.DisplayFor(model => model.StudentNumber)
+    <br />
+    <label>@Html.DisplayNameFor(model => model.ALOGrade):&nbsp;</label>@Html.DisplayFor(model => model.ALOGrade)
     <h4>Student</h4>
     <hr />
     <dl class="dl-horizontal">
@@ -145,6 +165,5 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Edit" asp-route-id="@Model.Id">Editar</a>
 </div>
