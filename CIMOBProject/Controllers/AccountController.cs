@@ -16,12 +16,12 @@ using CIMOBProject.Services;
 using CIMOBProject.Data;
 using Microsoft.EntityFrameworkCore;
 
+
 namespace CIMOBProject.Controllers
 {
     [Authorize]
     [Route("[controller]/[action]")]
-    public class AccountController : Controller
-    {
+    public class AccountController : Controller { 
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly IEmailSender _emailSender;
@@ -231,7 +231,7 @@ namespace CIMOBProject.Controllers
                 var user = new Student
                 {
                     UserName = model.Email,
-                    UserFullname = model.UserName,
+                    UserFullname = model.UserFullname,
                     Email = model.Email,
                     UserCc = model.UserCc,
                     PhoneNumber = model.PhoneNumber,

@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using CIMOBProject.Data;
 using CIMOBProject.Models;
 
+
 namespace CIMOBProject.Controllers
 {
     public class CollegeSubjectsController : Controller

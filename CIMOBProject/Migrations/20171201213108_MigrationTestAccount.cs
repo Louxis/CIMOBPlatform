@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace CIMOBProject.Migrations
 {
-    public partial class FirstMigration : Migration
+    public partial class MigrationTestAccount : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
