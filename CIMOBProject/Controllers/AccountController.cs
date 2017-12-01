@@ -231,7 +231,7 @@ namespace CIMOBProject.Controllers
                 var user = new Student
                 {
                     UserName = model.Email,
-                    UserFullname = model.UserFullname,
+                    UserFullname = model.UserName,
                     Email = model.Email,
                     UserCc = model.UserCc,
                     PhoneNumber = model.PhoneNumber,

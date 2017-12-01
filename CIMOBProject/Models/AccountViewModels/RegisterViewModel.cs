@@ -10,13 +10,8 @@ namespace CIMOBProject.Models.AccountViewModels
     {
         [Required(ErrorMessage = "O nome é obrigatório.")]
         [StringLength(256)]
-        [Display(Name = "Nome de utilizador")]
+        [Display(Name = "Nome")]
         public string UserName { get; set; }
-
-        [Required(ErrorMessage = "O nome é obrigatório.")]
-        [StringLength(256)]
-        [Display(Name = "Nome completo")]
-        public string UserFullname { get; set; }
 
         [Required(ErrorMessage = "O email é obrigatório.")]
         [EmailAddress]
