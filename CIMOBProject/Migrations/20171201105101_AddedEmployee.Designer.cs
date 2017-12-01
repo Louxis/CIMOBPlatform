@@ -12,9 +12,10 @@ using System;
 namespace CIMOBProject.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20171201105101_AddedEmployee")]
+    partial class AddedEmployee
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -261,15 +262,11 @@ namespace CIMOBProject.Migrations
 
                     b.Property<int>("CollegeID");
 
-                    b.Property<int>("CollegeSubjectId");
-
                     b.Property<string>("StudentNumber")
                         .IsRequired()
                         .HasMaxLength(12);
 
                     b.HasIndex("CollegeID");
-
-                    b.HasIndex("CollegeSubjectId");
 
                     b.ToTable("Student");
 
@@ -340,11 +337,6 @@ namespace CIMOBProject.Migrations
                     b.HasOne("CIMOBProject.Models.College", "College")
                         .WithMany("Students")
                         .HasForeignKey("CollegeID")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("CIMOBProject.Models.CollegeSubject", "CollegeSubject")
-                        .WithMany()
-                        .HasForeignKey("CollegeSubjectId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618

@@ -12,8 +12,8 @@ using System;
 namespace CIMOBProject.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20171129231930_NewStudentVersion")]
-    partial class NewStudentVersion
+    [Migration("20171201144905_Subjectid")]
+    partial class Subjectid
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -122,7 +122,7 @@ namespace CIMOBProject.Migrations
 
                     b.HasIndex("CollegeId");
 
-                    b.ToTable("CollgeSubjects");
+                    b.ToTable("CollegeSubjects");
                 });
 
             modelBuilder.Entity("CIMOBProject.Models.Document", b =>
@@ -262,11 +262,15 @@ namespace CIMOBProject.Migrations
 
                     b.Property<int>("CollegeID");
 
+                    b.Property<int>("CollegeSubjectId");
+
                     b.Property<string>("StudentNumber")
                         .IsRequired()
                         .HasMaxLength(12);
 
                     b.HasIndex("CollegeID");
+
+                    b.HasIndex("CollegeSubjectId");
 
                     b.ToTable("Student");
 
@@ -337,6 +341,11 @@ namespace CIMOBProject.Migrations
                     b.HasOne("CIMOBProject.Models.College", "College")
                         .WithMany("Students")
                         .HasForeignKey("CollegeID")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("CIMOBProject.Models.CollegeSubject", "CollegeSubject")
+                        .WithMany()
+                        .HasForeignKey("CollegeSubjectId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618

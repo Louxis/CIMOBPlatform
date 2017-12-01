@@ -14,8 +14,10 @@ namespace CIMOBProject.Models
         public int ALOGrade { get; set; }
         [Required]
         public int CollegeID { get; set; }
+        public int CollegeSubjectId { get; set; }
         public virtual List<Document> Documents { get; set; }
         public virtual College College { get; set; }
+        public virtual CollegeSubject CollegeSubject { get; set; }
 
     }
 }

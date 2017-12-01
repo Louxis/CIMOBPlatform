@@ -54,6 +54,7 @@ namespace CIMOBProject.Controllers
         public IActionResult Create()
         {
             ViewData["CollegeID"] = new SelectList(_context.Colleges, "Id", "CollegeName");
+            ViewData["CollegeSubjectId"] = new SelectList(_context.CollegeSubjects, "Id", "SubjectName");
             return View();
         }
 
@@ -71,6 +72,7 @@ namespace CIMOBProject.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["CollegeID"] = new SelectList(_context.Colleges, "Id", "CollegeName", student.CollegeID);
+            ViewData["CollegeSubjectId"] = new SelectList(_context.CollegeSubjects, "Id", "SubjectName", student.CollegeSubjectId);
             return View(student);
         }
 

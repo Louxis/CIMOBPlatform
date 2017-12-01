@@ -215,6 +215,7 @@ namespace CIMOBProject.Controllers
             ViewData["ReturnUrl"] = returnUrl;
             List<College> collegeList = (from col in _context.Colleges select col).ToList();
             ViewData["CollegeID"] = new SelectList(_context.Colleges, "Id", "CollegeName");
+            ViewData["CollegeSubjectId"] = new SelectList(_context.CollegeSubjects, "Id", "SubjectName");
             return View();
         }
 
@@ -237,6 +238,7 @@ namespace CIMOBProject.Controllers
                     PostalCode = model.PostalCode,
                     BirthDate = model.BirthDate,
                     CollegeID = model.CollegeId,
+                    CollegeSubjectId = model.CollegeSubjectId,
                     StudentNumber = model.StudentNumber};
                 var result = await _userManager.CreateAsync(user, model.Password);
                 /*_context.Add(
@@ -264,6 +266,12 @@ namespace CIMOBProject.Controllers
 
             // If we got this far, something failed, redisplay form
             return View(model);
+        }
+
+        public ActionResult SubjectView(int id)
+        {
+            ViewData["CollegeSubjectId"] = new SelectList(_context.CollegeSubjects.Where(s => s.Id == id), "Id", "SubjectName");
+            return View();
         }
 
         [HttpPost]

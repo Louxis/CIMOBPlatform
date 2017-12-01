@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace CIMOBProject.Migrations
 {
-    public partial class NewStudentVersion : Migration
+    public partial class AddedEmployee : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -98,7 +98,7 @@ namespace CIMOBProject.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "CollgeSubjects",
+                name: "CollegeSubjects",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -109,9 +109,9 @@ namespace CIMOBProject.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_CollgeSubjects", x => x.Id);
+                    table.PrimaryKey("PK_CollegeSubjects", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_CollgeSubjects_Colleges_CollegeId",
+                        name: "FK_CollegeSubjects_Colleges_CollegeId",
                         column: x => x.CollegeId,
                         principalTable: "Colleges",
                         principalColumn: "Id",
@@ -270,8 +270,8 @@ namespace CIMOBProject.Migrations
                 column: "CollegeID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_CollgeSubjects_CollegeId",
-                table: "CollgeSubjects",
+                name: "IX_CollegeSubjects_CollegeId",
+                table: "CollegeSubjects",
                 column: "CollegeId");
 
             migrationBuilder.CreateIndex(
@@ -298,7 +298,7 @@ namespace CIMOBProject.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "CollgeSubjects");
+                name: "CollegeSubjects");
 
             migrationBuilder.DropTable(
                 name: "Documents");
