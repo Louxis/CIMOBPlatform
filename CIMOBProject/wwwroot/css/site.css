@@ -45,15 +45,13 @@ nav {
     background-color: #FFC261;
 }
 
-
+.navbar-nav li a {
+    color:black;
+    font-weight: bold;
+}
 /* Nav hover properties*/
 .navbar-nav li a:hover {
     background-color: #FF9D00;
-    color: black;
-}
-
-.navbar-nav li{
-    font-weight: bold;
 }
 
 /* Header properties*/
@@ -165,7 +163,7 @@ div.title h2 {
 
         .menubar li a {
             display: block;
-            color: black;
+            color: black !important;
             text-align: center;
             text-decoration: none;
             height: 2.3em;
@@ -209,10 +207,6 @@ footer {
     padding-left: 5%;
     margin-right: auto;
     margin-left: auto;
-}
-
-.contacts p{
-    margin: 0px;
 }
 
 .header-container {
