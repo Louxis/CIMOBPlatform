@@ -35,14 +35,14 @@
                         <option value="studentName">Nome do estudante</option>
                         <option value="studentNumber">Número do estudante</option>
                         <option value="studentCollege">Escola</option>
-                    </select>
+                    </select>      
 
-                    <input type="text" name="searchString" placeholder="Pesquisa" size="30px" />
-
+                    <input type="text"  name="searchString" placeholder="Pesquisa" size="30px"/>
+                    
                     <input type="submit" value="Pesquisar">
                 </form>
             </div>
-            <div class="navbar-collapse collapse">
+            <div class="navbar-collapse collapse">           
                 @await Html.PartialAsync("_LoginPartial")
             </div>
         </div>
@@ -61,19 +61,19 @@
             <ul class="menubar">
                 <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
                 <li><a asp-area="" asp-controller="Home" asp-action="Publication">Publicações</a></li>
-                <li><a asp-area="" asp-controller="Account" asp-action="Register">Candidatura</a></li>
+                <li><a asp-area="" asp-controller="Home" asp-action="Application">Candidatura</a></li>
                 <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contactos</a></li>
             </ul>
         </div>
-
+        
         <ul class="breadcrumb">
             @await Html.PartialAsync("_Breadcrumbs")
-        </ul>
+        </ul>            
     </header>
 
 
     <div class="container body-content">
-        @RenderBody()
+        @RenderBody()    
     </div>
     <footer>
         <div class="bottom-content">
@@ -81,7 +81,8 @@
 
             </div>
             <div class="contacts">
-
+                <p><strong>Tel:</strong> + 351 265 790 159</p>
+                <p><strong>E-mail:</strong> <a href="mailto:cimob@ips.pt">cimob@ips.pt</a></p>
             </div>
         </div>
     </footer>
