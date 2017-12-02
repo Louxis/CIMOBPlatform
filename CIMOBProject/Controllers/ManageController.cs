@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,6 +14,7 @@ using Microsoft.Extensions.Options;
 using CIMOBProject.Models;
 using CIMOBProject.Models.ManageViewModels;
 using CIMOBProject.Services;
+
 
 namespace CIMOBProject.Controllers
 {
@@ -104,6 +106,8 @@ namespace CIMOBProject.Controllers
             StatusMessage = "Your profile has been updated";
             return RedirectToAction(nameof(Index));
         }
+
+
 
         [HttpPost]
         [ValidateAntiForgeryToken]
