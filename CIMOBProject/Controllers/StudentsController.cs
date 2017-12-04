@@ -28,6 +28,7 @@ namespace CIMOBProject.Controllers
         }
 
         // GET: Students
+        [HttpGet]
         public async Task<IActionResult> Search(string searchType, string searchString) {
 
             var students = _context.Students.Include(s => s.College);
@@ -52,6 +53,14 @@ namespace CIMOBProject.Controllers
                 var filteredStudents = students.Where(s => s.College.CollegeName.Contains(searchString));
                 return View(await filteredStudents.ToListAsync());
             }
+            else if (searchType.Equals("mail") && !String.IsNullOrEmpty(searchString))
+            {
+                var filteredStudents = students.Where(s => s.Email.Contains(searchString));
+                //return Details(filteredStudents.FirstOrDefault().Id);
+
+                return View(await filteredStudents.ToListAsync());
+            }
+
             return View(await students.ToListAsync());
         }
 
