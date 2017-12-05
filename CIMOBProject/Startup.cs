@@ -18,6 +18,7 @@ namespace CIMOBProject
     {
         public Startup(IConfiguration configuration)
         {
+            
             Configuration = configuration;
         }
 
@@ -28,6 +29,7 @@ namespace CIMOBProject
         {
             var connection=@"Server=(localdb)\mssqllocaldb;Database=CimobProject;Trusted_Connection=True;";
 
+            
 
 
             var connection1 = @"Data Source=SQL6002.site4now.net;Initial Catalog=DB_A2E98B_cimobgroup6;User Id=DB_A2E98B_cimobgroup6_admin;Password=esw4grupo6;";
@@ -42,6 +44,8 @@ namespace CIMOBProject
             })            
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
+
+            
 
             services.Configure<IdentityOptions>(options =>
             {
@@ -83,13 +87,16 @@ namespace CIMOBProject
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env) {
-            if (env.IsDevelopment()) {
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        {
+            if (env.IsDevelopment())
+            {
                 app.UseDeveloperExceptionPage();
                 app.UseBrowserLink();
                 app.UseDatabaseErrorPage();
             }
-            else {
+            else
+            {
                 app.UseExceptionHandler("/Home/Error");
             }
 
@@ -104,7 +111,26 @@ namespace CIMOBProject
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
 
+            using (var serviceScope = app.ApplicationServices.CreateScope())
+            {
+                var context = serviceScope.ServiceProvider.GetService<ApplicationDbContext>();
+                // Seed the database.
+                if (context.Roles.SingleOrDefault(r => r.Name == "Student") == null)
+                {
+
+                    context.Roles.Add(new IdentityRole { Name = "Student", NormalizedName = "Student" });
+                    context.SaveChanges();
+                }
+
+                if (context.Roles.SingleOrDefault(r => r.Name == "Employee") == null)
+                {
+                    context.Roles.Add(new IdentityRole { Name = "Employee", NormalizedName = "Employee" });
+                    context.SaveChanges();
+                }
+            }
+
             //DbInitializer.Initialize(context);
+            
         }
     }
 }
