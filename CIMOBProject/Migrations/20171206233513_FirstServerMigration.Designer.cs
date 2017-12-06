@@ -12,8 +12,8 @@ using System;
 namespace CIMOBProject.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20171205194631_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20171206233513_FirstServerMigration")]
+    partial class FirstServerMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -258,6 +258,17 @@ namespace CIMOBProject.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
+                });
+
+            modelBuilder.Entity("CIMOBProject.Models.Employee", b =>
+                {
+                    b.HasBaseType("CIMOBProject.Models.ApplicationUser");
+
+                    b.Property<int>("EmployeeNumber");
+
+                    b.ToTable("Employee");
+
+                    b.HasDiscriminator().HasValue("Employee");
                 });
 
             modelBuilder.Entity("CIMOBProject.Models.Student", b =>

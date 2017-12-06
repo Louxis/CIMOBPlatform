@@ -75,9 +75,6 @@
                 <th>
                     @Html.DisplayNameFor(model => model.AccessFailedCount)
                 </th>
-            <th>
-                @Html.DisplayNameFor(model => model.College)
-            </th>
             <th></th>
         </tr>
     </thead>
@@ -146,9 +143,6 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.AccessFailedCount)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.College.CollegeName)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |

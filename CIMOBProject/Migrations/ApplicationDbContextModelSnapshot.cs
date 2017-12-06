@@ -259,6 +259,17 @@ namespace CIMOBProject.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("CIMOBProject.Models.Employee", b =>
+                {
+                    b.HasBaseType("CIMOBProject.Models.ApplicationUser");
+
+                    b.Property<int>("EmployeeNumber");
+
+                    b.ToTable("Employee");
+
+                    b.HasDiscriminator().HasValue("Employee");
+                });
+
             modelBuilder.Entity("CIMOBProject.Models.Student", b =>
                 {
                     b.HasBaseType("CIMOBProject.Models.ApplicationUser");

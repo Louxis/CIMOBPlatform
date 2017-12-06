@@ -11,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using CIMOBProject.Data;
 using CIMOBProject.Models;
 using CIMOBProject.Services;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace CIMOBProject
 {
@@ -89,7 +90,7 @@ namespace CIMOBProject
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            if (env.IsDevelopment())
+            /*if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
                 app.UseBrowserLink();
@@ -98,7 +99,10 @@ namespace CIMOBProject
             else
             {
                 app.UseExceptionHandler("/Home/Error");
-            }
+            }*/
+            app.UseDeveloperExceptionPage();
+            app.UseBrowserLink();
+            app.UseDatabaseErrorPage();
 
             app.UseStaticFiles();
 
@@ -110,10 +114,11 @@ namespace CIMOBProject
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
-
+            
             using (var serviceScope = app.ApplicationServices.CreateScope())
             {
                 var context = serviceScope.ServiceProvider.GetService<ApplicationDbContext>();
+                var userManager = serviceScope.ServiceProvider.GetService<UserManager<ApplicationUser>>();
                 // Seed the database.
                 if (context.Roles.SingleOrDefault(r => r.Name == "Student") == null)
                 {
@@ -121,14 +126,31 @@ namespace CIMOBProject
                     context.Roles.Add(new IdentityRole { Name = "Student", NormalizedName = "Student" });
                     context.SaveChanges();
                 }
-
+                
                 if (context.Roles.SingleOrDefault(r => r.Name == "Employee") == null)
                 {
                     context.Roles.Add(new IdentityRole { Name = "Employee", NormalizedName = "Employee" });
                     context.SaveChanges();
                 }
-            }
 
+                if (!context.Employees.Any()) {
+                    var user = new Employee {
+                        UserName = "testemployee@cimob.pt",
+                        UserFullname = "Empregado Teste",
+                        Email = "testemployee@cimob.pt",
+                        UserCc = 123456789,
+                        PhoneNumber = "936936936",
+                        UserAddress = "RuaTeste",
+                        PostalCode = "2900-000",
+                        BirthDate = new DateTime(1996, 1, 1),
+                        EmployeeNumber = 150221055
+                    };
+                    userManager.CreateAsync(user, "teste12").Wait();
+                    var role = context.Roles.SingleOrDefault(m => m.Name == "Employee");
+                    userManager.AddToRoleAsync(user, role.Name).Wait();
+                    context.SaveChanges();
+                }
+            }
             //DbInitializer.Initialize(context);
             
         }
