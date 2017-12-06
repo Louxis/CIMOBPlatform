@@ -71,18 +71,18 @@ namespace CIMOBProject.Controllers
                     _logger.LogInformation("User logged in.");                    
                     return RedirectToLocal(returnUrl);
                 }
-                if (result.RequiresTwoFactor)
+                /*if (result.RequiresTwoFactor)
                 {
                     return RedirectToAction(nameof(LoginWith2fa), new { returnUrl, model.RememberMe });
-                }
+                }*/
                 if (result.IsLockedOut)
                 {
-                    _logger.LogWarning("User account locked out.");
+                    _logger.LogWarning("Conta bloqueada.");
                     return RedirectToAction(nameof(Lockout));
                 }
                 else
                 {
-                    ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                    ModelState.AddModelError(string.Empty, "Dados inválidos ou a conta não se encontra verificada.");
                     return View(model);
                 }
             }
@@ -91,7 +91,7 @@ namespace CIMOBProject.Controllers
             return View(model);
         }
 
-        [HttpGet]
+        /*[HttpGet]
         [AllowAnonymous]
         public async Task<IActionResult> LoginWith2fa(bool rememberMe, string returnUrl = null)
         {
@@ -145,7 +145,7 @@ namespace CIMOBProject.Controllers
                 ModelState.AddModelError(string.Empty, "Invalid authenticator code.");
                 return View();
             }
-        }
+        }*/
 
         [HttpGet]
         [AllowAnonymous]
@@ -237,21 +237,18 @@ namespace CIMOBProject.Controllers
                     PostalCode = model.PostalCode,
                     BirthDate = model.BirthDate,
                     CollegeSubjectId = model.CollegeSubjectId,
-                    CollegeId = 
-                    ((_context.CollegeSubjects.Include(c => c.College)).Where(s => s.Id == model.CollegeSubjectId).Select(c => c.College.Id)).First(),
                     StudentNumber = model.StudentNumber};
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User created a new account with password.");
                     var role = _context.Roles.SingleOrDefault(m => m.Name == "Student");
-
                     await _userManager.AddToRoleAsync(user, role.Name);
-
                     _context.SaveChanges();
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                     var callbackUrl = Url.EmailConfirmationLink(user.Id, code, Request.Scheme);
                     await _emailSender.SendEmailConfirmationAsync(model.Email, callbackUrl);
+                    //TO-DO: Comment this so it doesn't log the user and send him to a window to confirm his email.
                     await _signInManager.SignInAsync(user, isPersistent: false);
                     _logger.LogInformation("User created a new account with password.");
                     return RedirectToLocal(returnUrl);

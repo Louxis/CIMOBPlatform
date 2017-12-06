@@ -14,12 +14,12 @@ namespace CIMOBProject.Models.AccountViewModels
         public string UserName { get; set; }
 
         [Required(ErrorMessage = "O email é obrigatório.")]
-        [EmailAddress]
+        [EmailAddress(ErrorMessage = "O email não é um email válido!")]
         [StringLength(256)]
         [Display(Name = "Email")]
         public string Email { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "A password é obrigatória.")]
         [StringLength(16, ErrorMessage = "A {0} password tem de ter no minimo {2} e no máximo {1} caracteres.",
             MinimumLength = 6)]
         [DataType(DataType.Password)]

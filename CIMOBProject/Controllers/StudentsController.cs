@@ -23,14 +23,15 @@ namespace CIMOBProject.Controllers
         // GET: Students
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Students.Include(s => s.College);
+            var applicationDbContext = _context.Students.Include(s => s.CollegeSubject);
             return View(await applicationDbContext.ToListAsync());
         }
 
         // GET: Students
+        [HttpGet]
         public async Task<IActionResult> Search(string searchType, string searchString) {
 
-            var students = _context.Students.Include(s => s.College);
+            var students = _context.Students.Include(s => s.CollegeSubject);
 
             if (String.IsNullOrEmpty(searchType) || String.IsNullOrEmpty(searchString))
             {
@@ -49,9 +50,17 @@ namespace CIMOBProject.Controllers
             }
             else if (searchType.Equals("studentCollege") && !String.IsNullOrEmpty(searchString))
             {
-                var filteredStudents = students.Where(s => s.College.CollegeName.Contains(searchString));
+                var filteredStudents = students.Where(s => s.CollegeSubject.College.CollegeName.Contains(searchString));
                 return View(await filteredStudents.ToListAsync());
             }
+            else if (searchType.Equals("mail") && !String.IsNullOrEmpty(searchString))
+            {
+                var filteredStudents = students.Where(s => s.Email.Contains(searchString));
+                //return Details(filteredStudents.FirstOrDefault().Id);
+
+                return View(await filteredStudents.ToListAsync());
+            }
+
             return View(await students.ToListAsync());
         }
 
@@ -64,8 +73,9 @@ namespace CIMOBProject.Controllers
             }
 
             var student = await _context.Students
-                .Include(s => s.College)
+                .Include(s => s.CollegeSubject.College)
                 .SingleOrDefaultAsync(m => m.Id == id);
+            
             if (student == null)
             {
                 return NotFound();
@@ -95,7 +105,6 @@ namespace CIMOBProject.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CollegeID"] = new SelectList(_context.Colleges, "Id", "CollegeName", student.CollegeId);
             ViewData["CollegeSubjectId"] = new SelectList(_context.CollegeSubjects, "Id", "SubjectName", student.CollegeSubjectId);
             return View(student);
         }
@@ -116,7 +125,6 @@ namespace CIMOBProject.Controllers
             {
                 return NotFound();
             }
-            ViewData["CollegeID"] = new SelectList(_context.Colleges, "Id", "CollegeName", student.CollegeId);
             return View(student);
         }
 
@@ -152,7 +160,6 @@ namespace CIMOBProject.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CollegeID"] = new SelectList(_context.Colleges, "Id", "CollegeName", student.CollegeId);
             return View(student);
         }
 
@@ -165,7 +172,7 @@ namespace CIMOBProject.Controllers
             }
 
             var student = await _context.Students
-                .Include(s => s.College)
+                .Include(s => s.CollegeSubject)
                 .SingleOrDefaultAsync(m => m.Id == id);
             if (student == null)
             {

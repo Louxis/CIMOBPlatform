@@ -8,11 +8,11 @@ namespace CIMOBProject.Models.AccountViewModels
 {
     public class LoginViewModel
     {
-        [Required]
-        [EmailAddress]
+        [Required(ErrorMessage = "O campo email é obrigatório!")]
+        [EmailAddress(ErrorMessage = "O email não é um email válido!")]
         public string Email { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "O campo password é obrigatório!")]
         [DataType(DataType.Password)]
         public string Password { get; set; }
 
