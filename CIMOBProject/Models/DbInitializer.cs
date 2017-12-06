@@ -4,6 +4,10 @@ using Microsoft.AspNetCore.Identity;
 using CIMOBProject.Data;
 
 namespace CIMOBProject.Models {
+    ///<summary>
+    ///This class is used to fill the data base with the information we requier.
+    ///Mostly used to insert data that is requiered since the start of the program like the roles, colleges and college subjects.
+    /// </summary>
     public class DbInitializer
     {
         public static void Initialize(ApplicationDbContext context)

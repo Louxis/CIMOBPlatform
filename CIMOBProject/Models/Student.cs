@@ -6,6 +6,11 @@ using System.Threading.Tasks;
 
 namespace CIMOBProject.Models
 {
+    ///<summary>
+    ///In this class we define the atributes of the student that extends from the ApplicationUser.
+    ///The most important atributes of this class are the Documents and the CollegeSubject since they represent the relationship that
+    ///this class within the data base.
+    /// </summary>  
     public class Student : ApplicationUser {
 
         [Required]

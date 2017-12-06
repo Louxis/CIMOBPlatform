@@ -10,6 +10,11 @@ namespace CIMOBProject.Data
 {
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
+        ///<summary>
+        ///The main objective of this class can be described as beeing the bridge between the application and it's data base.
+        ///This class is the one that will handle the communication with the DB meaing it will handle all the CRUDs.
+        ///It also takes care of relationships between the tables.
+        /// </summary>
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
