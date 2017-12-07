@@ -12,8 +12,8 @@ using System;
 namespace CIMOBProject.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20171206233513_FirstServerMigration")]
-    partial class FirstServerMigration
+    [Migration("20171207114719_LudaMigration")]
+    partial class LudaMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
