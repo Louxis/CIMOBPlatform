@@ -1,5 +1,6 @@
 ﻿@model CIMOBProject.Models.Student
-
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
 @{
     ViewData["Title"] = "Details";
 }
@@ -29,3 +30,6 @@
     <label>@Html.DisplayNameFor(model => model.ALOGrade):&nbsp;</label>@Html.DisplayFor(model => model.ALOGrade)
 </div>
 <br />
+<button><a asp-action="Edit" asp-controller="Students" asp-route-id=@UserManager.GetUserId(User)>Editar Perfil</a></button>
+<button><a asp-action="ChangePassword" asp-controller="Manage">Mudar Password</a></button>
+
