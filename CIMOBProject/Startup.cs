@@ -37,7 +37,7 @@ namespace CIMOBProject
 
 
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(connection));
+                options.UseSqlServer(connection1));
 
             services.AddIdentity<ApplicationUser, IdentityRole>(config =>
             {
@@ -148,6 +148,20 @@ namespace CIMOBProject
                     userManager.CreateAsync(user, "teste12").Wait();
                     var role = context.Roles.SingleOrDefault(m => m.Name == "Employee");
                     userManager.AddToRoleAsync(user, role.Name).Wait();
+                    context.SaveChanges();
+                }
+
+                if (!context.Colleges.Any()) {
+                    context.Colleges.Add(new College { CollegeAlias = "ESTS", CollegeName = "Escola Superior de Tecnologia de Setúbal" });
+                    context.Colleges.Add(new College { CollegeAlias = "ESCE", CollegeName = "Escola Superior de Ciências Empresariais" });
+                    context.Colleges.Add(new College { CollegeAlias = "ESE", CollegeName = "Escola Superior de Educação" });
+                    context.Colleges.Add(new College { CollegeAlias = "ESTB", CollegeName = "Escola Superior de Tecnologia do Barreiro" });
+                    context.SaveChanges();
+                }
+
+                if (!context.CollegeSubjects.Any()) {
+                    context.CollegeSubjects.Add(new CollegeSubject { SubjectAlias = "EI", SubjectName = "Engenharia Informática", CollegeId = 1 });
+                    context.CollegeSubjects.Add(new CollegeSubject { SubjectAlias = "EM", SubjectName = "Engenharia Mecânica", CollegeId = 1 });
                     context.SaveChanges();
                 }
             }
