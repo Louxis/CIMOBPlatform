@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace CIMOBProject.Migrations
 {
-    public partial class FirstServerMigration : Migration
+    public partial class dbmigratrion : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
