@@ -24,6 +24,31 @@ namespace CIMOBProject.Models {
                 context.SaveChanges();
             }
 
+            if (!context.Students.Any())
+            {
+                var user = new Student
+                {
+                    UserName = "test@test",
+                    UserFullname = "Teste User 1",
+                    Email = "test@test",
+                    UserCc = 123456789,
+                    PhoneNumber = "936936936",
+                    UserAddress = "Avenida para teste",
+                    PostalCode = "2912-123",
+                    BirthDate = new DateTime(1995, 1, 1),
+                    StudentNumber = "123123123",
+                    ALOGrade = 0,
+                    CollegeSubjectId = 1
+                };
+                userManager.CreateAsync(user, "teste12").Wait();
+                var role = context.Roles.SingleOrDefault(m => m.Name == "Student");
+                userManager.AddToRoleAsync(user, role.Name).Wait();
+                context.SaveChanges();
+                context.Students.
+                    SingleOrDefault(e => e.UserName.Equals("test@test")).EmailConfirmed = true;
+                context.SaveChanges();
+            }
+
             if (!context.Employees.Any())
             {
                 var user = new Employee
@@ -41,6 +66,10 @@ namespace CIMOBProject.Models {
                 userManager.CreateAsync(user, "teste12").Wait();
                 var role = context.Roles.SingleOrDefault(m => m.Name == "Employee");
                 userManager.AddToRoleAsync(user, role.Name).Wait();
+                context.SaveChanges();
+                context.Employees
+                    .SingleOrDefault(e => e.UserName == "testemployee@cimob.pt")
+                    .EmailConfirmed = true;
                 context.SaveChanges();
             }
 
