@@ -26,6 +26,7 @@ namespace CIMOBProject.Data
         public DbSet<ApplicationUser> ApplicationUsers { get; set; }
         public DbSet<College> Colleges { get; set; }
         public DbSet<CollegeSubject> CollegeSubjects { get; set; }
+        public DbSet<Help> Helps { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
