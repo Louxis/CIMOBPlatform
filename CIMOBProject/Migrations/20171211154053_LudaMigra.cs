@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace CIMOBProject.Migrations
 {
-    public partial class LudaMigration : Migration
+    public partial class LudaMigra : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

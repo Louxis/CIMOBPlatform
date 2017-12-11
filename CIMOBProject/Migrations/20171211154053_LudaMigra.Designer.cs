@@ -12,8 +12,8 @@ using System;
 namespace CIMOBProject.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20171203000734_FirstMigration")]
-    partial class FirstMigration
+    [Migration("20171211154053_LudaMigra")]
+    partial class LudaMigra
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -97,7 +97,8 @@ namespace CIMOBProject.Migrations
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("CollegeAlias")
-                        .IsRequired();
+                        .IsRequired()
+                        .HasMaxLength(10);
 
                     b.Property<string>("CollegeName")
                         .IsRequired()
@@ -113,10 +114,11 @@ namespace CIMOBProject.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int?>("CollegeId");
+                    b.Property<int>("CollegeId");
 
                     b.Property<string>("SubjectAlias")
-                        .IsRequired();
+                        .IsRequired()
+                        .HasMaxLength(10);
 
                     b.Property<string>("SubjectName")
                         .IsRequired()
@@ -258,13 +260,24 @@ namespace CIMOBProject.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("CIMOBProject.Models.Employee", b =>
+                {
+                    b.HasBaseType("CIMOBProject.Models.ApplicationUser");
+
+                    b.Property<int>("EmployeeNumber");
+
+                    b.ToTable("Employee");
+
+                    b.HasDiscriminator().HasValue("Employee");
+                });
+
             modelBuilder.Entity("CIMOBProject.Models.Student", b =>
                 {
                     b.HasBaseType("CIMOBProject.Models.ApplicationUser");
 
                     b.Property<int>("ALOGrade");
 
-                    b.Property<int>("CollegeId");
+                    b.Property<int?>("CollegeId");
 
                     b.Property<int>("CollegeSubjectId");
 
@@ -285,7 +298,8 @@ namespace CIMOBProject.Migrations
                 {
                     b.HasOne("CIMOBProject.Models.College", "College")
                         .WithMany("Subjects")
-                        .HasForeignKey("CollegeId");
+                        .HasForeignKey("CollegeId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("CIMOBProject.Models.Document", b =>
@@ -342,10 +356,9 @@ namespace CIMOBProject.Migrations
 
             modelBuilder.Entity("CIMOBProject.Models.Student", b =>
                 {
-                    b.HasOne("CIMOBProject.Models.College", "College")
+                    b.HasOne("CIMOBProject.Models.College")
                         .WithMany("Students")
-                        .HasForeignKey("CollegeId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("CollegeId");
 
                     b.HasOne("CIMOBProject.Models.CollegeSubject", "CollegeSubject")
                         .WithMany()
