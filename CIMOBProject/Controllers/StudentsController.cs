@@ -86,7 +86,7 @@ namespace CIMOBProject.Controllers
             {
                 return NotFound();
             }
-
+            ViewData["selectedId"] = student.Id;
             return View(student);
         }
 
