@@ -139,7 +139,7 @@ namespace CIMOBProject.Controllers
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
             {
-                throw new ApplicationException($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+                throw new ApplicationException($"Não foi possível carregar o utilizador com o ID: '{_userManager.GetUserId(User)}'.");
             }
 
             var hasPassword = await _userManager.HasPasswordAsync(user);
@@ -164,7 +164,7 @@ namespace CIMOBProject.Controllers
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
             {
-                throw new ApplicationException($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+                throw new ApplicationException($"Não foi possível carregar o utilizador com o ID: '{_userManager.GetUserId(User)}'.");
             }
 
             var changePasswordResult = await _userManager.ChangePasswordAsync(user, model.OldPassword, model.NewPassword);
@@ -175,8 +175,8 @@ namespace CIMOBProject.Controllers
             }
 
             await _signInManager.SignInAsync(user, isPersistent: false);
-            _logger.LogInformation("User changed their password successfully.");
-            StatusMessage = "Your password has been changed.";
+            _logger.LogInformation("Password alterada com sucesso");
+            StatusMessage = "A sua password foi alterada.";
 
             return RedirectToAction(nameof(ChangePassword));
         }
@@ -187,7 +187,7 @@ namespace CIMOBProject.Controllers
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
             {
-                throw new ApplicationException($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+                throw new ApplicationException($"Não foi possível carregar o utilizador com o ID: '{_userManager.GetUserId(User)}'.");
             }
 
             var hasPassword = await _userManager.HasPasswordAsync(user);
@@ -213,7 +213,7 @@ namespace CIMOBProject.Controllers
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
             {
-                throw new ApplicationException($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+                throw new ApplicationException($"Não foi possível carregar o utilizador com o ID: '{_userManager.GetUserId(User)}'.");
             }
 
             var addPasswordResult = await _userManager.AddPasswordAsync(user, model.NewPassword);
@@ -224,7 +224,7 @@ namespace CIMOBProject.Controllers
             }
 
             await _signInManager.SignInAsync(user, isPersistent: false);
-            StatusMessage = "Your password has been set.";
+            StatusMessage = "A sua password foi alterada.";
 
             return RedirectToAction(nameof(SetPassword));
         }
@@ -235,7 +235,7 @@ namespace CIMOBProject.Controllers
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
             {
-                throw new ApplicationException($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+                throw new ApplicationException($"Não foi possível carregar o utilizador com o ID: '{_userManager.GetUserId(User)}'.");
             }
 
             var model = new ExternalLoginsViewModel { CurrentLogins = await _userManager.GetLoginsAsync(user) };
@@ -267,7 +267,7 @@ namespace CIMOBProject.Controllers
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
             {
-                throw new ApplicationException($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+                throw new ApplicationException($"Não foi possível carregar o utilizador com o ID: '{_userManager.GetUserId(User)}'.");
             }
 
             var info = await _signInManager.GetExternalLoginInfoAsync(user.Id);
