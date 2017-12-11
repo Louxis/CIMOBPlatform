@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace CIMOBProject.Migrations
 {
-    public partial class SwitchCollegeRelation : Migration
+    public partial class LudaMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -104,6 +104,7 @@ namespace CIMOBProject.Migrations
                     UserCc = table.Column<int>(type: "int", nullable: false),
                     UserFullname = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
+                    EmployeeNumber = table.Column<int>(type: "int", nullable: true),
                     ALOGrade = table.Column<int>(type: "int", nullable: true),
                     CollegeId = table.Column<int>(type: "int", nullable: true),
                     CollegeSubjectId = table.Column<int>(type: "int", nullable: true),
