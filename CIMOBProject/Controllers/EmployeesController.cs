@@ -92,6 +92,14 @@ namespace CIMOBProject.Controllers
             {
                 return NotFound();
             }
+            var toEditEmployee = await _context.Employees
+                .SingleOrDefaultAsync(m => m.Id == id);
+
+            toEditEmployee.EmployeeNumber = employee.EmployeeNumber;
+            toEditEmployee.UserAddress = employee.UserAddress;
+            toEditEmployee.PostalCode = employee.PostalCode;
+            toEditEmployee.PhoneNumber = employee.PhoneNumber;
+            toEditEmployee.UserCc = employee.UserCc;
 
             if (ModelState.IsValid)
             {

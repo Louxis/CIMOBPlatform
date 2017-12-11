@@ -115,7 +115,7 @@ namespace CIMOBProject
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
             
-            /*using (var serviceScope = app.ApplicationServices.CreateScope())
+            using (var serviceScope = app.ApplicationServices.CreateScope())
             {
                 var context = serviceScope.ServiceProvider.GetService<ApplicationDbContext>();
                 var userManager = serviceScope.ServiceProvider.GetService<UserManager<ApplicationUser>>();
@@ -164,7 +164,7 @@ namespace CIMOBProject
                     context.CollegeSubjects.Add(new CollegeSubject { SubjectAlias = "EM", SubjectName = "Engenharia Mecânica", CollegeId = 1 });
                     context.SaveChanges();
                 }
-            }*/
+            }
             //DbInitializer.Initialize(context);
             
         }
