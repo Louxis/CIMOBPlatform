@@ -5,11 +5,9 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Details</h2>
+<h1>Perfil de @Html.DisplayFor(model => model.UserFullname)</h1>
 
 <div>
-    <h4>Employee</h4>
-    <hr />
     <dl class="dl-horizontal">
         <dt>
             @Html.DisplayNameFor(model => model.EmployeeNumber)
