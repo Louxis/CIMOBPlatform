@@ -217,6 +217,12 @@ namespace CIMOBProject.Controllers
             return View();
         }
 
+
+        ///<summary>
+        ///In this method we create the various students that will use our website.
+        ///Even thou this method was created by the MVC we had to alter it a bit to suite our needs.
+        ///One of the changes made was the attribution of roles do the students. With this we control who gets access to the various uses of our application.
+        /// </summary>
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
