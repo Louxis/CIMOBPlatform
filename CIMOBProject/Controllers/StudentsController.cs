@@ -27,6 +27,12 @@ namespace CIMOBProject.Controllers
             return View(await applicationDbContext.ToListAsync());
         }
 
+        /// <summary>
+        /// Search function to controll the searches that will go into the Students.Search View
+        /// </summary>
+        /// <param name="searchType">Type of search: Can be Student's number, name or college</param>
+        /// <param name="searchString">Specification of what will be searched: name, number or college</param>
+        /// <returns> A view with the search result listed</returns>
         // GET: Students
         [HttpGet]
         public async Task<IActionResult> Search(string searchType, string searchString) {
