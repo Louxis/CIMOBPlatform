@@ -86,7 +86,7 @@ namespace CIMOBProject.Controllers
             {
                 return NotFound();
             }
-
+            ViewData["selectedId"] = student.Id;
             return View(student);
         }
 
@@ -145,28 +145,32 @@ namespace CIMOBProject.Controllers
             {
                 return NotFound();
             }
-
-            if (ModelState.IsValid)
+            var toEditStudent = await _context.Students.Include(s => s.CollegeSubject.College)
+                .SingleOrDefaultAsync(m => m.Id == id);
+            toEditStudent.ALOGrade = student.ALOGrade;
+            toEditStudent.StudentNumber = student.StudentNumber;
+            toEditStudent.UserAddress = student.UserAddress;
+            toEditStudent.PostalCode = student.PostalCode;
+            toEditStudent.PhoneNumber = student.PhoneNumber;
+            toEditStudent.UserCc = student.UserCc;
+            try
             {
-                try
-                {
-                    _context.Update(student);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!StudentExists(student.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
+                _context.Update(toEditStudent);
+                await _context.SaveChangesAsync();
             }
-            return View(student);
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!StudentExists(student.Id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return View("Details", toEditStudent);
         }
 
         // GET: Students/Delete/5
