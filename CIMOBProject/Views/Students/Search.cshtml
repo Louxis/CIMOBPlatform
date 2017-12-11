@@ -38,7 +38,7 @@
                         @Html.DisplayFor(modelItem => item.UserFullname)
                     </td>
                     <td>
-                        <input type="button" value="Ver Perfil" onclick="location.href='@Url.Action("Details", "Students", new {id = item.Id})'" />
+                        <input type="button" class="btn btn-default" value="Ver Perfil" onclick="location.href='@Url.Action("Details", "Students", new {id = item.Id})'" />
 
                     </td>
                 </tr>
