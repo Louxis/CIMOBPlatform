@@ -28,8 +28,10 @@
     <label>@Html.DisplayNameFor(model => model.StudentNumber):&nbsp;</label>@Html.DisplayFor(model => model.StudentNumber)
     <br />
     <label>@Html.DisplayNameFor(model => model.ALOGrade):&nbsp;</label>@Html.DisplayFor(model => model.ALOGrade)
+    <br />
 </div>
 <br />
 <a asp-action="Edit" asp-controller="Students" asp-route-id="@ViewData["SelectedId"]" class="btn btn-default">Editar Perfil</a>
 <a asp-action="ChangePassword" asp-controller="Manage" class="btn btn-default">Mudar Password</a>
+<a asp-action="Index" asp-controller="Documents" asp-route-studentId="@ViewData["SelectedId"]" class="btn btn-default">Documentos</a>
 

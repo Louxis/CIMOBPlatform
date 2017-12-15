@@ -79,7 +79,7 @@ namespace CIMOBProject.Controllers
             }
 
             var student = await _context.Students
-                .Include(s => s.CollegeSubject.College)
+                .Include(s => s.CollegeSubject.College).Include(s=>s.Documents)
                 .SingleOrDefaultAsync(m => m.Id == id);
             
             if (student == null)

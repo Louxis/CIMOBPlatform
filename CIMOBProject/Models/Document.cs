@@ -11,13 +11,15 @@ namespace CIMOBProject.Models
     {
         public int DocumentId { get; set; }
 
+        public string Description { get; set; }
+
         [Required]
         public string FileUrl { get; set; }
 
         [Required]
         public DateTime UploadDate { get; set; }
 
-        public int StudentId { get; set; }
+        public string StudentId { get; set; }
 
         public virtual Student Student { get; set; }
     }
