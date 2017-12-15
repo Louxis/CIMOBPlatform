@@ -22,9 +22,13 @@ namespace CIMOBProject.Controllers
         // GET: Documents
         public async Task<IActionResult> Index(string studentId)
         {
-            
+            ViewData["StudentName"] = _context.Students.Where(s => s.Id.Equals(studentId)).FirstOrDefault().UserFullname;
             var applicationDbContext = _context.Documents.Include(d => d.Student).Where(s=> s.StudentId.Equals(studentId));
-            ViewData["studentName"] = applicationDbContext.First().Student.UserFullname;
+            if(applicationDbContext == null)
+            {
+                return NotFound();
+            }
+           //ViewData["studentName"] = applicationDbContext.First().Student.UserFullname;
             return View(await applicationDbContext.ToListAsync());
         }
 
@@ -51,7 +55,7 @@ namespace CIMOBProject.Controllers
         public IActionResult Create(string studentId)
         {
             ViewData["StudentId"] = studentId;
-            ViewData["Date"] = DateTime.Now;
+            //ViewData["Date"] = DateTime.Now;
             return View();
         }
 
@@ -64,7 +68,7 @@ namespace CIMOBProject.Controllers
         {
             string studentId = "";
             var applicationDbContext = _context.Documents.Include(d => d.Student).Where(s => s.StudentId.Equals(studentId));
-            ViewData["studentName"] = applicationDbContext.First().Student.UserFullname;
+           // ViewData["studentName"] = applicationDbContext.First().Student.UserFullname;
             if (ModelState.IsValid)
             {
                 document.UploadDate = DateTime.Now;
@@ -156,6 +160,7 @@ namespace CIMOBProject.Controllers
             _context.Documents.Remove(document);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
+
         }
 
         private bool DocumentExists(int id)
