@@ -9,6 +9,10 @@ namespace CIMOBProject.Models
 {
     public class Document
     {
+        ///<summary>
+        ///In this class we define the atributes of the documents that both Students and Employees will have to handle.
+        ///The Student attribute represents the student to which it belongs.
+        /// </summary>
         public int DocumentId { get; set; }
 
         public string Description { get; set; }

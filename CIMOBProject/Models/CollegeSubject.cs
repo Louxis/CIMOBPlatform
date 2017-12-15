@@ -7,7 +7,10 @@ using System.Threading.Tasks;
 namespace CIMOBProject.Models
 {
     public class CollegeSubject {
-
+        ///<summary>
+        ///This class represents the courses that students belong to.
+        ///Mostly used to indicate the college of a student since the courses are specific to each college.
+        /// </summary>
         public int Id { get; set; }
 
         [Required]

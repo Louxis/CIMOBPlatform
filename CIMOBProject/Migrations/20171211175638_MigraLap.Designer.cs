@@ -12,9 +12,10 @@ using System;
 namespace CIMOBProject.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20171211175638_MigraLap")]
+    partial class MigraLap
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -135,34 +136,20 @@ namespace CIMOBProject.Migrations
                     b.Property<int>("DocumentId")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Description");
-
                     b.Property<string>("FileUrl")
                         .IsRequired();
 
-                    b.Property<string>("StudentId");
+                    b.Property<int>("StudentId");
+
+                    b.Property<string>("StudentId1");
 
                     b.Property<DateTime>("UploadDate");
 
                     b.HasKey("DocumentId");
 
-                    b.HasIndex("StudentId");
+                    b.HasIndex("StudentId1");
 
                     b.ToTable("Documents");
-                });
-
-            modelBuilder.Entity("CIMOBProject.Models.Help", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("HelpDescription")
-                        .IsRequired()
-                        .HasMaxLength(100);
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Helps");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -319,7 +306,7 @@ namespace CIMOBProject.Migrations
                 {
                     b.HasOne("CIMOBProject.Models.Student", "Student")
                         .WithMany("Documents")
-                        .HasForeignKey("StudentId");
+                        .HasForeignKey("StudentId1");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
