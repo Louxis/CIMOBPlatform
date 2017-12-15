@@ -131,6 +131,7 @@ namespace CIMOBProject.Controllers
             {
                 return NotFound();
             }
+            ViewData["selectedId"] = student.Id;
             return View(student);
         }
 
@@ -145,6 +146,7 @@ namespace CIMOBProject.Controllers
             {
                 return NotFound();
             }
+            ViewData["selectedId"] = student.Id;
             var toEditStudent = await _context.Students.Include(s => s.CollegeSubject.College)
                 .SingleOrDefaultAsync(m => m.Id == id);
             toEditStudent.ALOGrade = student.ALOGrade;
@@ -170,7 +172,7 @@ namespace CIMOBProject.Controllers
                 }
             }
 
-            return View("Details", toEditStudent);
+            return RedirectToAction("Details", "Students", new { id = toEditStudent.Id });
         }
 
         // GET: Students/Delete/5

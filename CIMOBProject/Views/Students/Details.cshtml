@@ -5,7 +5,7 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>Perfil de @Html.DisplayFor(model => model.UserFullname)</h1>
+<h1>Perfil de @Html.DisplayFor(model => model.UserFullname) </h1>
 
 <div class="profile-info">
    <div class="profile-left-container">
@@ -31,9 +31,6 @@
            <br />
            <label>@Html.DisplayNameFor(model => model.PostalCode):&nbsp;</label>@Html.DisplayFor(model => model.PostalCode)
        </div>
-       <br />
-       <a asp-action="Edit" asp-controller="Students" asp-route-id=@UserManager.GetUserId(User) class="btn btn-default">Editar Perfil</a>
-       <a asp-action="ChangePassword" asp-controller="Manage" class="btn btn-default">Mudar Password</a>
    </div>
     <div class="profile-school-info">
         <h4>Dados Académicos</h4>
@@ -44,4 +41,8 @@
         <label>@Html.DisplayNameFor(model => model.ALOGrade):&nbsp;</label>@Html.DisplayFor(model => model.ALOGrade)
     </div>
     <br />
+    <br />
+    <a asp-action="Edit" asp-controller="Students" asp-route-id="@ViewData["selectedId"]" class="btn btn-default">Editar Perfil</a>
+    <a asp-action="ChangePassword" asp-controller="Manage" class="btn btn-default">Mudar Password</a>
+    <a asp-action="Index" asp-controller="Documents" asp-route-studentId="@ViewData["selectedId"]" class="btn btn-default">Documentos</a>
 </div>

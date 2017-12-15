@@ -105,7 +105,7 @@ namespace CIMOBProject.Controllers
             {
                 try
                 {
-                    _context.Update(employee);
+                    _context.Update(toEditEmployee);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
@@ -119,9 +119,8 @@ namespace CIMOBProject.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
             }
-            return View(employee);
+            return RedirectToAction("Details", "Employees", new { id = toEditEmployee.Id });
         }
 
         // GET: Employees/Delete/5
