@@ -8,12 +8,12 @@ namespace CIMOBProject.Models.ManageViewModels
 {
     public class ChangePasswordViewModel
     {
-        [Required]
+        [Required(ErrorMessage = "A password atual é obrigatória.")]
         [DataType(DataType.Password)]
         [Display(Name = "Password atual")]
         public string OldPassword { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "A nova password é obrigatória.")]
         [StringLength(100, ErrorMessage = " {0} deverá ter pelo menos {2} e no maximo {1} caracteres.", MinimumLength = 6)]
         [DataType(DataType.Password)]
         [Display(Name = "Nova password")]

@@ -7,31 +7,41 @@
 
 <h1>Perfil de @Html.DisplayFor(model => model.UserFullname)</h1>
 
-<div>
-    <h3>Infomação Básica</h3><br/>
-    <label>@Html.DisplayNameFor(model => model.UserFullname):&nbsp;</label>@Html.DisplayFor(model => model.UserFullname)
-    <br/>
-    <label>@Html.DisplayNameFor(model => model.Email):&nbsp;</label>@Html.DisplayFor(model => model.Email)
-    <br />
-    <label>@Html.DisplayNameFor(model => model.BirthDate):&nbsp;</label>@Html.DisplayFor(model => model.BirthDate)
-    <br />
-    <label>@Html.DisplayNameFor(model => model.UserAddress):&nbsp;</label>@Html.DisplayFor(model => model.UserAddress)
-    <br />
-    <label>@Html.DisplayNameFor(model => model.PostalCode):&nbsp;</label>@Html.DisplayFor(model => model.PostalCode)
-    <br />
-    <label>@Html.DisplayNameFor(model => model.PhoneNumber):&nbsp;</label>@Html.DisplayFor(model => model.PhoneNumber)
-    <br />
-    <label>@Html.DisplayNameFor(model => model.UserCc):&nbsp;</label>@Html.DisplayFor(model => model.UserCc)
-    <br />
-    <label>@Html.DisplayNameFor(model => model.CollegeSubject.College.CollegeName):&nbsp;</label>@Html.DisplayFor(model => model.CollegeSubject.College.CollegeName)
-    <br />
-    <label>@Html.DisplayNameFor(model => model.StudentNumber):&nbsp;</label>@Html.DisplayFor(model => model.StudentNumber)
-    <br />
-    <label>@Html.DisplayNameFor(model => model.ALOGrade):&nbsp;</label>@Html.DisplayFor(model => model.ALOGrade)
+<div class="profile-info">
+   <div class="profile-left-container">
+       <div class="profile-personal-info">
+           <h4>Dados Pessoais</h4>
+           <label>@Html.DisplayNameFor(model => model.UserFullname):&nbsp;</label>@Html.DisplayFor(model => model.UserFullname)
+           <br />
+           <label>@Html.DisplayNameFor(model => model.BirthDate):&nbsp;</label>@Html.DisplayFor(model => model.BirthDate)
+           <br />
+           <label>@Html.DisplayNameFor(model => model.UserCc):&nbsp;</label>@Html.DisplayFor(model => model.UserCc)
+       </div>
+       <br />
+       <div class="profile-contact-info">
+           <h4>Contactos</h4>
+           <label>@Html.DisplayNameFor(model => model.Email):&nbsp;</label>@Html.DisplayFor(model => model.Email)
+           <br />
+           <label>@Html.DisplayNameFor(model => model.PhoneNumber):&nbsp;</label>@Html.DisplayFor(model => model.PhoneNumber)
+       </div>
+       <br />
+       <div class="profile-address-info">
+           <h4>Dados de Morada</h4>
+           <label>@Html.DisplayNameFor(model => model.UserAddress):&nbsp;</label>@Html.DisplayFor(model => model.UserAddress)
+           <br />
+           <label>@Html.DisplayNameFor(model => model.PostalCode):&nbsp;</label>@Html.DisplayFor(model => model.PostalCode)
+       </div>
+       <br />
+       <a asp-action="Edit" asp-controller="Students" asp-route-id=@UserManager.GetUserId(User) class="btn btn-default">Editar Perfil</a>
+       <a asp-action="ChangePassword" asp-controller="Manage" class="btn btn-default">Mudar Password</a>
+   </div>
+    <div class="profile-school-info">
+        <h4>Dados Académicos</h4>
+        <label>@Html.DisplayNameFor(model => model.CollegeSubject.College.CollegeName):&nbsp;</label>@Html.DisplayFor(model => model.CollegeSubject.College.CollegeName)
+        <br />
+        <label>@Html.DisplayNameFor(model => model.StudentNumber):&nbsp;</label>@Html.DisplayFor(model => model.StudentNumber)
+        <br />
+        <label>@Html.DisplayNameFor(model => model.ALOGrade):&nbsp;</label>@Html.DisplayFor(model => model.ALOGrade)
+    </div>
     <br />
 </div>
-<br />
-<a asp-action="Edit" asp-controller="Students" asp-route-id="@ViewData["SelectedId"]" class="btn btn-default">Editar Perfil</a>
-<a asp-action="ChangePassword" asp-controller="Manage" class="btn btn-default">Mudar Password</a>
-<a asp-action="Index" asp-controller="Documents" asp-route-studentId="@ViewData["SelectedId"]" class="btn btn-default">Documentos</a>
-
