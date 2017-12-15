@@ -66,17 +66,15 @@ namespace CIMOBProject.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("DocumentId,Description,FileUrl,UploadDate,StudentId")] Document document)
         {
-            string studentId = "";
-            var applicationDbContext = _context.Documents.Include(d => d.Student).Where(s => s.StudentId.Equals(studentId));
-           // ViewData["studentName"] = applicationDbContext.First().Student.UserFullname;
+            string currentStudentId = "";
             if (ModelState.IsValid)
             {
                 document.UploadDate = DateTime.Now;
-                studentId = document.StudentId;
+                currentStudentId = document.StudentId;
                 _context.Add(document);
                 await _context.SaveChangesAsync();
-            }            
-            return View("Index", await applicationDbContext.ToListAsync());
+            }
+            return RedirectToAction("Index", "Documents", new { studentId = currentStudentId });
         }
 
         // GET: Documents/Edit/5
