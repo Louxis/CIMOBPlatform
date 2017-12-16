@@ -3,12 +3,20 @@
 @inject UserManager<ApplicationUser> UserManager
 
 
+
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Documentos de @ViewBag.studentName</h1>
+<h2>Documentos de @ViewData["StudentName"]</h2>
+@if (Model == null)
+{
+
+    <h3>Este estudante ainda não tem documentos</h3>
+}
+else
+{
 
 <table class="table">
     <thead>
@@ -26,30 +34,28 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+@foreach (var item in Model)
+{
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Description)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.FileUrl)
+                <a href="@Html.DisplayFor(modelItem => item.FileUrl)">@Html.DisplayFor(modelItem => item.FileUrl)</a>
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.UploadDate)
             </td>
             <td>
-                @if (SignInManager.IsSignedIn(User) && User.IsInRole("Student"))
-                {
-                    <a asp-action="Delete" asp-route-id="@item.DocumentId" class="btn btn-default">Delete</a>
-                }
+                <!--isto não se mostra aos funcs-->
+                <!--<a asp-action="DeleteConfirmed" asp-route-id="@item.DocumentId">Delete</a>-->
             </td>
         </tr>
 }
     </tbody>
 </table>
-@if (SignInManager.IsSignedIn(User) && User.IsInRole("Student"))
-{
-    <a asp-action="Create" asp-controller="Documents" asp-route-studentId=@UserManager.GetUserId(User) class="btn btn-default">Novo documento</a>
 }
+<!--isto não se mostra aos funcs-->
+<a asp-action="Create" asp-controller="Documents" asp-route-studentId=@UserManager.GetUserId(User) class="btn btn-default">Novo documento</a> 
 
 

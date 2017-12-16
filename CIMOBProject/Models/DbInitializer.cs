@@ -87,7 +87,7 @@ namespace CIMOBProject.Models {
                     .SingleOrDefault(e => e.UserName == "testemployee@cimob.pt")
                     .EmailConfirmed = true;
                 context.SaveChanges();
-            }
+            }       
 
             if (!context.Helps.Any())
             {
