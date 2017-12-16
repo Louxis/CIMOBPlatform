@@ -11,7 +11,7 @@
     <hr />
     <div class="edit-student-ALO-info">
         <h4>Dados Teste de Línguas</h4>
-        <label asp-for="ALOGrade" class="control-label"></label>
+        <label asp-for="ALOGrade" class="control-label"></label>  <div class="tooltip">(?)<span class="tooltiptext">@ViewData["ALOGradeTip"]</span></div>
         <input asp-for="ALOGrade" class="form-control" />
         <span asp-validation-for="ALOGrade" class="text-danger"></span>
     </div>

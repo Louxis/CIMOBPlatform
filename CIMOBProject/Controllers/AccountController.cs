@@ -52,6 +52,7 @@ namespace CIMOBProject.Controllers
             // Clear the existing external cookie to ensure a clean login process
             await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
             ViewData["ReturnUrl"] = returnUrl;
+            loadHelp();
             return View();
         }
 
@@ -392,6 +393,7 @@ namespace CIMOBProject.Controllers
         [AllowAnonymous]
         public IActionResult ForgotPassword()
         {
+            loadHelp();
             return View();
         }
 

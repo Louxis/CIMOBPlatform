@@ -13,17 +13,17 @@
             <div class="edit-employee-personal-info">
                 <h4>Dados Pessoais</h4>
                 <div class="form-group">
-                    <label asp-for="UserFullname" class="control-label"></label>
+                    <label asp-for="UserFullname" class="control-label"></label>  <div class="tooltip">(?)<span class="tooltiptext">@ViewData["UserNameTip"]</span></div>
                     <input asp-for="UserFullname" class="form-control" />
                     <span asp-validation-for="UserFullname" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="BirthDate" class="control-label"></label>
+                    <label asp-for="BirthDate" class="control-label"></label>  <div class="tooltip">(?)<span class="tooltiptext">@ViewData["BirthDateTip"]</span></div>
                     <input asp-for="BirthDate" class="form-control" />
                     <span asp-validation-for="BirthDate" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="UserCc" class="control-label"></label>
+                    <label asp-for="UserCc" class="control-label"></label>  <div class="tooltip">(?)<span class="tooltiptext">@ViewData["UserCcTip"]</span></div>
                     <input asp-for="UserCc" class="form-control" />
                     <span asp-validation-for="UserCc" class="text-danger"></span>
                 </div>
@@ -32,7 +32,7 @@
             <div class="edit-employee-contact-info">
                 <h4>Contactos</h4>
                 <div class="form-group">
-                    <label asp-for="PhoneNumber" class="control-label"></label>
+                    <label asp-for="PhoneNumber" class="control-label"></label>  <div class="tooltip">(?)<span class="tooltiptext">@ViewData["PhoneNumberTip"]</span></div>
                     <input asp-for="PhoneNumber" class="form-control" />
                     <span asp-validation-for="PhoneNumber" class="text-danger"></span>
                 </div>
@@ -41,12 +41,12 @@
             <div class="edit-employee-address-info">
                 <h4>Dados de Morada</h4>
                 <div class="form-group">
-                    <label asp-for="PostalCode" class="control-label"></label>
+                    <label asp-for="PostalCode" class="control-label"></label>  <div class="tooltip">(?)<span class="tooltiptext">@ViewData["PostalCodeTip"]</span></div>
                     <input asp-for="PostalCode" class="form-control" />
                     <span asp-validation-for="PostalCode" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="UserAddress" class="control-label"></label>
+                    <label asp-for="UserAddress" class="control-label"></label>  <div class="tooltip">(?)<span class="tooltiptext">@ViewData["UserAddressTip"]</span></div>
                     <input asp-for="UserAddress" class="form-control" />
                     <span asp-validation-for="UserAddress" class="text-danger"></span>
                 </div>
@@ -55,7 +55,7 @@
             <div class="edit-employee-work-infos">
                 <h4>Número de Funcionário</h4>
                 <div class="form-group">
-                    <label asp-for="EmployeeNumber" class="control-label"></label>
+                    <label asp-for="EmployeeNumber" class="control-label"></label>  <div class="tooltip">(?)<span class="tooltiptext">@ViewData["EmployeeNumberTip"]</span></div>
                     <input asp-for="EmployeeNumber" class="form-control" />
                     <span asp-validation-for="EmployeeNumber" class="text-danger"></span>
                 </div>

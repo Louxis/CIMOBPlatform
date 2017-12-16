@@ -102,6 +102,10 @@ namespace CIMOBProject.Models {
                 context.Helps.Add(new Help { HelpDescription = "O CC deve ser constituido por 8 digitos." });
                 context.Helps.Add(new Help { HelpDescription = "O numero de estudante deve ser constituido por 9 digitos." });
                 context.Helps.Add(new Help { HelpDescription = "Deve selecionar um curso da lista. Exe: EI" });
+                context.Helps.Add(new Help { HelpDescription = "A Nota do Teste de línguas tem um valor de 0 a 20." });
+                context.Helps.Add(new Help { HelpDescription = "O numero de funcionário deve ser constituido por 9 digitos." });
+                context.Helps.Add(new Help { HelpDescription = "A descrição deve descrever sumáriamente o documento." });
+                context.Helps.Add(new Help { HelpDescription = "Insira o URL de onde está hospedado o seu documento." });
                 context.SaveChanges();
             }
         }
