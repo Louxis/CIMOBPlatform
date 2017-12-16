@@ -105,10 +105,5 @@ namespace CIMOBProject.Models {
                 context.SaveChanges();
             }
         }
-    }
-
-
-
-
-    
+    }    
 }
