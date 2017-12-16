@@ -4,54 +4,60 @@
     ViewData["Title"] = "Edit";
 }
 
-<h2>Editar Informação</h2>
-
-<h4>@Html.DisplayFor(model => model.UserFullname)</h4>
-<hr />
+<h1>Editar Informação</h1>
+<h3 class="description">Preencha os espaços em baixo para editar os dados de @Html.DisplayFor(model => model.UserFullname)</h3>
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                
-                <!--funcionário-->
-                <label asp-for="ALOGrade" class="control-label"></label>
-                <input asp-for="ALOGrade" class="form-control" />
-                <span asp-validation-for="ALOGrade" class="text-danger"></span>
-
-                <!--funcionário e estudante-->
-                <label asp-for="StudentNumber" class="control-label"></label>
-                <input asp-for="StudentNumber" class="form-control" />
-                <span asp-validation-for="StudentNumber" class="text-danger"></span>
-               
-                <!--funcionário e estudante-->
-                <label asp-for="UserAddress" class="control-label"></label>
-                <input asp-for="UserAddress" class="form-control" />
-                <span asp-validation-for="UserAddress" class="text-danger"></span>
-                
-                <!--funcionário e estudante-->
-                <label asp-for="PostalCode" class="control-label"></label>
-                <input asp-for="PostalCode" class="form-control" />
-                <span asp-validation-for="PostalCode" class="text-danger"></span>
-                
-                <!--funcionário e estudante-->
-                <label asp-for="PhoneNumber" class="control-label"></label>
-                <input asp-for="PhoneNumber" class="form-control" />
-                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
-
-                <!--funcionário-->
-                <label asp-for="UserCc" class="control-label"></label>
-                <input asp-for="UserCc" class="form-control" />
-                <span asp-validation-for="UserCc" class="text-danger"></span>
+            <div class="edit-student-personal-info">
+                <h4>Dados Pessoais</h4>
+                <div class="form-group">                    
+                    <label asp-for="UserCc" class="control-label"></label>
+                    <input asp-for="UserCc" class="form-control" />
+                    <span asp-validation-for="UserCc" class="text-danger"></span>
+                </div>
             </div>
+            <hr />
+            <div class="edit-student-contact-info">
+                <h4>Contacto Telefónico</h4>
+                <div class="form-group">
+                    <label asp-for="PhoneNumber" class="control-label"></label>
+                    <input asp-for="PhoneNumber" class="form-control" />
+                    <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                </div>
+            </div>
+            <hr />
+            <div class="edit-student-address-info">
+                <h4>Dados de Morada</h4>
+                <div class="form-group">
+                    <label asp-for="UserAddress" class="control-label"></label>
+                    <input asp-for="UserAddress" class="form-control" />
+                    <span asp-validation-for="UserAddress" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="PostalCode" class="control-label"></label>
+                    <input asp-for="PostalCode" class="form-control" />
+                    <span asp-validation-for="PostalCode" class="text-danger"></span>
+                </div>
+            </div>
+            <hr />
+            <div class="edit-student-school-info">
+                <h4>Dados Académicos</h4>
+                <div class="form-group">
+                    <label asp-for="StudentNumber" class="control-label"></label>
+                    <input asp-for="StudentNumber" class="form-control" />
+                    <span asp-validation-for="StudentNumber" class="text-danger"></span>
+                </div>
+            </div>
+                @await Html.PartialAsync("_EditHiddenFormControls")
+            <hr />
             <div class="form-group">
+                <a href='javascript:history.go(-1)' class="btn btn-default">&nbsp;&nbsp; Voltar ao Perfil &nbsp;&nbsp;</a>
                 <input type="submit" value="Guardar Alterações" class="btn btn-default" />
             </div>
         </form>
     </div>
-</div>
-<div>
-    <a href='javascript:history.go(-1)' class="btn btn-default">&nbsp;&nbsp; Atrás &nbsp;&nbsp;</a>
 </div>
 
 @section Scripts {

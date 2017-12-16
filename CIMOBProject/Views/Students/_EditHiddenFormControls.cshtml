@@ -1,0 +1,18 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using CIMOBProject.Models
+
+@model CIMOBProject.Models.Student
+
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+@if (SignInManager.IsSignedIn(User) && User.IsInRole("Employee"))
+{
+    <hr />
+    <div class="edit-student-ALO-info">
+        <h4>Dados Teste de Línguas</h4>
+        <label asp-for="ALOGrade" class="control-label"></label>
+        <input asp-for="ALOGrade" class="form-control" />
+        <span asp-validation-for="ALOGrade" class="text-danger"></span>
+    </div>
+}

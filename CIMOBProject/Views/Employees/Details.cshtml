@@ -2,65 +2,39 @@
 @inject UserManager<ApplicationUser> UserManager
 @{
     ViewData["Title"] = "Details";
-    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h1>Perfil de @Html.DisplayFor(model => model.UserFullname)</h1>
 
-<div>
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.EmployeeNumber)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.EmployeeNumber)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.UserFullname)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.UserFullname)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.PostalCode)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.PostalCode)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.BirthDate)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.BirthDate)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.UserAddress)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.UserAddress)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.UserCc)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.UserCc)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.PhoneNumber)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.PhoneNumber)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Email)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Email)
-        </dd>
-
-    </dl>
-</div>
-<div>
+<div class="profile-info">
+    <div class="profile-employee-info">
+        <h4>Dados de funcionário</h4>
+        <label>@Html.DisplayNameFor(model => model.EmployeeNumber): &nbsp;</label>@Html.DisplayFor(model => model.EmployeeNumber)        
+    </div>
+    <br />
+    <div class="profile-personal-info">
+        <h4>Dados Pessoais</h4>
+        <label>@Html.DisplayNameFor(model => model.UserFullname):&nbsp;</label>@Html.DisplayFor(model => model.UserFullname)
+        <br />
+        <label>@Html.DisplayNameFor(model => model.BirthDate):&nbsp;</label>@Html.DisplayFor(model => model.BirthDate)
+        <br />
+        <label>@Html.DisplayNameFor(model => model.UserCc):&nbsp;</label>@Html.DisplayFor(model => model.UserCc)
+    </div>
+    <br />
+    <div class="profile-contact-info">
+        <h4>Contactos</h4>
+        <label>@Html.DisplayNameFor(model => model.Email):&nbsp;</label>@Html.DisplayFor(model => model.Email)
+        <br />
+        <label>@Html.DisplayNameFor(model => model.PhoneNumber):&nbsp;</label>@Html.DisplayFor(model => model.PhoneNumber)
+    </div>
+    <br />
+    <div class="profile-address-info">
+        <h4>Dados de Morada</h4>
+        <label>@Html.DisplayNameFor(model => model.UserAddress):&nbsp;</label>@Html.DisplayFor(model => model.UserAddress)
+        <br />
+        <label>@Html.DisplayNameFor(model => model.PostalCode):&nbsp;</label>@Html.DisplayFor(model => model.PostalCode)
+    </div>
+    <br />
     <a asp-action="Edit" asp-controller="Employees" asp-route-id=@UserManager.GetUserId(User) class="btn btn-default">Editar Perfil</a>
     <a asp-action="ChangePassword" asp-controller="Manage" class="btn btn-default">Mudar Password</a>
 </div>
