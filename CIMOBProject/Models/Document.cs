@@ -13,13 +13,18 @@ namespace CIMOBProject.Models
         ///In this class we define the atributes of the documents that both Students and Employees will have to handle.
         ///The Student attribute represents the student to which it belongs.
         /// </summary>
+        
+        
         public int DocumentId { get; set; }
 
+        [Display(Name = "Descrição")]
         public string Description { get; set; }
 
+        [Display(Name = "URL")]
         [Required]
         public string FileUrl { get; set; }
 
+        [Display(Name = "Data de Carregamento")]
         [Required]
         public DateTime UploadDate { get; set; }
 

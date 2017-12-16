@@ -41,7 +41,7 @@ else
                 @Html.DisplayFor(modelItem => item.Description)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.FileUrl)
+                <a href="@Html.DisplayFor(modelItem => item.FileUrl)">@Html.DisplayFor(modelItem => item.FileUrl)</a>
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.UploadDate)
