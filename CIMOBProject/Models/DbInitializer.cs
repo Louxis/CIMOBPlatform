@@ -97,13 +97,13 @@ namespace CIMOBProject.Models {
                 context.Helps.Add(new Help { HelpDescription = "A password tem de ser identica à que foi introduzida anteriormente. Seguindo o exemplo anterior: 123456." });
                 context.Helps.Add(new Help { HelpDescription = "O numero de telemóvel tem de ter 9 digitos. Exe: 960000000" });
                 context.Helps.Add(new Help { HelpDescription = "Deve conter o nome da rua, o edificio e o andar. Exe: Avenida Dom Afonso Henriques nº 1" });
-                context.Helps.Add(new Help { HelpDescription = "Deve seguir a estrutura dos códigos postas. Exe: 2000-100" });
+                context.Helps.Add(new Help { HelpDescription = "Deve seguir a estrutura dos códigos postais. Exe: 2000-100" });
                 context.Helps.Add(new Help { HelpDescription = "A data de nascimento deve seguir a estrutura de mês, dia, ano. Exe: 1/13/1994" });
                 context.Helps.Add(new Help { HelpDescription = "O CC deve ser constituido por 8 digitos." });
-                context.Helps.Add(new Help { HelpDescription = "O numero de estudante deve ser constituido por 9 digitos." });
+                context.Helps.Add(new Help { HelpDescription = "O número de estudante deve ser constituido por 9 digitos." });
                 context.Helps.Add(new Help { HelpDescription = "Deve selecionar um curso da lista. Exe: EI" });
                 context.Helps.Add(new Help { HelpDescription = "A Nota do Teste de línguas tem um valor de 0 a 20." });
-                context.Helps.Add(new Help { HelpDescription = "O numero de funcionário deve ser constituido por 9 digitos." });
+                context.Helps.Add(new Help { HelpDescription = "O número de funcionário deve ser constituido por 9 digitos." });
                 context.Helps.Add(new Help { HelpDescription = "A descrição deve descrever sumáriamente o documento." });
                 context.Helps.Add(new Help { HelpDescription = "Insira o URL de onde está hospedado o seu documento." });
                 context.SaveChanges();
