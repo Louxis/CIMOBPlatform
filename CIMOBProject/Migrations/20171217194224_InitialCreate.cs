@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace CIMOBProject.Migrations
 {
-    public partial class FirstMigration : Migration
+    public partial class InitialCreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -35,6 +35,20 @@ namespace CIMOBProject.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Colleges", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Errors",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    ErrorCode = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ErrorDescription = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Errors", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -326,6 +340,9 @@ namespace CIMOBProject.Migrations
 
             migrationBuilder.DropTable(
                 name: "Documents");
+
+            migrationBuilder.DropTable(
+                name: "Errors");
 
             migrationBuilder.DropTable(
                 name: "Helps");

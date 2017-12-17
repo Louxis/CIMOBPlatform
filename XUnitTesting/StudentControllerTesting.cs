@@ -18,7 +18,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Http;
 
-namespace CIMOBProject.xUnit
+namespace CIMOBProject
 {
     public class StudentControllerTest {
 
@@ -307,22 +307,6 @@ namespace CIMOBProject.xUnit
             var model = Assert.IsAssignableFrom<IEnumerable<Student>>(
                 viewResult.ViewData.Model);
             Assert.Empty(model);
-        }
-
-        [Fact]
-        public async Task TestingCheckStudentDetails()
-        {
-            InitializeDatabaseWithDataTest();
-            StudentsController controller = new StudentsController(_context);
-            string studentIndex = _context.Students.Where(s => s.UserFullname.Equals("Random user")).FirstOrDefault().Id;
-            // Act
-            var result = await controller.Details(studentIndex);
-
-            // Assert
-            var viewResult = Assert.IsType<ViewResult>(result);
-            var model = Assert.IsAssignableFrom<IEnumerable<Student>>(
-                viewResult.ViewData.Model);
-            Assert.Equal("Random user",model.First().UserFullname);
         }
 
         [Fact]
