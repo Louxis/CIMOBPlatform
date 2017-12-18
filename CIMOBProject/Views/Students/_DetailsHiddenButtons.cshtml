@@ -1,0 +1,10 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using CIMOBProject.Models
+
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+@if(SignInManager.IsSignedIn(User) && User.IsInRole("Student"))
+{
+    <a asp-action="ChangePassword" asp-controller="Manage" class="btn btn-default">Mudar Password</a>
+}

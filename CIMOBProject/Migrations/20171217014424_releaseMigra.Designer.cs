@@ -12,8 +12,8 @@ using System;
 namespace CIMOBProject.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20171215114624_newmig")]
-    partial class newmig
+    [Migration("20171217014424_releaseMigra")]
+    partial class releaseMigra
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -150,6 +150,21 @@ namespace CIMOBProject.Migrations
                     b.HasIndex("StudentId");
 
                     b.ToTable("Documents");
+                });
+
+            modelBuilder.Entity("CIMOBProject.Models.Error", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("ErrorCode")
+                        .IsRequired();
+
+                    b.Property<int>("ErrorDescription");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Errors");
                 });
 
             modelBuilder.Entity("CIMOBProject.Models.Help", b =>

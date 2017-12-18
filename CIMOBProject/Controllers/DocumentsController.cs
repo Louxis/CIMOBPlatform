@@ -47,7 +47,6 @@ namespace CIMOBProject.Controllers
             {
                 return NotFound();
             }
-
             return View(document);
         }
 
@@ -56,6 +55,7 @@ namespace CIMOBProject.Controllers
         {
             ViewData["StudentId"] = studentId;
             //ViewData["Date"] = DateTime.Now;
+            loadHelp();
             return View();
         }
 
@@ -164,6 +164,12 @@ namespace CIMOBProject.Controllers
         private bool DocumentExists(int id)
         {
             return _context.Documents.Any(e => e.DocumentId == id);
+        }
+
+        private void loadHelp()
+        {
+            ViewData["DescriptionTip"] = (_context.Helps.FirstOrDefault(h => h.Id == 14) as Help).HelpDescription;
+            ViewData["FileURLTip"] = (_context.Helps.FirstOrDefault(h => h.Id == 15) as Help).HelpDescription;
         }
     }
 }

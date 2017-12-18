@@ -1,6 +1,7 @@
 ﻿@model RegisterViewModel
 @{
     ViewData["Title"] = "Registar";
+    
 }
 
 <h1>@ViewData["Title"]</h1>
@@ -12,17 +13,17 @@
             <div class="register-account-info">
                 <h4>Dados de conta</h4>
                 <div class="form-group">
-                    <label asp-for="Email"></label>  <div class="tooltip">(?)<span class="tooltiptext">Insert Info Here</span></div>
+                    <label asp-for="Email"></label>  <div class="tooltip">(?)<span class="tooltiptext">@ViewData["EmailTip"]</span></div>
                     <input asp-for="Email" class="form-control" />
                     <span asp-validation-for="Email" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="Password"></label>  <div class="tooltip">(?)<span class="tooltiptext">Insert Info Here</span></div>
+                    <label asp-for="Password"></label>  <div class="tooltip">(?)<span class="tooltiptext">@ViewData["PasswordTip"]</span></div>
                     <input asp-for="Password" class="form-control" />
                     <span asp-validation-for="Password" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="ConfirmPassword"></label>  <div class="tooltip">(?)<span class="tooltiptext">Insert Info Here</span></div>
+                    <label asp-for="ConfirmPassword"></label>  <div class="tooltip">(?)<span class="tooltiptext">@ViewData["ConfirmPasswordTip"]</span></div>
                     <input asp-for="ConfirmPassword" class="form-control" />
                     <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
                 </div>
@@ -31,17 +32,17 @@
             <div class="register-personal-info">
                 <h4>Dados pessoais</h4>
                 <div class="form-group">
-                    <label asp-for="UserName"></label>  <div class="tooltip">(?)<span class="tooltiptext">Insert Info Here</span></div>
+                    <label asp-for="UserName"></label>  <div class="tooltip">(?)<span class="tooltiptext">@ViewData["UserNameTip"]</span></div>
                     <input asp-for="UserName" class="form-control" />
                     <span asp-validation-for="UserName" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="BirthDate"></label>  <div class="tooltip">(?)<span class="tooltiptext">Insert Info Here</span></div>
+                    <label asp-for="BirthDate"></label>  <div class="tooltip">(?)<span class="tooltiptext">@ViewData["BirthDateTip"]</span></div>
                     <input asp-for="BirthDate" class="form-control" />
                     <span asp-validation-for="BirthDate" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="UserCc"></label>  <div class="tooltip">(?)<span class="tooltiptext">Insert Info Here</span></div>
+                    <label asp-for="UserCc"></label>  <div class="tooltip">(?)<span class="tooltiptext">@ViewData["UserCcTip"]</span></div>
                     <input asp-for="UserCc" class="form-control" />
                     <span asp-validation-for="UserCc" class="text-danger"></span>
                 </div>
@@ -50,7 +51,7 @@
             <div class="register-contact-info">
                 <h4>Contacto telefónico</h4>
                 <div class="form-group">
-                    <label asp-for="PhoneNumber"></label>  <div class="tooltip">(?)<span class="tooltiptext">Insert Info Here</span></div>
+                    <label asp-for="PhoneNumber"></label>  <div class="tooltip">(?)<span class="tooltiptext">@ViewData["PhoneNumberTip"]</span></div>
                     <input asp-for="PhoneNumber" class="form-control" />
                     <span asp-validation-for="PhoneNumber" class="text-danger"></span>
                 </div>
@@ -59,12 +60,12 @@
             <div class="register-address-info">
                 <h4>Morada</h4>
                 <div class="form-group">
-                    <label asp-for="UserAddress"></label>  <div class="tooltip">(?)<span class="tooltiptext">Insert Info Here</span></div>
+                    <label asp-for="UserAddress"></label>  <div class="tooltip">(?)<span class="tooltiptext">@ViewData["UserAddressTip"]</span></div>
                     <input asp-for="UserAddress" class="form-control" />
                     <span asp-validation-for="UserAddress" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="PostalCode"></label>  <div class="tooltip">(?)<span class="tooltiptext">Insert Info Here</span></div>
+                    <label asp-for="PostalCode"></label>  <div class="tooltip">(?)<span class="tooltiptext">@ViewData["PostalCodeTip"]</span></div>
                     <input asp-for="PostalCode" class="form-control" />
                     <span asp-validation-for="PostalCode" class="text-danger"></span>
                 </div>
@@ -73,12 +74,12 @@
             <div class="register-school-info">
                 <h4>Dados Académicos</h4>
                 <div class="form-group">
-                    <label asp-for="StudentNumber"></label>  <div class="tooltip">(?)<span class="tooltiptext">Insert Info Here</span></div>
+                    <label asp-for="StudentNumber"></label>  <div class="tooltip">(?)<span class="tooltiptext">@ViewData["StudentNumberTip"]</span></div>
                     <input asp-for="StudentNumber" class="form-control" />
                     <span asp-validation-for="StudentNumber" class="text-danger"></span>
                 </div>
                 <div id="listCS" class="form-group">
-                    <label asp-for="CollegeSubjectId"></label>  <div class="tooltip">(?)<span class="tooltiptext">Insert Info Here</span></div>
+                    <label asp-for="CollegeSubjectId"></label>  <div class="tooltip">(?)<span class="tooltiptext">@ViewData["CollegeSubjectTip"]</span></div>
                     <select asp-for="CollegeSubjectId" class="form-control"
                             asp-items="@ViewBag.CollegeSubjectId"></select>
                 </div>

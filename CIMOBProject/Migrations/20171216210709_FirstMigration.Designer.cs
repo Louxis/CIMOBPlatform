@@ -12,9 +12,10 @@ using System;
 namespace CIMOBProject.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20171216210709_FirstMigration")]
+    partial class FirstMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -149,21 +150,6 @@ namespace CIMOBProject.Migrations
                     b.HasIndex("StudentId");
 
                     b.ToTable("Documents");
-                });
-
-            modelBuilder.Entity("CIMOBProject.Models.Error", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("ErrorCode")
-                        .IsRequired();
-
-                    b.Property<int>("ErrorDescription");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Errors");
                 });
 
             modelBuilder.Entity("CIMOBProject.Models.Help", b =>

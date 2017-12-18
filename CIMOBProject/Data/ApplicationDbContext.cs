@@ -27,6 +27,7 @@ namespace CIMOBProject.Data
         public DbSet<College> Colleges { get; set; }
         public DbSet<CollegeSubject> CollegeSubjects { get; set; }
         public DbSet<Help> Helps { get; set; }
+        public DbSet<Error> Errors { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

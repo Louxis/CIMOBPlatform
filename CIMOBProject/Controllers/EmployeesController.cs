@@ -78,6 +78,7 @@ namespace CIMOBProject.Controllers
             {
                 return NotFound();
             }
+            loadHelp();
             return View(employee);
         }
 
@@ -155,6 +156,17 @@ namespace CIMOBProject.Controllers
         private bool EmployeeExists(string id)
         {
             return _context.Employees.Any(e => e.Id == id);
+        }
+
+        private void loadHelp()
+        {
+            ViewData["UserNameTip"] = (_context.Helps.FirstOrDefault(h => h.Id == 1) as Help).HelpDescription;
+            ViewData["BirthDateTip"] = (_context.Helps.FirstOrDefault(h => h.Id == 8) as Help).HelpDescription;
+            ViewData["UserCcTip"] = (_context.Helps.FirstOrDefault(h => h.Id == 9) as Help).HelpDescription;
+            ViewData["PhoneNumberTip"] = (_context.Helps.FirstOrDefault(h => h.Id == 5) as Help).HelpDescription;
+            ViewData["UserAddressTip"] = (_context.Helps.FirstOrDefault(h => h.Id == 6) as Help).HelpDescription;
+            ViewData["PostalCodeTip"] = (_context.Helps.FirstOrDefault(h => h.Id == 7) as Help).HelpDescription;
+            ViewData["EmployeeNumberTip"] = (_context.Helps.FirstOrDefault(h => h.Id == 13) as Help).HelpDescription;
         }
     }
 }
