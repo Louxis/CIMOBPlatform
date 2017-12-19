@@ -6,10 +6,17 @@ using System.ComponentModel.DataAnnotations;
 
 namespace CIMOBProject.Models.AccountViewModels
 {
+    
     public class RegisterAge : ValidationAttribute 
     {
         private int minimumAge;
 
+        /// <summary>
+        /// This validation attribute will be used to validate the minimum age requirement for the student. If the input birth date
+        /// calculated age is lesser than the specified by the argument minimumAge, an error will be triggered, invalidating the model
+        /// using the annotation.
+        /// </summary>
+        /// <param name="minimumAge"></param>
         public RegisterAge(int minimumAge) {
             this.minimumAge = minimumAge;
         }
