@@ -51,6 +51,7 @@ namespace CIMOBProject.Models.AccountViewModels
         [Required(ErrorMessage = "A data de nascimento é obrigatória.")]
         [Display(Name = "Data de Nascimento")]
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
+        [RegisterAge(17, ErrorMessage = "A idade minima é 17 anos.")]
         public DateTime BirthDate { get; set; }
 
         [Required(ErrorMessage = "O CC é obrigatório.")]
