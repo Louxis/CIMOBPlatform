@@ -12,9 +12,10 @@ using System;
 namespace CIMOBProject.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20171219121543_CreateApplication")]
+    partial class CreateApplication
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -48,7 +49,7 @@ namespace CIMOBProject.Migrations
 
                     b.HasIndex("StudentId1");
 
-                    b.ToTable("Applications");
+                    b.ToTable("Application");
                 });
 
             modelBuilder.Entity("CIMOBProject.Models.ApplicationStat", b =>
@@ -61,7 +62,7 @@ namespace CIMOBProject.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("ApplicationStats");
+                    b.ToTable("ApplicationStat");
                 });
 
             modelBuilder.Entity("CIMOBProject.Models.ApplicationUser", b =>

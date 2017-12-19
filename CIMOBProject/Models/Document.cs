@@ -31,5 +31,6 @@ namespace CIMOBProject.Models
         public string StudentId { get; set; }
 
         public virtual Student Student { get; set; }
+
     }
 }
