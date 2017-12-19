@@ -12,6 +12,6 @@ namespace CIMOBProject.Models
 
         [Required]
         [Display (Name = "Nome")]
-        public String Name { get; set; }
+        public string Name { get; set; }
     }
 }
