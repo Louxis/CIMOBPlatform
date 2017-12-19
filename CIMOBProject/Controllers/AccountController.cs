@@ -232,7 +232,7 @@ namespace CIMOBProject.Controllers
         {
             if (code == null)
             {
-                throw new ApplicationException("A code must be supplied for password reset.");
+                throw new ApplicationException("A reposição de password precisa de um código.");
             }
             var model = new ResetPasswordViewModel { Code = code };
             return View(model);
