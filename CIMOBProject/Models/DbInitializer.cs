@@ -40,7 +40,18 @@ namespace CIMOBProject.Models {
                 context.SaveChanges();
             }
 
-            if (!context.Students.Any())
+            if (!context.ApplicationStats.Any())
+            {
+                context.ApplicationStats.Add(new ApplicationStat { Name = "Pending Evaluation" });
+                context.ApplicationStats.Add(new ApplicationStat { Name = "Evaluating" });
+                context.ApplicationStats.Add(new ApplicationStat { Name = "Pending Serialization" });
+                context.ApplicationStats.Add(new ApplicationStat { Name = "Approved" });
+                context.ApplicationStats.Add(new ApplicationStat { Name = "Repproved" });
+                context.ApplicationStats.Add(new ApplicationStat { Name = "Finished" });
+                context.SaveChanges();
+            }
+
+                if (!context.Students.Any())
             {
                 var user = new Student
                 {
