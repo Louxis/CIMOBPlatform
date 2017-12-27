@@ -12,8 +12,8 @@ using System;
 namespace CIMOBProject.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20171217014424_releaseMigra")]
-    partial class releaseMigra
+    [Migration("20171227124049_FixedCc")]
+    partial class FixedCc
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -68,7 +68,8 @@ namespace CIMOBProject.Migrations
                     b.Property<string>("UserAddress")
                         .IsRequired();
 
-                    b.Property<int>("UserCc");
+                    b.Property<string>("UserCc")
+                        .IsRequired();
 
                     b.Property<string>("UserFullname")
                         .IsRequired();
