@@ -22,8 +22,7 @@ namespace CIMOBProject.Controllers
         // GET: News
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.News.Include(n => n.Document);
-            return View(await applicationDbContext.ToListAsync());
+            return View(await _context.News.ToListAsync());
         }
 
         // GET: News/Details/5
@@ -35,7 +34,6 @@ namespace CIMOBProject.Controllers
             }
 
             var news = await _context.News
-                .Include(n => n.Document)
                 .SingleOrDefaultAsync(m => m.Id == id);
             if (news == null)
             {
@@ -48,7 +46,6 @@ namespace CIMOBProject.Controllers
         // GET: News/Create
         public IActionResult Create()
         {
-            ViewData["DocumentId"] = new SelectList(_context.Documents, "DocumentId", "FileUrl");
             return View();
         }
 
@@ -57,7 +54,7 @@ namespace CIMOBProject.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,EmployeeId,TextContent,IsPublished,DocumentId")] News news)
+        public async Task<IActionResult> Create([Bind("Id,EmployeeId,Ttitle,TextContent,IsPublished,DocumentId")] News news)
         {
             if (ModelState.IsValid)
             {
@@ -65,7 +62,6 @@ namespace CIMOBProject.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["DocumentId"] = new SelectList(_context.Documents, "DocumentId", "FileUrl", news.DocumentId);
             return View(news);
         }
 
@@ -82,7 +78,6 @@ namespace CIMOBProject.Controllers
             {
                 return NotFound();
             }
-            ViewData["DocumentId"] = new SelectList(_context.Documents, "DocumentId", "FileUrl", news.DocumentId);
             return View(news);
         }
 
@@ -91,7 +86,7 @@ namespace CIMOBProject.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,EmployeeId,TextContent,IsPublished,DocumentId")] News news)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,EmployeeId,Ttitle,TextContent,IsPublished,DocumentId")] News news)
         {
             if (id != news.Id)
             {
@@ -118,7 +113,6 @@ namespace CIMOBProject.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["DocumentId"] = new SelectList(_context.Documents, "DocumentId", "FileUrl", news.DocumentId);
             return View(news);
         }
 
@@ -131,7 +125,6 @@ namespace CIMOBProject.Controllers
             }
 
             var news = await _context.News
-                .Include(n => n.Document)
                 .SingleOrDefaultAsync(m => m.Id == id);
             if (news == null)
             {

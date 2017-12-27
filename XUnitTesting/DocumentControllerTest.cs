@@ -62,7 +62,7 @@ namespace XUnitTesting
                     UserName = "test@test",
                     UserFullname = "Teste User 1",
                     Email = "test@test",
-                    UserCc = "123456789",
+                    UserCc = "12345678",
                     PhoneNumber = "936936936",
                     UserAddress = "Avenida para teste",
                     PostalCode = "2912-123",
@@ -77,7 +77,7 @@ namespace XUnitTesting
                     UserName = "test1@test",
                     UserFullname = "Teste User 2",
                     Email = "test1@test",
-                    UserCc = "123456789",
+                    UserCc = "12345689",
                     PhoneNumber = "936936938",
                     UserAddress = "Avenida para teste1",
                     PostalCode = "2912-124",
@@ -92,7 +92,7 @@ namespace XUnitTesting
                     UserName = "stuff@stuff",
                     UserFullname = "Stuff user",
                     Email = "stuff@stuff",
-                    UserCc = "123456789",
+                    UserCc = "12345689",
                     PhoneNumber = "936936899",
                     UserAddress = "Avenida para stuff",
                     PostalCode = "2912-193",
@@ -107,7 +107,7 @@ namespace XUnitTesting
                     UserName = "random@random",
                     UserFullname = "Random user",
                     Email = "random@random",
-                    UserCc = "123456789",
+                    UserCc = "12356789",
                     PhoneNumber = "936936999",
                     UserAddress = "Avenida random",
                     PostalCode = "2912-200",
@@ -132,21 +132,21 @@ namespace XUnitTesting
                 {
                     Description = "Test document1",
                     FileUrl = "URL.COM",
-                    StudentId = _context.Students.Where(s => s.UserFullname.Equals("Random user")).FirstOrDefault().Id
+                    Id = _context.Students.Where(s => s.UserFullname.Equals("Random user")).FirstOrDefault().Id
                 };
 
                 var doc2 = new Document
                 {
                     Description = "Test document2",
                     FileUrl = "URL.COM",
-                    StudentId = _context.Students.Where(s => s.UserFullname.Equals("Random user")).FirstOrDefault().Id
+                    Id = _context.Students.Where(s => s.UserFullname.Equals("Random user")).FirstOrDefault().Id
                 };
 
                 var doc3 = new Document
                 {
                     Description = "Test document3",
                     FileUrl = "URL.COM",
-                    StudentId = _context.Students.Where(m => m.UserFullname == "Stuff user").First().Id
+                    Id = _context.Students.Where(m => m.UserFullname == "Stuff user").First().Id
                 };
                 _context.Documents.Add(doc1);
                 _context.Documents.Add(doc2);
