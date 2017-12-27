@@ -12,8 +12,8 @@ using System;
 namespace CIMOBProject.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20171219214039_NewVersion")]
-    partial class NewVersion
+    [Migration("20171227124049_FixedCc")]
+    partial class FixedCc
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -21,49 +21,6 @@ namespace CIMOBProject.Migrations
             modelBuilder
                 .HasAnnotation("ProductVersion", "2.0.0-rtm-26452")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-            modelBuilder.Entity("CIMOBProject.Models.Application", b =>
-                {
-                    b.Property<int>("ApplicationId")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<int>("ApplicationStatId");
-
-                    b.Property<int>("ECTS");
-
-                    b.Property<int>("EmployeeId");
-
-                    b.Property<string>("EmployeeId1");
-
-                    b.Property<int>("Grade");
-
-                    b.Property<int>("StudentId");
-
-                    b.Property<string>("StudentId1");
-
-                    b.HasKey("ApplicationId");
-
-                    b.HasIndex("ApplicationStatId");
-
-                    b.HasIndex("EmployeeId1");
-
-                    b.HasIndex("StudentId1");
-
-                    b.ToTable("Applications");
-                });
-
-            modelBuilder.Entity("CIMOBProject.Models.ApplicationStat", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("Name")
-                        .IsRequired();
-
-                    b.HasKey("Id");
-
-                    b.ToTable("ApplicationStats");
-                });
 
             modelBuilder.Entity("CIMOBProject.Models.ApplicationUser", b =>
                 {
@@ -111,7 +68,8 @@ namespace CIMOBProject.Migrations
                     b.Property<string>("UserAddress")
                         .IsRequired();
 
-                    b.Property<int>("UserCc");
+                    b.Property<string>("UserCc")
+                        .IsRequired();
 
                     b.Property<string>("UserFullname")
                         .IsRequired();
@@ -179,8 +137,6 @@ namespace CIMOBProject.Migrations
                     b.Property<int>("DocumentId")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int?>("ApplicationId");
-
                     b.Property<string>("Description");
 
                     b.Property<string>("FileUrl")
@@ -191,8 +147,6 @@ namespace CIMOBProject.Migrations
                     b.Property<DateTime>("UploadDate");
 
                     b.HasKey("DocumentId");
-
-                    b.HasIndex("ApplicationId");
 
                     b.HasIndex("StudentId");
 
@@ -225,28 +179,6 @@ namespace CIMOBProject.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Helps");
-                });
-
-            modelBuilder.Entity("CIMOBProject.Models.News", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<int>("DocumentId");
-
-                    b.Property<int>("EmployeeId");
-
-                    b.Property<bool>("IsPublished");
-
-                    b.Property<string>("TextContent")
-                        .IsRequired()
-                        .HasMaxLength(1000);
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("DocumentId");
-
-                    b.ToTable("News");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -391,22 +323,6 @@ namespace CIMOBProject.Migrations
                     b.HasDiscriminator().HasValue("Student");
                 });
 
-            modelBuilder.Entity("CIMOBProject.Models.Application", b =>
-                {
-                    b.HasOne("CIMOBProject.Models.ApplicationStat", "ApplicationStat")
-                        .WithMany()
-                        .HasForeignKey("ApplicationStatId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("CIMOBProject.Models.Employee", "Employee")
-                        .WithMany()
-                        .HasForeignKey("EmployeeId1");
-
-                    b.HasOne("CIMOBProject.Models.Student", "Student")
-                        .WithMany()
-                        .HasForeignKey("StudentId1");
-                });
-
             modelBuilder.Entity("CIMOBProject.Models.CollegeSubject", b =>
                 {
                     b.HasOne("CIMOBProject.Models.College", "College")
@@ -417,21 +333,9 @@ namespace CIMOBProject.Migrations
 
             modelBuilder.Entity("CIMOBProject.Models.Document", b =>
                 {
-                    b.HasOne("CIMOBProject.Models.Application")
-                        .WithMany("Documents")
-                        .HasForeignKey("ApplicationId");
-
                     b.HasOne("CIMOBProject.Models.Student", "Student")
                         .WithMany("Documents")
                         .HasForeignKey("StudentId");
-                });
-
-            modelBuilder.Entity("CIMOBProject.Models.News", b =>
-                {
-                    b.HasOne("CIMOBProject.Models.Document", "Document")
-                        .WithMany()
-                        .HasForeignKey("DocumentId")
-                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

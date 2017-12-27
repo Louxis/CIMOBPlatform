@@ -67,7 +67,8 @@ namespace CIMOBProject.Migrations
                     b.Property<string>("UserAddress")
                         .IsRequired();
 
-                    b.Property<int>("UserCc");
+                    b.Property<string>("UserCc")
+                        .IsRequired();
 
                     b.Property<string>("UserFullname")
                         .IsRequired();

@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace CIMOBProject.Migrations
 {
-    public partial class FirstMigration : Migration
+    public partial class FixedCc : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -35,6 +35,20 @@ namespace CIMOBProject.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Colleges", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Errors",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    ErrorCode = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ErrorDescription = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Errors", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -114,7 +128,7 @@ namespace CIMOBProject.Migrations
                     SecurityStamp = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     TwoFactorEnabled = table.Column<bool>(type: "bit", nullable: false),
                     UserAddress = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    UserCc = table.Column<int>(type: "int", nullable: false),
+                    UserCc = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     UserFullname = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     EmployeeNumber = table.Column<int>(type: "int", nullable: true),
@@ -326,6 +340,9 @@ namespace CIMOBProject.Migrations
 
             migrationBuilder.DropTable(
                 name: "Documents");
+
+            migrationBuilder.DropTable(
+                name: "Errors");
 
             migrationBuilder.DropTable(
                 name: "Helps");

@@ -13,16 +13,14 @@ namespace CIMOBProject.Models
     /// </summary>  
     public class Student : ApplicationUser {
 
-        [Required]
-        [StringLength(12)]
+        [Required(ErrorMessage = "Número de estudante é obrigatório.")]
+        [RegularExpression(@"^[0-9]{9}$", ErrorMessage = "O número de estudante não é válido.")]
         [Display(Name = "Número de Estudante")]
         public string StudentNumber { get; set; }
-
 
         [Display(Name = "Nota do teste de Línguas")]
         public int ALOGrade { get; set; }
 
-        [Required]
         [Display(Name = "Curso")]
         public int CollegeSubjectId { get; set; }
 
