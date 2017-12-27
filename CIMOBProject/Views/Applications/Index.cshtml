@@ -13,10 +13,16 @@
     <thead>
         <tr>
                 <th>
-                    @Html.DisplayNameFor(model => model.Grade)
+                    @Html.DisplayNameFor(model => model.ArithmeticMean)
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.ECTS)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.MotivationLetter)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Enterview)
                 </th>
             <th>
                 @Html.DisplayNameFor(model => model.ApplicationStat)
@@ -34,10 +40,16 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Grade)
+                @Html.DisplayFor(modelItem => item.ArithmeticMean)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.ECTS)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MotivationLetter)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Enterview)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.ApplicationStat.Name)
