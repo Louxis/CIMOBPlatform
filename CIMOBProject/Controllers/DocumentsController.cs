@@ -1,4 +1,5 @@
 ﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -8,10 +9,8 @@ using Microsoft.EntityFrameworkCore;
 using CIMOBProject.Data;
 using CIMOBProject.Models;
 
-namespace CIMOBProject.Controllers
-{
-    public class DocumentsController : Controller
-    {
+namespace CIMOBProject.Controllers {
+    public class DocumentsController : Controller {
         private readonly ApplicationDbContext _context;
 
         public DocumentsController(ApplicationDbContext context)
@@ -23,12 +22,12 @@ namespace CIMOBProject.Controllers
         public async Task<IActionResult> Index(string studentId)
         {
             ViewData["StudentName"] = _context.Students.Where(s => s.Id.Equals(studentId)).FirstOrDefault().UserFullname;
-            var applicationDbContext = _context.Documents.Include(d => d.Student).Where(s=> s.StudentId.Equals(studentId));
-            if(applicationDbContext == null)
+            var applicationDbContext = _context.Documents.Include(d => d.ApplicationUser).Where(s => s.Id.Equals(studentId));
+            if (applicationDbContext == null)
             {
                 return NotFound();
             }
-           //ViewData["studentName"] = applicationDbContext.First().Student.UserFullname;
+            //ViewData["studentName"] = applicationDbContext.First().Student.UserFullname;
             return View(await applicationDbContext.ToListAsync());
         }
 
@@ -41,7 +40,7 @@ namespace CIMOBProject.Controllers
             }
 
             var document = await _context.Documents
-                .Include(d => d.Student)
+                .Include(d => d.ApplicationUser)
                 .SingleOrDefaultAsync(m => m.DocumentId == id);
             if (document == null)
             {
@@ -53,7 +52,7 @@ namespace CIMOBProject.Controllers
         // GET: Documents/Create
         public IActionResult Create(string studentId)
         {
-            ViewData["StudentId"] = studentId;
+            ViewData["Id"] = studentId;
             //ViewData["Date"] = DateTime.Now;
             loadHelp();
             return View();
@@ -64,13 +63,13 @@ namespace CIMOBProject.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("DocumentId,Description,FileUrl,UploadDate,StudentId")] Document document)
+        public async Task<IActionResult> Create([Bind("DocumentId,Description,FileUrl,UploadDate,Id")] Document document)
         {
             string currentStudentId = "";
             if (ModelState.IsValid)
             {
                 document.UploadDate = DateTime.Now;
-                currentStudentId = document.StudentId;
+                currentStudentId = document.Id;
                 _context.Add(document);
                 await _context.SaveChangesAsync();
             }
@@ -90,7 +89,7 @@ namespace CIMOBProject.Controllers
             {
                 return NotFound();
             }
-            ViewData["StudentId"] = new SelectList(_context.Students, "Id", "Id", document.StudentId);
+            ViewData["Id"] = new SelectList(_context.Students, "Id", "Id", document.Id);
             return View(document);
         }
 
@@ -99,7 +98,7 @@ namespace CIMOBProject.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("DocumentId,Description,FileUrl,UploadDate,StudentId")] Document document)
+        public async Task<IActionResult> Edit(int id, [Bind("DocumentId,Description,FileUrl,UploadDate,Id")] Document document)
         {
             if (id != document.DocumentId)
             {
@@ -126,7 +125,7 @@ namespace CIMOBProject.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["StudentId"] = new SelectList(_context.Students, "Id", "Id", document.StudentId);
+            ViewData["Id"] = new SelectList(_context.Students, "Id", "Id", document.Id);
             return View(document);
         }
 
@@ -139,7 +138,7 @@ namespace CIMOBProject.Controllers
             }
 
             var document = await _context.Documents
-                .Include(d => d.Student)
+                .Include(d => d.ApplicationUser)
                 .SingleOrDefaultAsync(m => m.DocumentId == id);
             if (document == null)
             {

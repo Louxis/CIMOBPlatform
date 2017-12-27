@@ -28,25 +28,25 @@ namespace CIMOBProject.Migrations
 
                     b.Property<int>("ApplicationStatId");
 
+                    b.Property<double>("ArithmeticMean");
+
                     b.Property<int>("ECTS");
 
-                    b.Property<int>("EmployeeId");
+                    b.Property<string>("EmployeeId");
 
-                    b.Property<string>("EmployeeId1");
+                    b.Property<double>("Enterview");
 
-                    b.Property<int>("Grade");
+                    b.Property<double>("MotivationLetter");
 
-                    b.Property<int>("StudentId");
-
-                    b.Property<string>("StudentId1");
+                    b.Property<string>("StudentId");
 
                     b.HasKey("ApplicationId");
 
                     b.HasIndex("ApplicationStatId");
 
-                    b.HasIndex("EmployeeId1");
+                    b.HasIndex("EmployeeId");
 
-                    b.HasIndex("StudentId1");
+                    b.HasIndex("StudentId");
 
                     b.ToTable("Applications");
                 });
@@ -96,7 +96,8 @@ namespace CIMOBProject.Migrations
 
                     b.Property<string>("PasswordHash");
 
-                    b.Property<string>("PhoneNumber");
+                    b.Property<string>("PhoneNumber")
+                        .IsRequired();
 
                     b.Property<bool>("PhoneNumberConfirmed");
 
@@ -108,7 +109,8 @@ namespace CIMOBProject.Migrations
                     b.Property<bool>("TwoFactorEnabled");
 
                     b.Property<string>("UserAddress")
-                        .IsRequired();
+                        .IsRequired()
+                        .HasMaxLength(450);
 
                     b.Property<string>("UserCc")
                         .IsRequired();
@@ -176,12 +178,16 @@ namespace CIMOBProject.Migrations
 
             modelBuilder.Entity("CIMOBProject.Models.Document", b =>
                 {
-                    b.Property<int>("DocumentId")
+                    b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
 
                     b.Property<int?>("ApplicationId");
 
+                    b.Property<string>("ApplicationUserId");
+
                     b.Property<string>("Description");
+
+                    b.Property<int>("DocumentId");
 
                     b.Property<string>("FileUrl")
                         .IsRequired();
@@ -190,9 +196,11 @@ namespace CIMOBProject.Migrations
 
                     b.Property<DateTime>("UploadDate");
 
-                    b.HasKey("DocumentId");
+                    b.HasKey("Id");
 
                     b.HasIndex("ApplicationId");
+
+                    b.HasIndex("ApplicationUserId");
 
                     b.HasIndex("StudentId");
 
@@ -234,7 +242,11 @@ namespace CIMOBProject.Migrations
 
                     b.Property<int>("DocumentId");
 
+                    b.Property<string>("DocumentId1");
+
                     b.Property<int>("EmployeeId");
+
+                    b.Property<string>("EmployeeId1");
 
                     b.Property<bool>("IsPublished");
 
@@ -242,9 +254,15 @@ namespace CIMOBProject.Migrations
                         .IsRequired()
                         .HasMaxLength(1000);
 
+                    b.Property<string>("Ttitle")
+                        .IsRequired()
+                        .HasMaxLength(500);
+
                     b.HasKey("Id");
 
-                    b.HasIndex("DocumentId");
+                    b.HasIndex("DocumentId1");
+
+                    b.HasIndex("EmployeeId1");
 
                     b.ToTable("News");
                 });
@@ -379,8 +397,7 @@ namespace CIMOBProject.Migrations
                     b.Property<int>("CollegeSubjectId");
 
                     b.Property<string>("StudentNumber")
-                        .IsRequired()
-                        .HasMaxLength(12);
+                        .IsRequired();
 
                     b.HasIndex("CollegeId");
 
@@ -400,11 +417,11 @@ namespace CIMOBProject.Migrations
 
                     b.HasOne("CIMOBProject.Models.Employee", "Employee")
                         .WithMany()
-                        .HasForeignKey("EmployeeId1");
+                        .HasForeignKey("EmployeeId");
 
                     b.HasOne("CIMOBProject.Models.Student", "Student")
                         .WithMany()
-                        .HasForeignKey("StudentId1");
+                        .HasForeignKey("StudentId");
                 });
 
             modelBuilder.Entity("CIMOBProject.Models.CollegeSubject", b =>
@@ -421,7 +438,11 @@ namespace CIMOBProject.Migrations
                         .WithMany("Documents")
                         .HasForeignKey("ApplicationId");
 
-                    b.HasOne("CIMOBProject.Models.Student", "Student")
+                    b.HasOne("CIMOBProject.Models.ApplicationUser", "ApplicationUser")
+                        .WithMany()
+                        .HasForeignKey("ApplicationUserId");
+
+                    b.HasOne("CIMOBProject.Models.Student")
                         .WithMany("Documents")
                         .HasForeignKey("StudentId");
                 });
@@ -430,8 +451,11 @@ namespace CIMOBProject.Migrations
                 {
                     b.HasOne("CIMOBProject.Models.Document", "Document")
                         .WithMany()
-                        .HasForeignKey("DocumentId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("DocumentId1");
+
+                    b.HasOne("CIMOBProject.Models.Employee", "Employee")
+                        .WithMany()
+                        .HasForeignKey("EmployeeId1");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

@@ -16,14 +16,17 @@
                     @Html.DisplayNameFor(model => model.EmployeeId)
                 </th>
                 <th>
+                    @Html.DisplayNameFor(model => model.Ttitle)
+                </th>
+                <th>
                     @Html.DisplayNameFor(model => model.TextContent)
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.IsPublished)
                 </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Document)
-            </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DocumentId)
+                </th>
             <th></th>
         </tr>
     </thead>
@@ -34,13 +37,16 @@
                 @Html.DisplayFor(modelItem => item.EmployeeId)
             </td>
             <td>
+                @Html.DisplayFor(modelItem => item.Ttitle)
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.TextContent)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.IsPublished)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Document.FileUrl)
+                @Html.DisplayFor(modelItem => item.DocumentId)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |

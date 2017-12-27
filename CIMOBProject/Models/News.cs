@@ -10,7 +10,12 @@ namespace CIMOBProject.Models
     {
         public int Id { get; set; }
 
+        
         public int EmployeeId { get; set; }
+        [Required]
+        [StringLength(500)]
+        public String Ttitle { get; set; }
+
         [Required]
         [StringLength(1000)]
         public string TextContent { get; set; }
@@ -19,6 +24,7 @@ namespace CIMOBProject.Models
 
         public int DocumentId { get; set; }
 
+        public virtual Employee Employee { get; set; }
         public virtual Document Document { get; set; }
     }
 }

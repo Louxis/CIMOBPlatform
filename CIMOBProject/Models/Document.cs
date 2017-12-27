@@ -28,9 +28,9 @@ namespace CIMOBProject.Models
         [Required]
         public DateTime UploadDate { get; set; }
 
-        public string StudentId { get; set; }
+        public String Id { get; set; }
 
-        public virtual Student Student { get; set; }
+        public virtual ApplicationUser ApplicationUser { get; set; }
 
     }
 }
