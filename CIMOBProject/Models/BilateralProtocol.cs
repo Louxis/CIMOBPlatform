@@ -11,10 +11,8 @@ namespace CIMOBProject.Models
 
         public int SubjectId { get; set; }
 
-        public int CollegeId { get; set; }
+        public string Destination { get; set; }
 
         public virtual CollegeSubject Subject { get; set; }
-
-        public virtual College College { get; set; }
     }
 }
