@@ -9,11 +9,11 @@ namespace CIMOBProject.Models
     {
         public int ApplicationId { get; set; }
 
-        public int StudentId { get; set; }
+        public string StudentId { get; set; }
 
         public int ApplicationStatId { get; set; }
 
-        public int EmployeeId { get; set; }
+        public string EmployeeId { get; set; }
 
         public int Grade { get; set; }
 

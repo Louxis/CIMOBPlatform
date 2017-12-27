@@ -22,7 +22,7 @@ namespace CIMOBProject.Controllers
         // GET: Applications
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Applications.Include(a => a.ApplicationStat);
+            var applicationDbContext = _context.Applications.Include(a => a.ApplicationStat).Include(a => a.Employee).Include(a => a.Student);
             return View(await applicationDbContext.ToListAsync());
         }
 
@@ -36,6 +36,8 @@ namespace CIMOBProject.Controllers
 
             var application = await _context.Applications
                 .Include(a => a.ApplicationStat)
+                .Include(a => a.Employee)
+                .Include(a => a.Student)
                 .SingleOrDefaultAsync(m => m.ApplicationId == id);
             if (application == null)
             {
@@ -49,6 +51,8 @@ namespace CIMOBProject.Controllers
         public IActionResult Create()
         {
             ViewData["ApplicationStatId"] = new SelectList(_context.ApplicationStats, "Id", "Name");
+            ViewData["EmployeeId"] = new SelectList(_context.Employees, "Id", "Id");
+            ViewData["StudentId"] = new SelectList(_context.Students, "Id", "Id");
             return View();
         }
 
@@ -66,6 +70,8 @@ namespace CIMOBProject.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["ApplicationStatId"] = new SelectList(_context.ApplicationStats, "Id", "Name", application.ApplicationStatId);
+            ViewData["EmployeeId"] = new SelectList(_context.Employees, "Id", "Id", application.EmployeeId);
+            ViewData["StudentId"] = new SelectList(_context.Students, "Id", "Id", application.StudentId);
             return View(application);
         }
 
@@ -83,6 +89,8 @@ namespace CIMOBProject.Controllers
                 return NotFound();
             }
             ViewData["ApplicationStatId"] = new SelectList(_context.ApplicationStats, "Id", "Name", application.ApplicationStatId);
+            ViewData["EmployeeId"] = new SelectList(_context.Employees, "Id", "Id", application.EmployeeId);
+            ViewData["StudentId"] = new SelectList(_context.Students, "Id", "Id", application.StudentId);
             return View(application);
         }
 
@@ -119,6 +127,8 @@ namespace CIMOBProject.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["ApplicationStatId"] = new SelectList(_context.ApplicationStats, "Id", "Name", application.ApplicationStatId);
+            ViewData["EmployeeId"] = new SelectList(_context.Employees, "Id", "Id", application.EmployeeId);
+            ViewData["StudentId"] = new SelectList(_context.Students, "Id", "Id", application.StudentId);
             return View(application);
         }
 
@@ -132,6 +142,8 @@ namespace CIMOBProject.Controllers
 
             var application = await _context.Applications
                 .Include(a => a.ApplicationStat)
+                .Include(a => a.Employee)
+                .Include(a => a.Student)
                 .SingleOrDefaultAsync(m => m.ApplicationId == id);
             if (application == null)
             {

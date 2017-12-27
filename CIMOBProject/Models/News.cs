@@ -13,7 +13,7 @@ namespace CIMOBProject.Models
         public int EmployeeId { get; set; }
         [Required]
         [StringLength(1000)]
-        public String TextContent { get; set; }
+        public string TextContent { get; set; }
 
         public bool IsPublished { get; set; }
 
