@@ -34,11 +34,12 @@ namespace CIMOBProject.Models.AccountViewModels
         [DataType(DataType.PhoneNumber)]
         [Required(ErrorMessage = "O número de telemóvel é obrigatório.")]
         [Display(Name = "Número de Telemóvel")]
-        [RegularExpression(@"^[29]{1}[0-9]{8}$", ErrorMessage = "Não é um número válido.")]
+        [RegularExpression(@"^[2356789]{1}[0-9]{8}$", ErrorMessage = "Não é um número válido.")]
         public String PhoneNumber { get; set; }
 
         [Required(ErrorMessage = "A morada é obrigatória.")]
         [Display(Name = "Morada")]
+        [StringLength(450, MinimumLength = 5, ErrorMessage = "A morada precisa de conter pelo menos 5 digitos.")]
         public string UserAddress { get; set; }
 
         [Required(ErrorMessage = "O código postal é obrigatório.")]
@@ -51,12 +52,14 @@ namespace CIMOBProject.Models.AccountViewModels
         [Required(ErrorMessage = "A data de nascimento é obrigatória.")]
         [Display(Name = "Data de Nascimento")]
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
+        [RegisterAge(17, ErrorMessage = "A idade minima é 17 anos.")]
         public DateTime BirthDate { get; set; }
 
         [Required(ErrorMessage = "O CC é obrigatório.")]
         [Display(Name = "CC")]
         [DataType(DataType.Text)]
-        public int UserCc { get; set; }
+        [RegularExpression(@"^[0-9]{8}$", ErrorMessage = "O CC precisa de conter 8 digitos")]
+        public string UserCc { get; set; }
 
         [Required(ErrorMessage = "Número de estudante é obrigatório.")]
         [RegularExpression(@"^[0-9]{9}$", ErrorMessage = "O número de estudante não é válido.")]
