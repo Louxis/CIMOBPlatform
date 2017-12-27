@@ -19,10 +19,10 @@ namespace CIMOBProject.Controllers {
         }
 
         // GET: Documents
-        public async Task<IActionResult> Index(string studentId)
+        public async Task<IActionResult> Index(string userId)
         {
-            ViewData["StudentName"] = _context.Students.Where(s => s.Id.Equals(studentId)).FirstOrDefault().UserFullname;
-            var applicationDbContext = _context.Documents.Include(d => d.ApplicationUser).Where(s => s.Id.Equals(studentId));
+            ViewData["StudentName"] = _context.Students.Where(s => s.Id.Equals(userId)).FirstOrDefault().UserFullname;
+            var applicationDbContext = _context.Documents.Include(d => d.ApplicationUser).Where(s => s.Id.Equals(userId));
             if (applicationDbContext == null)
             {
                 return NotFound();
@@ -50,9 +50,9 @@ namespace CIMOBProject.Controllers {
         }
 
         // GET: Documents/Create
-        public IActionResult Create(string studentId)
+        public IActionResult Create(string userId)
         {
-            ViewData["Id"] = studentId;
+            ViewData["Id"] = userId;
             //ViewData["Date"] = DateTime.Now;
             loadHelp();
             return View();
@@ -65,15 +65,15 @@ namespace CIMOBProject.Controllers {
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("DocumentId,Description,FileUrl,UploadDate,Id")] Document document)
         {
-            string currentStudentId = "";
+            string currentUserId = "";
             if (ModelState.IsValid)
             {
                 document.UploadDate = DateTime.Now;
-                currentStudentId = document.Id;
+                currentUserId = document.Id;
                 _context.Add(document);
                 await _context.SaveChangesAsync();
             }
-            return RedirectToAction("Index", "Documents", new { studentId = currentStudentId });
+            return RedirectToAction("Index", "Documents", new { applicationUserId = currentUserId });
         }
 
         // GET: Documents/Edit/5
