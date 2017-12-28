@@ -12,8 +12,8 @@ using System;
 namespace CIMOBProject.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20171228163359_reset")]
-    partial class reset
+    [Migration("20171228172936_ChangeDatabase")]
+    partial class ChangeDatabase
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

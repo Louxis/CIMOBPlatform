@@ -57,8 +57,6 @@ namespace CIMOBProject.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,EmployeeId,Title,TextContent,IsPublished,DocumentId")] News news, string link)
         {
-            NewsViewModel viewModel = new NewsViewModel();
-            
             if (ModelState.IsValid)
             {
                 Document doc = new Document
@@ -68,8 +66,6 @@ namespace CIMOBProject.Controllers
                     FileUrl = link,
                     UploadDate = DateTime.Now
                 };
-                viewModel.News = news;
-                viewModel.Link = link;
                 _context.Add(doc);
                 //news.DocumentId = doc.DocumentId;
                 news.Document = doc;
@@ -77,7 +73,7 @@ namespace CIMOBProject.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(viewModel);
+            return View(news);
         }
 
         // GET: News/Edit/5

@@ -9,6 +9,6 @@ namespace CIMOBProject.Models
     {
         public News News { get; set; }
         public string Link { get; set; }
-
+        public string EmployeeId { get; set; }
     }
 }
