@@ -12,8 +12,8 @@ using System;
 namespace CIMOBProject.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20171228172936_ChangeDatabase")]
-    partial class ChangeDatabase
+    [Migration("20171227204644_Fixes")]
+    partial class Fixes
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -179,7 +179,7 @@ namespace CIMOBProject.Migrations
 
             modelBuilder.Entity("CIMOBProject.Models.Document", b =>
                 {
-                    b.Property<int>("DocumentId")
+                    b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
 
                     b.Property<int?>("ApplicationId");
@@ -188,6 +188,8 @@ namespace CIMOBProject.Migrations
 
                     b.Property<string>("Description");
 
+                    b.Property<int>("DocumentId");
+
                     b.Property<string>("FileUrl")
                         .IsRequired();
 
@@ -195,7 +197,7 @@ namespace CIMOBProject.Migrations
 
                     b.Property<DateTime>("UploadDate");
 
-                    b.HasKey("DocumentId");
+                    b.HasKey("Id");
 
                     b.HasIndex("ApplicationId");
 
@@ -241,7 +243,11 @@ namespace CIMOBProject.Migrations
 
                     b.Property<int>("DocumentId");
 
-                    b.Property<string>("EmployeeId");
+                    b.Property<string>("DocumentId1");
+
+                    b.Property<int>("EmployeeId");
+
+                    b.Property<string>("EmployeeId1");
 
                     b.Property<bool>("IsPublished");
 
@@ -249,15 +255,15 @@ namespace CIMOBProject.Migrations
                         .IsRequired()
                         .HasMaxLength(1000);
 
-                    b.Property<string>("Title")
+                    b.Property<string>("Ttitle")
                         .IsRequired()
                         .HasMaxLength(500);
 
                     b.HasKey("Id");
 
-                    b.HasIndex("DocumentId");
+                    b.HasIndex("DocumentId1");
 
-                    b.HasIndex("EmployeeId");
+                    b.HasIndex("EmployeeId1");
 
                     b.ToTable("News");
                 });
@@ -446,12 +452,11 @@ namespace CIMOBProject.Migrations
                 {
                     b.HasOne("CIMOBProject.Models.Document", "Document")
                         .WithMany()
-                        .HasForeignKey("DocumentId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("DocumentId1");
 
                     b.HasOne("CIMOBProject.Models.Employee", "Employee")
                         .WithMany()
-                        .HasForeignKey("EmployeeId");
+                        .HasForeignKey("EmployeeId1");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

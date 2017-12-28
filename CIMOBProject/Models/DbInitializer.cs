@@ -51,6 +51,14 @@ namespace CIMOBProject.Models {
                 context.SaveChanges();
             }
 
+            if (!context.BilateralProtocols.Any()) 
+            {
+                context.BilateralProtocols.Add(new BilateralProtocol { SubjectId = 1, Destination = "Poland" });
+                context.BilateralProtocols.Add(new BilateralProtocol { SubjectId = 1, Destination = "Spain" });
+                context.BilateralProtocols.Add(new BilateralProtocol { SubjectId = 1, Destination = "France" });
+                context.SaveChanges();
+            }
+
                 if (!context.Students.Any())
             {
                 var user = new Student

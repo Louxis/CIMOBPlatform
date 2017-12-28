@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace CIMOBProject.Migrations
 {
-    public partial class ChangeDatabase : Migration
+    public partial class Fixes : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -293,18 +293,18 @@ namespace CIMOBProject.Migrations
                 name: "Documents",
                 columns: table => new
                 {
-                    DocumentId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     ApplicationId = table.Column<int>(type: "int", nullable: true),
                     ApplicationUserId = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DocumentId = table.Column<int>(type: "int", nullable: false),
                     FileUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     StudentId = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     UploadDate = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Documents", x => x.DocumentId);
+                    table.PrimaryKey("PK_Documents", x => x.Id);
                     table.ForeignKey(
                         name: "FK_Documents_Applications_ApplicationId",
                         column: x => x.ApplicationId,
@@ -332,23 +332,25 @@ namespace CIMOBProject.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     DocumentId = table.Column<int>(type: "int", nullable: false),
-                    EmployeeId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    DocumentId1 = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    EmployeeId = table.Column<int>(type: "int", nullable: false),
+                    EmployeeId1 = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     IsPublished = table.Column<bool>(type: "bit", nullable: false),
                     TextContent = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: false),
-                    Title = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false)
+                    Ttitle = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_News", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_News_Documents_DocumentId",
-                        column: x => x.DocumentId,
+                        name: "FK_News_Documents_DocumentId1",
+                        column: x => x.DocumentId1,
                         principalTable: "Documents",
-                        principalColumn: "DocumentId",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_News_AspNetUsers_EmployeeId",
-                        column: x => x.EmployeeId,
+                        name: "FK_News_AspNetUsers_EmployeeId1",
+                        column: x => x.EmployeeId1,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -439,14 +441,14 @@ namespace CIMOBProject.Migrations
                 column: "StudentId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_News_DocumentId",
+                name: "IX_News_DocumentId1",
                 table: "News",
-                column: "DocumentId");
+                column: "DocumentId1");
 
             migrationBuilder.CreateIndex(
-                name: "IX_News_EmployeeId",
+                name: "IX_News_EmployeeId1",
                 table: "News",
-                column: "EmployeeId");
+                column: "EmployeeId1");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

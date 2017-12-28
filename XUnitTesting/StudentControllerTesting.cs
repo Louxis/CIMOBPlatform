@@ -18,7 +18,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Http;
 
-namespace CIMOBProject.xUnit
+namespace CIMOBProject
 {
     public class StudentControllerTest {
 
@@ -69,7 +69,7 @@ namespace CIMOBProject.xUnit
                     UserName = "test@test",
                     UserFullname = "Teste User 1",
                     Email = "test@test",
-                    UserCc = "123456789",
+                    UserCc = "12345679",
                     PhoneNumber = "936936936",
                     UserAddress = "Avenida para teste",
                     PostalCode = "2912-123",
@@ -84,7 +84,7 @@ namespace CIMOBProject.xUnit
                     UserName = "test1@test",
                     UserFullname = "Teste User 2",
                     Email = "test1@test",
-                    UserCc = "123456789",
+                    UserCc = "12345689",
                     PhoneNumber = "936936938",
                     UserAddress = "Avenida para teste1",
                     PostalCode = "2912-124",
@@ -99,7 +99,7 @@ namespace CIMOBProject.xUnit
                     UserName = "stuff@stuff",
                     UserFullname = "Stuff user",
                     Email = "stuff@stuff",
-                    UserCc = "123456789",
+                    UserCc = "12345789",
                     PhoneNumber = "936936899",
                     UserAddress = "Avenida para stuff",
                     PostalCode = "2912-193",
@@ -114,7 +114,7 @@ namespace CIMOBProject.xUnit
                     UserName = "random@random",
                     UserFullname = "Random user",
                     Email = "random@random",
-                    UserCc = "123456789",
+                    UserCc = "12346789",
                     PhoneNumber = "936936999",
                     UserAddress = "Avenida random",
                     PostalCode = "2912-200",
@@ -308,7 +308,6 @@ namespace CIMOBProject.xUnit
                 viewResult.ViewData.Model);
             Assert.Empty(model);
         }
-
 
         [Fact]
         public async Task TestingUpdateStudentDetails()
