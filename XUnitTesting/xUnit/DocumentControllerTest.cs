@@ -132,21 +132,21 @@ namespace XUnitTesting
                 {
                     Description = "Test document1",
                     FileUrl = "URL.COM",
-                    StudentId = _context.Students.Where(s => s.UserFullname.Equals("Random user")).FirstOrDefault().Id
+                    ApplicationUserId = _context.Students.Where(s => s.UserFullname.Equals("Random user")).FirstOrDefault().Id
                 };
 
                 var doc2 = new Document
                 {
                     Description = "Test document2",
                     FileUrl = "URL.COM",
-                    StudentId = _context.Students.Where(s => s.UserFullname.Equals("Random user")).FirstOrDefault().Id
+                    ApplicationUserId = _context.Students.Where(s => s.UserFullname.Equals("Random user")).FirstOrDefault().Id
                 };
 
                 var doc3 = new Document
                 {
                     Description = "Test document3",
                     FileUrl = "URL.COM",
-                    StudentId = _context.Students.Where(m => m.UserFullname == "Stuff user").First().Id
+                    ApplicationUserId = _context.Students.Where(m => m.UserFullname == "Stuff user").First().Id
                 };
                 _context.Documents.Add(doc1);
                 _context.Documents.Add(doc2);

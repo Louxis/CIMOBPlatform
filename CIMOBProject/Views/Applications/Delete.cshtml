@@ -1,0 +1,63 @@
+﻿@model CIMOBProject.Models.Application
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Application</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ArithmeticMean)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ArithmeticMean)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ECTS)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ECTS)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.MotivationLetter)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.MotivationLetter)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Enterview)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Enterview)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ApplicationStat)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ApplicationStat.Name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Employee)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Employee.Id)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Student)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Student.Id)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="ApplicationId" />
+        <input type="submit" value="Delete" class="btn btn-default" /> |
+        <a asp-action="Index">Back to List</a>
+    </form>
+</div>
