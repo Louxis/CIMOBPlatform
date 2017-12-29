@@ -94,14 +94,17 @@ namespace CIMOBProject.Controllers
         {
             if (ModelState.IsValid)
             {
-                Document doc = new Document
-                {
-                    ApplicationUserId = news.EmployeeId,
-                    Description = "Documento de " + news.Title,
-                    FileUrl = link,
-                    UploadDate = DateTime.Now
-                };
-                _context.Add(doc);
+                Document doc = null;
+                if (!String.IsNullOrEmpty(link)) {
+                    doc = new Document
+                    {
+                        ApplicationUserId = news.EmployeeId,
+                        Description = "Documento de " + news.Title,
+                        FileUrl = link,
+                        UploadDate = DateTime.Now
+                    };
+                    _context.Add(doc);
+                }
                 //news.DocumentId = doc.DocumentId;
                 news.Document = doc;
                 _context.Add(news);
