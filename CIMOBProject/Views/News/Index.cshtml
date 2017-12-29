@@ -1,31 +1,25 @@
 ﻿@model IEnumerable<CIMOBProject.Models.News>
 
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
 @{
     ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h2>Index</h2>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-area="" asp-controller="News" asp-action="Create" asp-route-userId="@UserManager.GetUserId(User)">Nova Publicação</a>
 </p>
 <table class="table">
     <thead>
         <tr>
                 <th>
-                    @Html.DisplayNameFor(model => model.EmployeeId)
+                    @Html.DisplayNameFor(model => model.Title)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Ttitle)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.TextContent)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.IsPublished)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.DocumentId)
+                    Publicado
                 </th>
             <th></th>
         </tr>
@@ -34,24 +28,22 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.EmployeeId)
+                <a asp-action="Details" asp-route-id="@item.Id"> @Html.DisplayFor(modelItem => item.Title)</a>
             </td>
+                @if (item.IsPublished == true)
+                {
+                    <td>Sim</td>
+                }
+                else
+                {
+                    <td>Nao</td>
+                }
             <td>
-                @Html.DisplayFor(modelItem => item.Ttitle)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TextContent)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IsPublished)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DocumentId)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                @if (item.IsPublished == false) {
+                    <a asp-action="Publish" asp-controller="News" asp-route-id="@item.Id">Publicar |</a> 
+                }
+                <a asp-action="Edit" asp-route-id="@item.Id">Editar</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Eliminar</a>
             </td>
         </tr>
 }

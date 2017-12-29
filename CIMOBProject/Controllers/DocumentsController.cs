@@ -1,5 +1,4 @@
 ﻿using System;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -21,8 +20,8 @@ namespace CIMOBProject.Controllers {
         // GET: Documents
         public async Task<IActionResult> Index(string userId)
         {
-            ViewData["StudentName"] = _context.Students.Where(s => s.Id.Equals(userId)).FirstOrDefault().UserFullname;
-            var applicationDbContext = _context.Documents.Include(d => d.ApplicationUser).Where(s => s.Id.Equals(userId));
+            ViewData["StudentName"] = _context.ApplicationUsers.Where(s => s.Id.Equals(userId)).FirstOrDefault().UserFullname;
+            var applicationDbContext = _context.Documents.Include(d => d.ApplicationUser).Where(s => s.ApplicationUserId.Equals(userId));
             if (applicationDbContext == null)
             {
                 return NotFound();
@@ -52,7 +51,7 @@ namespace CIMOBProject.Controllers {
         // GET: Documents/Create
         public IActionResult Create(string userId)
         {
-            ViewData["Id"] = userId;
+            ViewData["ApplicationUserId"] = userId;
             //ViewData["Date"] = DateTime.Now;
             loadHelp();
             return View();
@@ -63,17 +62,17 @@ namespace CIMOBProject.Controllers {
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("DocumentId,Description,FileUrl,UploadDate,Id")] Document document)
+        public async Task<IActionResult> Create([Bind("DocumentId,Description,FileUrl,UploadDate,ApplicationUserId")] Document document)
         {
             string currentUserId = "";
             if (ModelState.IsValid)
             {
                 document.UploadDate = DateTime.Now;
-                currentUserId = document.Id;
+                currentUserId = document.ApplicationUserId;
                 _context.Add(document);
                 await _context.SaveChangesAsync();
             }
-            return RedirectToAction("Index", "Documents", new { applicationUserId = currentUserId });
+            return RedirectToAction("Index", "Documents", new { userId = currentUserId });
         }
 
         // GET: Documents/Edit/5
@@ -89,7 +88,7 @@ namespace CIMOBProject.Controllers {
             {
                 return NotFound();
             }
-            ViewData["Id"] = new SelectList(_context.Students, "Id", "Id", document.Id);
+            ViewData["Id"] = new SelectList(_context.ApplicationUsers, "Id", "Id", document.ApplicationUserId);
             return View(document);
         }
 
@@ -125,7 +124,7 @@ namespace CIMOBProject.Controllers {
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["Id"] = new SelectList(_context.Students, "Id", "Id", document.Id);
+            ViewData["Id"] = new SelectList(_context.ApplicationUsers, "Id", "Id", document.ApplicationUserId);
             return View(document);
         }
 

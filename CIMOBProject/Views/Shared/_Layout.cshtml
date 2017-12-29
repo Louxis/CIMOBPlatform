@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -51,8 +53,19 @@
         <div class="menu-container">
             <ul class="menubar">
                 <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
-                <li><a asp-area="" asp-controller="Home" asp-action="Publication">Publicações</a></li>
-                <li><a asp-area="" asp-controller="Home" asp-action="Application">Candidatura</a></li>
+                <li><a asp-area="" asp-controller="News" asp-action="Index">Publicações</a></li>
+                @if (User.IsInRole("Employee"))
+                {
+                    <li><a asp-area="" asp-controller="Applications" asp-action="Index">Candidaturas</a></li>
+                }
+                else if (User.IsInRole("Student"))
+                {
+                    <li><a asp-area="" asp-controller="Applications" asp-action="Create">Candidatura</a></li>
+                }
+                else
+                {
+                    <li><a asp-area="" asp-controller="Home" asp-action="Application">Candidatura</a></li>
+                }
                 <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contactos</a></li>
             </ul>
         </div>

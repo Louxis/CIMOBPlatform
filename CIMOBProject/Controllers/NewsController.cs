@@ -22,72 +22,20 @@ namespace CIMOBProject.Controllers
         // GET: News
         public async Task<IActionResult> Index()
         {
-            return View(await _context.News.ToListAsync());
+            var news = _context.News;
+            if (User.IsInRole("Employee"))
+            {
+                return View(await news.ToListAsync());
+            }
+            var publishedNews = news.Where(n => n.IsPublished == true);
+            return View(await publishedNews.ToListAsync());
+            
         }
 
-        // GET: News/Details/5
-        public async Task<IActionResult> Details(int? id)
+
+        public async Task<IActionResult> Publish(int id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var news = await _context.News
-                .SingleOrDefaultAsync(m => m.Id == id);
-            if (news == null)
-            {
-                return NotFound();
-            }
-
-            return View(news);
-        }
-
-        // GET: News/Create
-        public IActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: News/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,EmployeeId,Ttitle,TextContent,IsPublished,DocumentId")] News news)
-        {
-            if (ModelState.IsValid)
-            {
-                _context.Add(news);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            return View(news);
-        }
-
-        // GET: News/Edit/5
-        public async Task<IActionResult> Edit(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var news = await _context.News.SingleOrDefaultAsync(m => m.Id == id);
-            if (news == null)
-            {
-                return NotFound();
-            }
-            return View(news);
-        }
-
-        // POST: News/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,EmployeeId,Ttitle,TextContent,IsPublished,DocumentId")] News news)
-        {
+            var news = _context.News.Where(n => n.Id == id).SingleOrDefault();
             if (id != news.Id)
             {
                 return NotFound();
@@ -97,8 +45,10 @@ namespace CIMOBProject.Controllers
             {
                 try
                 {
+                    news.IsPublished = true;
                     _context.Update(news);
                     await _context.SaveChangesAsync();
+                    return RedirectToAction("Index", "News");
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -111,9 +61,123 @@ namespace CIMOBProject.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                
+            }
+            return RedirectToAction("Index", "News");
+        }
+
+        // GET: News/Details/5
+        public async Task<IActionResult> Details(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var news = await _context.News.Include(e => e.Employee).Include(d =>d.Document)
+                .SingleOrDefaultAsync(m => m.Id == id);
+            if (news == null)
+            {
+                return NotFound();
+            }
+
+            return View(news);
+        }
+
+        // GET: News/Create
+        public IActionResult Create(string userId)
+        {
+            ViewData["EmployeeId"] = userId;
+            return View();
+        }
+
+        // POST: News/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create([Bind("Id,EmployeeId,Title,TextContent,IsPublished,DocumentId")] News news, string link)
+        {
+            if (ModelState.IsValid)
+            {
+                if (!String.IsNullOrEmpty(link))
+                {
+                    Document doc = new Document
+                    {
+                        ApplicationUserId = news.EmployeeId,
+                        Description = "Documento de " + news.Title,
+                        FileUrl = link,
+                        UploadDate = DateTime.Now
+                    };
+
+                    _context.Add(doc);
+
+                    news.Document = doc;
+                }
+                    //news.DocumentId = doc.DocumentId;
+                    _context.Add(news);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
             }
             return View(news);
+        }
+
+        // GET: News/Edit/5
+        public async Task<IActionResult> Edit(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var news = await _context.News.Include(n => n.Employee).Include(n => n.Document).SingleOrDefaultAsync(m => m.Id == id);
+            if (news == null)
+            {
+                return NotFound();
+            }
+            return View(news);
+        }
+
+        // POST: News/Edit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(int id, [Bind("Id,EmployeeId,Title,TextContent,IsPublished,DocumentId")] News news)
+        {
+            if (id != news.Id)
+            {
+                return NotFound();
+            }
+            var newsToUpdate = await _context.News.Include(n => n.Document).Include(n => n.Employee).SingleOrDefaultAsync(n => n.Id == id);
+            newsToUpdate.Title = news.Title;
+            newsToUpdate.EmployeeId = news.EmployeeId;
+            newsToUpdate.Employee = news.Employee;
+            newsToUpdate.DocumentId = news.DocumentId;
+            newsToUpdate.Document = news.Document;
+            newsToUpdate.TextContent = news.TextContent;
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _context.Update(newsToUpdate);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!NewsExists(newsToUpdate.Id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(Index));
+            }
+            return View(newsToUpdate);
         }
 
         // GET: News/Delete/5
