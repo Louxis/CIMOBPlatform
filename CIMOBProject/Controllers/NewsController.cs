@@ -103,17 +103,7 @@ namespace CIMOBProject.Controllers
             {
                 if (!String.IsNullOrEmpty(link))
                 {
-                    Document doc = new Document
-                    {
-                        ApplicationUserId = news.EmployeeId,
-                        Description = "Documento de " + news.Title,
-                        FileUrl = link,
-                        UploadDate = DateTime.Now
-                    };
-
-                    _context.Add(doc);
-
-                    news.Document = doc;
+                    news.Document = createAndValidateDocument(news,link);
                 }
                     //news.DocumentId = doc.DocumentId;
                     _context.Add(news);
@@ -121,6 +111,22 @@ namespace CIMOBProject.Controllers
                     return RedirectToAction(nameof(Index));
             }
             return View(news);
+        }
+
+        private Document createAndValidateDocument (News news, string link) 
+        {
+            Document urlDoc = _context.Documents.Where(d => d.FileUrl.Equals(link)).FirstOrDefault();
+            if(urlDoc == null) 
+            {
+                urlDoc = new Document {
+                    ApplicationUserId = news.EmployeeId,
+                    Description = "Documento de " + news.Title,
+                    FileUrl = link,
+                    UploadDate = DateTime.Now
+                };
+                _context.Add(urlDoc);
+            }
+            return urlDoc;
         }
 
         // GET: News/Edit/5
@@ -153,14 +159,9 @@ namespace CIMOBProject.Controllers
             newsToUpdate.Title = news.Title;
             //If it's desired to change employee id to the one updating it
             //newsToUpdate.EmployeeId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            Document doc = new Document {
-                ApplicationUserId = news.EmployeeId,
-                Description = "Documento de " + news.Title,
-                FileUrl = link,
-                UploadDate = DateTime.Now
-            };
-            _context.Add(doc);
-            newsToUpdate.Document = doc;
+            Document editedDoc = createAndValidateDocument(news, link);
+            editedDoc.ApplicationUserId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            newsToUpdate.Document = editedDoc;
             newsToUpdate.TextContent = news.TextContent;
 
             if (ModelState.IsValid)
