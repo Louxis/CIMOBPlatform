@@ -15,11 +15,6 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
             <div class="form-group">
-                <label asp-for="EmployeeId" class="control-label"></label>
-                <input asp-for="EmployeeId" class="form-control" />
-                <span asp-validation-for="EmployeeId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
                 <label asp-for="Title" class="control-label"></label>
                 <input asp-for="Title" class="form-control" />
                 <span asp-validation-for="Title" class="text-danger"></span>
@@ -37,9 +32,9 @@
                 </div>
             </div>
             <div class="form-group">
-                <label asp-for="DocumentId" class="control-label"></label>
-                <input asp-for="DocumentId" class="form-control" />
-                <span asp-validation-for="DocumentId" class="text-danger"></span>
+                <label asp-for="Document.FileUrl" class="control-label"></label>
+                <input asp-for="Document.FileUrl" class="form-control" />
+                <span asp-validation-for="Document.FileUrl" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-default" />

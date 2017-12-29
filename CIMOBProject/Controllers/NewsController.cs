@@ -22,11 +22,17 @@ namespace CIMOBProject.Controllers
         // GET: News
         public async Task<IActionResult> Index()
         {
-            return View(await _context.News.ToListAsync());
+            var news = _context.News;
+            if (User.IsInRole("Employee"))
+            {
+                return View(await news.ToListAsync());
+            }
+            var publishedNews = news.Where(n => n.IsPublished == true);
+            return View(await publishedNews.ToListAsync());
+            
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
+
         public async Task<IActionResult> Publish(int id)
         {
             var news = _context.News.Where(n => n.Id == id).SingleOrDefault();
@@ -68,7 +74,7 @@ namespace CIMOBProject.Controllers
                 return NotFound();
             }
 
-            var news = await _context.News
+            var news = await _context.News.Include(e => e.Employee).Include(d =>d.Document)
                 .SingleOrDefaultAsync(m => m.Id == id);
             if (news == null)
             {
@@ -94,22 +100,24 @@ namespace CIMOBProject.Controllers
         {
             if (ModelState.IsValid)
             {
-                Document doc = null;
-                if (!String.IsNullOrEmpty(link)) {
-                    doc = new Document
+                if (!String.IsNullOrEmpty(link))
+                {
+                    Document doc = new Document
                     {
                         ApplicationUserId = news.EmployeeId,
                         Description = "Documento de " + news.Title,
                         FileUrl = link,
                         UploadDate = DateTime.Now
                     };
+
                     _context.Add(doc);
+
+                    news.Document = doc;
                 }
-                //news.DocumentId = doc.DocumentId;
-                news.Document = doc;
-                _context.Add(news);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                    //news.DocumentId = doc.DocumentId;
+                    _context.Add(news);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
             }
             return View(news);
         }
@@ -122,7 +130,7 @@ namespace CIMOBProject.Controllers
                 return NotFound();
             }
 
-            var news = await _context.News.SingleOrDefaultAsync(m => m.Id == id);
+            var news = await _context.News.Include(n => n.Employee).Include(n => n.Document).SingleOrDefaultAsync(m => m.Id == id);
             if (news == null)
             {
                 return NotFound();
@@ -141,17 +149,24 @@ namespace CIMOBProject.Controllers
             {
                 return NotFound();
             }
+            var newsToUpdate = await _context.News.Include(n => n.Document).Include(n => n.Employee).SingleOrDefaultAsync(n => n.Id == id);
+            newsToUpdate.Title = news.Title;
+            newsToUpdate.EmployeeId = news.EmployeeId;
+            newsToUpdate.Employee = news.Employee;
+            newsToUpdate.DocumentId = news.DocumentId;
+            newsToUpdate.Document = news.Document;
+            newsToUpdate.TextContent = news.TextContent;
 
             if (ModelState.IsValid)
             {
                 try
                 {
-                    _context.Update(news);
+                    _context.Update(newsToUpdate);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!NewsExists(news.Id))
+                    if (!NewsExists(newsToUpdate.Id))
                     {
                         return NotFound();
                     }
@@ -162,7 +177,7 @@ namespace CIMOBProject.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(news);
+            return View(newsToUpdate);
         }
 
         // GET: News/Delete/5

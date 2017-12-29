@@ -26,7 +26,7 @@ namespace CIMOBProject.Models
         [Display(Name = "Publicar")]
         public bool IsPublished { get; set; }
 
-        public int DocumentId { get; set; }
+        public int? DocumentId { get; set; }
 
         public virtual Employee Employee { get; set; }
         public virtual Document Document { get; set; }
