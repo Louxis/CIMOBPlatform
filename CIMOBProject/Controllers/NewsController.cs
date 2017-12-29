@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CIMOBProject.Data;
 using CIMOBProject.Models;
+using System.Security.Claims;
 
 namespace CIMOBProject.Controllers
 {
@@ -129,7 +130,6 @@ namespace CIMOBProject.Controllers
             {
                 return NotFound();
             }
-
             var news = await _context.News.Include(n => n.Employee).Include(n => n.Document).SingleOrDefaultAsync(m => m.Id == id);
             if (news == null)
             {
@@ -143,7 +143,7 @@ namespace CIMOBProject.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,EmployeeId,Title,TextContent,IsPublished,DocumentId")] News news)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,EmployeeId,Title,TextContent,IsPublished,DocumentId")] News news, string link)
         {
             if (id != news.Id)
             {
@@ -151,10 +151,16 @@ namespace CIMOBProject.Controllers
             }
             var newsToUpdate = await _context.News.Include(n => n.Document).Include(n => n.Employee).SingleOrDefaultAsync(n => n.Id == id);
             newsToUpdate.Title = news.Title;
-            newsToUpdate.EmployeeId = news.EmployeeId;
-            newsToUpdate.Employee = news.Employee;
-            newsToUpdate.DocumentId = news.DocumentId;
-            newsToUpdate.Document = news.Document;
+            //If it's desired to change employee id to the one updating it
+            //newsToUpdate.EmployeeId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            Document doc = new Document {
+                ApplicationUserId = news.EmployeeId,
+                Description = "Documento de " + news.Title,
+                FileUrl = link,
+                UploadDate = DateTime.Now
+            };
+            _context.Add(doc);
+            newsToUpdate.Document = doc;
             newsToUpdate.TextContent = news.TextContent;
 
             if (ModelState.IsValid)

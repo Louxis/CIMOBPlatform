@@ -21,7 +21,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="TextContent" class="control-label"></label>
-                <input asp-for="TextContent" class="form-control" />
+                <textarea asp-for="TextContent" class="form-control"></textarea>
                 <span asp-validation-for="TextContent" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -32,9 +32,8 @@
                 </div>
             </div>
             <div class="form-group">
-                <label asp-for="Document.FileUrl" class="control-label"></label>
-                <input asp-for="Document.FileUrl" class="form-control" />
-                <span asp-validation-for="Document.FileUrl" class="text-danger"></span>
+                <label for="link-text" class="control-label">Link do documento</label><br />
+                <input id="link-text" type="text" name="link" class="form-control" value="@Model.Document.FileUrl" />    
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-default" />
