@@ -12,9 +12,10 @@ using System;
 namespace CIMOBProject.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20171227215307_Documents")]
+    partial class Documents
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -35,8 +36,6 @@ namespace CIMOBProject.Migrations
                     b.Property<string>("EmployeeId");
 
                     b.Property<double>("Enterview");
-
-                    b.Property<double>("FinalGrade");
 
                     b.Property<double>("MotivationLetter");
 
@@ -180,7 +179,7 @@ namespace CIMOBProject.Migrations
 
             modelBuilder.Entity("CIMOBProject.Models.Document", b =>
                 {
-                    b.Property<string>("Id")
+                    b.Property<int>("DocumentId")
                         .ValueGeneratedOnAdd();
 
                     b.Property<int?>("ApplicationId");
@@ -189,8 +188,6 @@ namespace CIMOBProject.Migrations
 
                     b.Property<string>("Description");
 
-                    b.Property<int>("DocumentId");
-
                     b.Property<string>("FileUrl")
                         .IsRequired();
 
@@ -198,7 +195,7 @@ namespace CIMOBProject.Migrations
 
                     b.Property<DateTime>("UploadDate");
 
-                    b.HasKey("Id");
+                    b.HasKey("DocumentId");
 
                     b.HasIndex("ApplicationId");
 
@@ -244,8 +241,6 @@ namespace CIMOBProject.Migrations
 
                     b.Property<int>("DocumentId");
 
-                    b.Property<string>("DocumentId1");
-
                     b.Property<int>("EmployeeId");
 
                     b.Property<string>("EmployeeId1");
@@ -262,7 +257,7 @@ namespace CIMOBProject.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("DocumentId1");
+                    b.HasIndex("DocumentId");
 
                     b.HasIndex("EmployeeId1");
 
@@ -453,7 +448,8 @@ namespace CIMOBProject.Migrations
                 {
                     b.HasOne("CIMOBProject.Models.Document", "Document")
                         .WithMany()
-                        .HasForeignKey("DocumentId1");
+                        .HasForeignKey("DocumentId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("CIMOBProject.Models.Employee", "Employee")
                         .WithMany()

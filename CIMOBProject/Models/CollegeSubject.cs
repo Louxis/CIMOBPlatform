@@ -15,10 +15,12 @@ namespace CIMOBProject.Models
 
         [Required]
         [StringLength(100)]
+        [Display(Name = "Curso")]
         public string SubjectName { get; set; }
 
         [Required]
         [StringLength(10)]
+        [Display (Name = "Sigla do curso")]
         public string SubjectAlias { get; set; }
 
         [Required]

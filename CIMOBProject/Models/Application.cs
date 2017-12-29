@@ -16,18 +16,22 @@ namespace CIMOBProject.Models
 
         public string EmployeeId { get; set; }
 
-        //public int Grade { get; set; }
+        
 
+        [Display(Name = "Média aritemetica")]
         [Range(minimum:0.0, maximum:20.0, ErrorMessage ="Média aritemética deve ser entre 0 e 20.")]
         public double ArithmeticMean { get; set; }
 
         public int ECTS { get; set; }
-
+        [Display(Name = "Carta de motivação")]
         [Range(minimum: 0.0, maximum: 20.0, ErrorMessage = "A carta de motivação tem de ter uma nota entre 0 e 20.")]
         public double MotivationLetter { get; set; }
-
+        [Display(Name = "Entrevista")]
         [Range(minimum: 0.0, maximum: 20.0, ErrorMessage = "A entrevista deve ter uma nota de 0 e 20.")]
         public double Enterview { get; set; }
+        [Display(Name = "Nota final")]
+        [Range(minimum: 0.0, maximum: 20.0, ErrorMessage = "A nota final deve ter uma nota de 0 e 20.")]
+        public double FinalGrade { get; set; }
 
         public virtual Student Student { get; set; }
 

@@ -21,6 +21,7 @@ namespace CIMOBProject.Models
 
         [Required]
         [StringLength(10)]
+        [Display(Name = "Sigla")]
         public string CollegeAlias { get; set; }
 
         public virtual List<Student> Students { get; set; }

@@ -12,18 +12,21 @@
 <table class="table">
     <thead>
         <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.ArithmeticMean)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.ECTS)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.MotivationLetter)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Enterview)
-                </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ArithmeticMean)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ECTS)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MotivationLetter)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Enterview)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FinalGrade)
+            </th>
             <th>
                 @Html.DisplayNameFor(model => model.ApplicationStat)
             </th>
@@ -50,6 +53,9 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Enterview)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FinalGrade)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.ApplicationStat.Name)

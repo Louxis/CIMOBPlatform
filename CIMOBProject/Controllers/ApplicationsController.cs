@@ -61,7 +61,7 @@ namespace CIMOBProject.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ApplicationId,StudentId,ApplicationStatId,EmployeeId,ArithmeticMean,ECTS,MotivationLetter,Enterview")] Application application)
+        public async Task<IActionResult> Create([Bind("ApplicationId,StudentId,ApplicationStatId,EmployeeId,ArithmeticMean,ECTS,MotivationLetter,Enterview,FinalGrade")] Application application)
         {
             if (ModelState.IsValid)
             {
@@ -73,6 +73,17 @@ namespace CIMOBProject.Controllers
             ViewData["EmployeeId"] = new SelectList(_context.Employees, "Id", "Id", application.EmployeeId);
             ViewData["StudentId"] = new SelectList(_context.Students, "Id", "Id", application.StudentId);
             return View(application);
+        }
+
+        public async Task<IActionResult> Seriation()
+        {
+            var applicationDbContext = _context.Applications.Include(a => a.ApplicationStat).Include(a => a.Student).Include(a => a.Student.CollegeSubject).Include(a => a.Student.CollegeSubject.College).OrderByDescending(m => m.FinalGrade);
+            /*OrderBy(m => m.Student.CollegeSubject.College.CollegeName).ThenBy(m => m.Student.CollegeSubject.SubjectName).*/
+            //var query1 = from item in _context.Applications orderby item.ArithmeticMean descending orderby item.ApplicationStatId ascending group item by item.ApplicationStatId into g select new { Name = g.Key, Order = g.ToList() };
+            var query1 = from item in _context.Applications select item;
+
+
+            return View(await applicationDbContext.ToListAsync());
         }
 
         // GET: Applications/Edit/5
@@ -99,7 +110,7 @@ namespace CIMOBProject.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ApplicationId,StudentId,ApplicationStatId,EmployeeId,ArithmeticMean,ECTS,MotivationLetter,Enterview")] Application application)
+        public async Task<IActionResult> Edit(int id, [Bind("ApplicationId,StudentId,ApplicationStatId,EmployeeId,ArithmeticMean,ECTS,MotivationLetter,Enterview,FinalGrade")] Application application)
         {
             if (id != application.ApplicationId)
             {

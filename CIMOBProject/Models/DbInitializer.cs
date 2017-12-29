@@ -37,6 +37,10 @@ namespace CIMOBProject.Models {
             {
                 context.CollegeSubjects.Add(new CollegeSubject { SubjectAlias = "EI", SubjectName = "Engenharia Informática", CollegeId = 1 });
                 context.CollegeSubjects.Add(new CollegeSubject { SubjectAlias = "EM", SubjectName = "Engenharia Mecânica", CollegeId = 1 });
+                context.CollegeSubjects.Add(new CollegeSubject { SubjectAlias = "T1", SubjectName = "CursoTeste1", CollegeId = 2 });
+                context.CollegeSubjects.Add(new CollegeSubject { SubjectAlias = "T2", SubjectName = "CursoTeste2", CollegeId = 3 });
+                context.CollegeSubjects.Add(new CollegeSubject { SubjectAlias = "T3", SubjectName = "CursoTeste3", CollegeId = 3 });
+                context.CollegeSubjects.Add(new CollegeSubject { SubjectAlias = "T4", SubjectName = "CursoTeste4", CollegeId = 4 });
                 context.SaveChanges();
             }
 
@@ -51,9 +55,11 @@ namespace CIMOBProject.Models {
                 context.SaveChanges();
             }
 
-                if (!context.Students.Any())
+            
+
+           if (!context.Students.Any())
             {
-                var user = new Student
+                var user1 = new Student
                 {
                     UserName = "test@test",
                     UserFullname = "Teste User 1",
@@ -67,12 +73,134 @@ namespace CIMOBProject.Models {
                     ALOGrade = 0,
                     CollegeSubjectId = 1
                 };
-                userManager.CreateAsync(user, "teste12").Wait();
+                userManager.CreateAsync(user1, "teste12").Wait();
                 var role = context.Roles.SingleOrDefault(m => m.Name == "Student");
-                userManager.AddToRoleAsync(user, role.Name).Wait();
+                userManager.AddToRoleAsync(user1, role.Name).Wait();
                 context.SaveChanges();
                 context.Students.
                     SingleOrDefault(e => e.UserName.Equals("test@test")).EmailConfirmed = true;
+
+                var user2 = new Student
+                {
+                    UserName = "test2@test",
+                    UserFullname = "Teste User 2",
+                    Email = "test2@test",
+                    UserCc = "12345678",
+                    PhoneNumber = "936936936",
+                    UserAddress = "Avenida para teste",
+                    PostalCode = "2912-123",
+                    BirthDate = new DateTime(1995, 1, 1),
+                    StudentNumber = "123123123",
+                    ALOGrade = 0,
+                    CollegeSubjectId = 1
+                };
+                userManager.CreateAsync(user2, "teste13").Wait();
+                userManager.AddToRoleAsync(user2, role.Name).Wait();
+                context.SaveChanges();
+                context.Students.
+                    SingleOrDefault(e => e.UserName.Equals("test2@test")).EmailConfirmed = true;
+
+                var user3 = new Student
+                {
+                    UserName = "test3@test",
+                    UserFullname = "Teste User 3",
+                    Email = "test3@test",
+                    UserCc = "12345678",
+                    PhoneNumber = "936936936",
+                    UserAddress = "Avenida para teste",
+                    PostalCode = "2912-123",
+                    BirthDate = new DateTime(1995, 1, 1),
+                    StudentNumber = "123123123",
+                    ALOGrade = 0,
+                    CollegeSubjectId = 2
+                };
+                userManager.CreateAsync(user3, "teste14").Wait();
+                userManager.AddToRoleAsync(user3, role.Name).Wait();
+                context.SaveChanges();
+                context.Students.
+                    SingleOrDefault(e => e.UserName.Equals("test3@test")).EmailConfirmed = true;
+
+                var user4 = new Student
+                {
+                    UserName = "test4@test",
+                    UserFullname = "Teste User 4",
+                    Email = "test4@test",
+                    UserCc = "12345678",
+                    PhoneNumber = "936936936",
+                    UserAddress = "Avenida para teste",
+                    PostalCode = "2912-123",
+                    BirthDate = new DateTime(1995, 1, 1),
+                    StudentNumber = "123123123",
+                    ALOGrade = 0,
+                    CollegeSubjectId = 2
+                };
+                userManager.CreateAsync(user4, "teste14").Wait();
+                userManager.AddToRoleAsync(user4, role.Name).Wait();
+                context.SaveChanges();
+                context.Students.
+                    SingleOrDefault(e => e.UserName.Equals("test4@test")).EmailConfirmed = true;
+
+                var user5 = new Student
+                {
+                    UserName = "test5@test",
+                    UserFullname = "Teste User 5",
+                    Email = "test5@test",
+                    UserCc = "12345678",
+                    PhoneNumber = "936936936",
+                    UserAddress = "Avenida para teste",
+                    PostalCode = "2912-123",
+                    BirthDate = new DateTime(1995, 1, 1),
+                    StudentNumber = "123123123",
+                    ALOGrade = 0,
+                    CollegeSubjectId = 3
+                };
+                userManager.CreateAsync(user5, "teste15").Wait();
+                userManager.AddToRoleAsync(user5, role.Name).Wait();
+                context.SaveChanges();
+                context.Students.
+                    SingleOrDefault(e => e.UserName.Equals("test5@test")).EmailConfirmed = true;
+
+                var user6 = new Student
+                {
+                    UserName = "test6@test",
+                    UserFullname = "Teste User 6",
+                    Email = "test6@test",
+                    UserCc = "12345678",
+                    PhoneNumber = "936936936",
+                    UserAddress = "Avenida para teste",
+                    PostalCode = "2912-123",
+                    BirthDate = new DateTime(1995, 1, 1),
+                    StudentNumber = "123123123",
+                    ALOGrade = 0,
+                    CollegeSubjectId = 4
+                };
+                userManager.CreateAsync(user6, "teste16").Wait();
+                userManager.AddToRoleAsync(user6, role.Name).Wait();
+                context.SaveChanges();
+                context.Students.
+                    SingleOrDefault(e => e.UserName.Equals("test6@test")).EmailConfirmed = true;
+
+                var user7 = new Student
+                {
+                    UserName = "test7@test",
+                    UserFullname = "Teste User 7",
+                    Email = "test7@test",
+                    UserCc = "12345678",
+                    PhoneNumber = "936936936",
+                    UserAddress = "Avenida para teste",
+                    PostalCode = "2912-123",
+                    BirthDate = new DateTime(1995, 1, 1),
+                    StudentNumber = "123123123",
+                    ALOGrade = 0,
+                    CollegeSubjectId = 4
+                };
+                userManager.CreateAsync(user7, "teste17").Wait();
+                userManager.AddToRoleAsync(user7, role.Name).Wait();
+                context.SaveChanges();
+                context.Students.
+                    SingleOrDefault(e => e.UserName.Equals("test7@test")).EmailConfirmed = true;
+
+
                 context.SaveChanges();
             }
 
@@ -98,7 +226,96 @@ namespace CIMOBProject.Models {
                     .SingleOrDefault(e => e.UserName == "testemployee@cimob.pt")
                     .EmailConfirmed = true;
                 context.SaveChanges();
-            }       
+            }
+
+            if (!context.Applications.Any())
+            {
+                context.Applications.Add(new Application
+                {
+                    StudentId = context.Students.Where(s => s.UserFullname.Equals("Teste User 4")).FirstOrDefault().Id,
+                    ApplicationStatId = 5,
+                    EmployeeId = context.Employees.Where(s => s.UserFullname.Equals("Empregado Teste")).FirstOrDefault().Id,
+                    ArithmeticMean = 7.5,
+                    ECTS = 78,
+                    MotivationLetter = 8.0,
+                    Enterview = 9.0,
+                    FinalGrade = 8.4
+                });
+                context.Applications.Add(new Application
+                {
+                    StudentId = context.Students.Where(s => s.UserFullname.Equals("Teste User 2")).FirstOrDefault().Id,
+                    ApplicationStatId = 4,
+                    EmployeeId = context.Employees.Where(s => s.UserFullname.Equals("Empregado Teste")).FirstOrDefault().Id,
+                    ArithmeticMean = 10.0,
+                    ECTS = 90,
+                    MotivationLetter = 10.0,
+                    Enterview = 10.0,
+                    FinalGrade = 10.0
+                });
+               
+                
+                context.Applications.Add(new Application
+                {
+                    StudentId = context.Students.Where(s => s.UserFullname.Equals("Teste User 3")).FirstOrDefault().Id,
+                    ApplicationStatId = 5,
+                    EmployeeId = context.Employees.Where(s => s.UserFullname.Equals("Empregado Teste")).FirstOrDefault().Id,
+                    ArithmeticMean = 8.0,
+                    ECTS = 66,
+                    MotivationLetter = 9.0,
+                    Enterview = 7.0,
+                    FinalGrade = 7.6
+                });
+                
+
+                context.Applications.Add(new Application
+                {
+                    StudentId = context.Students.Where(s => s.UserFullname.Equals("Teste User 1")).FirstOrDefault().Id,
+                    ApplicationStatId = 4,
+                    EmployeeId = context.Employees.Where(s => s.UserFullname.Equals("Empregado Teste")).FirstOrDefault().Id,
+                    ArithmeticMean = 20.0,
+                    ECTS = 120,
+                    MotivationLetter = 20.0,
+                    Enterview = 20.0,
+                    FinalGrade = 20.0
+                });
+
+                context.Applications.Add(new Application
+                {
+                    StudentId = context.Students.Where(s => s.UserFullname.Equals("Teste User 7")).FirstOrDefault().Id,
+                    ApplicationStatId = 4,
+                    EmployeeId = context.Employees.Where(s => s.UserFullname.Equals("Empregado Teste")).FirstOrDefault().Id,
+                    ArithmeticMean = 12.0,
+                    ECTS = 120,
+                    MotivationLetter = 15.0,
+                    Enterview = 9.0,
+                    FinalGrade = 11.0
+                });
+
+                context.Applications.Add(new Application
+                {
+                    StudentId = context.Students.Where(s => s.UserFullname.Equals("Teste User 5")).FirstOrDefault().Id,
+                    ApplicationStatId = 5,
+                    EmployeeId = context.Employees.Where(s => s.UserFullname.Equals("Empregado Teste")).FirstOrDefault().Id,
+                    ArithmeticMean = 13.0,
+                    ECTS = 120,
+                    MotivationLetter = 8.0,
+                    Enterview = 8.5,
+                    FinalGrade = 9.3
+                });
+
+                context.Applications.Add(new Application
+                {
+                    StudentId = context.Students.Where(s => s.UserFullname.Equals("Teste User 6")).FirstOrDefault().Id,
+                    ApplicationStatId = 5,
+                    EmployeeId = context.Employees.Where(s => s.UserFullname.Equals("Empregado Teste")).FirstOrDefault().Id,
+                    ArithmeticMean = 8.0,
+                    ECTS = 120,
+                    MotivationLetter = 9.0,
+                    Enterview = 6.0,
+                    FinalGrade = 7.0
+                });
+                context.SaveChanges();
+            }
 
             if (!context.Helps.Any())
             {
