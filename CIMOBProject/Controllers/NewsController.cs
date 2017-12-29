@@ -25,6 +25,41 @@ namespace CIMOBProject.Controllers
             return View(await _context.News.ToListAsync());
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Publish(int id)
+        {
+            var news = _context.News.Where(n => n.Id == id).SingleOrDefault();
+            if (id != news.Id)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    news.IsPublished = true;
+                    _context.Update(news);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction("Index", "News");
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!NewsExists(news.Id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                
+            }
+            return RedirectToAction("Index", "News");
+        }
+
         // GET: News/Details/5
         public async Task<IActionResult> Details(int? id)
         {

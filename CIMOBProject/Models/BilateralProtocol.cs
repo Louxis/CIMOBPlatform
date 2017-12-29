@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 
 namespace CIMOBProject.Models
 {
+
     public class BilateralProtocol
     {
         public int Id { get; set; }

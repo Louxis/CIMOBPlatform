@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace CIMOBProject.Migrations
 {
-    public partial class Fixes : Migration
+    public partial class newmig : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -168,6 +168,26 @@ namespace CIMOBProject.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "BilateralProtocols",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Destination = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    SubjectId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_BilateralProtocols", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_BilateralProtocols_CollegeSubjects_SubjectId",
+                        column: x => x.SubjectId,
+                        principalTable: "CollegeSubjects",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Applications",
                 columns: table => new
                 {
@@ -293,18 +313,18 @@ namespace CIMOBProject.Migrations
                 name: "Documents",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    DocumentId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     ApplicationId = table.Column<int>(type: "int", nullable: true),
                     ApplicationUserId = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    DocumentId = table.Column<int>(type: "int", nullable: false),
                     FileUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     StudentId = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     UploadDate = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Documents", x => x.Id);
+                    table.PrimaryKey("PK_Documents", x => x.DocumentId);
                     table.ForeignKey(
                         name: "FK_Documents_Applications_ApplicationId",
                         column: x => x.ApplicationId,
@@ -329,28 +349,29 @@ namespace CIMOBProject.Migrations
                 name: "News",
                 columns: table => new
                 {
+                    CloseDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    OpenDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Discriminator = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     DocumentId = table.Column<int>(type: "int", nullable: false),
-                    DocumentId1 = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    EmployeeId = table.Column<int>(type: "int", nullable: false),
-                    EmployeeId1 = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    EmployeeId = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     IsPublished = table.Column<bool>(type: "bit", nullable: false),
                     TextContent = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: false),
-                    Ttitle = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false)
+                    Title = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_News", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_News_Documents_DocumentId1",
-                        column: x => x.DocumentId1,
+                        name: "FK_News_Documents_DocumentId",
+                        column: x => x.DocumentId,
                         principalTable: "Documents",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "DocumentId",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_News_AspNetUsers_EmployeeId1",
-                        column: x => x.EmployeeId1,
+                        name: "FK_News_AspNetUsers_EmployeeId",
+                        column: x => x.EmployeeId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -421,6 +442,11 @@ namespace CIMOBProject.Migrations
                 column: "CollegeSubjectId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_BilateralProtocols_SubjectId",
+                table: "BilateralProtocols",
+                column: "SubjectId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_CollegeSubjects_CollegeId",
                 table: "CollegeSubjects",
                 column: "CollegeId");
@@ -441,14 +467,14 @@ namespace CIMOBProject.Migrations
                 column: "StudentId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_News_DocumentId1",
+                name: "IX_News_DocumentId",
                 table: "News",
-                column: "DocumentId1");
+                column: "DocumentId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_News_EmployeeId1",
+                name: "IX_News_EmployeeId",
                 table: "News",
-                column: "EmployeeId1");
+                column: "EmployeeId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -467,6 +493,9 @@ namespace CIMOBProject.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUserTokens");
+
+            migrationBuilder.DropTable(
+                name: "BilateralProtocols");
 
             migrationBuilder.DropTable(
                 name: "Errors");

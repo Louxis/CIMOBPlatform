@@ -15,12 +15,15 @@ namespace CIMOBProject.Models
 
         [Required]
         [StringLength(500)]
+        [Display(Name = "Título")]
         public String Title { get; set; }
 
         [Required]
         [StringLength(1000)]
+        [Display(Name = "Conteúdo")]
         public string TextContent { get; set; }
 
+        [Display(Name = "Publicar")]
         public bool IsPublished { get; set; }
 
         public int DocumentId { get; set; }

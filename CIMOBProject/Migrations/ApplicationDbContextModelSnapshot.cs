@@ -136,6 +136,22 @@ namespace CIMOBProject.Migrations
                     b.HasDiscriminator<string>("Discriminator").HasValue("ApplicationUser");
                 });
 
+            modelBuilder.Entity("CIMOBProject.Models.BilateralProtocol", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Destination");
+
+                    b.Property<int>("SubjectId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SubjectId");
+
+                    b.ToTable("BilateralProtocols");
+                });
+
             modelBuilder.Entity("CIMOBProject.Models.College", b =>
                 {
                     b.Property<int>("Id")
@@ -238,6 +254,9 @@ namespace CIMOBProject.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<string>("Discriminator")
+                        .IsRequired();
+
                     b.Property<int>("DocumentId");
 
                     b.Property<string>("EmployeeId");
@@ -259,6 +278,8 @@ namespace CIMOBProject.Migrations
                     b.HasIndex("EmployeeId");
 
                     b.ToTable("News");
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("News");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -402,6 +423,19 @@ namespace CIMOBProject.Migrations
                     b.HasDiscriminator().HasValue("Student");
                 });
 
+            modelBuilder.Entity("CIMOBProject.Models.Edital", b =>
+                {
+                    b.HasBaseType("CIMOBProject.Models.News");
+
+                    b.Property<DateTime>("CloseDate");
+
+                    b.Property<DateTime>("OpenDate");
+
+                    b.ToTable("Edital");
+
+                    b.HasDiscriminator().HasValue("Edital");
+                });
+
             modelBuilder.Entity("CIMOBProject.Models.Application", b =>
                 {
                     b.HasOne("CIMOBProject.Models.ApplicationStat", "ApplicationStat")
@@ -416,6 +450,14 @@ namespace CIMOBProject.Migrations
                     b.HasOne("CIMOBProject.Models.Student", "Student")
                         .WithMany()
                         .HasForeignKey("StudentId");
+                });
+
+            modelBuilder.Entity("CIMOBProject.Models.BilateralProtocol", b =>
+                {
+                    b.HasOne("CIMOBProject.Models.CollegeSubject", "Subject")
+                        .WithMany()
+                        .HasForeignKey("SubjectId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("CIMOBProject.Models.CollegeSubject", b =>
