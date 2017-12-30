@@ -29,6 +29,8 @@ namespace CIMOBProject.Models
         public int? DocumentId { get; set; }
 
         public virtual Employee Employee { get; set; }
+
+        [Display(Name = "Documento")]
         public virtual Document Document { get; set; }
     }
 }

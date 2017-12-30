@@ -11,6 +11,7 @@
 
 <p>
     <a asp-area="" asp-controller="News" asp-action="Create" asp-route-userId="@UserManager.GetUserId(User)">Nova Publicação</a>
+    <a asp-area="" asp-controller="Editals" asp-action="Create" asp-route-userId="@UserManager.GetUserId(User)">Novo Edital</a>
 </p>
 <table class="table">
     <thead>
@@ -28,7 +29,15 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                <a asp-action="Details" asp-route-id="@item.Id"> @Html.DisplayFor(modelItem => item.Title)</a>
+                @if (item.GetType() == typeof(Edital))
+                {
+                    <a asp-action="Details" asp-controller="Editals" asp-route-id="@item.Id"> @Html.DisplayFor(modelItem => item.Title)</a>
+                }
+                else
+                {
+                    <a asp-action="Details" asp-route-id="@item.Id"> @Html.DisplayFor(modelItem => item.Title)</a>
+                }
+                
             </td>
                 @if (item.IsPublished == true)
                 {
@@ -39,11 +48,24 @@
                     <td>Nao</td>
                 }
             <td>
+
                 @if (item.IsPublished == false) {
                     <a asp-action="Publish" asp-controller="News" asp-route-id="@item.Id">Publicar |</a> 
                 }
-                <a asp-action="Edit" asp-route-id="@item.Id">Editar</a> |
+                @if(item.GetType() == typeof(Edital))
+                {
+                    <a asp-action="Edit" asp-controller="Editals" asp-route-id="@item.Id">Editar |</a> 
+
+                    <a asp-action="Delete" asp-controller="Editals" asp-route-id="@item.Id">Eliminar</a>
+
+                }
+                else
+                {
+                    <a asp-action="Edit" asp-route-id="@item.Id">Editar |</a> 
                 <a asp-action="Delete" asp-route-id="@item.Id">Eliminar</a>
+
+                }
+
             </td>
         </tr>
 }
