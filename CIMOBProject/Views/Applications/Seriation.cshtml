@@ -22,10 +22,10 @@
                 @Html.DisplayNameFor(model => model.Student.CollegeSubject.SubjectName)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ApplicationStat.Name)
+                @Html.DisplayNameFor(model => model.FinalGrade)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.FinalGrade)
+                @Html.DisplayNameFor(model => model.ApplicationStat.Name)
             </th>
             <th></th>
         </tr>
@@ -44,10 +44,10 @@
                     @Html.DisplayFor(modelItem => item.Student.CollegeSubject.SubjectName)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.ApplicationStat.Name)
+                    @Html.DisplayFor(modelItem => item.FinalGrade)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.FinalGrade)
+                    @Html.DisplayFor(modelItem => item.ApplicationStat.Name)
                 </td>
             </tr>
         }

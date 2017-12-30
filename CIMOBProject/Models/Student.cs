@@ -28,5 +28,7 @@ namespace CIMOBProject.Models
 
         public virtual CollegeSubject CollegeSubject { get; set; }
 
+        public virtual List<Application> Applications { get; set; }
+
     }
 }

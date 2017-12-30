@@ -1,17 +1,35 @@
 ﻿@model IEnumerable<CIMOBProject.Models.Application>
-
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
 @{
     ViewData["Title"] = "Index";
 }
 
 <h2>Index</h2>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+
+<form asp-controller="Applications" asp-action="Filter" method="get">
+    <select class="search-options" for="filterType" name="filterType">
+        <option value=null>Escolha uma opção</option>
+        <option value="CurrentlySupervising">Atualmente a avaliar</option>
+        <option value="NotSupervising">Sem avaliador</option>
+        <option value="NoFilter">Todos os estudantes</option>
+    </select>
+
+    <input class="search-box" hidden="hidden" type="text" name="employeeId"  value="@UserManager.GetUserId(User)" />
+
+    <input type="submit" class="btn btn-default" value="Filter">
+</form>
+
 <table class="table">
     <thead>
         <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Student)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Employee)
+            </th>
             <th>
                 @Html.DisplayNameFor(model => model.ArithmeticMean)
             </th>
@@ -30,18 +48,18 @@
             <th>
                 @Html.DisplayNameFor(model => model.ApplicationStat)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Employee)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Student)
-            </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
 @foreach (var item in Model) {
         <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Student.UserFullname)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Employee.UserFullname)
+            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.ArithmeticMean)
             </td>
@@ -61,15 +79,12 @@
                 @Html.DisplayFor(modelItem => item.ApplicationStat.Name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Employee.Id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Student.Id)
-            </td>
-            <td>
                 <a asp-action="Edit" asp-route-id="@item.ApplicationId">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.ApplicationId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.ApplicationId">Delete</a>
+                @if (item.EmployeeId == null && User.IsInRole("Employee"))
+                {
+                    <a asp-action="AssignEmployee" asp-route-employeeId="@UserManager.GetUserId(User)" asp-route-applicationId ="@item.ApplicationId">Evaluat</a>
+                }
             </td>
         </tr>
 }

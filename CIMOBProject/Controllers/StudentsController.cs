@@ -77,17 +77,22 @@ namespace CIMOBProject.Controllers
             {
                 return NotFound();
             }
-
-            var student = await _context.Students
-                .Include(s => s.CollegeSubject.College).Include(s=>s.Documents)
-                .SingleOrDefaultAsync(m => m.Id == id);
             
-            if (student == null)
+            //var student = await _context.Students
+            //    .Include(s => s.CollegeSubject.College).Include(s=>s.Documents).Include(s => s.Applications)
+            //    .SingleOrDefaultAsync(m => m.Id == id);
+            var stud = await _context.Applications.Include(a => a.ApplicationStat).Include(a => a.Documents).Include(a => a.Student).Include(a => a.Student.CollegeSubject).SingleOrDefaultAsync(m => m.Student.Id == id);
+
+            //var student2 = await _context.Students
+            //    .Include(s => s.CollegeSubject.College).Include(s => s.Documents).Include(s => s.Applications).Include(s => s.Applications.FirstOrDefault().ApplicationStat)
+            //    .SingleOrDefaultAsync(m => m.Id == id);
+
+            if (stud == null)
             {
                 return NotFound();
             }
-            ViewData["selectedId"] = student.Id;
-            return View(student);
+            ViewData["selectedId"] = stud.Student.Id;
+            return View(stud.Student);
         }
 
         // GET: Students/Create

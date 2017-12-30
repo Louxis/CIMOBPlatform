@@ -258,7 +258,7 @@ namespace CIMOBProject.Models {
                 {
                     StudentId = context.Students.Where(s => s.UserFullname.Equals("Teste User 3")).FirstOrDefault().Id,
                     ApplicationStatId = 5,
-                    EmployeeId = context.Employees.Where(s => s.UserFullname.Equals("Empregado Teste")).FirstOrDefault().Id,
+                    //EmployeeId = context.Employees.Where(s => s.UserFullname.Equals("Empregado Teste")).FirstOrDefault().Id,
                     ArithmeticMean = 8.0,
                     ECTS = 66,
                     MotivationLetter = 9.0,
@@ -283,7 +283,7 @@ namespace CIMOBProject.Models {
                 {
                     StudentId = context.Students.Where(s => s.UserFullname.Equals("Teste User 7")).FirstOrDefault().Id,
                     ApplicationStatId = 4,
-                    EmployeeId = context.Employees.Where(s => s.UserFullname.Equals("Empregado Teste")).FirstOrDefault().Id,
+                    //EmployeeId = context.Employees.Where(s => s.UserFullname.Equals("Empregado Teste")).FirstOrDefault().Id,
                     ArithmeticMean = 12.0,
                     ECTS = 120,
                     MotivationLetter = 15.0,
@@ -295,7 +295,7 @@ namespace CIMOBProject.Models {
                 {
                     StudentId = context.Students.Where(s => s.UserFullname.Equals("Teste User 5")).FirstOrDefault().Id,
                     ApplicationStatId = 5,
-                    EmployeeId = context.Employees.Where(s => s.UserFullname.Equals("Empregado Teste")).FirstOrDefault().Id,
+                    //EmployeeId = context.Employees.Where(s => s.UserFullname.Equals("Empregado Teste")).FirstOrDefault().Id,
                     ArithmeticMean = 13.0,
                     ECTS = 120,
                     MotivationLetter = 8.0,
@@ -307,13 +307,19 @@ namespace CIMOBProject.Models {
                 {
                     StudentId = context.Students.Where(s => s.UserFullname.Equals("Teste User 6")).FirstOrDefault().Id,
                     ApplicationStatId = 5,
-                    EmployeeId = context.Employees.Where(s => s.UserFullname.Equals("Empregado Teste")).FirstOrDefault().Id,
+                    //EmployeeId = context.Employees.Where(s => s.UserFullname.Equals("Empregado Teste")).FirstOrDefault().Id,
                     ArithmeticMean = 8.0,
                     ECTS = 120,
                     MotivationLetter = 9.0,
                     Enterview = 6.0,
                     FinalGrade = 7.0
                 });
+                context.SaveChanges();
+            }
+
+            if (!context.Editals.Any())
+            {
+                context.Editals.Add(new Edital {Title = "Edital teste", TextContent = "Edital publicado", OpenDate = new DateTime(2017,11,10), CloseDate = new DateTime(2017,12,31) });
                 context.SaveChanges();
             }
 

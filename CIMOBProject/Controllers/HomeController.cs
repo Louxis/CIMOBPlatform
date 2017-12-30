@@ -5,7 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using CIMOBProject.Models;
-
+using System.Globalization;
 
 namespace CIMOBProject.Controllers
 {
@@ -21,10 +21,17 @@ namespace CIMOBProject.Controllers
             return View();
         }
 
-        public IActionResult Application()
+        public IActionResult Application(String message)
         {
-            return View();
+            if(message == null)
+            {
+                message = "Necissita estar logged in para ver informações relativamente a candidatura";
+                return View((object)message);
+            }
+
+            return View((object) message);
         }
+
 
         public IActionResult Contact()
         {

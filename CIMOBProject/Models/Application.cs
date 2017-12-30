@@ -9,14 +9,12 @@ namespace CIMOBProject.Models
     public class Application
     {
         public int ApplicationId { get; set; }
-
+       
         public string StudentId { get; set; }
-
+        [Display(Name = "Estado da candidatura")]
         public int ApplicationStatId { get; set; }
 
         public string EmployeeId { get; set; }
-
-        
 
         [Display(Name = "Média aritemetica")]
         [Range(minimum:0.0, maximum:20.0, ErrorMessage ="Média aritemética deve ser entre 0 e 20.")]
