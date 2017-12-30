@@ -21,9 +21,9 @@ namespace CIMOBProject.Controllers
         }
 
         // GET: Applications
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(String employeeId)
         {
-            var applicationDbContext = _context.Applications.Include(a => a.ApplicationStat).Include(a => a.Employee).Include(a => a.Student);
+            var applicationDbContext = _context.Applications.Include(a => a.ApplicationStat).Include(a => a.Employee).Include(a => a.Student).Where(a => a.EmployeeId.Equals(employeeId));
             return View(await applicationDbContext.ToListAsync());
         }
 
@@ -110,10 +110,6 @@ namespace CIMOBProject.Controllers
         public async Task<IActionResult> Filter(String filterType, String employeeId)
         {
             var allApplications = _context.Applications.Include(a => a.ApplicationStat).Include(a => a.Employee).Include(a => a.Student);
-            if (filterType.Equals(null))
-            {
-                return RedirectToAction("Index", "Applications");
-            }
             if (filterType.Equals("CurrentlySupervising"))
             {
                 var filteredApplications = allApplications.Where(a => a.EmployeeId.Equals(employeeId));
@@ -123,10 +119,6 @@ namespace CIMOBProject.Controllers
             {
                 var filteredApplications = allApplications.Where(a => a.EmployeeId.Equals(null));
                 return View(await filteredApplications.ToListAsync());
-            }
-            if (filterType.Equals("NoFilter"))
-            {
-                return RedirectToAction("Index", "Applications");
             }
 
             return View(await allApplications.ToListAsync());

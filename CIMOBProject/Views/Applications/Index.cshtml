@@ -10,10 +10,8 @@
 
 <form asp-controller="Applications" asp-action="Filter" method="get">
     <select class="search-options" for="filterType" name="filterType">
-        <option value=null>Escolha uma opção</option>
         <option value="CurrentlySupervising">Atualmente a avaliar</option>
         <option value="NotSupervising">Sem avaliador</option>
-        <option value="NoFilter">Todos os estudantes</option>
     </select>
 
     <input class="search-box" hidden="hidden" type="text" name="employeeId"  value="@UserManager.GetUserId(User)" />
