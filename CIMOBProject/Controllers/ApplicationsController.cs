@@ -101,6 +101,26 @@ namespace CIMOBProject.Controllers
             var applicationDbContext = _context.Applications.Include(a => a.ApplicationStat).Include(a => a.Student).Include(a => a.Student.CollegeSubject).Include(a => a.Student.CollegeSubject.College).OrderByDescending(m => m.FinalGrade);
             /*OrderBy(m => m.Student.CollegeSubject.College.CollegeName).ThenBy(m => m.Student.CollegeSubject.SubjectName).*/
             //var query1 = from item in _context.Applications orderby item.ArithmeticMean descending orderby item.ApplicationStatId ascending group item by item.ApplicationStatId into g select new { Name = g.Key, Order = g.ToList() };
+            var q1 = _context.Applications.Include(a => a.ApplicationStat).Include(a => a.Student).Include(a => a.Student.CollegeSubject).Include(a => a.Student.CollegeSubject.College)/*.Include(a => a.BilateralAgreement)*/.Where(a => a.ApplicationStatId == 3);
+
+            foreach (var item in q1)
+            {
+                item.FinalGrade = (item.MotivationLetter + item.Enterview + item.ArithmeticMean) / 3;
+            }
+            _context.SaveChanges();
+
+            var q2 = q1.OrderByDescending(q => q.FinalGrade);
+            //foreach(var item in q2)
+            //{
+            //    if(q2.bilateralAgreement.freeSpaces > 0){
+            //        item.applicationStat = 4;
+            //    }
+            //    else
+            //    {
+            //        item.applicationStat = 5;
+            //    }
+            //}
+            _context.SaveChanges();
             var query1 = from item in _context.Applications select item;
 
 
