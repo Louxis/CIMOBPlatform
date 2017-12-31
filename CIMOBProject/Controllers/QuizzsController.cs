@@ -8,6 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using CIMOBProject.Data;
 using CIMOBProject.Models;
 using System.Security.Claims;
+using CIMOBProject.Services;
+using System.Text.Encodings.Web;
 
 namespace CIMOBProject.Controllers
 {
@@ -45,8 +47,10 @@ namespace CIMOBProject.Controllers
                 _context.SaveChanges();
                 //put code to send email here
                 //get all the students that finished outgoing
-                //TO-DO Send email
-
+                List<string> emails = _context.Students.Select(s => s.Email).ToList();
+                EmailSender sender = new EmailSender();
+                sender.SendMultipleEmail(emails, title, $"Aqui está o seu questionário: <a href='{HtmlEncoder.Default.Encode(quizz.QuizzUrl)}'>link</a>.");
+                //TO-DO Filter students
             }
             else {
                 //Something went bad
