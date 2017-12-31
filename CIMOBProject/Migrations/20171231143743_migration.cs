@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace CIMOBProject.Migrations
 {
-    public partial class NewApplicationsMigration : Migration
+    public partial class migration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -174,6 +174,7 @@ namespace CIMOBProject.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Destination = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    OpenSlots = table.Column<int>(type: "int", nullable: false),
                     SubjectId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -281,6 +282,7 @@ namespace CIMOBProject.Migrations
                     ApplicationStatId = table.Column<int>(type: "int", nullable: false),
                     ArithmeticMean = table.Column<double>(type: "float", nullable: true),
                     BilateralProtocolId = table.Column<int>(type: "int", nullable: true),
+                    CreationDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ECTS = table.Column<int>(type: "int", nullable: true),
                     EmployeeId = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     Enterview = table.Column<double>(type: "float", nullable: true),

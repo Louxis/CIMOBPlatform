@@ -83,7 +83,7 @@ namespace CIMOBProject.Controllers
             // .Include(s => s.Applications)
             //.SingleOrDefaultAsync(m => m.Id == id);
 
-            var stud = await _context.Applications.Include(a => a.BilateralProtocol)
+            var stud = await _context.Applications.Include(a => a.BilateralProtocol1).Include(a => a.BilateralProtocol2).Include(a => a.BilateralProtocol3)
                 .Include(a => a.ApplicationStat).Include(a => a.Documents)
                 .Include(a => a.Student).Include(a => a.Student.CollegeSubject)
                 .Where(m => m.Student.Id == id).OrderBy(a => a.ApplicationId).LastAsync();

@@ -57,8 +57,18 @@ namespace CIMOBProject.Models {
 
             if (!context.BilateralProtocols.Any())
             {
-                context.BilateralProtocols.Add(new BilateralProtocol { SubjectId = 1, Destination = "Lithuania" });
-                context.BilateralProtocols.Add(new BilateralProtocol { SubjectId = 2, Destination = "Spain" });
+                context.BilateralProtocols.Add(new BilateralProtocol { SubjectId = 1, Destination = "Lithuania", OpenSlots = 1 });
+                context.BilateralProtocols.Add(new BilateralProtocol { SubjectId = 2, Destination = "Spain", OpenSlots = 1 });
+                context.BilateralProtocols.Add(new BilateralProtocol { SubjectId = 3, Destination = "Testing1", OpenSlots = 1 });
+                context.BilateralProtocols.Add(new BilateralProtocol { SubjectId = 4, Destination = "Testing2", OpenSlots = 1 });
+                context.BilateralProtocols.Add(new BilateralProtocol { SubjectId = 1, Destination = "Lithuania", OpenSlots = 1 });
+                context.BilateralProtocols.Add(new BilateralProtocol { SubjectId = 2, Destination = "Testing4", OpenSlots = 1 });
+                context.BilateralProtocols.Add(new BilateralProtocol { SubjectId = 3, Destination = "Testing5", OpenSlots = 1 });
+                context.BilateralProtocols.Add(new BilateralProtocol { SubjectId = 4, Destination = "Testing6", OpenSlots = 1 });
+                context.BilateralProtocols.Add(new BilateralProtocol { SubjectId = 1, Destination = "Testing7", OpenSlots = 1 });
+                context.BilateralProtocols.Add(new BilateralProtocol { SubjectId = 2, Destination = "Testing8", OpenSlots = 1 });
+                context.BilateralProtocols.Add(new BilateralProtocol { SubjectId = 3, Destination = "Testing9", OpenSlots = 1 });
+                context.BilateralProtocols.Add(new BilateralProtocol { SubjectId = 4, Destination = "Testing10", OpenSlots = 1 });
                 context.SaveChanges();
             }
 
@@ -157,7 +167,7 @@ namespace CIMOBProject.Models {
                     BirthDate = new DateTime(1995, 1, 1),
                     StudentNumber = "123123123",
                     ALOGrade = 0,
-                    CollegeSubjectId = 3
+                    CollegeSubjectId = 4
                 };
                 userManager.CreateAsync(user5, "teste15").Wait();
                 userManager.AddToRoleAsync(user5, role.Name).Wait();
@@ -238,21 +248,27 @@ namespace CIMOBProject.Models {
                 context.Applications.Add(new Application
                 {
                     StudentId = context.Students.Where(s => s.UserFullname.Equals("Teste User 4")).FirstOrDefault().Id,
-                    ApplicationStatId = 5,
-                    BilateralProtocolId = 2,
+                    ApplicationStatId = 3,
+                    BilateralProtocol1Id = 2,
+                    BilateralProtocol2Id = 6,
+                    BilateralProtocol3Id = 10,
                     EmployeeId = context.Employees.Where(s => s.UserFullname.Equals("Empregado Teste")).FirstOrDefault().Id,
-                    ArithmeticMean = 7.5,
+                    CreationDate = new DateTime(2017, 11, 11),
+                    ArithmeticMean = 7.0,
                     ECTS = 78,
                     MotivationLetter = 8.0,
                     Enterview = 9.0,
-                    FinalGrade = 8.4
+                    FinalGrade = 8.0
                 });
                 context.Applications.Add(new Application
                 {
                     StudentId = context.Students.Where(s => s.UserFullname.Equals("Teste User 2")).FirstOrDefault().Id,
-                    ApplicationStatId = 4,
-                    BilateralProtocolId = 2,
+                    ApplicationStatId = 3,
+                    BilateralProtocol1Id = 1,
+                    BilateralProtocol2Id = 5,
+                    BilateralProtocol3Id = 9,
                     EmployeeId = context.Employees.Where(s => s.UserFullname.Equals("Empregado Teste")).FirstOrDefault().Id,
+                    CreationDate = new DateTime(2017, 11, 12),
                     ArithmeticMean = 10.0,
                     ECTS = 90,
                     MotivationLetter = 10.0,
@@ -264,23 +280,29 @@ namespace CIMOBProject.Models {
                 context.Applications.Add(new Application
                 {
                     StudentId = context.Students.Where(s => s.UserFullname.Equals("Teste User 3")).FirstOrDefault().Id,
-                    ApplicationStatId = 5,
-                    BilateralProtocolId = 1,
+                    ApplicationStatId = 3,
+                    BilateralProtocol1Id = 2,
+                    BilateralProtocol2Id = 6,
+                    BilateralProtocol3Id = 10,
                     //EmployeeId = context.Employees.Where(s => s.UserFullname.Equals("Empregado Teste")).FirstOrDefault().Id,
+                    CreationDate = new DateTime(2017, 11, 13),
                     ArithmeticMean = 8.0,
                     ECTS = 66,
                     MotivationLetter = 9.0,
                     Enterview = 7.0,
-                    FinalGrade = 7.6
+                    FinalGrade = 7.0
                 });
                 
 
                 context.Applications.Add(new Application
                 {
                     StudentId = context.Students.Where(s => s.UserFullname.Equals("Teste User 1")).FirstOrDefault().Id,
-                    ApplicationStatId = 4,
-                    BilateralProtocolId = 1,
+                    ApplicationStatId = 3,
+                    BilateralProtocol1Id = 1,
+                    BilateralProtocol2Id = 5,
+                    BilateralProtocol3Id = 9,
                     EmployeeId = context.Employees.Where(s => s.UserFullname.Equals("Empregado Teste")).FirstOrDefault().Id,
+                    CreationDate = new DateTime(2017, 11, 14),
                     ArithmeticMean = 20.0,
                     ECTS = 120,
                     MotivationLetter = 20.0,
@@ -291,9 +313,12 @@ namespace CIMOBProject.Models {
                 context.Applications.Add(new Application
                 {
                     StudentId = context.Students.Where(s => s.UserFullname.Equals("Teste User 7")).FirstOrDefault().Id,
-                    ApplicationStatId = 4,
-                    BilateralProtocolId = 1,
+                    ApplicationStatId = 3,
+                    BilateralProtocol1Id = 4,
+                    BilateralProtocol2Id = 8,
+                    BilateralProtocol3Id = 12,
                     //EmployeeId = context.Employees.Where(s => s.UserFullname.Equals("Empregado Teste")).FirstOrDefault().Id,
+                    CreationDate = new DateTime(2017, 11, 15),
                     ArithmeticMean = 12.0,
                     ECTS = 120,
                     MotivationLetter = 15.0,
@@ -304,22 +329,28 @@ namespace CIMOBProject.Models {
                 context.Applications.Add(new Application
                 {
                     StudentId = context.Students.Where(s => s.UserFullname.Equals("Teste User 5")).FirstOrDefault().Id,
-                    ApplicationStatId = 5,
-                    BilateralProtocolId = 2,
+                    ApplicationStatId = 3,
+                    BilateralProtocol1Id = 4,
+                    BilateralProtocol2Id = 8,
+                    BilateralProtocol3Id = 12,
                     //EmployeeId = context.Employees.Where(s => s.UserFullname.Equals("Empregado Teste")).FirstOrDefault().Id,
+                    CreationDate = new DateTime(2017, 11, 16),
                     ArithmeticMean = 13.0,
                     ECTS = 120,
                     MotivationLetter = 8.0,
-                    Enterview = 8.5,
-                    FinalGrade = 9.3
+                    Enterview = 8.0,
+                    FinalGrade = 9.0
                 });
 
                 context.Applications.Add(new Application
                 {
                     StudentId = context.Students.Where(s => s.UserFullname.Equals("Teste User 6")).FirstOrDefault().Id,
-                    ApplicationStatId = 5,
-                    BilateralProtocolId = 1,
+                    ApplicationStatId = 3,
+                    BilateralProtocol1Id = 1,
+                    BilateralProtocol2Id = 5,
+                    BilateralProtocol3Id = 9,
                     //EmployeeId = context.Employees.Where(s => s.UserFullname.Equals("Empregado Teste")).FirstOrDefault().Id,
+                    CreationDate = new DateTime(2016, 11, 10),
                     ArithmeticMean = 8.0,
                     ECTS = 120,
                     MotivationLetter = 9.0,
@@ -328,10 +359,6 @@ namespace CIMOBProject.Models {
                 });
                 context.SaveChanges();
             }
-
-
-            
-
 
             if (!context.Editals.Any())
             {

@@ -44,7 +44,7 @@
                 @Html.DisplayNameFor(model => model.FinalGrade)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.BilateralProtocol)
+                @Html.DisplayNameFor(model => model.BilateralProtocol1Id)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.ApplicationStat)
@@ -77,7 +77,18 @@
                 @Html.DisplayFor(modelItem => item.FinalGrade)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.BilateralProtocol.Destination)
+                @if (item.BilateralProtocol1 != null)
+                {
+                    @Html.DisplayFor(modelItem => item.BilateralProtocol1.Destination)
+                }
+                else if (item.BilateralProtocol2 != null)
+                {
+                    @Html.DisplayFor(modelItem => item.BilateralProtocol2.Destination)
+                }
+                else
+                {
+                    @Html.DisplayFor(modelItem => item.BilateralProtocol3.Destination)
+                }
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.ApplicationStat.Name)

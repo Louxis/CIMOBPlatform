@@ -39,6 +39,7 @@ namespace CIMOBProject
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(connection));
 
+
             services.AddIdentity<ApplicationUser, IdentityRole>(config =>
             {
                 config.SignIn.RequireConfirmedEmail = true;

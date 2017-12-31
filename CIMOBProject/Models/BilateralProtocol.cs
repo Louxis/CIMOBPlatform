@@ -14,6 +14,8 @@ namespace CIMOBProject.Models
 
         public string Destination { get; set; }
 
+        public int OpenSlots { get; set; }
+
         public virtual CollegeSubject Subject { get; set; }
     }
 }

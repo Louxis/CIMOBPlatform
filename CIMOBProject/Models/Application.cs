@@ -16,7 +16,14 @@ namespace CIMOBProject.Models
 
         public string EmployeeId { get; set; }
 
-        public int? BilateralProtocolId { get; set; }
+        [Display(Name = "Destino")]
+        public int? BilateralProtocol1Id { get; set; }
+
+        public int? BilateralProtocol2Id { get; set; }
+
+        public int? BilateralProtocol3Id { get; set; }
+
+        public DateTime CreationDate { get; set; }
 
         [Display(Name = "Média aritmética")]
         [Range(minimum:0.0, maximum:20.0, ErrorMessage ="Média aritemética deve ser entre 0 e 20.")]
@@ -44,7 +51,11 @@ namespace CIMOBProject.Models
 
         public virtual List<Document> Documents { get; set; }
 
-        public virtual BilateralProtocol BilateralProtocol { get; set; }
+        public virtual BilateralProtocol BilateralProtocol1 { get; set; }
+
+        public virtual BilateralProtocol BilateralProtocol2 { get; set; }
+
+        public virtual BilateralProtocol BilateralProtocol3 { get; set; }
 
 
     }

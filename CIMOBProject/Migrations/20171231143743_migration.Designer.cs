@@ -12,9 +12,10 @@ using System;
 namespace CIMOBProject.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20171231143743_migration")]
+    partial class migration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -30,11 +31,7 @@ namespace CIMOBProject.Migrations
 
                     b.Property<double?>("ArithmeticMean");
 
-                    b.Property<int?>("BilateralProtocol1Id");
-
-                    b.Property<int?>("BilateralProtocol2Id");
-
-                    b.Property<int?>("BilateralProtocol3Id");
+                    b.Property<int?>("BilateralProtocolId");
 
                     b.Property<DateTime>("CreationDate");
 
@@ -56,11 +53,7 @@ namespace CIMOBProject.Migrations
 
                     b.HasIndex("ApplicationStatId");
 
-                    b.HasIndex("BilateralProtocol1Id");
-
-                    b.HasIndex("BilateralProtocol2Id");
-
-                    b.HasIndex("BilateralProtocol3Id");
+                    b.HasIndex("BilateralProtocolId");
 
                     b.HasIndex("EmployeeId");
 
@@ -463,17 +456,9 @@ namespace CIMOBProject.Migrations
                         .HasForeignKey("ApplicationStatId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("CIMOBProject.Models.BilateralProtocol", "BilateralProtocol1")
+                    b.HasOne("CIMOBProject.Models.BilateralProtocol", "BilateralProtocol")
                         .WithMany()
-                        .HasForeignKey("BilateralProtocol1Id");
-
-                    b.HasOne("CIMOBProject.Models.BilateralProtocol", "BilateralProtocol2")
-                        .WithMany()
-                        .HasForeignKey("BilateralProtocol2Id");
-
-                    b.HasOne("CIMOBProject.Models.BilateralProtocol", "BilateralProtocol3")
-                        .WithMany()
-                        .HasForeignKey("BilateralProtocol3Id");
+                        .HasForeignKey("BilateralProtocolId");
 
                     b.HasOne("CIMOBProject.Models.Employee", "Employee")
                         .WithMany()
