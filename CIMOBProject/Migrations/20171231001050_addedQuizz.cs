@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace CIMOBProject.Migrations
 {
-    public partial class NewMig : Migration
+    public partial class addedQuizz : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -75,6 +75,21 @@ namespace CIMOBProject.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Helps", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Quizzs",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    QuizzUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Semester = table.Column<int>(type: "int", nullable: false),
+                    Year = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Quizzs", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -506,6 +521,9 @@ namespace CIMOBProject.Migrations
 
             migrationBuilder.DropTable(
                 name: "News");
+
+            migrationBuilder.DropTable(
+                name: "Quizzs");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");

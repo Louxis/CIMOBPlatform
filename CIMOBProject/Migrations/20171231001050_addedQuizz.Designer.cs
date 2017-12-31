@@ -12,8 +12,8 @@ using System;
 namespace CIMOBProject.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20171230011632_NewMig")]
-    partial class NewMig
+    [Migration("20171231001050_addedQuizz")]
+    partial class addedQuizz
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -283,6 +283,23 @@ namespace CIMOBProject.Migrations
                     b.ToTable("News");
 
                     b.HasDiscriminator<string>("Discriminator").HasValue("News");
+                });
+
+            modelBuilder.Entity("CIMOBProject.Models.Quizz", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("QuizzUrl")
+                        .IsRequired();
+
+                    b.Property<int>("Semester");
+
+                    b.Property<int>("Year");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Quizzs");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
