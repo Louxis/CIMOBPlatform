@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace CIMOBProject.Migrations
 {
-    public partial class initMig : Migration
+    public partial class NewApplicationsMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -188,44 +188,6 @@ namespace CIMOBProject.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Applications",
-                columns: table => new
-                {
-                    ApplicationId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    ApplicationStatId = table.Column<int>(type: "int", nullable: false),
-                    ArithmeticMean = table.Column<double>(type: "float", nullable: false),
-                    ECTS = table.Column<int>(type: "int", nullable: false),
-                    EmployeeId = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    Enterview = table.Column<double>(type: "float", nullable: false),
-                    FinalGrade = table.Column<double>(type: "float", nullable: false),
-                    MotivationLetter = table.Column<double>(type: "float", nullable: false),
-                    StudentId = table.Column<string>(type: "nvarchar(450)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Applications", x => x.ApplicationId);
-                    table.ForeignKey(
-                        name: "FK_Applications_ApplicationStats_ApplicationStatId",
-                        column: x => x.ApplicationStatId,
-                        principalTable: "ApplicationStats",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Applications_AspNetUsers_EmployeeId",
-                        column: x => x.EmployeeId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Applications_AspNetUsers_StudentId",
-                        column: x => x.StudentId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "AspNetUserClaims",
                 columns: table => new
                 {
@@ -311,6 +273,52 @@ namespace CIMOBProject.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Applications",
+                columns: table => new
+                {
+                    ApplicationId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    ApplicationStatId = table.Column<int>(type: "int", nullable: false),
+                    ArithmeticMean = table.Column<double>(type: "float", nullable: true),
+                    BilateralProtocolId = table.Column<int>(type: "int", nullable: true),
+                    ECTS = table.Column<int>(type: "int", nullable: true),
+                    EmployeeId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    Enterview = table.Column<double>(type: "float", nullable: true),
+                    FinalGrade = table.Column<double>(type: "float", nullable: true),
+                    MotivationLetter = table.Column<double>(type: "float", nullable: true),
+                    Motivations = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    StudentId = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Applications", x => x.ApplicationId);
+                    table.ForeignKey(
+                        name: "FK_Applications_ApplicationStats_ApplicationStatId",
+                        column: x => x.ApplicationStatId,
+                        principalTable: "ApplicationStats",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Applications_BilateralProtocols_BilateralProtocolId",
+                        column: x => x.BilateralProtocolId,
+                        principalTable: "BilateralProtocols",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Applications_AspNetUsers_EmployeeId",
+                        column: x => x.EmployeeId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Applications_AspNetUsers_StudentId",
+                        column: x => x.StudentId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Documents",
                 columns: table => new
                 {
@@ -382,6 +390,11 @@ namespace CIMOBProject.Migrations
                 name: "IX_Applications_ApplicationStatId",
                 table: "Applications",
                 column: "ApplicationStatId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Applications_BilateralProtocolId",
+                table: "Applications",
+                column: "BilateralProtocolId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Applications_EmployeeId",
@@ -496,9 +509,6 @@ namespace CIMOBProject.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "BilateralProtocols");
-
-            migrationBuilder.DropTable(
                 name: "Errors");
 
             migrationBuilder.DropTable(
@@ -518,6 +528,9 @@ namespace CIMOBProject.Migrations
 
             migrationBuilder.DropTable(
                 name: "ApplicationStats");
+
+            migrationBuilder.DropTable(
+                name: "BilateralProtocols");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");

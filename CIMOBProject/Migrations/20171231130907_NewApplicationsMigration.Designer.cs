@@ -12,8 +12,8 @@ using System;
 namespace CIMOBProject.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20171230110807_initMig")]
-    partial class initMig
+    [Migration("20171231130907_NewApplicationsMigration")]
+    partial class NewApplicationsMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -29,23 +29,29 @@ namespace CIMOBProject.Migrations
 
                     b.Property<int>("ApplicationStatId");
 
-                    b.Property<double>("ArithmeticMean");
+                    b.Property<double?>("ArithmeticMean");
 
-                    b.Property<int>("ECTS");
+                    b.Property<int?>("BilateralProtocolId");
+
+                    b.Property<int?>("ECTS");
 
                     b.Property<string>("EmployeeId");
 
-                    b.Property<double>("Enterview");
+                    b.Property<double?>("Enterview");
 
-                    b.Property<double>("FinalGrade");
+                    b.Property<double?>("FinalGrade");
 
-                    b.Property<double>("MotivationLetter");
+                    b.Property<double?>("MotivationLetter");
+
+                    b.Property<string>("Motivations");
 
                     b.Property<string>("StudentId");
 
                     b.HasKey("ApplicationId");
 
                     b.HasIndex("ApplicationStatId");
+
+                    b.HasIndex("BilateralProtocolId");
 
                     b.HasIndex("EmployeeId");
 
@@ -446,12 +452,16 @@ namespace CIMOBProject.Migrations
                         .HasForeignKey("ApplicationStatId")
                         .OnDelete(DeleteBehavior.Cascade);
 
+                    b.HasOne("CIMOBProject.Models.BilateralProtocol", "BilateralProtocol")
+                        .WithMany()
+                        .HasForeignKey("BilateralProtocolId");
+
                     b.HasOne("CIMOBProject.Models.Employee", "Employee")
                         .WithMany()
                         .HasForeignKey("EmployeeId");
 
                     b.HasOne("CIMOBProject.Models.Student", "Student")
-                        .WithMany()
+                        .WithMany("Applications")
                         .HasForeignKey("StudentId");
                 });
 

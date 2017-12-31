@@ -44,6 +44,9 @@
                 @Html.DisplayNameFor(model => model.FinalGrade)
             </th>
             <th>
+                @Html.DisplayNameFor(model => model.BilateralProtocol)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.ApplicationStat)
             </th>
             <th></th>
@@ -72,6 +75,9 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.FinalGrade)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BilateralProtocol.Destination)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.ApplicationStat.Name)
