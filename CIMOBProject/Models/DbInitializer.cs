@@ -55,9 +55,14 @@ namespace CIMOBProject.Models {
                 context.SaveChanges();
             }
 
-            
+            if (!context.BilateralProtocols.Any())
+            {
+                context.BilateralProtocols.Add(new BilateralProtocol { SubjectId = 1, Destination = "Lithuania" });
+                context.BilateralProtocols.Add(new BilateralProtocol { SubjectId = 2, Destination = "Spain" });
+                context.SaveChanges();
+            }
 
-           if (!context.Students.Any())
+            if (!context.Students.Any())
             {
                 var user1 = new Student
                 {
@@ -234,6 +239,7 @@ namespace CIMOBProject.Models {
                 {
                     StudentId = context.Students.Where(s => s.UserFullname.Equals("Teste User 4")).FirstOrDefault().Id,
                     ApplicationStatId = 5,
+                    BilateralProtocolId = 2,
                     EmployeeId = context.Employees.Where(s => s.UserFullname.Equals("Empregado Teste")).FirstOrDefault().Id,
                     ArithmeticMean = 7.5,
                     ECTS = 78,
@@ -245,6 +251,7 @@ namespace CIMOBProject.Models {
                 {
                     StudentId = context.Students.Where(s => s.UserFullname.Equals("Teste User 2")).FirstOrDefault().Id,
                     ApplicationStatId = 4,
+                    BilateralProtocolId = 2,
                     EmployeeId = context.Employees.Where(s => s.UserFullname.Equals("Empregado Teste")).FirstOrDefault().Id,
                     ArithmeticMean = 10.0,
                     ECTS = 90,
@@ -258,6 +265,7 @@ namespace CIMOBProject.Models {
                 {
                     StudentId = context.Students.Where(s => s.UserFullname.Equals("Teste User 3")).FirstOrDefault().Id,
                     ApplicationStatId = 5,
+                    BilateralProtocolId = 1,
                     //EmployeeId = context.Employees.Where(s => s.UserFullname.Equals("Empregado Teste")).FirstOrDefault().Id,
                     ArithmeticMean = 8.0,
                     ECTS = 66,
@@ -271,6 +279,7 @@ namespace CIMOBProject.Models {
                 {
                     StudentId = context.Students.Where(s => s.UserFullname.Equals("Teste User 1")).FirstOrDefault().Id,
                     ApplicationStatId = 4,
+                    BilateralProtocolId = 1,
                     EmployeeId = context.Employees.Where(s => s.UserFullname.Equals("Empregado Teste")).FirstOrDefault().Id,
                     ArithmeticMean = 20.0,
                     ECTS = 120,
@@ -283,6 +292,7 @@ namespace CIMOBProject.Models {
                 {
                     StudentId = context.Students.Where(s => s.UserFullname.Equals("Teste User 7")).FirstOrDefault().Id,
                     ApplicationStatId = 4,
+                    BilateralProtocolId = 1,
                     //EmployeeId = context.Employees.Where(s => s.UserFullname.Equals("Empregado Teste")).FirstOrDefault().Id,
                     ArithmeticMean = 12.0,
                     ECTS = 120,
@@ -295,6 +305,7 @@ namespace CIMOBProject.Models {
                 {
                     StudentId = context.Students.Where(s => s.UserFullname.Equals("Teste User 5")).FirstOrDefault().Id,
                     ApplicationStatId = 5,
+                    BilateralProtocolId = 2,
                     //EmployeeId = context.Employees.Where(s => s.UserFullname.Equals("Empregado Teste")).FirstOrDefault().Id,
                     ArithmeticMean = 13.0,
                     ECTS = 120,
@@ -307,6 +318,7 @@ namespace CIMOBProject.Models {
                 {
                     StudentId = context.Students.Where(s => s.UserFullname.Equals("Teste User 6")).FirstOrDefault().Id,
                     ApplicationStatId = 5,
+                    BilateralProtocolId = 1,
                     //EmployeeId = context.Employees.Where(s => s.UserFullname.Equals("Empregado Teste")).FirstOrDefault().Id,
                     ArithmeticMean = 8.0,
                     ECTS = 120,
@@ -317,11 +329,16 @@ namespace CIMOBProject.Models {
                 context.SaveChanges();
             }
 
+
+            
+
+
             if (!context.Editals.Any())
             {
-                context.Editals.Add(new Edital {Title = "Edital teste", TextContent = "Edital publicado", OpenDate = new DateTime(2017,11,10), CloseDate = new DateTime(2017,12,31) });
+                context.Editals.Add(new Edital {Title = "Edital teste", TextContent = "Edital publicado", OpenDate = new DateTime(2017,11,10), CloseDate = new DateTime(2018,01,09) });
                 context.SaveChanges();
             }
+
 
             if (!context.Helps.Any())
             {

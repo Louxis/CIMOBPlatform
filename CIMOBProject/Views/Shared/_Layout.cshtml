@@ -56,11 +56,11 @@
                 <li><a asp-area="" asp-controller="News" asp-action="Index">Publicações</a></li>
                 @if (User.IsInRole("Employee"))
                 {
-                    <li><a asp-area="" asp-controller="Applications" asp-action="Index">Candidaturas</a></li>
+                    <li><a asp-area="" asp-controller="Applications" asp-action="Index" asp-route-employeeId = "@UserManager.GetUserId(User)">Candidaturas</a></li>
                 }
                 else if (User.IsInRole("Student"))
                 {
-                    <li><a asp-area="" asp-controller="Applications" asp-action="Create">Candidatura</a></li>
+                    <li><a asp-area="" asp-controller="Applications" asp-action="Create" asp-route-userId="@UserManager.GetUserId(User)">Candidatura</a></li>
                 }
                 else
                 {

@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h2>Create</h2>
@@ -12,42 +13,17 @@
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            @Html.Hidden("StudentId")
+            @Html.Hidden("EmployeeId")
+            @Html.Hidden("ApplicationStatId")
             <div class="form-group">
-                <label asp-for="StudentId" class="control-label"></label>
-                <select asp-for="StudentId" class ="form-control"  asp-items="ViewBag.StudentId"></select>
+                <label asp-for="BilateralProtocolId" class="control-label"></label>
+                <select asp-for="BilateralProtocolId" class ="form-control" asp-items="ViewBag.BilateralProtocolId"></select>
             </div>
             <div class="form-group">
-                <label asp-for="ApplicationStatId" class="control-label"></label>
-                <select asp-for="ApplicationStatId" class ="form-control" asp-items="ViewBag.ApplicationStatId"></select>
-            </div>
-            <div class="form-group" >
-                <label asp-for="EmployeeId" class="control-label"></label>
-                <select asp-for="EmployeeId" class ="form-control" asp-items="ViewBag.EmployeeId"></select>
-            </div>
-            <div class="form-group">
-                <label asp-for="ArithmeticMean" class="control-label"></label>
-                <input asp-for="ArithmeticMean" class="form-control" />
-                <span asp-validation-for="ArithmeticMean" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ECTS" class="control-label"></label>
-                <input asp-for="ECTS" class="form-control" />
-                <span asp-validation-for="ECTS" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="MotivationLetter" class="control-label"></label>
-                <input asp-for="MotivationLetter" class="form-control" />
-                <span asp-validation-for="MotivationLetter" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Enterview" class="control-label"></label>
-                <input asp-for="Enterview" class="form-control" />
-                <span asp-validation-for="Enterview" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="FinalGrade" class="control-label"></label>
-                <input asp-for="FinalGrade" class="form-control" />
-                <span asp-validation-for="FinalGrade" class="text-danger"></span>
+                <label asp-for="Motivations" class="control-label"></label>
+                <textarea asp-for="Motivations" class="form-control"></textarea>
+                <span asp-validation-for="Motivations" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-default" />
@@ -60,6 +36,3 @@
     <a asp-action="Index">Back to List</a>
 </div>
 
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}

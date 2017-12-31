@@ -77,11 +77,17 @@ namespace CIMOBProject.Controllers
             {
                 return NotFound();
             }
-            
+
             //var student = await _context.Students
-            //    .Include(s => s.CollegeSubject.College).Include(s=>s.Documents).Include(s => s.Applications)
-            //    .SingleOrDefaultAsync(m => m.Id == id);
-            var stud = await _context.Applications.Include(a => a.ApplicationStat).Include(a => a.Documents).Include(a => a.Student).Include(a => a.Student.CollegeSubject).SingleOrDefaultAsync(m => m.Student.Id == id);
+            //  .Include(s => s.CollegeSubject.College).Include(s=>s.Documents)
+            // .Include(s => s.Applications)
+            //.SingleOrDefaultAsync(m => m.Id == id);
+
+            var stud = await _context.Applications.Include(a => a.BilateralProtocol)
+                .Include(a => a.ApplicationStat).Include(a => a.Documents)
+                .Include(a => a.Student).Include(a => a.Student.CollegeSubject)
+                .Where(m => m.Student.Id == id).OrderBy(a => a.ApplicationId).LastAsync();
+                //.SingleOrDefaultAsync(m => m.Student.Id == id);
 
             //var student2 = await _context.Students
             //    .Include(s => s.CollegeSubject.College).Include(s => s.Documents).Include(s => s.Applications).Include(s => s.Applications.FirstOrDefault().ApplicationStat)
