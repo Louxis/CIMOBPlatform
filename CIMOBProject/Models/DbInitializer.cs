@@ -9,6 +9,7 @@ namespace CIMOBProject.Models {
     {
         public static void Initialize(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
+
             context.Database.EnsureCreated();            
             // Seed the database.
             if (context.Roles.SingleOrDefault(r => r.Name == "Student") == null)

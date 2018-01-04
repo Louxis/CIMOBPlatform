@@ -302,6 +302,23 @@ namespace CIMOBProject.Migrations
                     b.HasDiscriminator<string>("Discriminator").HasValue("News");
                 });
 
+            modelBuilder.Entity("CIMOBProject.Models.Quizz", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("QuizzUrl")
+                        .IsRequired();
+
+                    b.Property<int>("Semester");
+
+                    b.Property<int>("Year");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Quizzs");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
                     b.Property<string>("Id")
