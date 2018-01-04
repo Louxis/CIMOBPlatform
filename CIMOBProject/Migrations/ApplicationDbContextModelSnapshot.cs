@@ -217,16 +217,14 @@ namespace CIMOBProject.Migrations
                     b.Property<int>("DocumentId")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int?>("ApplicationId");
-
-                    b.Property<string>("ApplicationUserId");
+                    b.Property<int>("ApplicationId");
 
                     b.Property<string>("Description");
 
+                    b.Property<string>("EmployeeId");
+
                     b.Property<string>("FileUrl")
                         .IsRequired();
-
-                    b.Property<string>("StudentId");
 
                     b.Property<DateTime>("UploadDate");
 
@@ -234,9 +232,7 @@ namespace CIMOBProject.Migrations
 
                     b.HasIndex("ApplicationId");
 
-                    b.HasIndex("ApplicationUserId");
-
-                    b.HasIndex("StudentId");
+                    b.HasIndex("EmployeeId");
 
                     b.ToTable("Documents");
                 });
@@ -519,17 +515,14 @@ namespace CIMOBProject.Migrations
 
             modelBuilder.Entity("CIMOBProject.Models.Document", b =>
                 {
-                    b.HasOne("CIMOBProject.Models.Application")
+                    b.HasOne("CIMOBProject.Models.Application", "Application")
                         .WithMany("Documents")
-                        .HasForeignKey("ApplicationId");
+                        .HasForeignKey("ApplicationId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("CIMOBProject.Models.ApplicationUser", "ApplicationUser")
+                    b.HasOne("CIMOBProject.Models.Employee", "Employee")
                         .WithMany()
-                        .HasForeignKey("ApplicationUserId");
-
-                    b.HasOne("CIMOBProject.Models.Student")
-                        .WithMany("Documents")
-                        .HasForeignKey("StudentId");
+                        .HasForeignKey("EmployeeId");
                 });
 
             modelBuilder.Entity("CIMOBProject.Models.News", b =>

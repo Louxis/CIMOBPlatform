@@ -34,6 +34,9 @@
         <dd>
             @Html.DisplayFor(model => model.Enterview)
         </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.FinalGrade)
+        </dt>
         <dd>
             @Html.DisplayFor(model => model.FinalGrade)
         </dd>
@@ -58,6 +61,7 @@
     </dl>
 </div>
 <div>
+    <a asp-action="Index" asp-controller="Documents" asp-route-applicationId="@Model.ApplicationId">Documentos</a> |
     <a asp-action="Edit" asp-route-id="@Model.ApplicationId">Edit</a> |
     <a asp-action="Index">Back to List</a>
 </div>
