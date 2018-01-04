@@ -128,67 +128,67 @@ namespace XUnitTesting
             if (!_context.Documents.Any())
             {
 
-                var doc1 = new Document
-                {
-                    Description = "Test document1",
-                    FileUrl = "URL.COM",
-                    ApplicationUserId = _context.Students.Where(s => s.UserFullname.Equals("Random user")).FirstOrDefault().Id
-                };
+                //var doc1 = new Document
+                //{
+                //    Description = "Test document1",
+                //    FileUrl = "URL.COM",
+                //    ApplicationUserId = _context.Students.Where(s => s.UserFullname.Equals("Random user")).FirstOrDefault().Id
+                //};
 
-                var doc2 = new Document
-                {
-                    Description = "Test document2",
-                    FileUrl = "URL.COM",
-                    ApplicationUserId = _context.Students.Where(s => s.UserFullname.Equals("Random user")).FirstOrDefault().Id
-                };
+                //var doc2 = new Document
+                //{
+                //    Description = "Test document2",
+                //    FileUrl = "URL.COM",
+                //    ApplicationUserId = _context.Students.Where(s => s.UserFullname.Equals("Random user")).FirstOrDefault().Id
+                //};
 
-                var doc3 = new Document
-                {
-                    Description = "Test document3",
-                    FileUrl = "URL.COM",
-                    ApplicationUserId = _context.Students.Where(m => m.UserFullname == "Stuff user").First().Id
-                };
-                _context.Documents.Add(doc1);
-                _context.Documents.Add(doc2);
-                _context.Documents.Add(doc3);
+                //var doc3 = new Document
+                //{
+                //    Description = "Test document3",
+                //    FileUrl = "URL.COM",
+                //    ApplicationUserId = _context.Students.Where(m => m.UserFullname == "Stuff user").First().Id
+                //};
+                //_context.Documents.Add(doc1);
+                //_context.Documents.Add(doc2);
+                //_context.Documents.Add(doc3);
                 _context.SaveChanges();
             }
         }
 
 
-        [Fact]
-        public async Task TestingGetDocumentsFromStudent()
-        {
-            InitializeDatabaseWithDataTest();
-            DocumentsController controller = new DocumentsController(_context);
+        //[Fact]
+        //public async Task TestingGetDocumentsFromStudent()
+        //{
+        //    InitializeDatabaseWithDataTest();
+        //    DocumentsController controller = new DocumentsController(_context);
 
             
 
-            string studentIndex = _context.Students.Where(s => s.UserFullname.Equals("Random user")).FirstOrDefault().Id;
-            // Act
-            var result = await controller.Index(studentIndex);
+        //    string studentIndex = _context.Students.Where(s => s.UserFullname.Equals("Random user")).FirstOrDefault().Id;
+        //    // Act
+        //    var result = await controller.Index(studentIndex);
 
-            // Assert
-            var viewResult = Assert.IsType<ViewResult>(result);
-            var model = Assert.IsAssignableFrom<IEnumerable<Document>>(
-                viewResult.ViewData.Model);
-            Assert.Equal(2, model.Count());
-        }
-        [Fact]
-        public async Task TestingGetDocumentsFromStudentWithNoDocuments()
-        {
-            InitializeDatabaseWithDataTest();
-            DocumentsController controller = new DocumentsController(_context);
+        //    // Assert
+        //    var viewResult = Assert.IsType<ViewResult>(result);
+        //    var model = Assert.IsAssignableFrom<IEnumerable<Document>>(
+        //        viewResult.ViewData.Model);
+        //    Assert.Equal(2, model.Count());
+        //}
+        //[Fact]
+        //public async Task TestingGetDocumentsFromStudentWithNoDocuments()
+        //{
+        //    InitializeDatabaseWithDataTest();
+        //    DocumentsController controller = new DocumentsController(_context);
 
-            string studentIndex = _context.Students.Where(m => m.UserFullname == "Teste User 1").First().Id;
-            // Act
-            var result = await controller.Index(studentIndex);
+        //    string studentIndex = _context.Students.Where(m => m.UserFullname == "Teste User 1").First().Id;
+        //    // Act
+        //    var result = await controller.Index(studentIndex);
 
-            // Assert
-            var viewResult = Assert.IsType<ViewResult>(result);
-            var model = Assert.IsAssignableFrom<IEnumerable<Document>>(
-                viewResult.ViewData.Model);
-            Assert.Empty(model);
-        }
+        //    // Assert
+        //    var viewResult = Assert.IsType<ViewResult>(result);
+        //    var model = Assert.IsAssignableFrom<IEnumerable<Document>>(
+        //        viewResult.ViewData.Model);
+        //    Assert.Empty(model);
+        //}
     }
 }

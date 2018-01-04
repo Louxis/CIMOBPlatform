@@ -16,11 +16,13 @@ namespace CIMOBProject.Models
 
         public string EmployeeId { get; set; }
 
-        [Display(Name = "Destino")]
+        [Display(Name = "1ª Opção")]
         public int? BilateralProtocol1Id { get; set; }
 
+        [Display(Name = "2ª Opção")]
         public int? BilateralProtocol2Id { get; set; }
 
+        [Display(Name = "3ª Opção")]
         public int? BilateralProtocol3Id { get; set; }
 
         public DateTime CreationDate { get; set; }
@@ -30,12 +32,15 @@ namespace CIMOBProject.Models
         public double? ArithmeticMean { get; set; }
 
         public int? ECTS { get; set; }
+
         [Display(Name = "Avaliação da Motivação do Estudante")]
         [Range(minimum: 0.0, maximum: 20.0, ErrorMessage = "A carta de motivação tem de ter uma nota entre 0 e 20.")]
         public double? MotivationLetter { get; set; }
+
         [Display(Name = "Entrevista")]
         [Range(minimum: 0.0, maximum: 20.0, ErrorMessage = "A entrevista deve ter uma nota de 0 e 20.")]
         public double? Enterview { get; set; }
+
         [Display(Name = "Nota final")]
         [Range(minimum: 0.0, maximum: 20.0, ErrorMessage = "A nota final deve ter uma nota de 0 e 20.")]
         public double? FinalGrade { get; set; }

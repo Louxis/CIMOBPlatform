@@ -53,6 +53,9 @@ namespace CIMOBProject.Controllers
                 .Include(a => a.ApplicationStat)
                 .Include(a => a.Employee)
                 .Include(a => a.Student)
+                .Include(a => a.BilateralProtocol1)
+                .Include(a => a.BilateralProtocol2)
+                .Include(a => a.BilateralProtocol3)
                 .SingleOrDefaultAsync(m => m.ApplicationId == id);
             if (application == null)
             {
@@ -66,23 +69,36 @@ namespace CIMOBProject.Controllers
         public IActionResult Create(string userId)
         {
             var student = _context.Students.Include(s => s.CollegeSubject).Where(s => s.Id == userId).SingleOrDefault();
-            if (DateTime.Now < _context.Editals.OrderBy(e => e.Id).SingleOrDefault().OpenDate)
+            var applicationInCurrentEdital = _context.Applications.Where(a => a.StudentId == userId
+                && (a.CreationDate < _context.Editals.OrderBy(e => e.Id).Last().CloseDate)
+                && (a.CreationDate > _context.Editals.OrderBy(e => e.Id).Last().OpenDate)).SingleOrDefault();
+            if (DateTime.Now < _context.Editals.OrderByDescending(e => e.Id).First().OpenDate)
             {
-                return RedirectToAction("Application", "Home", new { message = "As candidaturas serão disponibilizadas no dia " + _context.Editals.OrderBy(e => e.Id).SingleOrDefault().OpenDate.ToString("MM/dd/yyyy") });
+                return RedirectToAction("Application", "Home", new { message = "As candidaturas serão disponibilizadas no dia " + _context.Editals.OrderByDescending(e => e.Id).First().OpenDate.ToString("MM/dd/yyyy") });
             }
-            if (DateTime.Now > _context.Editals.OrderBy(e => e.Id).SingleOrDefault().CloseDate)
+            if (DateTime.Now > _context.Editals.OrderByDescending(e => e.Id).First().CloseDate)
             {
-                return RedirectToAction("Application", "Home", new { message = "Já terminou a data de entrega das candidaturas(" + _context.Editals.OrderBy(e => e.Id).SingleOrDefault().CloseDate.ToString("MM/dd/yyyy") + ") para o processo outgoing" });
+                return RedirectToAction("Application", "Home", new { message = "Já terminou a data de entrega das candidaturas(" + _context.Editals.OrderByDescending(e => e.Id).First().CloseDate.ToString("MM/dd/yyyy") + ") para o processo outgoing" });
             }
-            ViewData["BilateralProtocol1Id"] = new SelectList(_context.BilateralProtocols.Where(p => p.SubjectId == student.CollegeSubjectId), "Id", "Destination");
-            ViewData["BilateralProtocol2Id"] = new SelectList(_context.BilateralProtocols.Where(p => p.SubjectId == student.CollegeSubjectId), "Id", "Destination");
-            ViewData["BilateralProtocol3Id"] = new SelectList(_context.BilateralProtocols.Where(p => p.SubjectId == student.CollegeSubjectId), "Id", "Destination");
-            ViewData["StudentId"] = userId;
-            ViewData["ApplicationStatId"] = 1;
-            ViewData["EmployeeId"] = "";
-            ViewData["CreationDate"] = DateTime.Now;
-            //ViewData["StudentId"] = new SelectList(_context.Students, "Id", "Id");
-            return View();
+
+            if (applicationInCurrentEdital != null)
+            {
+                return RedirectToAction("Details", "Applications", new { id = applicationInCurrentEdital.ApplicationId });
+            }
+            else
+            {
+                ViewData["BilateralProtocol1Id"] = new SelectList(_context.BilateralProtocols.Where(p => p.SubjectId == student.CollegeSubjectId), "Id", "Destination");
+                ViewData["BilateralProtocol2Id"] = new SelectList(_context.BilateralProtocols.Where(p => p.SubjectId == student.CollegeSubjectId), "Id", "Destination");
+                ViewData["BilateralProtocol3Id"] = new SelectList(_context.BilateralProtocols.Where(p => p.SubjectId == student.CollegeSubjectId), "Id", "Destination");
+                ViewData["StudentId"] = userId;
+                ViewData["ApplicationStatId"] = 1;
+                ViewData["EmployeeId"] = "";
+                ViewData["CreationDate"] = DateTime.Now;
+
+                //ViewData["StudentId"] = new SelectList(_context.Students, "Id", "Id");
+                return View();
+            }
+            
         }
 
         // POST: Applications/Create
@@ -90,7 +106,7 @@ namespace CIMOBProject.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ApplicationId,StudentId,ApplicationStatId,EmployeeId,BilateralProtocol1Id,BilateralProtocol2Id,BilateralProtocol3Id,CreationDate,ArithmeticMean,ECTS,MotivationLetter,Enterview,FinalGrade")] Application application)
+        public async Task<IActionResult> Create([Bind("ApplicationId,StudentId,ApplicationStatId,EmployeeId,BilateralProtocol1Id,BilateralProtocol2Id,BilateralProtocol3Id,CreationDate,ArithmeticMean,ECTS,MotivationLetter,Enterview,FinalGrade,Documents")] Application application)
         {
             var student = _context.Students.Include(s => s.CollegeSubject).Where(s => s.Id == application.StudentId).SingleOrDefault();
             if (ModelState.IsValid)
@@ -136,29 +152,35 @@ namespace CIMOBProject.Controllers
                     item.BilateralProtocol1.OpenSlots -= 1;
                     item.BilateralProtocol2 = null;
                     item.BilateralProtocol3 = null;
-                     _context.SaveChanges();
-                }else if(item.BilateralProtocol2 != null && item.BilateralProtocol2.OpenSlots > 0 && item.FinalGrade >= 9.5)
+                    await _context.SaveChangesAsync();
+                    
+                }
+                else if(item.BilateralProtocol2 != null && item.BilateralProtocol2.OpenSlots > 0 && item.FinalGrade >= 9.5)
                 {
                     item.ApplicationStatId = 4;
                     item.ApplicationStat = _context.ApplicationStats.SingleOrDefault(a => a.Id == 4);
                     item.BilateralProtocol2.OpenSlots -= 1;
                     item.BilateralProtocol1 = null;
                     item.BilateralProtocol3 = null;
-                    _context.SaveChanges();
-                }else if(item.BilateralProtocol3 != null && item.BilateralProtocol3.OpenSlots > 0 && item.FinalGrade >= 9.5)
+                    await _context.SaveChangesAsync();
+
+                }
+                else if(item.BilateralProtocol3 != null && item.BilateralProtocol3.OpenSlots > 0 && item.FinalGrade >= 9.5)
                 {
                     item.ApplicationStatId = 4;
                     item.ApplicationStat = _context.ApplicationStats.SingleOrDefault(a => a.Id == 4);
                     item.BilateralProtocol3.OpenSlots -= 1;
                     item.BilateralProtocol1 = null;
                     item.BilateralProtocol2 = null;
-                    _context.SaveChanges();
+                    await _context.SaveChangesAsync();
+
                 }
                 else
                 {
                     item.ApplicationStatId = 5;
                     item.ApplicationStat = _context.ApplicationStats.SingleOrDefault(a => a.Id == 5);
-                    _context.SaveChanges();
+                    await _context.SaveChangesAsync();
+
                 }
             }
 

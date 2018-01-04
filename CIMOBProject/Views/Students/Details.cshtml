@@ -33,7 +33,8 @@
        </div>
        <br />
        <a asp-action="Edit" asp-controller="Students" asp-route-id="@ViewData["selectedId"]" class="btn btn-default">Editar Perfil</a>
-       <a asp-action="Index" asp-controller="Documents" asp-route-userId="@ViewData["selectedId"]" class="btn btn-default">Documentos</a>
+       <a asp-action="Details" asp-controller="Applications" asp-route-id="@ViewData["applicationId"]" class="btn btn-default">Detalhes Candidatura</a>
+       <!--<a asp-action="Index" asp-controller="Documents" asp-route-userId="@ViewData["selectedId"]" class="btn btn-default">Documentos</a>-->
        @await Html.PartialAsync("_DetailsHiddenButtons")
    </div>
     <div class="profile-school-info">
@@ -44,7 +45,7 @@
         <br />
         <label>@Html.DisplayNameFor(model => model.ALOGrade):&nbsp;</label>@Html.DisplayFor(model => model.ALOGrade)
         <br />
-        <label>Estado atual da candidatura:&nbsp;</label> @Html.DisplayFor(model => model.Applications.OrderBy(a => a.ApplicationId).FirstOrDefault().ApplicationStat.Name)
+        <label>Estado atual da candidatura:&nbsp;</label> @Html.DisplayFor(model => model.Applications.OrderBy(a => a.ApplicationId).Last().ApplicationStat.Name)
     </div>
     <br />
 </div>

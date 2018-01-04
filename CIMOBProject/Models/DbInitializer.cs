@@ -302,7 +302,7 @@ namespace CIMOBProject.Models {
                     BilateralProtocol2Id = 5,
                     BilateralProtocol3Id = 9,
                     EmployeeId = context.Employees.Where(s => s.UserFullname.Equals("Empregado Teste")).FirstOrDefault().Id,
-                    CreationDate = new DateTime(2017, 11, 14),
+                    CreationDate = new DateTime(2018, 01, 03),
                     ArithmeticMean = 20.0,
                     ECTS = 120,
                     MotivationLetter = 20.0,
@@ -362,7 +362,7 @@ namespace CIMOBProject.Models {
 
             if (!context.Editals.Any())
             {
-                context.Editals.Add(new Edital {Title = "Edital teste", TextContent = "Edital publicado", OpenDate = new DateTime(2017,11,10), CloseDate = new DateTime(2018,01,09) });
+                context.Editals.Add(new Edital {Title = "Edital teste", TextContent = "Edital publicado", OpenDate = new DateTime(2017,11,10), CloseDate = new DateTime(2018,01,03) });
                 context.SaveChanges();
             }
 

@@ -12,8 +12,8 @@ using System;
 namespace CIMOBProject.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20171231174110_migration1")]
-    partial class migration1
+    [Migration("20180104115938_CreateDocs")]
+    partial class CreateDocs
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -218,16 +218,14 @@ namespace CIMOBProject.Migrations
                     b.Property<int>("DocumentId")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int?>("ApplicationId");
-
-                    b.Property<string>("ApplicationUserId");
+                    b.Property<int>("ApplicationId");
 
                     b.Property<string>("Description");
 
+                    b.Property<string>("EmployeeId");
+
                     b.Property<string>("FileUrl")
                         .IsRequired();
-
-                    b.Property<string>("StudentId");
 
                     b.Property<DateTime>("UploadDate");
 
@@ -235,9 +233,7 @@ namespace CIMOBProject.Migrations
 
                     b.HasIndex("ApplicationId");
 
-                    b.HasIndex("ApplicationUserId");
-
-                    b.HasIndex("StudentId");
+                    b.HasIndex("EmployeeId");
 
                     b.ToTable("Documents");
                 });
@@ -503,17 +499,14 @@ namespace CIMOBProject.Migrations
 
             modelBuilder.Entity("CIMOBProject.Models.Document", b =>
                 {
-                    b.HasOne("CIMOBProject.Models.Application")
+                    b.HasOne("CIMOBProject.Models.Application", "Application")
                         .WithMany("Documents")
-                        .HasForeignKey("ApplicationId");
+                        .HasForeignKey("ApplicationId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("CIMOBProject.Models.ApplicationUser", "ApplicationUser")
+                    b.HasOne("CIMOBProject.Models.Employee", "Employee")
                         .WithMany()
-                        .HasForeignKey("ApplicationUserId");
-
-                    b.HasOne("CIMOBProject.Models.Student")
-                        .WithMany("Documents")
-                        .HasForeignKey("StudentId");
+                        .HasForeignKey("EmployeeId");
                 });
 
             modelBuilder.Entity("CIMOBProject.Models.News", b =>

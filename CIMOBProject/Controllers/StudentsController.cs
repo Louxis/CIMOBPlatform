@@ -82,11 +82,16 @@ namespace CIMOBProject.Controllers
             //  .Include(s => s.CollegeSubject.College).Include(s=>s.Documents)
             // .Include(s => s.Applications)
             //.SingleOrDefaultAsync(m => m.Id == id);
-
+            var latestEdital = _context.Editals.OrderByDescending(e => e.Id).FirstOrDefault();
+            
             var stud = await _context.Applications.Include(a => a.BilateralProtocol1).Include(a => a.BilateralProtocol2).Include(a => a.BilateralProtocol3)
                 .Include(a => a.ApplicationStat).Include(a => a.Documents)
                 .Include(a => a.Student).Include(a => a.Student.CollegeSubject)
                 .Where(m => m.Student.Id == id).OrderBy(a => a.ApplicationId).LastAsync();
+
+            var latestApplication = _context.Applications.Where(a => a.StudentId == stud.StudentId 
+                                                            && (latestEdital.OpenDate <= a.CreationDate) 
+                                                            && (a.CreationDate <= latestEdital.CloseDate)).FirstOrDefault();
                 //.SingleOrDefaultAsync(m => m.Student.Id == id);
 
             //var student2 = await _context.Students
@@ -97,6 +102,7 @@ namespace CIMOBProject.Controllers
             {
                 return NotFound();
             }
+            ViewData["applicationId"] = /*latestApplication.ApplicationId;*/ stud.ApplicationId; //stud.Student.Applications.OrderByDescending(a => a.ApplicationId).FirstOrDefault()
             ViewData["selectedId"] = stud.Student.Id;
             return View(stud.Student);
         }
