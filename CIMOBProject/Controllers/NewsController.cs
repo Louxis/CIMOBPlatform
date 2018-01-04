@@ -97,15 +97,17 @@ namespace CIMOBProject.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,EmployeeId,Title,TextContent,IsPublished,DocumentId")] News news, string link)
+        public async Task<IActionResult> Create([Bind("Id,EmployeeId,Title,TextContent,IsPublished")] News news, string link)
         {
             if (ModelState.IsValid)
             {
+                Document doc = createAndValidateDocument(news, link);
                 if (!String.IsNullOrEmpty(link))
                 {
-                    news.Document = createAndValidateDocument(news,link);
-                }
+                    news.Document = doc;
                     //news.DocumentId = doc.DocumentId;
+                }
+                    
                     _context.Add(news);
                     await _context.SaveChangesAsync();
                     return RedirectToAction(nameof(Index));
