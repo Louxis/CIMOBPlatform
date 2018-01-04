@@ -12,8 +12,8 @@ using System;
 namespace CIMOBProject.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20180104115938_CreateDocs")]
-    partial class CreateDocs
+    [Migration("20180104162929_ludadebug")]
+    partial class ludadebug
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -218,7 +218,7 @@ namespace CIMOBProject.Migrations
                     b.Property<int>("DocumentId")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int>("ApplicationId");
+                    b.Property<int?>("ApplicationId");
 
                     b.Property<string>("Description");
 
@@ -297,6 +297,23 @@ namespace CIMOBProject.Migrations
                     b.ToTable("News");
 
                     b.HasDiscriminator<string>("Discriminator").HasValue("News");
+                });
+
+            modelBuilder.Entity("CIMOBProject.Models.Quizz", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("QuizzUrl")
+                        .IsRequired();
+
+                    b.Property<int>("Semester");
+
+                    b.Property<int>("Year");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Quizzs");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -501,8 +518,7 @@ namespace CIMOBProject.Migrations
                 {
                     b.HasOne("CIMOBProject.Models.Application", "Application")
                         .WithMany("Documents")
-                        .HasForeignKey("ApplicationId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("ApplicationId");
 
                     b.HasOne("CIMOBProject.Models.Employee", "Employee")
                         .WithMany()

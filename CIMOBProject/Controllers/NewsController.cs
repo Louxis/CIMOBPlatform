@@ -125,6 +125,7 @@ namespace CIMOBProject.Controllers
                     UploadDate = DateTime.Now
                 };
                 _context.Add(urlDoc);
+                _context.SaveChanges();
             }
             return urlDoc;
         }

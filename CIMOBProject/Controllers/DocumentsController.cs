@@ -82,7 +82,7 @@ namespace CIMOBProject.Controllers {
             if (ModelState.IsValid)
             {
                 document.UploadDate = DateTime.Now;
-                currentApplicationId = document.ApplicationId;
+                currentApplicationId = document.ApplicationId.Value;
                 _context.Add(document);
                 await _context.SaveChangesAsync();
             }
