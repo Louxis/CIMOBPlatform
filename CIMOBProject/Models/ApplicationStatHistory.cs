@@ -6,6 +6,10 @@ using System.Threading.Tasks;
 
 namespace CIMOBProject.Models
 {
+    ///<summary>
+    ///In this class we define the atributes of the application history that will track the changes made to each application over time.
+    ///This will be used to present some feedback to the student who as applied to the outgoing project.
+    ///</summary> 
     public class ApplicationStatHistory
     {
         public int Id { get; set; }
