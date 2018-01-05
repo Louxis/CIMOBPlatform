@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace CIMOBProject.Migrations
 {
-    public partial class ludadebug : Migration
+    public partial class initmig : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -350,6 +350,27 @@ namespace CIMOBProject.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "ApplicationStatHistory",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    ApplicationId = table.Column<int>(type: "int", nullable: false),
+                    ApplicationStat = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DateOfUpdate = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ApplicationStatHistory", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ApplicationStatHistory_Applications_ApplicationId",
+                        column: x => x.ApplicationId,
+                        principalTable: "Applications",
+                        principalColumn: "ApplicationId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Documents",
                 columns: table => new
                 {
@@ -441,6 +462,11 @@ namespace CIMOBProject.Migrations
                 column: "StudentId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_ApplicationStatHistory_ApplicationId",
+                table: "ApplicationStatHistory",
+                column: "ApplicationId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
                 column: "RoleId");
@@ -522,6 +548,9 @@ namespace CIMOBProject.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "ApplicationStatHistory");
+
             migrationBuilder.DropTable(
                 name: "AspNetRoleClaims");
 

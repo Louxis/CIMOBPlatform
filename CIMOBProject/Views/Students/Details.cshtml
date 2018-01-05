@@ -46,6 +46,7 @@
         <label>@Html.DisplayNameFor(model => model.ALOGrade):&nbsp;</label>@Html.DisplayFor(model => model.ALOGrade)
         <br />
         <label>Estado atual da candidatura:&nbsp;</label> @Html.DisplayFor(model => model.Applications.OrderBy(a => a.ApplicationId).Last().ApplicationStat.Name)
+        <a asp-action="ApplicationHistory" asp-controller="Applications" asp-route-studentId="@Model.Id" class="btn btn-default">Hístorico da candidatura</a>
     </div>
     <br />
 </div>

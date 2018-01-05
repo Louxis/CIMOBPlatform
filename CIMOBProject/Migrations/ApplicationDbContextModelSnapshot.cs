@@ -82,6 +82,24 @@ namespace CIMOBProject.Migrations
                     b.ToTable("ApplicationStats");
                 });
 
+            modelBuilder.Entity("CIMOBProject.Models.ApplicationStatHistory", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("ApplicationId");
+
+                    b.Property<string>("ApplicationStat");
+
+                    b.Property<DateTime>("DateOfUpdate");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ApplicationId");
+
+                    b.ToTable("ApplicationStatHistory");
+                });
+
             modelBuilder.Entity("CIMOBProject.Models.ApplicationUser", b =>
                 {
                     b.Property<string>("Id")
@@ -495,6 +513,14 @@ namespace CIMOBProject.Migrations
                     b.HasOne("CIMOBProject.Models.Student", "Student")
                         .WithMany("Applications")
                         .HasForeignKey("StudentId");
+                });
+
+            modelBuilder.Entity("CIMOBProject.Models.ApplicationStatHistory", b =>
+                {
+                    b.HasOne("CIMOBProject.Models.Application", "Application")
+                        .WithMany()
+                        .HasForeignKey("ApplicationId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("CIMOBProject.Models.BilateralProtocol", b =>
