@@ -19,5 +19,7 @@ namespace CIMOBProject.Models
         [Required(ErrorMessage = "O link para o questionário é obrigatório")]
         [Display(Name = "Link de Questionário")]
         public string QuizzUrl { get; set; }
+        [Display(Name = "Publicado")]
+        public bool IsPublished { get; set; }
     }
 }

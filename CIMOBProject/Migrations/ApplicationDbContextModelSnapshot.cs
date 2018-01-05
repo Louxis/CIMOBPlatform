@@ -303,6 +303,8 @@ namespace CIMOBProject.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<bool>("IsPublished");
+
                     b.Property<string>("QuizzUrl")
                         .IsRequired();
 

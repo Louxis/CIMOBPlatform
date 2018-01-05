@@ -12,8 +12,8 @@ using System;
 namespace CIMOBProject.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20180104162929_ludadebug")]
-    partial class ludadebug
+    [Migration("20180105144757_debugquizz")]
+    partial class debugquizz
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -303,6 +303,8 @@ namespace CIMOBProject.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
+
+                    b.Property<bool>("IsPublished");
 
                     b.Property<string>("QuizzUrl")
                         .IsRequired();
