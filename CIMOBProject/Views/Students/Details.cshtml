@@ -33,7 +33,9 @@
        </div>
        <br />
        <a asp-action="Edit" asp-controller="Students" asp-route-id="@ViewData["selectedId"]" class="btn btn-default">Editar Perfil</a>
-       <a asp-action="Details" asp-controller="Applications" asp-route-id="@ViewData["applicationId"]" class="btn btn-default">Detalhes Candidatura</a>
+       @if (!ViewData["applicationId"].Equals("N/A")) {
+            <a asp-action="Details" asp-controller="Applications" asp-route-id="@ViewData["applicationId"]" class="btn btn-default">Detalhes Candidatura</a>
+       }       
        <!--<a asp-action="Index" asp-controller="Documents" asp-route-userId="@ViewData["selectedId"]" class="btn btn-default">Documentos</a>-->
        @await Html.PartialAsync("_DetailsHiddenButtons")
    </div>
