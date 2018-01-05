@@ -9,6 +9,7 @@ using CIMOBProject.Data;
 using CIMOBProject.Models;
 using System.Globalization;
 using Microsoft.AspNetCore.Authorization;
+using CIMOBProject.Services;
 
 namespace CIMOBProject.Controllers
 {
@@ -288,7 +289,14 @@ namespace CIMOBProject.Controllers
                 
                 try {
                     var getPreviousStat = _context.Applications.Include(a => a.ApplicationStat).SingleOrDefault(a => a.ApplicationId == id);
-                    _context.ApplicationStatHistory.Add(new ApplicationStatHistory { ApplicationId = id, ApplicationStat = getPreviousStat.ApplicationStat.Name, DateOfUpdate = DateTime.Now });
+                    var currentStat = application.ApplicationStatId;
+                    if (!currentStat.Equals(getPreviousStat.ApplicationStatId)) {
+                        var student = _context.Students.Where(u => u.Id.Equals(application.StudentId)).FirstOrDefault();
+                        _context.ApplicationStatHistory.Add(new ApplicationStatHistory { ApplicationId = id, ApplicationStat = getPreviousStat.ApplicationStat.Name, DateOfUpdate = DateTime.Now });
+                        EmailSender emailSender = new EmailSender();
+                        await emailSender.Execute("Atualização na sua candidatura!", "Saudações " + student.UserFullname
+                                + ", foi realizada uma atualização na sua candidatura e esta encontra-se no estado " + getPreviousStat.ApplicationStat.Name + ".", student.Email);
+                    }                    
                     _context.Entry(getPreviousStat).State = EntityState.Detached;
                     _context.Update(application);
                     await _context.SaveChangesAsync();

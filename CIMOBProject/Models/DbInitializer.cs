@@ -47,12 +47,12 @@ namespace CIMOBProject.Models {
 
             if (!context.ApplicationStats.Any())
             {
-                context.ApplicationStats.Add(new ApplicationStat { Name = "Pending Evaluation" });
-                context.ApplicationStats.Add(new ApplicationStat { Name = "Evaluating" });
-                context.ApplicationStats.Add(new ApplicationStat { Name = "Pending Serialization" });
-                context.ApplicationStats.Add(new ApplicationStat { Name = "Approved" });
-                context.ApplicationStats.Add(new ApplicationStat { Name = "Repproved" });
-                context.ApplicationStats.Add(new ApplicationStat { Name = "Finished" });
+                context.ApplicationStats.Add(new ApplicationStat { Name = "Avaliação Pendente" });
+                context.ApplicationStats.Add(new ApplicationStat { Name = "Em Avaliação" });
+                context.ApplicationStats.Add(new ApplicationStat { Name = "Seriação Pendente" });
+                context.ApplicationStats.Add(new ApplicationStat { Name = "Aprovado" });
+                context.ApplicationStats.Add(new ApplicationStat { Name = "Reprovado" });
+                context.ApplicationStats.Add(new ApplicationStat { Name = "Finalizado" });
                 context.SaveChanges();
             }
 
