@@ -28,7 +28,7 @@ namespace CIMOBProject.Models
         [Required]
         public DateTime UploadDate { get; set; }
 
-        public int ApplicationId { get; set; }
+        public int? ApplicationId { get; set; }
 
         public virtual Application Application { get; set; }
 
