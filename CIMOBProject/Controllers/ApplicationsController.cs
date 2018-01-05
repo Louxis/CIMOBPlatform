@@ -133,8 +133,8 @@ namespace CIMOBProject.Controllers
             return RedirectToAction("Create", new { userId = application.StudentId });
         }
         ///<summary>
-        ///The objective of this method is to display all the students who applied to the outgoing program with theyr respective grade.
-        ///The only students who are displayed are those who had an application in the "Pending serialization" state.
+        ///The objective of this method is to process all the students who applied to the outgoing program with theyr respective grade.
+        ///The processed students are those who had an application in the "Pending serialization" state.
         ///All the applications final grade is calculated in the moment of the seriation based on the the grades stored in each application.
         ///</summary>
         [Authorize(Roles = "Employee")]
@@ -146,8 +146,6 @@ namespace CIMOBProject.Controllers
             
             var queryGetApplication = await _context.Applications.Include(a => a.ApplicationStat).Include(a => a.Student).Include(a => a.Student.CollegeSubject).Include(a => a.Student.CollegeSubject.College).Include(a => a.BilateralProtocol1).Include(a => a.BilateralProtocol2).Include(a => a.BilateralProtocol3).Where(a => a.ApplicationStatId == 3 && a.CreationDate >= openDate && a.CreationDate <= closeDate).ToListAsync();
             var queryGetAllApplication = await _context.Applications.Where(a => a.CreationDate >= openDate && a.CreationDate <= closeDate).ToListAsync();
-            int x1 = queryGetAllApplication.Count();
-            int x2 = queryGetApplication.Count();
             if (queryGetApplication.Count() != queryGetAllApplication.Count())
             {
                 return RedirectToAction("Application", "Home", new { message = "Ainda existem candidaturas por avaliar" });
@@ -205,7 +203,10 @@ namespace CIMOBProject.Controllers
 
             //return View(OrderedList);
         }
-
+        ///<summary>
+        ///This method displays the results of the seriation.
+        ///All the stundentds will be displayed with theyr respective grade
+        ///</summary>
         public async Task<IActionResult> DisplaySeriation()
         {
             DateTime openDate = _context.Editals.Last().OpenDate;
@@ -214,7 +215,10 @@ namespace CIMOBProject.Controllers
 
             return View(queryGetApplication.ToList());
         }
-
+        ///<summary>
+        ///This method displays the various stages that the application had over the time.
+        ///This only displays the history of the most recent application.
+        ///</summary>
         public async Task<IActionResult> ApplicationHistory(String studentId)
         {
             int getCurrentApplication = _context.Applications.Include(a => a.Student).Where(a => a.StudentId.Equals(studentId)).Last().ApplicationId;
@@ -287,9 +291,13 @@ namespace CIMOBProject.Controllers
             {
                 
                 try {
+                    
                     var getPreviousStat = _context.Applications.Include(a => a.ApplicationStat).SingleOrDefault(a => a.ApplicationId == id);
-                    _context.ApplicationStatHistory.Add(new ApplicationStatHistory { ApplicationId = id, ApplicationStat = getPreviousStat.ApplicationStat.Name, DateOfUpdate = DateTime.Now });
-                    _context.Entry(getPreviousStat).State = EntityState.Detached;
+                    if(getPreviousStat.ApplicationStatId != application.ApplicationStatId)
+                    {
+                        _context.ApplicationStatHistory.Add(new ApplicationStatHistory { ApplicationId = id, ApplicationStat = getPreviousStat.ApplicationStat.Name, DateOfUpdate = DateTime.Now });
+                        _context.Entry(getPreviousStat).State = EntityState.Detached;
+                    }
                     _context.Update(application);
                     await _context.SaveChangesAsync();
                 }
