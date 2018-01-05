@@ -296,8 +296,9 @@ namespace CIMOBProject.Controllers
                     if(getPreviousStat.ApplicationStatId != application.ApplicationStatId)
                     {
                         _context.ApplicationStatHistory.Add(new ApplicationStatHistory { ApplicationId = id, ApplicationStat = getPreviousStat.ApplicationStat.Name, DateOfUpdate = DateTime.Now });
-                        _context.Entry(getPreviousStat).State = EntityState.Detached;
+                        
                     }
+                    _context.Entry(getPreviousStat).State = EntityState.Detached;
                     _context.Update(application);
                     await _context.SaveChangesAsync();
                 }
