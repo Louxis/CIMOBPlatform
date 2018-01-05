@@ -1,0 +1,28 @@
+﻿@model IEnumerable<CIMOBProject.Models.ApplicationStatHistory>
+
+<h1>Hístorico da candidatura</h1>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ApplicationStat)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DateOfUpdate)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ApplicationStat)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateOfUpdate)
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

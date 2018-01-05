@@ -47,6 +47,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.ApplicationStat)
             </th>
+            <th>
+                Options
+            </th>
             <th></th>
         </tr>
     </thead>
@@ -93,11 +96,18 @@
                     @Html.DisplayFor(modelItem => item.ApplicationStat.Name)
                 </td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.ApplicationId">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.ApplicationId">Details</a> |
+                    @if (item.EmployeeId != null)
+                    {
+                        if (item.EmployeeId.Equals(@UserManager.GetUserId(User)))
+                        {
+                            <a asp-action="Edit" asp-route-id="@item.ApplicationId">Edit | </a>
+                        }
+
+                    }
+                    <a asp-action="Details" asp-route-id="@item.ApplicationId">Details</a>
                     @if (item.EmployeeId == null && User.IsInRole("Employee"))
                     {
-                        <a asp-action="AssignEmployee" asp-route-employeeId="@UserManager.GetUserId(User)" asp-route-applicationId="@item.ApplicationId">Evaluat</a>
+                        <a asp-action="AssignEmployee" asp-route-employeeId="@UserManager.GetUserId(User)" asp-route-applicationId="@item.ApplicationId"> | Evaluat</a>
                     }
                 </td>
             </tr>

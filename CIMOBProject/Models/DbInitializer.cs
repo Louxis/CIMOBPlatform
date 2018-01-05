@@ -216,6 +216,25 @@ namespace CIMOBProject.Models {
                 context.Students.
                     SingleOrDefault(e => e.UserName.Equals("test7@test")).EmailConfirmed = true;
 
+                var user8 = new Student
+                {
+                    UserName = "test8@test",
+                    UserFullname = "Teste User 8",
+                    Email = "test8@test",
+                    UserCc = "12345678",
+                    PhoneNumber = "936936936",
+                    UserAddress = "Avenida para teste",
+                    PostalCode = "2912-123",
+                    BirthDate = new DateTime(1995, 1, 1),
+                    StudentNumber = "123123123",
+                    ALOGrade = 0,
+                    CollegeSubjectId = 4
+                };
+                userManager.CreateAsync(user8, "teste18").Wait();
+                userManager.AddToRoleAsync(user8, role.Name).Wait();
+                context.SaveChanges();
+                context.Students.
+                    SingleOrDefault(e => e.UserName.Equals("test8@test")).EmailConfirmed = true;
 
                 context.SaveChanges();
             }
@@ -363,7 +382,7 @@ namespace CIMOBProject.Models {
 
             if (!context.Editals.Any())
             {
-                context.Editals.Add(new Edital {Title = "Edital teste", TextContent = "Edital publicado", OpenDate = new DateTime(2017,11,10), CloseDate = new DateTime(2018,01,03) });
+                context.Editals.Add(new Edital {Title = "Edital teste", TextContent = "Edital publicado", OpenDate = new DateTime(2017,11,10), CloseDate = new DateTime(2018,02,03) });
                 context.SaveChanges();
             }
 
