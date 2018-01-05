@@ -219,14 +219,12 @@ namespace CIMOBProject.Migrations
 
                     b.Property<int?>("ApplicationId");
 
-                    b.Property<string>("ApplicationUserId");
-
                     b.Property<string>("Description");
+
+                    b.Property<string>("EmployeeId");
 
                     b.Property<string>("FileUrl")
                         .IsRequired();
-
-                    b.Property<string>("StudentId");
 
                     b.Property<DateTime>("UploadDate");
 
@@ -234,9 +232,7 @@ namespace CIMOBProject.Migrations
 
                     b.HasIndex("ApplicationId");
 
-                    b.HasIndex("ApplicationUserId");
-
-                    b.HasIndex("StudentId");
+                    b.HasIndex("EmployeeId");
 
                     b.ToTable("Documents");
                 });
@@ -300,6 +296,23 @@ namespace CIMOBProject.Migrations
                     b.ToTable("News");
 
                     b.HasDiscriminator<string>("Discriminator").HasValue("News");
+                });
+
+            modelBuilder.Entity("CIMOBProject.Models.Quizz", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("QuizzUrl")
+                        .IsRequired();
+
+                    b.Property<int>("Semester");
+
+                    b.Property<int>("Year");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Quizzs");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -502,17 +515,13 @@ namespace CIMOBProject.Migrations
 
             modelBuilder.Entity("CIMOBProject.Models.Document", b =>
                 {
-                    b.HasOne("CIMOBProject.Models.Application")
+                    b.HasOne("CIMOBProject.Models.Application", "Application")
                         .WithMany("Documents")
                         .HasForeignKey("ApplicationId");
 
-                    b.HasOne("CIMOBProject.Models.ApplicationUser", "ApplicationUser")
+                    b.HasOne("CIMOBProject.Models.Employee", "Employee")
                         .WithMany()
-                        .HasForeignKey("ApplicationUserId");
-
-                    b.HasOne("CIMOBProject.Models.Student")
-                        .WithMany("Documents")
-                        .HasForeignKey("StudentId");
+                        .HasForeignKey("EmployeeId");
                 });
 
             modelBuilder.Entity("CIMOBProject.Models.News", b =>

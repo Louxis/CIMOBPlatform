@@ -31,6 +31,7 @@ namespace CIMOBProject.Data
         public DbSet<News> News { get; set; }
         public DbSet<Edital> Editals { get; set; }
         public DbSet<BilateralProtocol> BilateralProtocols { get; set;}
+        public DbSet<Quizz> Quizzs { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

@@ -18,10 +18,13 @@ namespace CIMOBProject.Controllers {
         }
 
         // GET: Documents
-        public async Task<IActionResult> Index(string userId)
+        public async Task<IActionResult> Index(int applicationId)
         {
-            ViewData["StudentName"] = _context.ApplicationUsers.Where(s => s.Id.Equals(userId)).FirstOrDefault().UserFullname;
-            var applicationDbContext = _context.Documents.Include(d => d.ApplicationUser).Where(s => s.ApplicationUserId.Equals(userId));
+            var latestEdital = _context.Editals.OrderByDescending(e => e.Id).FirstOrDefault();
+            
+            var applicationContext = _context.Applications.Include(a => a.Student).Where(s => s.ApplicationId == applicationId).FirstOrDefault();
+            ViewData["StudentName"] = applicationContext.Student.UserFullname;
+            var applicationDbContext = _context.Documents.Include(d => d.Application).Where(s => s.ApplicationId == applicationId && ( latestEdital.OpenDate <= s.Application.CreationDate) && (s.Application.CreationDate <= latestEdital.CloseDate));
             if (applicationDbContext == null)
             {
                 return NotFound();
@@ -39,7 +42,7 @@ namespace CIMOBProject.Controllers {
             }
 
             var document = await _context.Documents
-                .Include(d => d.ApplicationUser)
+                .Include(d => d.Application)
                 .SingleOrDefaultAsync(m => m.DocumentId == id);
             if (document == null)
             {
@@ -51,7 +54,17 @@ namespace CIMOBProject.Controllers {
         // GET: Documents/Create
         public IActionResult Create(string userId)
         {
-            ViewData["ApplicationUserId"] = userId;
+            if (User.IsInRole("Employee"))
+            {
+                return RedirectToAction("Application", "Home", new { message = "Não tem permissão para aceder a esta funcionalidade" });
+            }
+            var latestEdital = _context.Editals.OrderByDescending(a => a.Id).FirstOrDefault();
+
+            var application = _context.Applications.Where(a => a.StudentId == userId 
+                                        && (latestEdital.OpenDate <= a.CreationDate) 
+                                        && (a.CreationDate <= latestEdital.CloseDate)).First();
+
+            ViewData["ApplicationId"] = application.ApplicationId;
             //ViewData["Date"] = DateTime.Now;
             loadHelp();
             return View();
@@ -62,17 +75,18 @@ namespace CIMOBProject.Controllers {
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("DocumentId,Description,FileUrl,UploadDate,ApplicationUserId")] Document document)
+        public async Task<IActionResult> Create([Bind("DocumentId,Description,FileUrl,UploadDate,ApplicationId")] Document document)
         {
-            string currentUserId = "";
+            int currentApplicationId = 0;
+
             if (ModelState.IsValid)
             {
                 document.UploadDate = DateTime.Now;
-                currentUserId = document.ApplicationUserId;
+                currentApplicationId = document.ApplicationId.Value;
                 _context.Add(document);
                 await _context.SaveChangesAsync();
             }
-            return RedirectToAction("Index", "Documents", new { userId = currentUserId });
+            return RedirectToAction("Index", "Documents", new { applicationId = currentApplicationId });
         }
 
         // GET: Documents/Edit/5
@@ -88,7 +102,7 @@ namespace CIMOBProject.Controllers {
             {
                 return NotFound();
             }
-            ViewData["Id"] = new SelectList(_context.ApplicationUsers, "Id", "Id", document.ApplicationUserId);
+            ViewData["Id"] = new SelectList(_context.ApplicationUsers, "Id", "Id", document.Application.StudentId);
             return View(document);
         }
 
@@ -124,21 +138,25 @@ namespace CIMOBProject.Controllers {
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["Id"] = new SelectList(_context.ApplicationUsers, "Id", "Id", document.ApplicationUserId);
+            ViewData["Id"] = new SelectList(_context.ApplicationUsers, "Id", "Id", document.Application.StudentId);
             return View(document);
         }
 
         // GET: Documents/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
+            
             if (id == null)
             {
                 return NotFound();
             }
 
-            var document = await _context.Documents
-                .Include(d => d.ApplicationUser)
-                .SingleOrDefaultAsync(m => m.DocumentId == id);
+            var document = await _context.Documents.SingleOrDefaultAsync(m => m.DocumentId == id);
+
+            if (User.IsInRole("Employee"))
+            {
+                return RedirectToAction("Application", "Home", new { message = "Não tem permissão para aceder a esta funcionalidade" });
+            }
             if (document == null)
             {
                 return NotFound();
@@ -153,9 +171,10 @@ namespace CIMOBProject.Controllers {
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var document = await _context.Documents.SingleOrDefaultAsync(m => m.DocumentId == id);
+            var applicationId = document.ApplicationId;
             _context.Documents.Remove(document);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction( "Index", "Documents", new { applicationId = applicationId });
 
         }
 

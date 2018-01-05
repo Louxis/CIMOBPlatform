@@ -1,43 +1,26 @@
 ﻿@model CIMOBProject.Models.News
 
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
 @{
     ViewData["Title"] = "Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Details</h2>
+<h1>@Html.DisplayFor(model => model.Title)</h1>
+<div>
+    <h3 class="description">@Html.DisplayFor(model => model.TextContent)</h3>
+    <label>@Html.DisplayNameFor(model => model.Document):&nbsp;</label>@Html.DisplayFor(model => model.Document.FileUrl)
+    <br />
+    <label>Publicado por:&nbsp;</label>@Html.DisplayFor(model => model.Employee.UserFullname)
+</div>
+<br />
 
-<div>
-    <h4>News</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            Publicado Por:
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Employee.UserFullname)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Title)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Title)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.TextContent)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.TextContent)
-        </dd>
-        <dt>
-           Documento: 
-        </dt>
-        <dd>
-            <a href="@Html.DisplayFor(model => model.Document.FileUrl)">@Html.DisplayFor(model => model.Document.FileUrl)</a>   
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
-</div>
+@if (SignInManager.IsSignedIn(User) && User.IsInRole("Employee"))
+{
+    <div>
+        <a class="btn btn-default" asp-action="Edit" asp-route-id="@Model.Id">Editar</a>
+        <a class="btn btn-default" asp-controller="News" asp-action="Index">Voltar Atrás</a>
+    </div>
+}
+

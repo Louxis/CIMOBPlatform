@@ -5,10 +5,8 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Create</h2>
-
-<h4>News</h4>
-<hr />
+<h1>Criar Publicação</h1>
+<h3 class="description">Preencha os dados em baixo para criar uma nova Publicação</h3>
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create">
@@ -23,28 +21,18 @@
                 <label asp-for="TextContent" class="control-label"></label>
                 <textarea asp-for="TextContent" class="form-control"></textarea>
                 <span asp-validation-for="TextContent" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <div class="checkbox">
-                    <label>
-                        <input asp-for="IsPublished" /> @Html.DisplayNameFor(model => model.IsPublished)
-                    </label>
-                </div>
-            </div>
+            </div>            
             <div class="form-group">
                 <label for="link-text" class="control-label">Link do documento</label><br />
                 <input id="link-text" type="text" name="link" class="form-control"/>                
             </div>
             
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <input type="submit" value="Criar Publicação" class="btn btn-default" />
+                <a class="btn btn-default" asp-action="Index">Voltar Atrás</a>
             </div>
         </form>
     </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {

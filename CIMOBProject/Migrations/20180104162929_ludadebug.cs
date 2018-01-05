@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace CIMOBProject.Migrations
 {
-    public partial class migration : Migration
+    public partial class ludadebug : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -75,6 +75,21 @@ namespace CIMOBProject.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Helps", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Quizzs",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    QuizzUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Semester = table.Column<int>(type: "int", nullable: false),
+                    Year = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Quizzs", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -281,7 +296,9 @@ namespace CIMOBProject.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     ApplicationStatId = table.Column<int>(type: "int", nullable: false),
                     ArithmeticMean = table.Column<double>(type: "float", nullable: true),
-                    BilateralProtocolId = table.Column<int>(type: "int", nullable: true),
+                    BilateralProtocol1Id = table.Column<int>(type: "int", nullable: true),
+                    BilateralProtocol2Id = table.Column<int>(type: "int", nullable: true),
+                    BilateralProtocol3Id = table.Column<int>(type: "int", nullable: true),
                     CreationDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ECTS = table.Column<int>(type: "int", nullable: true),
                     EmployeeId = table.Column<string>(type: "nvarchar(450)", nullable: true),
@@ -301,8 +318,20 @@ namespace CIMOBProject.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Applications_BilateralProtocols_BilateralProtocolId",
-                        column: x => x.BilateralProtocolId,
+                        name: "FK_Applications_BilateralProtocols_BilateralProtocol1Id",
+                        column: x => x.BilateralProtocol1Id,
+                        principalTable: "BilateralProtocols",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Applications_BilateralProtocols_BilateralProtocol2Id",
+                        column: x => x.BilateralProtocol2Id,
+                        principalTable: "BilateralProtocols",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Applications_BilateralProtocols_BilateralProtocol3Id",
+                        column: x => x.BilateralProtocol3Id,
                         principalTable: "BilateralProtocols",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -327,10 +356,9 @@ namespace CIMOBProject.Migrations
                     DocumentId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     ApplicationId = table.Column<int>(type: "int", nullable: true),
-                    ApplicationUserId = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    EmployeeId = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     FileUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    StudentId = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     UploadDate = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
@@ -343,14 +371,8 @@ namespace CIMOBProject.Migrations
                         principalColumn: "ApplicationId",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Documents_AspNetUsers_ApplicationUserId",
-                        column: x => x.ApplicationUserId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Documents_AspNetUsers_StudentId",
-                        column: x => x.StudentId,
+                        name: "FK_Documents_AspNetUsers_EmployeeId",
+                        column: x => x.EmployeeId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -394,9 +416,19 @@ namespace CIMOBProject.Migrations
                 column: "ApplicationStatId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Applications_BilateralProtocolId",
+                name: "IX_Applications_BilateralProtocol1Id",
                 table: "Applications",
-                column: "BilateralProtocolId");
+                column: "BilateralProtocol1Id");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Applications_BilateralProtocol2Id",
+                table: "Applications",
+                column: "BilateralProtocol2Id");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Applications_BilateralProtocol3Id",
+                table: "Applications",
+                column: "BilateralProtocol3Id");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Applications_EmployeeId",
@@ -473,14 +505,9 @@ namespace CIMOBProject.Migrations
                 column: "ApplicationId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Documents_ApplicationUserId",
+                name: "IX_Documents_EmployeeId",
                 table: "Documents",
-                column: "ApplicationUserId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Documents_StudentId",
-                table: "Documents",
-                column: "StudentId");
+                column: "EmployeeId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_News_DocumentId",
@@ -518,6 +545,9 @@ namespace CIMOBProject.Migrations
 
             migrationBuilder.DropTable(
                 name: "News");
+
+            migrationBuilder.DropTable(
+                name: "Quizzs");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");

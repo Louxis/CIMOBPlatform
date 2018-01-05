@@ -83,7 +83,7 @@ namespace CIMOBProject.Controllers
             {
                 urlDoc = new Document
                 {
-                    ApplicationUserId = edital.EmployeeId,
+                    EmployeeId = edital.EmployeeId,
                     Description = "Documento de " + edital.Title,
                     FileUrl = link,
                     UploadDate = DateTime.Now
@@ -127,7 +127,7 @@ namespace CIMOBProject.Controllers
             //If it's desired to change employee id to the one updating it
             //newsToUpdate.EmployeeId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             Document editedDoc = CreateAndValidateDocument(edital, link);
-            editedDoc.ApplicationUserId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            editedDoc.EmployeeId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             editalToUpdate.Document = editedDoc;
             editalToUpdate.TextContent = edital.TextContent;
 
