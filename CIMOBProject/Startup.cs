@@ -47,6 +47,7 @@ namespace CIMOBProject
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
 
+
             
 
             services.Configure<IdentityOptions>(options =>

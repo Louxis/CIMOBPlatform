@@ -31,6 +31,9 @@ namespace CIMOBProject.Controllers
             return View(await applicationDbContext.ToListAsync());
         }
 
+        ///<summary>
+        ///The objective of this method is to assign an employee to an application who will later evaluat it.
+        ///</summary>
         public async Task<IActionResult> AssignEmployee(String employeeId, int applicationId)
         {
             var getAppliaction = _context.Applications.SingleOrDefault(a => a.ApplicationId == applicationId);
@@ -111,23 +114,27 @@ namespace CIMOBProject.Controllers
             //ViewData["StudentId"] = new SelectList(_context.Students, "Id", "Id", application.StudentId);
             return RedirectToAction("Create", new { userId = application.StudentId });
         }
-
+        ///<summary>
+        ///The objective of this method is to display all the students who applied to the outgoing program with theyr respective grade.
+        ///The only students who are displayed are those who had an application in the "Pending serialization" state.
+        ///All the applications final grade is calculated in the moment of the seriation based on the the grades stored in each application.
+        ///</summary>
         public async Task<IActionResult> Seriation()
         {
             
             DateTime openDate = _context.Editals.Last().OpenDate;
             DateTime closeDate = _context.Editals.Last().CloseDate;
-            var q1 = await _context.Applications.Include(a => a.ApplicationStat).Include(a => a.Student).Include(a => a.Student.CollegeSubject).Include(a => a.Student.CollegeSubject.College).Include(a => a.BilateralProtocol1).Include(a => a.BilateralProtocol2).Include(a => a.BilateralProtocol3).Where(a => a.ApplicationStatId == 3 && a.CreationDate >= openDate && a.CreationDate <= closeDate).ToListAsync();
+            var queryGetApplication = await _context.Applications.Include(a => a.ApplicationStat).Include(a => a.Student).Include(a => a.Student.CollegeSubject).Include(a => a.Student.CollegeSubject.College).Include(a => a.BilateralProtocol1).Include(a => a.BilateralProtocol2).Include(a => a.BilateralProtocol3).Where(a => a.ApplicationStatId == 3 && a.CreationDate >= openDate && a.CreationDate <= closeDate).ToListAsync();
 
-            foreach (var item in q1)
+            foreach (var item in queryGetApplication)
             {
                 item.FinalGrade = (item.MotivationLetter + item.Enterview + item.ArithmeticMean) / 3;
                 await _context.SaveChangesAsync();
             }
             
 
-            var q2 =  q1.OrderByDescending(q => q.FinalGrade).ToList();
-            foreach (var item in q2)
+            var OrderedList =  queryGetApplication.OrderByDescending(q => q.FinalGrade).ToList();
+            foreach (var item in OrderedList)
             {
                 if (item.BilateralProtocol1.OpenSlots > 0 && item.FinalGrade >= 9.5)
                 {
@@ -162,9 +169,11 @@ namespace CIMOBProject.Controllers
                 }
             }
 
-            return View(q2);
+            return View(OrderedList);
         }
-
+        ///<summary>
+        ///The objective of this method is filter all applications by the ones the current logged in employee is evaluating or the ones that currently aren't being evaluated.
+        ///</summary>
         public async Task<IActionResult> Filter(String filterType, String employeeId)
         {
             DateTime openDate = _context.Editals.Last().OpenDate;
@@ -197,12 +206,15 @@ namespace CIMOBProject.Controllers
             {
                 return NotFound();
             }
-            ViewData["BilateralProtocol1Id"] = new SelectList(_context.BilateralProtocols.Where(p => p.SubjectId == application.Student.CollegeSubjectId), "Id", "Destination");
-            ViewData["BilateralProtocol2Id"] = new SelectList(_context.BilateralProtocols.Where(p => p.SubjectId == application.Student.CollegeSubjectId), "Id", "Destination");
-            ViewData["BilateralProtocol3Id"] = new SelectList(_context.BilateralProtocols.Where(p => p.SubjectId == application.Student.CollegeSubjectId), "Id", "Destination");
+            //ViewData["BilateralProtocol1Id"] = new SelectList(_context.BilateralProtocols.Where(p => p.SubjectId == application.Student.CollegeSubjectId), "Id", "Destination");
+            //ViewData["BilateralProtocol2Id"] = new SelectList(_context.BilateralProtocols.Where(p => p.SubjectId == application.Student.CollegeSubjectId), "Id", "Destination");
+            //ViewData["BilateralProtocol3Id"] = new SelectList(_context.BilateralProtocols.Where(p => p.SubjectId == application.Student.CollegeSubjectId), "Id", "Destination");
+            ViewData["BilateralProtocol1Id"] = application.BilateralProtocol1Id;
+            ViewData["BilateralProtocol2Id"] = application.BilateralProtocol2Id;
+            ViewData["BilateralProtocol3Id"] = application.BilateralProtocol3Id;
             ViewData["ApplicationStatId"] = new SelectList(_context.ApplicationStats.Where(a => a.Id != 1), "Id", "Name", application.ApplicationStatId);
-            ViewData["EmployeeId"] = new SelectList(_context.Employees, "Id", "UserFullname", application.EmployeeId);
-            ViewData["StudentId"] = new SelectList(_context.Students, "Id", "UserFullname", application.StudentId);
+            ViewData["EmployeeId"] = application.EmployeeId;
+            ViewData["StudentId"] = application.StudentId;
             ViewData["CreationDate"] = DateTime.Now;
             return View(application);
         }
@@ -219,11 +231,16 @@ namespace CIMOBProject.Controllers
             {
                 return NotFound();
             }
-
+            
             if (ModelState.IsValid)
             {
-                try { 
-
+                
+                try {
+                    var getPreviousStat = _context.Applications.Include(a => a.ApplicationStat).SingleOrDefault(a => a.ApplicationId == id);
+                    //var original = _context.Applications.Find(id);
+                    //String getPreviousStat = _context.ApplicationStats.SingleOrDefault(a => a.Id == original.ApplicationStatId).Name;
+                    _context.ApplicationStatHistory.Add(new ApplicationStatHistory { ApplicationId = id, ApplicationStat = getPreviousStat.ApplicationStat.Name, DateOfUpdate = DateTime.Now });
+                    _context.Entry(getPreviousStat).State = EntityState.Detached;
                     _context.Update(application);
                     await _context.SaveChangesAsync();
                 }
@@ -240,10 +257,12 @@ namespace CIMOBProject.Controllers
                 }
                 return RedirectToAction("Index", "Applications", new { employeeId = application.EmployeeId });
             }
-            ViewData["BilateralProtocolId"] = new SelectList(_context.BilateralProtocols.Where(p => p.SubjectId == application.Student.CollegeSubjectId), "Id", "Destination");
-            ViewData["ApplicationStatId"] = new SelectList(_context.ApplicationStats.Where(a =>a.Id != 1), "Id", "Name", application.ApplicationStatId);
-            ViewData["EmployeeId"] = new SelectList(_context.Employees, "Id", "Id", application.EmployeeId);
-            ViewData["StudentId"] = new SelectList(_context.Students, "Id", "Id", application.StudentId);
+            
+            ViewData["BilateralProtocol1Id"] = application.BilateralProtocol1Id;
+            ViewData["BilateralProtocol2Id"] = application.BilateralProtocol2Id;
+            ViewData["BilateralProtocol3Id"] = application.BilateralProtocol3Id;
+            ViewData["EmployeeId"] = application.EmployeeId;
+            ViewData["StudentId"] = application.StudentId;
             ViewData["CreationDate"] = DateTime.Now;
             return RedirectToAction("Index", "Applications", new { employeeId = application.EmployeeId });
         }

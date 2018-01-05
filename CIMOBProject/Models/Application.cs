@@ -6,6 +6,11 @@ using System.Threading.Tasks;
 
 namespace CIMOBProject.Models
 {
+    ///<summary>
+    ///In this class we define the atributes of the application that the student needs to deliver in order to attempt to join a outgoing project.
+    ///It has a relationship with the student to who it bellongs, with the employee who will evaluate it, with a applicationStat that defines the current state,
+    ///it has a relationship with various BilateralProtocols which represent the multiple destinations a student might want to go and finally it has a list of documents that are related with it.
+    ///</summary> 
     public class Application
     {
         public int ApplicationId { get; set; }
