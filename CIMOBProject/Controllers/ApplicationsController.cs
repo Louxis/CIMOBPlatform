@@ -247,6 +247,10 @@ namespace CIMOBProject.Controllers
                 var filteredApplications = allApplications.Where(a => a.EmployeeId.Equals(null));
                 return View(await filteredApplications.ToListAsync());
             }
+            else
+            {
+                RedirectToAction("Index", "Applications", new { employeeId = employeeId });
+            }
 
             return View(await allApplications.ToListAsync());
         }
