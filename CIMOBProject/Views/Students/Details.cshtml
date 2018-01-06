@@ -33,9 +33,6 @@
        </div>
        <br />
        <a asp-action="Edit" asp-controller="Students" asp-route-id="@ViewData["selectedId"]" class="btn btn-default">Editar Perfil</a>
-       @if (!ViewData["applicationId"].Equals("N/A")) {
-            <a asp-action="Details" asp-controller="Applications" asp-route-id="@ViewData["applicationId"]" class="btn btn-default">Detalhes Candidatura</a>
-       }       
        <!--<a asp-action="Index" asp-controller="Documents" asp-route-userId="@ViewData["selectedId"]" class="btn btn-default">Documentos</a>-->
        @await Html.PartialAsync("_DetailsHiddenButtons")
    </div>
@@ -54,9 +51,15 @@
         else {
             @Html.DisplayFor(model => model.Applications.OrderBy(a => a.ApplicationId).Last().ApplicationStat.Name)
             <br />
+            <br />
             <a asp-action="ApplicationHistory" asp-controller="Applications" asp-route-studentId="@Model.Id" class="btn btn-default">Hístorico da candidatura</a>
-        }        
-        
+        }
+        @if (!ViewData["applicationId"].Equals("N/A"))
+        {
+            <a asp-action="Details" asp-controller="Applications" asp-route-id="@ViewData["applicationId"]" class="btn btn-default">Detalhes Candidatura</a>
+        }
+
+                
     </div>
     <br />
 </div>

@@ -58,4 +58,8 @@
     </tbody>
 </table>
 <br />
-<a class="btn btn-default" asp-controller="Applications" asp-action="Seriation" disabled="disabled">Lançar Seriação</a>
+@if (Model.Count() == Model.Where(a => a.ApplicationStatId == 3).Count())
+{
+    <a class="btn btn-default" asp-controller="Applications" asp-action="Seriation">Lançar Seriação</a>
+}
+    
