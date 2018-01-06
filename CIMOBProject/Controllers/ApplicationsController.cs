@@ -200,7 +200,7 @@ namespace CIMOBProject.Controllers
 
                 }
             }
-            return RedirectToAction("Application", "Home", new { message = "A seriação foi publicada" });
+            return RedirectToAction("DisplaySeriation", "Applications");
 
             //return View(OrderedList);
         }

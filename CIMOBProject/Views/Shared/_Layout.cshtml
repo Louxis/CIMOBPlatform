@@ -60,11 +60,11 @@
                 }
                 else if (User.IsInRole("Student"))
                 {
-                    <li><a asp-area="" asp-controller="Applications" asp-action="Create" asp-route-userId="@UserManager.GetUserId(User)">Candidatura</a></li>
+                    <li><a asp-area="" asp-controller="Applications" asp-action="Create" asp-route-userId="@UserManager.GetUserId(User)">Candidaturas</a></li>
                 }
                 else
                 {
-                    <li><a asp-area="" asp-controller="Home" asp-action="Application">Candidatura</a></li>
+                    <li><a asp-area="" asp-controller="Home" asp-action="Application">Candidaturas</a></li>
                 }
                 <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contactos</a></li>
             </ul>

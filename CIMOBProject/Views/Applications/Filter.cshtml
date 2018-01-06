@@ -47,11 +47,18 @@
                     @Html.DisplayFor(modelItem => item.ApplicationStat.Name)
                 </td>
                 <td>
-                    <a class="btn btn-default" asp-action="Edit" asp-route-id="@item.ApplicationId">Editar</a>
+                    @if (item.EmployeeId != null)
+                    {
+                        if (item.EmployeeId == @UserManager.GetUserId(User))
+                        {
+                            <a class="btn btn-default" asp-action="Edit" asp-route-id="@item.ApplicationId">Editar</a>
+                        }
+
+                    }
                     <a class="btn btn-default" asp-action="Details" asp-route-id="@item.ApplicationId">Detalhes</a>
                     @if (item.EmployeeId == null && User.IsInRole("Employee"))
                     {
-                        <a class="btn btn-default" asp-action="AssignEmployee" asp-route-employeeId="@UserManager.GetUserId(User)" asp-route-applicationId="@item.ApplicationId">Evaluat</a>
+                        <a class="btn btn-default" asp-action="AssignEmployee" asp-route-employeeId="@UserManager.GetUserId(User)" asp-route-applicationId="@item.ApplicationId">Avaliar</a>
                     }
                 </td>
             </tr>
