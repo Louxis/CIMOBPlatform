@@ -385,6 +385,7 @@ namespace CIMOBProject.Models {
                 context.Helps.Add(new Help { HelpDescription = "O número de funcionário deve ser constituido por 9 digitos." });
                 context.Helps.Add(new Help { HelpDescription = "A descrição deve descrever sumáriamente o documento." });
                 context.Helps.Add(new Help { HelpDescription = "Insira o URL de onde está hospedado o seu documento." });
+                context.Helps.Add(new Help { HelpDescription = "Insira a sua password atual" });
                 context.SaveChanges();
             }
         }

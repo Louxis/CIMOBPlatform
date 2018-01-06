@@ -5,8 +5,7 @@
     ViewData["Title"] = "Filter";
 }
 
-<h2>Index</h2>
-
+<h1>Candidaturas</h1>
 <form asp-controller="Applications" asp-action="Filter" method="get">
     <select class="search-options" for="filterType" name="filterType">
         <option value="CurrentlySupervising">Atualmente a avaliar</option>
@@ -15,8 +14,10 @@
 
     <input class="search-box" hidden="hidden" type="text" name="employeeId" value="@UserManager.GetUserId(User)" />
 
-    <input type="submit" class="btn btn-default" value="Filter">
+    <input type="submit" class="btn btn-default" value="Filtrar">
+    
 </form>
+<br />
 <table class="table">
     <thead>
         <tr>
@@ -25,25 +26,6 @@
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Employee)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ArithmeticMean)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ECTS)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.MotivationLetter)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Enterview)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.FinalGrade)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.BilateralProtocol1Id)
-            </th>
             <th>
                 @Html.DisplayNameFor(model => model.ApplicationStat)
             </th>
@@ -61,43 +43,14 @@
                     @Html.DisplayFor(modelItem => item.Employee.UserFullname)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.ArithmeticMean)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ECTS)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.MotivationLetter)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Enterview)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.FinalGrade)
-                </td>
-                <td>
-                    @if (item.BilateralProtocol1 != null)
-                    {
-                        @Html.DisplayFor(modelItem => item.BilateralProtocol1.Destination)
-                    }
-                    else if (item.BilateralProtocol2 != null)
-                    {
-                        @Html.DisplayFor(modelItem => item.BilateralProtocol2.Destination)
-                    }
-                    else
-                    {
-                        @Html.DisplayFor(modelItem => item.BilateralProtocol3.Destination)
-                    }
-                </td>
-                <td>
                     @Html.DisplayFor(modelItem => item.ApplicationStat.Name)
                 </td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.ApplicationId">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.ApplicationId">Details</a> |
+                    <a class="btn btn-default" asp-action="Edit" asp-route-id="@item.ApplicationId">Editar</a>
+                    <a class="btn btn-default" asp-action="Details" asp-route-id="@item.ApplicationId">Detalhes</a>
                     @if (item.EmployeeId == null && User.IsInRole("Employee"))
                     {
-                        <a asp-action="AssignEmployee" asp-route-employeeId="@UserManager.GetUserId(User)" asp-route-applicationId="@item.ApplicationId">Evaluat</a>
+                        <a class="btn btn-default" asp-action="AssignEmployee" asp-route-employeeId="@UserManager.GetUserId(User)" asp-route-applicationId="@item.ApplicationId">Evaluat</a>
                     }
                 </td>
             </tr>

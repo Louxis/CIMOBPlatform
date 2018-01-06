@@ -1,67 +1,58 @@
 ﻿@model CIMOBProject.Models.Application
 
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
 @{
     ViewData["Title"] = "Details";
 }
 
-<h2>Details</h2>
-
+<h1>Candidatura de @Html.DisplayFor(model => model.Student.UserFullname)</h1>
 <div>
-    <h4>Application</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.ArithmeticMean)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.ArithmeticMean)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.ECTS)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.ECTS)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.MotivationLetter)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.MotivationLetter)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Enterview)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Enterview)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.FinalGrade)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.FinalGrade)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.ApplicationStat)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.ApplicationStat.Name)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Employee)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Employee.Id)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Student)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Student.Id)
-        </dd>
-    </dl>
+    <div class="application-student-details">
+        <h4>Dados de Estudante</h4>
+        <label>@Html.DisplayNameFor(model => model.Student.StudentNumber):&nbsp;</label>@Html.DisplayFor(model => model.Student.StudentNumber)
+        <br />
+        <label>@Html.DisplayNameFor(model => model.Student.CollegeSubject):&nbsp;</label>@Html.DisplayFor(model => model.Student.CollegeSubject)
+    </div>  
+    <br />
+    <div class="application-grade-details">
+        <h4>Avaliação de Candidatura</h4>
+        <label>@Html.DisplayNameFor(model => model.ArithmeticMean):&nbsp;</label>@Html.DisplayFor(model => model.ArithmeticMean)
+        <br />
+        <label>@Html.DisplayNameFor(model => model.ECTS):&nbsp;</label>@Html.DisplayFor(model => model.ECTS)
+        <br />
+        <label>@Html.DisplayNameFor(model => model.Motivations):&nbsp;</label>
+        <br />
+        @Html.DisplayFor(model => model.Motivations)
+        <br />
+        <br />
+        <label>@Html.DisplayNameFor(model => model.MotivationLetter):&nbsp;</label>@Html.DisplayFor(model => model.MotivationLetter)
+        <br />
+        <label>@Html.DisplayNameFor(model => model.Enterview):&nbsp;</label>@Html.DisplayFor(model => model.Enterview)
+        <br />
+        <label>@Html.DisplayNameFor(model => model.FinalGrade):&nbsp;</label>@Html.DisplayFor(model => model.FinalGrade)
+        <br />
+        <label>@Html.DisplayNameFor(model => model.ApplicationStat):&nbsp;</label>@Html.DisplayFor(model => model.ApplicationStat.Name)
+        
+    </div>
+    <br />
+    <div class="application-employee-details">
+        <h4>Dados de Funcionário</h4>
+        <label>@Html.DisplayNameFor(model => model.Employee):&nbsp;</label>@Html.DisplayFor(model => model.Employee.UserFullname)
+    </div>
 </div>
+<br />
 <div>
-    <a asp-action="Index" asp-controller="Documents" asp-route-applicationId="@Model.ApplicationId">Documentos</a> |
-    <a asp-action="Edit" asp-route-id="@Model.ApplicationId">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a class="btn btn-default" asp-action="Index" asp-controller="Documents" asp-route-applicationId="@Model.ApplicationId">Documentos</a>
+    <a class="btn btn-default" asp-action="Edit" asp-route-id="@Model.ApplicationId">Editar</a>
+    @if (SignInManager.IsSignedIn(User) && User.IsInRole("Employee"))
+    {
+        <a class="btn btn-default" asp-area="" asp-controller="Applications" asp-action="Index" asp-route-employeeId="@UserManager.GetUserId(User)">Voltar Atrás</a>
+    }
+    else
+    {
+        <a class="btn btn-default" asp-controller="Students" asp-action="Details" asp-route-id=@UserManager.GetUserId(User)>Voltar Atrás</a>
+    }
+
 </div>

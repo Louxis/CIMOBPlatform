@@ -235,6 +235,7 @@ namespace CIMOBProject.Controllers
                 throw new ApplicationException("A reposição de password precisa de um código.");
             }
             var model = new ResetPasswordViewModel { Code = code };
+            loadHelp();
             return View(model);
         }
 
