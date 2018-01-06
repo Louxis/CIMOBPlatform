@@ -33,7 +33,7 @@ namespace XUnitTesting {
                 .Options;
         }
 
-        protected void LogIn(IWebDriver driver, string email, string password) {
+        public static void LogIn(IWebDriver driver, string email, string password) {
             IWebElement logIn = driver.FindElement(By.Id("LogIn"));
             if (logIn == null) {
                 IWebElement logOut = driver.FindElement(By.Id("LogOut"));
