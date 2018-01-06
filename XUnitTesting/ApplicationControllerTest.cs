@@ -33,7 +33,9 @@ namespace XUnitTesting {
                 .Options;
         }
 
+#pragma warning disable xUnit1013 // Public method should be marked as test
         public static void LogIn(IWebDriver driver, string email, string password) {
+#pragma warning restore xUnit1013 // Public method should be marked as test
             IWebElement logIn = driver.FindElement(By.Id("LogIn"));
             if (logIn == null) {
                 IWebElement logOut = driver.FindElement(By.Id("LogOut"));

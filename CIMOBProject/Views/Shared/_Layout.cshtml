@@ -53,7 +53,7 @@
         <div class="menu-container">
             <ul class="menubar">
                 <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
-                <li><a asp-area="" asp-controller="News" asp-action="Index">Publicações</a></li>
+                <li><a asp-area="" asp-controller="News" asp-action="Index" id="News">Publicações</a></li>
                 @if (User.IsInRole("Employee"))
                 {
                     <li><a asp-area="" asp-controller="Applications" asp-action="Index" asp-route-employeeId = "@UserManager.GetUserId(User)" id="Application">Candidaturas</a></li>

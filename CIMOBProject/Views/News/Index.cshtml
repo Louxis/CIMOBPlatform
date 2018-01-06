@@ -74,8 +74,8 @@
 @if (SignInManager.IsSignedIn(User) && User.IsInRole("Employee"))
 {
     <div>
-        <a class="btn btn-default" asp-area="" asp-controller="News" asp-action="Create" asp-route-userId="@UserManager.GetUserId(User)">Nova Publicação</a>
-        <a class="btn btn-default" asp-area="" asp-controller="Editals" asp-action="Create" asp-route-userId="@UserManager.GetUserId(User)">Novo Edital</a>
+        <a class="btn btn-default" asp-area="" asp-controller="News" asp-action="Create" asp-route-userId="@UserManager.GetUserId(User)" id="CreateNews">Nova Publicação</a>
+        <a class="btn btn-default" asp-area="" asp-controller="Editals" asp-action="Create" asp-route-userId="@UserManager.GetUserId(User)" id="CreateEdital">Novo Edital</a>
     </div>
 }
 
