@@ -9,20 +9,16 @@ using CIMOBProject.Data;
 using CIMOBProject.Models;
 
 
-namespace CIMOBProject.Controllers
-{
-    public class StudentsController : Controller
-    {
+namespace CIMOBProject.Controllers {
+    public class StudentsController : Controller {
         private readonly ApplicationDbContext _context;
 
-        public StudentsController(ApplicationDbContext context)
-        {
+        public StudentsController(ApplicationDbContext context) {
             _context = context;
         }
 
         // GET: Students
-        public async Task<IActionResult> Index()
-        {
+        public async Task<IActionResult> Index() {
             var applicationDbContext = _context.Students.Include(s => s.CollegeSubject);
             return View(await applicationDbContext.ToListAsync());
         }
@@ -39,28 +35,23 @@ namespace CIMOBProject.Controllers
 
             var students = _context.Students.Include(s => s.CollegeSubject);
 
-            if (String.IsNullOrEmpty(searchType) || String.IsNullOrEmpty(searchString))
-            {
+            if (String.IsNullOrEmpty(searchType) || String.IsNullOrEmpty(searchString)) {
                 return View("~/Views/Students/ErrorSearch.cshtml");
             }
 
-            if (searchType.Equals("studentNumber") && !String.IsNullOrEmpty(searchString))
-            {
+            if (searchType.Equals("studentNumber") && !String.IsNullOrEmpty(searchString)) {
                 var filteredStudents = students.Where(s => s.StudentNumber.Contains(searchString));
                 return View(await filteredStudents.ToListAsync());
             }
-            else if (searchType.Equals("studentName") && !String.IsNullOrEmpty(searchString))
-            {
+            else if (searchType.Equals("studentName") && !String.IsNullOrEmpty(searchString)) {
                 var filteredStudents = students.Where(s => s.UserFullname.Contains(searchString));
                 return View(await filteredStudents.ToListAsync());
             }
-            else if (searchType.Equals("studentCollege") && !String.IsNullOrEmpty(searchString))
-            {
+            else if (searchType.Equals("studentCollege") && !String.IsNullOrEmpty(searchString)) {
                 var filteredStudents = students.Where(s => s.CollegeSubject.College.CollegeName.Contains(searchString));
                 return View(await filteredStudents.ToListAsync());
             }
-            else if (searchType.Equals("mail") && !String.IsNullOrEmpty(searchString))
-            {
+            else if (searchType.Equals("mail") && !String.IsNullOrEmpty(searchString)) {
                 var filteredStudents = students.Where(s => s.Email.Contains(searchString));
                 //return Details(filteredStudents.FirstOrDefault().Id);
 
@@ -71,45 +62,41 @@ namespace CIMOBProject.Controllers
         }
 
         // GET: Students/Details/5
-        public async Task<IActionResult> Details(string id)
-        {
-            if (id == null)
-            {
+        public async Task<IActionResult> Details(string id) {
+            if (id == null) {
                 return NotFound();
             }
-
-            //var student = await _context.Students
-            //  .Include(s => s.CollegeSubject.College).Include(s=>s.Documents)
-            // .Include(s => s.Applications)
-            //.SingleOrDefaultAsync(m => m.Id == id);
-            var latestEdital = _context.Editals.OrderByDescending(e => e.Id).FirstOrDefault();
-            
-            var stud = await _context.Applications.Include(a => a.BilateralProtocol1).Include(a => a.BilateralProtocol2).Include(a => a.BilateralProtocol3)
-                .Include(a => a.ApplicationStat).Include(a => a.Documents)
-                .Include(a => a.Student).Include(a => a.Student.CollegeSubject)
-                .Where(m => m.Student.Id == id).OrderBy(a => a.ApplicationId).LastAsync();
-
-            var latestApplication = _context.Applications.Where(a => a.StudentId == stud.StudentId 
-                                                            && (latestEdital.OpenDate <= a.CreationDate) 
-                                                            && (a.CreationDate <= latestEdital.CloseDate)).FirstOrDefault();
-                //.SingleOrDefaultAsync(m => m.Student.Id == id);
-
-            //var student2 = await _context.Students
-            //    .Include(s => s.CollegeSubject.College).Include(s => s.Documents).Include(s => s.Applications).Include(s => s.Applications.FirstOrDefault().ApplicationStat)
-            //    .SingleOrDefaultAsync(m => m.Id == id);
-
-            if (stud == null)
-            {
+            var latestEdital = _context.Editals.OrderByDescending(e => e.Id).FirstOrDefault(); 
+            var student = await _context.Students
+                    .Include(s => s.CollegeSubject)
+                        .ThenInclude(c => c.College)
+                    .Include(s => s.Applications)
+                        .ThenInclude(a => a.ApplicationStat)
+                    .Include(s => s.Applications)
+                        .ThenInclude(a => a.BilateralProtocol1)
+                    .Include(s => s.Applications)
+                        .ThenInclude(a => a.BilateralProtocol2)
+                    .Include(s => s.Applications)
+                        .ThenInclude(a => a.BilateralProtocol3)
+                    .Include(s => s.Applications)
+                        .ThenInclude(a => a.Documents)
+                    .Where(s => s.Id == id).SingleOrDefaultAsync();
+            if (student == null) {
                 return NotFound();
             }
-            ViewData["applicationId"] = /*latestApplication.ApplicationId;*/ stud.ApplicationId; //stud.Student.Applications.OrderByDescending(a => a.ApplicationId).FirstOrDefault()
-            ViewData["selectedId"] = stud.Student.Id;
-            return View(stud.Student);
+            if (student.Applications.Count == 0) {
+                ViewData["applicationId"] = "N/A";
+            }
+            else {
+                var latestApplication = student.Applications.OrderBy(a => a.ApplicationId).Last();
+                ViewData["applicationId"] = latestApplication.ApplicationId;
+            }                        
+            ViewData["selectedId"] = student.Id;
+            return View(student);
         }
 
         // GET: Students/Create
-        public IActionResult Create()
-        {
+        public IActionResult Create() {
             ViewData["CollegeID"] = new SelectList(_context.Colleges, "Id", "CollegeName");
             ViewData["CollegeSubjectId"] = new SelectList(_context.CollegeSubjects, "Id", "SubjectName");
             return View();
@@ -120,10 +107,8 @@ namespace CIMOBProject.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("StudentNumber,ALOGrade,CollegeID,UserFullname,PostalCode,BirthDate,UserAddress,UserCc,Id,UserName,NormalizedUserName,Email,NormalizedEmail,EmailConfirmed,PasswordHash,SecurityStamp,ConcurrencyStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEnd,LockoutEnabled,AccessFailedCount")] Student student)
-        {
-            if (ModelState.IsValid)
-            {
+        public async Task<IActionResult> Create([Bind("StudentNumber,ALOGrade,CollegeID,UserFullname,PostalCode,BirthDate,UserAddress,UserCc,Id,UserName,NormalizedUserName,Email,NormalizedEmail,EmailConfirmed,PasswordHash,SecurityStamp,ConcurrencyStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEnd,LockoutEnabled,AccessFailedCount")] Student student) {
+            if (ModelState.IsValid) {
                 _context.Add(student);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -136,16 +121,13 @@ namespace CIMOBProject.Controllers
 
 
         // GET: Students/Edit/5
-        public async Task<IActionResult> Edit(string id)
-        {
-            if (id == null)
-            {
+        public async Task<IActionResult> Edit(string id) {
+            if (id == null) {
                 return NotFound();
             }
 
             var student = await _context.Students.SingleOrDefaultAsync(m => m.Id == id);
-            if (student == null)
-            {
+            if (student == null) {
                 return NotFound();
             }
             loadHelp();
@@ -158,10 +140,8 @@ namespace CIMOBProject.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("StudentNumber,ALOGrade,CollegeID,UserFullname,PostalCode,BirthDate,UserAddress,UserCc,Id,UserName,NormalizedUserName,Email,NormalizedEmail,EmailConfirmed,PasswordHash,SecurityStamp,ConcurrencyStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEnd,LockoutEnabled,AccessFailedCount")] Student student)
-        {
-            if (id != student.Id)
-            {
+        public async Task<IActionResult> Edit(string id, [Bind("StudentNumber,ALOGrade,CollegeID,UserFullname,PostalCode,BirthDate,UserAddress,UserCc,Id,UserName,NormalizedUserName,Email,NormalizedEmail,EmailConfirmed,PasswordHash,SecurityStamp,ConcurrencyStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEnd,LockoutEnabled,AccessFailedCount")] Student student) {
+            if (id != student.Id) {
                 return NotFound();
             }
             ViewData["selectedId"] = student.Id;
@@ -173,19 +153,15 @@ namespace CIMOBProject.Controllers
             toEditStudent.PostalCode = student.PostalCode;
             toEditStudent.PhoneNumber = student.PhoneNumber;
             toEditStudent.UserCc = student.UserCc;
-            try
-            {
+            try {
                 _context.Update(toEditStudent);
                 await _context.SaveChangesAsync();
             }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!StudentExists(student.Id))
-                {
+            catch (DbUpdateConcurrencyException) {
+                if (!StudentExists(student.Id)) {
                     return NotFound();
                 }
-                else
-                {
+                else {
                     throw;
                 }
             }
@@ -194,10 +170,8 @@ namespace CIMOBProject.Controllers
         }
 
         // GET: Students/Delete/5
-        public async Task<IActionResult> Delete(string id)
-        {
-            if (id == null)
-            {
+        public async Task<IActionResult> Delete(string id) {
+            if (id == null) {
                 return NotFound(
                     );
             }
@@ -205,8 +179,7 @@ namespace CIMOBProject.Controllers
             var student = await _context.Students
                 .Include(s => s.CollegeSubject)
                 .SingleOrDefaultAsync(m => m.Id == id);
-            if (student == null)
-            {
+            if (student == null) {
                 return NotFound();
             }
 
@@ -216,21 +189,18 @@ namespace CIMOBProject.Controllers
         // POST: Students/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(string id)
-        {
+        public async Task<IActionResult> DeleteConfirmed(string id) {
             var student = await _context.Students.SingleOrDefaultAsync(m => m.Id == id);
             _context.Students.Remove(student);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool StudentExists(string id)
-        {
+        private bool StudentExists(string id) {
             return _context.Students.Any(e => e.Id == id);
         }
 
-        private void loadHelp()
-        {
+        private void loadHelp() {
             ViewData["EmailTip"] = (_context.Helps.FirstOrDefault(h => h.Id == 2) as Help).HelpDescription;
             ViewData["PasswordTip"] = (_context.Helps.FirstOrDefault(h => h.Id == 3) as Help).HelpDescription;
             ViewData["ConfirmPasswordTip"] = (_context.Helps.FirstOrDefault(h => h.Id == 4) as Help).HelpDescription;

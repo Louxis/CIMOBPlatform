@@ -43,6 +43,8 @@ namespace CIMOBProject.Controllers
                     Title = title,
                     TextContent = content
                 };
+                quizz.IsPublished = true;
+                _context.Update(quizz);
                 _context.Add(news);
                 _context.SaveChanges();
                 //put code to send email here
