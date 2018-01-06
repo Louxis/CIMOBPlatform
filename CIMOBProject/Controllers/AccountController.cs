@@ -165,7 +165,7 @@ namespace CIMOBProject.Controllers
             await _signInManager.SignOutAsync();
             _logger.LogInformation("User logged out.");
             ViewData["UserFullName"] = "";
-            return RedirectToAction(nameof(HomeController.Index), "Home");
+            return RedirectToAction(nameof(HomeController.Logout), "Home");
         }
        
         [HttpGet]

@@ -21,6 +21,11 @@ namespace CIMOBProject.Controllers
             return View();
         }
 
+        public IActionResult Logout()
+        {
+            return View();
+        }
+
         public IActionResult Application(String message)
         {
             if(message == null)

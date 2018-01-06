@@ -365,6 +365,20 @@ namespace CIMOBProject.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+
+        public IActionResult ScheduleInterview(int id)
+        {
+            ViewData["ApplicationId"] = id;
+            return View(_context.Applications.Include(a => a.Student).Where(a => a.ApplicationId == id).SingleOrDefault());
+        }
+
+        public async Task<IActionResult> EmailScheduleInterview(string employeeID, DateTime interviewDate)
+        {
+            //Zé does the email stuff here//
+
+            return RedirectToAction("Index", "Applications", new { employeeId = employeeID });
+        }
+
         private bool ApplicationExists(int id)
         {
             return _context.Applications.Any(e => e.ApplicationId == id);

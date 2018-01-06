@@ -51,6 +51,7 @@
                     if (item.EmployeeId == @UserManager.GetUserId(User))
                     {
                         <a class="btn btn-default" asp-action="Edit" asp-route-id="@item.ApplicationId">Editar</a>
+                        <a class="btn btn-default" asp-action="ScheduleInterview" asp-route-id="@item.ApplicationId">Marcar Entrevista</a>
                     }
 
                 }
