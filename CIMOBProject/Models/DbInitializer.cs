@@ -314,7 +314,7 @@ namespace CIMOBProject.Models {
                 });
                 
 
-                context.Applications.Add(new Application
+                /*context.Applications.Add(new Application
                 {
                     StudentId = context.Students.Where(s => s.UserFullname.Equals("Teste User 1")).FirstOrDefault().Id,
                     ApplicationStatId = 3,
@@ -328,7 +328,7 @@ namespace CIMOBProject.Models {
                     MotivationLetter = 20.0,
                     Enterview = 20.0,
                     FinalGrade = 20.0
-                });
+                });*/
 
                 context.Applications.Add(new Application
                 {

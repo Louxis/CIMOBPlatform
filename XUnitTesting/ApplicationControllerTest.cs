@@ -10,6 +10,7 @@ using System.Reflection;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.Edge;
+using OpenQA.Selenium.Support.UI;
 
 namespace XUnitTesting {
     public class ApplicationControllerTest
@@ -33,25 +34,58 @@ namespace XUnitTesting {
         }
 
         [Fact]
-        public void TestWithChromeDriver()
+        public void TestWithChromeDriverApplication()
         {
             using (var driver = new ChromeDriver
                   (Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)))
             {
                 driver.Navigate().GoToUrl
-                 (@"https://localhost:44334/Applications/");
-                IWebElement tableElement = driver.FindElement(By.TagName("tbody"));
-                IList<IWebElement> tableRow = tableElement.FindElements(By.TagName("tr"));
-                IList<IWebElement> rowTD;
-                foreach (IWebElement row in tableRow)
+                 (@"https://localhost:44334/");
+
+                IWebElement logIn = driver.FindElement(By.Id("LogIn"));
+                if(logIn == null)
                 {
-                    rowTD = row.FindElements(By.TagName("td"));
-                    if (rowTD.Last().FindElement(By.Id("Details")) != null)
-                    {
-                        rowTD.Last().FindElement(By.Id("Details")).Click();
-                        break;
-                    }
+                    IWebElement logOut = driver.FindElement(By.Id("LogOut"));
+                    logOut.Click();
                 }
+
+                logIn.Click();
+                IWebElement email = driver.FindElement(By.Id("Email"));
+                IWebElement password = driver.FindElement(By.Id("Password"));
+                IWebElement submit = driver.FindElement(By.Id("Submit"));
+
+                email.SendKeys("test@test");
+                password.SendKeys("teste12");
+                submit.Click();
+
+                IWebElement application = driver.FindElement(By.Id("Application"));
+                application.Click();
+
+                IWebElement bilateral1 = driver.FindElement(By.Id("Bilateral1"));
+                IWebElement bilateral2 = driver.FindElement(By.Id("Bilateral2"));
+                IWebElement bilateral3 = driver.FindElement(By.Id("Bilateral3"));
+
+                SelectElement selectBilateral1 = new SelectElement(bilateral1);
+                selectBilateral1.SelectByIndex(0);
+
+                SelectElement selectBilateral2 = new SelectElement(bilateral2);
+                selectBilateral1.SelectByIndex(1);
+
+                SelectElement selectBilateral3 = new SelectElement(bilateral3);
+                selectBilateral1.SelectByIndex(2);
+
+                IWebElement motivation = driver.FindElement(By.Id("Motivation"));
+                motivation.SendKeys("Testing selenium");
+
+                IWebElement submitApplication = driver.FindElement(By.Id("Submit"));
+                submitApplication.Click();
+
+                IWebElement details = driver.FindElement(By.Id("Details"));
+                details.Click();
+
+                IWebElement currentState = driver.FindElement(By.Id("CurrentState"));
+
+                ExpectedConditions.ElementExists(By.Id("CurrentState"));
             }
         }
 
