@@ -268,7 +268,7 @@ namespace CIMOBProject.Models {
                 context.Applications.Add(new Application
                 {
                     StudentId = context.Students.Where(s => s.UserFullname.Equals("Teste User 4")).FirstOrDefault().Id,
-                    ApplicationStatId = 3,
+                    ApplicationStatId = 2,
                     BilateralProtocol1Id = 2,
                     BilateralProtocol2Id = 6,
                     BilateralProtocol3Id = 10,

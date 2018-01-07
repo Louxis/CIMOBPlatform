@@ -50,7 +50,7 @@
                 {
                     if (item.EmployeeId == @UserManager.GetUserId(User))
                     {
-                        <a class="btn btn-default" asp-action="Edit" asp-route-id="@item.ApplicationId">Editar</a>
+                        <a class="btn btn-default" asp-action="Edit" asp-route-id="@item.ApplicationId" id="Edit">Editar</a>
                         <a class="btn btn-default" asp-action="ScheduleInterview" asp-route-id="@item.ApplicationId">Marcar Entrevista</a>
                     }
 
@@ -58,7 +58,7 @@
                 <a class="btn btn-default" asp-action="Details" asp-route-id="@item.ApplicationId">Detalhes</a>
                 @if (item.EmployeeId == null && User.IsInRole("Employee"))
                 {
-                    <a class="btn btn-default" asp-action="AssignEmployee" asp-route-employeeId="@UserManager.GetUserId(User)" asp-route-applicationId ="@item.ApplicationId">Avaliar</a>
+                    <a class="btn btn-default" asp-action="AssignEmployee" asp-route-employeeId="@UserManager.GetUserId(User)" asp-route-applicationId ="@item.ApplicationId" id="Evaluate">Avaliar</a>
                 }
             </td>
         </tr>
