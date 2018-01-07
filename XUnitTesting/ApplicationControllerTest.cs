@@ -33,6 +33,23 @@ namespace XUnitTesting {
                 .Options;
         }
 
+#pragma warning disable xUnit1013 // Public method should be marked as test
+        public static void LogIn(IWebDriver driver, string email, string password) {
+#pragma warning restore xUnit1013 // Public method should be marked as test
+            IWebElement logIn = driver.FindElement(By.Id("LogIn"));
+            if (logIn == null) {
+                IWebElement logOut = driver.FindElement(By.Id("LogOut"));
+                logOut.Click();
+            }
+            logIn.Click();
+            IWebElement emailW = driver.FindElement(By.Id("Email"));
+            IWebElement passwordW = driver.FindElement(By.Id("Password"));
+            IWebElement submit = driver.FindElement(By.Id("Submit"));
+            emailW.SendKeys(email);
+            passwordW.SendKeys(password);
+            submit.Click();
+        }
+
         [Fact]
         public void TestWithChromeDriverApplication()
         {
@@ -41,23 +58,7 @@ namespace XUnitTesting {
             {
                 driver.Navigate().GoToUrl
                  (@"https://localhost:44334/");
-
-                IWebElement logIn = driver.FindElement(By.Id("LogIn"));
-                if(logIn == null)
-                {
-                    IWebElement logOut = driver.FindElement(By.Id("LogOut"));
-                    logOut.Click();
-                }
-
-                logIn.Click();
-                IWebElement email = driver.FindElement(By.Id("Email"));
-                IWebElement password = driver.FindElement(By.Id("Password"));
-                IWebElement submit = driver.FindElement(By.Id("Submit"));
-
-                email.SendKeys("test@test");
-                password.SendKeys("teste12");
-                submit.Click();
-
+                LogIn(driver, "test@test", "teste12");
                 IWebElement application = driver.FindElement(By.Id("Application"));
                 application.Click();
 
