@@ -100,7 +100,6 @@ namespace CIMOBProject.Controllers
                 ViewData["ApplicationStatId"] = 1;
                 ViewData["EmployeeId"] = "";
                 ViewData["CreationDate"] = DateTime.Now;
-
                 //ViewData["StudentId"] = new SelectList(_context.Students, "Id", "Id");
                 return View();
             }
@@ -119,6 +118,9 @@ namespace CIMOBProject.Controllers
             {
                 _context.Add(application);
                 await _context.SaveChangesAsync();
+                Student newStudent = await _context.Students.Where(s => s.Id.Equals(application.StudentId)).FirstOrDefaultAsync();
+                EmailSender emailSender = new EmailSender();
+                await emailSender.Execute("Candidatura Submetida","Saudações, a sua candidatura foi submetida no sistema com sucesso, boa sorte!", newStudent.Email);
                 _context.ApplicationStatHistory.Add(new ApplicationStatHistory { ApplicationId = _context.Applications.Last().ApplicationId, ApplicationStat = "Pending Evaluation", DateOfUpdate = DateTime.Now });
                 _context.SaveChanges();
                 return RedirectToAction("Application", "Home", new { message = "Candidatura efetuada com sucesso!" });
@@ -372,10 +374,15 @@ namespace CIMOBProject.Controllers
             return View(_context.Applications.Include(a => a.Student).Where(a => a.ApplicationId == id).SingleOrDefault());
         }
 
-        public async Task<IActionResult> EmailScheduleInterview(string employeeID, DateTime interviewDate)
+        public async Task<IActionResult> EmailScheduleInterview(string studentId, string employeeID, DateTime interviewDate)
         {
             //Zé does the email stuff here//
-
+            Student user = _context.Students.Where(s => s.Id.Equals(studentId)).FirstOrDefault();
+            EmailSender emailSender = new EmailSender();
+            await emailSender.Execute("Entrevista Agendada", "Saudações, " +
+                user.UserFullname + " uma entrevista consigo foi agendada para o dia " + interviewDate +
+                " no nosso gabinete. Entre em contacto conosco se não for possivel comparecer a esta entrevista." +
+                " Uma falta sem justificação irá resulta numa avaliação de 0.", user.Email);            
             return RedirectToAction("Index", "Applications", new { employeeId = employeeID });
         }
 

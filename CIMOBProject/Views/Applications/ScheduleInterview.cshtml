@@ -16,7 +16,7 @@
             <br />
             <input type="datetime-local" name="interviewDate" class="form-control">
             <br />
-            <a class="btn btn-default" asp-area="" asp-controller="Applications" asp-action="EmailScheduleInterview" asp-route-employeeId="@UserManager.GetUserId(User)" asp-route-interviewDate=interviewDate>Marcar Entrevista</a>
+            <a class="btn btn-default" asp-area="" asp-controller="Applications" asp-action="EmailScheduleInterview" asp-route-studentId="@Model.StudentId" asp-route-employeeId="@UserManager.GetUserId(User)" asp-route-interviewDate=interviewDate>Marcar Entrevista</a>
             <a class="btn btn-default" asp-area="" asp-controller="Applications" asp-action="Index" asp-route-employeeId="@UserManager.GetUserId(User)">Voltar Atrás</a>
         </div>
     </div>
