@@ -11,6 +11,7 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.Edge;
 using OpenQA.Selenium.Support.UI;
+using System;
 
 namespace XUnitTesting {
     public class ApplicationControllerTest
@@ -89,6 +90,69 @@ namespace XUnitTesting {
                 ExpectedConditions.ElementExists(By.Id("CurrentState"));
             }
         }
+
+        [Fact]
+        public void TestWithChromeDriverEvaluateApplication()
+        {
+            using (var driver = new ChromeDriver
+                  (Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)))
+            {
+                driver.Navigate().GoToUrl
+                 (@"https://localhost:44334/");
+                LogIn(driver, "testemployee@cimob.pt", "teste12");
+                IWebElement application = driver.FindElement(By.Id("Application"));
+                application.Click();
+
+                var wait = new WebDriverWait(driver, TimeSpan.FromMinutes(1));
+                
+
+                IWebElement table = driver.FindElement(By.Id("table"));
+                IList<IWebElement> tableRows = table.FindElements(By.TagName("tr"));
+                IList<IWebElement> rowTD;
+                foreach (IWebElement row in tableRows)
+                {
+                    rowTD = row.FindElements(By.TagName("td"));
+
+                    if (rowTD.First().FindElement(By.Id("UserFullName")).Text.Equals("Teste User 4"))
+                    {
+                        rowTD.Last().FindElement(By.Id("Evaluate")).Click();
+
+                        var clickableElement = wait.Until
+                            (ExpectedConditions.ElementToBeClickable(By.Id("Edit")));
+                        clickableElement.Click();
+                        break;
+                    }
+                }
+
+
+                driver.FindElement(By.Id("ArithmeticMean")).SendKeys("20");
+                driver.FindElement(By.Id("MotivationLetter")).SendKeys("20");
+                driver.FindElement(By.Id("Enteriview")).SendKeys("20");
+
+                SelectElement selectBilateral1 = new SelectElement(bilateral1);
+                selectBilateral1.SelectByIndex(0);
+
+                SelectElement selectBilateral2 = new SelectElement(bilateral2);
+                selectBilateral1.SelectByIndex(1);
+
+                SelectElement selectBilateral3 = new SelectElement(bilateral3);
+                selectBilateral1.SelectByIndex(2);
+
+                IWebElement motivation = driver.FindElement(By.Id("Motivation"));
+                motivation.SendKeys("Testing selenium");
+
+                IWebElement submitApplication = driver.FindElement(By.Id("Submit"));
+                submitApplication.Click();
+
+                IWebElement details = driver.FindElement(By.Id("Details"));
+                details.Click();
+
+                IWebElement currentState = driver.FindElement(By.Id("CurrentState"));
+
+                ExpectedConditions.ElementExists(By.Id("CurrentState"));
+            }
+        }
+
 
         [Fact]
         public void TestWithFoxDriver()

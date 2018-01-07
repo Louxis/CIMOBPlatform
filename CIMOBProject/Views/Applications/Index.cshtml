@@ -18,7 +18,7 @@
     <input type="submit" class="btn btn-default" value="Filter">
 </form>
 <br />
-<table class="table">
+<table class="table" id="table">
     <thead>
         <tr>
             <th>
@@ -36,7 +36,7 @@
     <tbody>
 @foreach (var item in Model) {
         <tr>
-            <td>
+            <td id="UserFullName">
                 @Html.DisplayFor(modelItem => item.Student.UserFullname)
             </td>
             <td>
