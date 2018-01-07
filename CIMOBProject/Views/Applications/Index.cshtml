@@ -42,7 +42,7 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Employee.UserFullname)
             </td>
-            <td>
+            <td id="ApplicationStat">
                 @Html.DisplayFor(modelItem => item.ApplicationStat.Name)
             </td>
             <td>
@@ -68,6 +68,6 @@
 <br />
 @if (Model.Count() == Model.Where(a => a.ApplicationStatId == 3).Count())
 {
-    <a class="btn btn-default" asp-controller="Applications" asp-action="Seriation">Lançar Seriação</a>
+    <a class="btn btn-default" asp-controller="Applications" asp-action="Seriation" id="Seriation">Lançar Seriação</a>
 }
     

@@ -265,21 +265,21 @@ namespace CIMOBProject.Models {
 
             if (!context.Applications.Any())
             {
-                context.Applications.Add(new Application
+                /*context.Applications.Add(new Application
                 {
                     StudentId = context.Students.Where(s => s.UserFullname.Equals("Teste User 4")).FirstOrDefault().Id,
-                    ApplicationStatId = 2,
+                    ApplicationStatId = 3,
                     BilateralProtocol1Id = 2,
                     BilateralProtocol2Id = 6,
                     BilateralProtocol3Id = 10,
-                    EmployeeId = context.Employees.Where(s => s.UserFullname.Equals("Empregado Teste")).FirstOrDefault().Id,
+                    //EmployeeId = context.Employees.Where(s => s.UserFullname.Equals("Empregado Teste")).FirstOrDefault().Id,
                     CreationDate = new DateTime(2017, 11, 11),
                     ArithmeticMean = 7.0,
                     ECTS = 78,
                     MotivationLetter = 8.0,
                     Enterview = 9.0,
                     FinalGrade = 8.0
-                });
+                });*/
                 context.Applications.Add(new Application
                 {
                     StudentId = context.Students.Where(s => s.UserFullname.Equals("Teste User 2")).FirstOrDefault().Id,
