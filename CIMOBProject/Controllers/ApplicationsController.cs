@@ -166,6 +166,8 @@ namespace CIMOBProject.Controllers
             {
                 if (item.BilateralProtocol1.OpenSlots > 0 && item.FinalGrade >= 9.5)
                 {
+                    String appStat = _context.ApplicationStats.SingleOrDefault(a => a.Id == item.ApplicationStatId).Name;
+                    _context.ApplicationStatHistory.Add(new ApplicationStatHistory { ApplicationId = item.ApplicationId, ApplicationStat = appStat, DateOfUpdate = DateTime.Now });
                     item.ApplicationStatId = 4;
                     item.ApplicationStat = _context.ApplicationStats.SingleOrDefault(a => a.Id == 4);
                     item.BilateralProtocol1.OpenSlots -= 1;
@@ -176,6 +178,8 @@ namespace CIMOBProject.Controllers
                 }
                 else if(item.BilateralProtocol2 != null && item.BilateralProtocol2.OpenSlots > 0 && item.FinalGrade >= 9.5)
                 {
+                    String appStat = _context.ApplicationStats.SingleOrDefault(a => a.Id == item.ApplicationStatId).Name;
+                    _context.ApplicationStatHistory.Add(new ApplicationStatHistory { ApplicationId = item.ApplicationId, ApplicationStat = appStat, DateOfUpdate = DateTime.Now });
                     item.ApplicationStatId = 4;
                     item.ApplicationStat = _context.ApplicationStats.SingleOrDefault(a => a.Id == 4);
                     item.BilateralProtocol2.OpenSlots -= 1;
@@ -186,6 +190,8 @@ namespace CIMOBProject.Controllers
                 }
                 else if(item.BilateralProtocol3 != null && item.BilateralProtocol3.OpenSlots > 0 && item.FinalGrade >= 9.5)
                 {
+                    String appStat = _context.ApplicationStats.SingleOrDefault(a => a.Id == item.ApplicationStatId).Name;
+                    _context.ApplicationStatHistory.Add(new ApplicationStatHistory { ApplicationId = item.ApplicationId, ApplicationStat = appStat, DateOfUpdate = DateTime.Now });
                     item.ApplicationStatId = 4;
                     item.ApplicationStat = _context.ApplicationStats.SingleOrDefault(a => a.Id == 4);
                     item.BilateralProtocol3.OpenSlots -= 1;
@@ -196,6 +202,8 @@ namespace CIMOBProject.Controllers
                 }
                 else
                 {
+                    String appStat = _context.ApplicationStats.SingleOrDefault(a => a.Id == item.ApplicationStatId).Name;
+                    _context.ApplicationStatHistory.Add(new ApplicationStatHistory { ApplicationId = item.ApplicationId, ApplicationStat = appStat, DateOfUpdate = DateTime.Now });
                     item.ApplicationStatId = 5;
                     item.ApplicationStat = _context.ApplicationStats.SingleOrDefault(a => a.Id == 5);
                     await _context.SaveChangesAsync();
@@ -274,7 +282,7 @@ namespace CIMOBProject.Controllers
             ViewData["BilateralProtocol1Id"] = application.BilateralProtocol1Id;
             ViewData["BilateralProtocol2Id"] = application.BilateralProtocol2Id;
             ViewData["BilateralProtocol3Id"] = application.BilateralProtocol3Id;
-            ViewData["ApplicationStatId"] = new SelectList(_context.ApplicationStats.Where(a => a.Id != 1), "Id", "Name", application.ApplicationStatId);
+            ViewData["ApplicationStatId"] = new SelectList(_context.ApplicationStats.Where(a => a.Id != 1 && a.Id < 4), "Id", "Name", application.ApplicationStatId);
             ViewData["EmployeeId"] = application.EmployeeId;
             ViewData["StudentId"] = application.StudentId;
             ViewData["CreationDate"] = application.CreationDate;
