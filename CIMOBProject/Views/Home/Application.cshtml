@@ -1,4 +1,5 @@
-﻿@inject SignInManager<ApplicationUser> SignInManager
+﻿@model string
+@inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
 
 @{
@@ -99,9 +100,12 @@
         </tbody>
     </table>
     <br />
-    @if (SignInManager.IsSignedIn(User) && User.IsInRole("Student"))
+    <p><h4>@Model</h4></p>
+    <br />
+
+    @if (SignInManager.IsSignedIn(User) && User.IsInRole("Student") && Model.Equals("As candidaturas estão abertas!"))
     {
-        <a asp-area="" asp-controller="Applications" asp-action="Create" asp-route-userId="@UserManager.GetUserId(User)" class="btn btn-default">Candidatar-se</a>
+            <a asp-area="" asp-controller="Applications" asp-action="Create" asp-route-userId="@UserManager.GetUserId(User)" class="btn btn-default">Candidatar-se</a>
     }
 
 </div>

@@ -84,7 +84,7 @@ namespace CIMOBProject.Controllers
             }
             if (DateTime.Now > _context.Editals.OrderByDescending(e => e.Id).First().CloseDate)
             {
-                return RedirectToAction("Application", "Home", new { message = "Já terminou a data de entrega das candidaturas(" + _context.Editals.OrderByDescending(e => e.Id).First().CloseDate.ToString("MM/dd/yyyy") + ") para o processo outgoing" });
+                return RedirectToAction("Application", "Home", new { message = "Já terminou a data de entrega das candidaturas (" + _context.Editals.OrderByDescending(e => e.Id).First().CloseDate.ToString("MM/dd/yyyy") + ") para o processo outgoing" });
             }
 
             if (applicationInCurrentEdital != null)
