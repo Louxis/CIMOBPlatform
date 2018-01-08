@@ -319,11 +319,14 @@ li .btn{
 }
 
 .recent-news {
-    border: 1px solid #9E9B96;
-    margin-left: 2%;
-    margin-right: 2%;
-    padding-left: 5px;
-    padding-right: 5px;
+    border: 1px solid #BBBBBB;
+    border-radius: 15px;
+    margin-left: 5%;
+    margin-right: 5%;
+    padding-top: 7px;
+    padding-bottom: 14px;
+    padding-left: 20px;
+    padding-right: 20px;
 }
 
 .recent-news h1 {
