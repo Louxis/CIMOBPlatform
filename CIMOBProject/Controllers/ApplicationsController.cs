@@ -131,6 +131,9 @@ namespace CIMOBProject.Controllers
             ViewData["EmployeeId"] = "";
             ViewData["CreationDate"] = DateTime.Now;
             //ViewData["StudentId"] = new SelectList(_context.Students, "Id", "Id", application.StudentId);
+
+            loadHelp();
+
             return RedirectToAction("Create", new { userId = application.StudentId });
         }
         ///<summary>
@@ -276,6 +279,9 @@ namespace CIMOBProject.Controllers
             ViewData["EmployeeId"] = application.EmployeeId;
             ViewData["StudentId"] = application.StudentId;
             ViewData["CreationDate"] = application.CreationDate;
+
+            loadHelp();
+
             return View(application);
         }
 
@@ -377,6 +383,15 @@ namespace CIMOBProject.Controllers
             //Zé does the email stuff here//
 
             return RedirectToAction("Index", "Applications", new { employeeId = employeeID });
+        }
+
+        private void loadHelp()
+        {
+            ViewData["BilateralTip"] = (_context.Helps.FirstOrDefault(h => h.Id == 17) as Help).HelpDescription;
+            ViewData["MotivationTip"] = (_context.Helps.FirstOrDefault(h => h.Id == 18) as Help).HelpDescription;
+            ViewData["GradeTip"] = (_context.Helps.FirstOrDefault(h => h.Id == 19) as Help).HelpDescription;
+            ViewData["MotivationGradeTip"] = (_context.Helps.FirstOrDefault(h => h.Id == 20) as Help).HelpDescription;
+            ViewData["InterviewTip"] = (_context.Helps.FirstOrDefault(h => h.Id == 21) as Help).HelpDescription;
         }
 
         private bool ApplicationExists(int id)

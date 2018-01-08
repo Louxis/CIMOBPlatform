@@ -1,9 +1,107 @@
-﻿@model string
+﻿@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
 @{
     ViewData["Title"] = "Candidaturas";
 }
 <h1>@ViewData["Title"]</h1>
 <div class="applications">
-    <p>@Model</p>
+    <p>O IPS aposta na internacionalização dos seus estudantes e funcionários (docentes e não docentes), incutindo no seu ADN uma vocação internacional, favorecendo a cooperação estratégica entre instituições, bem como o intercâmbio de experiências, culturas e de conhecimentos académicos. programa ERASMUS tem como objetivo possibilitar um período de estudos ou de estágio num país europeu e pode ter a duração de um trimestre, um semestre ou um ano letivo.</p>
     <br />
+    <p>O IPS tem atualmente mais de 150 Acordos Bilaterais, estabelecidos no âmbito do Programa ERASMUS, envolvendo países como:</p>
+    <br />
+    <table class="table">
+        <tbody>
+            <tr>
+                <td>
+                    Alemanha
+                </td>
+                <td>
+                    Áustria
+                </td>
+                <td>
+                    Bélgica
+                </td>
+                <td>
+                    Chipre
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Dinamarca
+                </td>
+                <td>
+                    Eslováquia
+                </td>
+                <td>
+                    Eslovénia
+                </td>
+                <td>
+                    Espanha
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Finlândia
+                </td>
+                <td>
+                    França
+                </td>
+                <td>
+                    Grécia
+                </td>
+                <td>
+                    Hungria
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Irlanda
+                </td>
+                <td>
+                    Itália
+                </td>
+                <td>
+                    Letónia
+                </td>
+                <td>
+                    Lituânia
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Noruega
+                </td>
+                <td>
+                    Países Baixos
+                </td>
+                <td>
+                    Polónia
+                </td>
+                <td>
+                    Reino Unido
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    República Checa
+                </td>
+                <td>
+                    Roménia
+                </td>
+                <td>
+                    Suécia
+                </td>
+                <td>
+                    Turquia
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <br />
+    @if (SignInManager.IsSignedIn(User) && User.IsInRole("Student"))
+    {
+        <a asp-area="" asp-controller="Applications" asp-action="Create" asp-route-userId="@UserManager.GetUserId(User)" class="btn btn-default">Candidatar-se</a>
+    }
+
 </div>

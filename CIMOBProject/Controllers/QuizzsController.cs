@@ -81,6 +81,7 @@ namespace CIMOBProject.Controllers
         // GET: Quizzs/Create
         public IActionResult Create()
         {
+            loadHelp();
             return View();
         }
 
@@ -97,6 +98,7 @@ namespace CIMOBProject.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            loadHelp();
             return View(quizz);
         }
 
@@ -178,6 +180,13 @@ namespace CIMOBProject.Controllers
             _context.Quizzs.Remove(quizz);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
+        }
+
+        private void loadHelp()
+        {
+            ViewData["YearTip"] = (_context.Helps.FirstOrDefault(h => h.Id == 26) as Help).HelpDescription;
+            ViewData["SemesterTip"] = (_context.Helps.FirstOrDefault(h => h.Id == 27) as Help).HelpDescription;
+            ViewData["QuizURLTip"] = (_context.Helps.FirstOrDefault(h => h.Id == 28) as Help).HelpDescription;
         }
 
         private bool QuizzExists(int id)

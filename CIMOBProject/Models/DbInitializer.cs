@@ -404,7 +404,19 @@ namespace CIMOBProject.Models {
                 context.Helps.Add(new Help { HelpDescription = "O número de funcionário deve ser constituido por 9 digitos." });
                 context.Helps.Add(new Help { HelpDescription = "A descrição deve descrever sumáriamente o documento." });
                 context.Helps.Add(new Help { HelpDescription = "Insira o URL de onde está hospedado o seu documento." });
-                context.Helps.Add(new Help { HelpDescription = "Insira a sua password atual" });
+                context.Helps.Add(new Help { HelpDescription = "Insira a sua password atual." });
+                context.Helps.Add(new Help { HelpDescription = "Escolha o destino que deseja." });
+                context.Helps.Add(new Help { HelpDescription = "Escreva a razão pela qual deseja ingressar no programa Erasmus." });
+                context.Helps.Add(new Help { HelpDescription = "Insira a nota aritmética do estudante, no valor de 0 a 20." });
+                context.Helps.Add(new Help { HelpDescription = "Insira a nota da motivação do estudante, no valor de 0 a 20." });
+                context.Helps.Add(new Help { HelpDescription = "Insira a nota da entrevista do estudante, no valor de 0 a 20." });
+                context.Helps.Add(new Help { HelpDescription = "Insira o título que deseja dar à sua publicação." });
+                context.Helps.Add(new Help { HelpDescription = "Insira o conteúdo da publicação." });
+                context.Helps.Add(new Help { HelpDescription = "Insira a data de início da fase de candidaturas." });
+                context.Helps.Add(new Help { HelpDescription = "Insira a data de encerramento da fase de candidaturas." });
+                context.Helps.Add(new Help { HelpDescription = "Insira o ano a que se refere o questionário." });
+                context.Helps.Add(new Help { HelpDescription = "Insira o semestre a que se refere o questionário." });
+                context.Helps.Add(new Help { HelpDescription = "Insira o URL de onde está hospedado o questionário." });
                 context.SaveChanges();
             }
         }

@@ -26,15 +26,9 @@ namespace CIMOBProject.Controllers
             return View();
         }
 
-        public IActionResult Application(String message)
+        public IActionResult Application()
         {
-            if(message == null)
-            {
-                message = "Necissita estar logged in para ver informações relativamente a candidatura";
-                return View((object)message);
-            }
-
-            return View((object) message);
+            return View();
         }
 
 

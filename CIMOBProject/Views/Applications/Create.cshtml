@@ -17,15 +17,15 @@
                 @Html.Hidden("ApplicationStatId")
                 <h4>Protocolos Bilaterais</h4>
                 <div class="form-group">
-                    <label asp-for="BilateralProtocol1Id" class="control-label"></label>
+                    <label asp-for="BilateralProtocol1Id" class="control-label"></label>  <div class="tooltip">(?)<span class="tooltiptext">@ViewData["BilateralTip"]</span></div>
                     <select asp-for="BilateralProtocol1Id" class="form-control" asp-items="ViewBag.BilateralProtocol1Id"></select>
                 </div>
                 <div class="form-group">
-                    <label asp-for="BilateralProtocol2Id" class="control-label"></label>
+                    <label asp-for="BilateralProtocol2Id" class="control-label"></label>  <div class="tooltip">(?)<span class="tooltiptext">@ViewData["BilateralTip"]</span></div>
                     <select asp-for="BilateralProtocol2Id" class="form-control" asp-items="ViewBag.BilateralProtocol2Id"></select>
                 </div>
                 <div class="form-group">
-                    <label asp-for="BilateralProtocol3Id" class="control-label"></label>
+                    <label asp-for="BilateralProtocol3Id" class="control-label"></label>  <div class="tooltip">(?)<span class="tooltiptext">@ViewData["BilateralTip"]</span></div>
                     <select asp-for="BilateralProtocol3Id" class="form-control" asp-items="ViewBag.BilateralProtocol3Id"></select>
                 </div>
             </div>
@@ -34,7 +34,7 @@
                 @Html.Hidden("CreationDate")
                 <h4>Motivações</h4>
                 <div class="form-group">
-                    <label asp-for="Motivations" class="control-label"></label>
+                    <label asp-for="Motivations" class="control-label"></label>  <div class="tooltip">(?)<span class="tooltiptext">@ViewData["MotivationTip"]</span></div>
                     <textarea asp-for="Motivations" class="form-control"></textarea>
                     <span asp-validation-for="Motivations" class="text-danger"></span>
                 </div>
