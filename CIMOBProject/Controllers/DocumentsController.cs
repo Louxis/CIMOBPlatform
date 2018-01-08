@@ -24,6 +24,7 @@ namespace CIMOBProject.Controllers {
             
             var applicationContext = _context.Applications.Include(a => a.Student).Where(s => s.ApplicationId == applicationId).FirstOrDefault();
             ViewData["StudentName"] = applicationContext.Student.UserFullname;
+            ViewData["ApplicationId"] = applicationId;
             var applicationDbContext = _context.Documents.Include(d => d.Application).Where(s => s.ApplicationId == applicationId && ( latestEdital.OpenDate <= s.Application.CreationDate) && (s.Application.CreationDate <= latestEdital.CloseDate));
             if (applicationDbContext == null)
             {
@@ -54,17 +55,7 @@ namespace CIMOBProject.Controllers {
         // GET: Documents/Create
         public IActionResult Create(string userId)
         {
-            if (User.IsInRole("Employee"))
-            {
-                return RedirectToAction("Application", "Home", new { message = "Não tem permissão para aceder a esta funcionalidade" });
-            }
             var latestEdital = _context.Editals.OrderByDescending(a => a.Id).FirstOrDefault();
-
-            var application = _context.Applications.Where(a => a.StudentId == userId 
-                                        && (latestEdital.OpenDate <= a.CreationDate) 
-                                        && (a.CreationDate <= latestEdital.CloseDate)).First();
-
-            ViewData["ApplicationId"] = application.ApplicationId;
             //ViewData["Date"] = DateTime.Now;
             loadHelp();
             return View();
@@ -82,7 +73,7 @@ namespace CIMOBProject.Controllers {
             if (ModelState.IsValid)
             {
                 document.UploadDate = DateTime.Now;
-                currentApplicationId = document.ApplicationId.Value;
+                //currentApplicationId = document.ApplicationId.Value;
                 _context.Add(document);
                 await _context.SaveChangesAsync();
             }

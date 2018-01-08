@@ -12,7 +12,7 @@ using System;
 namespace CIMOBProject.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20180108140712_finaldebug")]
+    [Migration("20180108161144_finaldebug")]
     partial class finaldebug
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
