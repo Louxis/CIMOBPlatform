@@ -54,7 +54,10 @@ else
     </tbody>
 </table>
 }
-    <a asp-action="Create" asp-controller="Documents" asp-route-userId="@ViewData["ApplicationId"]" class="btn btn-default">Novo documento</a>
+@if (ViewData["EvaluationApp"].Equals("false")) {
+    <a asp-action="Create" asp-controller="Documents" asp-route-applicationId="@ViewData["ApplicationId"]" class="btn btn-default">Novo documento</a>
+}
+    
 
 
 
