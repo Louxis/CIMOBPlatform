@@ -32,6 +32,12 @@ namespace CIMOBProject.Controllers
             return View(await publishedNews.ToListAsync());            
         }
 
+        public async Task<IActionResult> RecentNews()
+        {
+            var publishedNews = _context.News.Where(n => n.IsPublished == true).OrderByDescending(n => n.Id).Take(3); ;
+            return View(await publishedNews.ToListAsync());
+        }
+
         public async Task<IActionResult> Publish(int id)
         {
             var news = _context.News.Where(n => n.Id == id).SingleOrDefault();
@@ -87,6 +93,7 @@ namespace CIMOBProject.Controllers
         public IActionResult Create(string userId)
         {
             ViewData["EmployeeId"] = userId;
+            loadHelp();
             return View();
         }
 
@@ -140,6 +147,7 @@ namespace CIMOBProject.Controllers
             {
                 return NotFound();
             }
+            loadHelp();
             return View(news);
         }
 
@@ -213,6 +221,13 @@ namespace CIMOBProject.Controllers
             _context.News.Remove(news);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
+        }
+
+        private void loadHelp()
+        {
+            ViewData["TitleTip"] = (_context.Helps.FirstOrDefault(h => h.HelpName == "Title") as Help).HelpDescription;
+            ViewData["TextContentTip"] = (_context.Helps.FirstOrDefault(h => h.HelpName == "TextContent") as Help).HelpDescription;
+            ViewData["DocumentTip"] = (_context.Helps.FirstOrDefault(h => h.HelpName == "FileURL") as Help).HelpDescription;
         }
 
         private bool NewsExists(int id)

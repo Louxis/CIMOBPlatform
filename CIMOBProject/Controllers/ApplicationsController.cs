@@ -88,7 +88,7 @@ namespace CIMOBProject.Controllers
             }
             if (DateTime.Now > _context.Editals.OrderByDescending(e => e.Id).First().CloseDate)
             {
-                return RedirectToAction("Application", "Home", new { message = "Já terminou a data de entrega das candidaturas(" + _context.Editals.OrderByDescending(e => e.Id).First().CloseDate.ToString("MM/dd/yyyy") + ") para o processo outgoing" });
+                return RedirectToAction("Application", "Home", new { message = "Já terminou a data de entrega das candidaturas (" + _context.Editals.OrderByDescending(e => e.Id).First().CloseDate.ToString("MM/dd/yyyy") + ") para o processo outgoing" });
             }
 
             if (applicationInCurrentEdital != null)
@@ -104,6 +104,9 @@ namespace CIMOBProject.Controllers
                 ViewData["ApplicationStatId"] = 1;
                 ViewData["EmployeeId"] = "";
                 ViewData["CreationDate"] = DateTime.Now;
+
+                loadHelp();
+
                 //ViewData["StudentId"] = new SelectList(_context.Students, "Id", "Id");
                 return View();
             }
@@ -136,6 +139,9 @@ namespace CIMOBProject.Controllers
             ViewData["EmployeeId"] = "";
             ViewData["CreationDate"] = DateTime.Now;
             //ViewData["StudentId"] = new SelectList(_context.Students, "Id", "Id", application.StudentId);
+
+            loadHelp();
+
             return RedirectToAction("Create", new { userId = application.StudentId });
         }
         ///<summary>
@@ -310,6 +316,9 @@ namespace CIMOBProject.Controllers
             ViewData["EmployeeId"] = application.EmployeeId;
             ViewData["StudentId"] = application.StudentId;
             ViewData["CreationDate"] = application.CreationDate;
+
+            loadHelp();
+
             return View(application);
         }
 
@@ -401,6 +410,7 @@ namespace CIMOBProject.Controllers
         public IActionResult ScheduleInterview(int id)
         {
             ViewData["ApplicationId"] = id;
+            loadHelp();
             return View(_context.Applications.Include(a => a.Student).Where(a => a.ApplicationId == id).SingleOrDefault());
         }
 
@@ -413,6 +423,16 @@ namespace CIMOBProject.Controllers
                 " no nosso gabinete. Entre em contacto conosco se não for possivel comparecer a esta entrevista." +
                 " Uma falta sem justificação irá resulta numa avaliação de 0.", user.Email);            
             return RedirectToAction("Index", "Applications", new { employeeId = employeeID });
+        }
+
+        private void loadHelp()
+        {
+            ViewData["BilateralTip"] = (_context.Helps.FirstOrDefault(h => h.HelpName == "Bilateral") as Help).HelpDescription;
+            ViewData["MotivationTip"] = (_context.Helps.FirstOrDefault(h => h.HelpName == "MotivationLetter") as Help).HelpDescription;
+            ViewData["GradeTip"] = (_context.Helps.FirstOrDefault(h => h.HelpName == "Grade") as Help).HelpDescription;
+            ViewData["MotivationGradeTip"] = (_context.Helps.FirstOrDefault(h => h.HelpName == "MotivationGrade") as Help).HelpDescription;
+            ViewData["InterviewTip"] = (_context.Helps.FirstOrDefault(h => h.HelpName == "Interview") as Help).HelpDescription;
+            ViewData["InterviewDateTip"] = (_context.Helps.FirstOrDefault(h => h.HelpName == "InterviewDate") as Help).HelpDescription;
         }
 
         private bool ApplicationExists(int id)

@@ -295,9 +295,9 @@ namespace CIMOBProject.Controllers
 
         private void loadHelp()
         {
-            ViewData["OldPasswordTip"] = (_context.Helps.FirstOrDefault(h => h.Id == 16) as Help).HelpDescription;
-            ViewData["PasswordTip"] = (_context.Helps.FirstOrDefault(h => h.Id == 3) as Help).HelpDescription;
-            ViewData["ConfirmPasswordTip"] = (_context.Helps.FirstOrDefault(h => h.Id == 4) as Help).HelpDescription;
+            ViewData["OldPasswordTip"] = (_context.Helps.FirstOrDefault(h => h.HelpName == "CurrentPassword") as Help).HelpDescription;
+            ViewData["PasswordTip"] = (_context.Helps.FirstOrDefault(h => h.HelpName == "Password") as Help).HelpDescription;
+            ViewData["ConfirmPasswordTip"] = (_context.Helps.FirstOrDefault(h => h.HelpName == "ConfirmPassword") as Help).HelpDescription;
         }
     }    
 }

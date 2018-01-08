@@ -389,22 +389,35 @@ namespace CIMOBProject.Models {
 
             if (!context.Helps.Any())
             {
-                context.Helps.Add(new Help { HelpName = "", HelpDescription = "O nome deve ser constituido por vários caracteres que não incluam digitos nem caracteres especiais (*,+,_,etc.). Exe: Fernando Pessoa" });
-                context.Helps.Add(new Help { HelpName = "", HelpDescription = "O email seguir a estrutura valida dos emails. Exe: nomeExemplo@dominio.com." });
-                context.Helps.Add(new Help { HelpName = "", HelpDescription = "A password tem de ter um minimo de 6 caracteres. Exe: 123456." });
-                context.Helps.Add(new Help { HelpName = "", HelpDescription = "A password tem de ser identica à que foi introduzida anteriormente. Seguindo o exemplo anterior: 123456." });
-                context.Helps.Add(new Help { HelpName = "", HelpDescription = "O numero de telemóvel tem de ter 9 digitos. Exe: 960000000" });
-                context.Helps.Add(new Help { HelpName = "", HelpDescription = "Deve conter o nome da rua, o edificio e o andar. Exe: Avenida Dom Afonso Henriques nº 1" });
-                context.Helps.Add(new Help { HelpName = "", HelpDescription = "Deve seguir a estrutura dos códigos postais. Exe: 2000-100" });
-                context.Helps.Add(new Help { HelpName = "", HelpDescription = "A data de nascimento deve seguir a estrutura de mês, dia, ano. Exe: 1/13/1994" });
-                context.Helps.Add(new Help { HelpName = "", HelpDescription = "O CC deve ser constituido por 8 digitos." });
-                context.Helps.Add(new Help { HelpName = "", HelpDescription = "O número de estudante deve ser constituido por 9 digitos." });
-                context.Helps.Add(new Help { HelpName = "", HelpDescription = "Deve selecionar um curso da lista. Exe: EI" });
-                context.Helps.Add(new Help { HelpName = "", HelpDescription = "A Nota do Teste de línguas tem um valor de 0 a 20." });
-                context.Helps.Add(new Help { HelpName = "", HelpDescription = "O número de funcionário deve ser constituido por 9 digitos." });
-                context.Helps.Add(new Help { HelpName = "", HelpDescription = "A descrição deve descrever sumáriamente o documento." });
-                context.Helps.Add(new Help { HelpName = "", HelpDescription = "Insira o URL de onde está hospedado o seu documento." });
-                context.Helps.Add(new Help { HelpName = "", HelpDescription = "Insira a sua password atual" });
+                context.Helps.Add(new Help { HelpName = "UserName", HelpDescription = "O nome deve ser constituido por vários caracteres que não incluam digitos nem caracteres especiais (*,+,_,etc.). Exe: Fernando Pessoa" });
+                context.Helps.Add(new Help { HelpName = "Email", HelpDescription = "O email seguir a estrutura valida dos emails. Exe: nomeExemplo@dominio.com." });
+                context.Helps.Add(new Help { HelpName = "Password", HelpDescription = "A password tem de ter um minimo de 6 caracteres. Exe: 123456." });
+                context.Helps.Add(new Help { HelpName = "ConfirmPassword", HelpDescription = "A password tem de ser identica à que foi introduzida anteriormente. Seguindo o exemplo anterior: 123456." });
+                context.Helps.Add(new Help { HelpName = "PhoneNumber", HelpDescription = "O numero de telemóvel tem de ter 9 digitos. Exe: 960000000" });
+                context.Helps.Add(new Help { HelpName = "UserAddress", HelpDescription = "Deve conter o nome da rua, o edificio e o andar. Exe: Avenida Dom Afonso Henriques nº 1" });
+                context.Helps.Add(new Help { HelpName = "PostalCode", HelpDescription = "Deve seguir a estrutura dos códigos postais. Exe: 2000-100" });
+                context.Helps.Add(new Help { HelpName = "BirthDate", HelpDescription = "A data de nascimento deve seguir a estrutura de mês, dia, ano. Exe: 1/13/1994" });
+                context.Helps.Add(new Help { HelpName = "UserCc", HelpDescription = "O CC deve ser constituido por 8 digitos." });
+                context.Helps.Add(new Help { HelpName = "StudentNumber", HelpDescription = "O número de estudante deve ser constituido por 9 digitos." });
+                context.Helps.Add(new Help { HelpName = "CollegeSubject", HelpDescription = "Deve selecionar um curso da lista. Exe: EI" });
+                context.Helps.Add(new Help { HelpName = "ALOGrade", HelpDescription = "A Nota do Teste de línguas tem um valor de 0 a 20." });
+                context.Helps.Add(new Help { HelpName = "EmployeeNumber", HelpDescription = "O número de funcionário deve ser constituido por 9 digitos." });
+                context.Helps.Add(new Help { HelpName = "Description", HelpDescription = "A descrição deve descrever sumáriamente o documento." });
+                context.Helps.Add(new Help { HelpName = "FileURL", HelpDescription = "Insira o URL de onde está hospedado o seu documento." });
+                context.Helps.Add(new Help { HelpName = "CurrentPassword", HelpDescription = "Insira a sua password atual" });
+                context.Helps.Add(new Help { HelpName = "Bilateral", HelpDescription = "Escolha o destino que deseja." });
+                context.Helps.Add(new Help { HelpName = "MotivationLetter", HelpDescription = "Escreva a razão pela qual deseja ingressar no programa Erasmus." });
+                context.Helps.Add(new Help { HelpName = "Grade", HelpDescription = "Insira a nota aritmética do estudante, no valor de 0 a 20." });
+                context.Helps.Add(new Help { HelpName = "MotivationGrade", HelpDescription = "Insira a nota da motivação do estudante, no valor de 0 a 20." });
+                context.Helps.Add(new Help { HelpName = "Interview", HelpDescription = "Insira a nota da entrevista do estudante, no valor de 0 a 20." });
+                context.Helps.Add(new Help { HelpName = "Title", HelpDescription = "Insira o título que deseja dar à sua publicação." });
+                context.Helps.Add(new Help { HelpName = "TextContent", HelpDescription = "Insira o conteúdo da publicação." });
+                context.Helps.Add(new Help { HelpName = "OpenDate", HelpDescription = "Insira a data de início da fase de candidaturas." });
+                context.Helps.Add(new Help { HelpName = "CloseDate", HelpDescription = "Insira a data de encerramento da fase de candidaturas." });
+                context.Helps.Add(new Help { HelpName = "Year", HelpDescription = "Insira o ano a que se refere o questionário." });
+                context.Helps.Add(new Help { HelpName = "Semester", HelpDescription = "Insira o semestre a que se refere o questionário." });
+                context.Helps.Add(new Help { HelpName = "QuizURL", HelpDescription = "Insira o URL de onde está hospedado o questionário." });
+                context.Helps.Add(new Help { HelpName = "InterviewDate", HelpDescription = "Insira a data na qual pretende efetuar a entrevista ao aluno." });
                 context.SaveChanges();
             }
         }
