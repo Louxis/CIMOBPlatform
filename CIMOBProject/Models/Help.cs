@@ -14,6 +14,12 @@ namespace CIMOBProject.Models
         public int Id { get; set; }
 
         [Required]
+        public string HelpName { get; set; }
+
+        [Required]
         public string HelpDescription { get; set; }
+
+        
+
     }
 }
