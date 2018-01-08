@@ -16,10 +16,12 @@ namespace CIMOBProject.Controllers
     public class ApplicationsController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private EmailSender emailSender;
 
         public ApplicationsController(ApplicationDbContext context)
         {
             _context = context;
+            emailSender = new EmailSender();
         }
 
         // GET: Applications
@@ -100,7 +102,6 @@ namespace CIMOBProject.Controllers
                 ViewData["ApplicationStatId"] = 1;
                 ViewData["EmployeeId"] = "";
                 ViewData["CreationDate"] = DateTime.Now;
-
                 //ViewData["StudentId"] = new SelectList(_context.Students, "Id", "Id");
                 return View();
             }
@@ -119,6 +120,8 @@ namespace CIMOBProject.Controllers
             {
                 _context.Add(application);
                 await _context.SaveChangesAsync();
+                Student newStudent = await _context.Students.Where(s => s.Id.Equals(application.StudentId)).FirstOrDefaultAsync();
+                await emailSender.Execute("Candidatura Submetida","Saudações, a sua candidatura foi submetida no sistema com sucesso, boa sorte!", newStudent.Email);
                 _context.ApplicationStatHistory.Add(new ApplicationStatHistory { ApplicationId = _context.Applications.Last().ApplicationId, ApplicationStat = "Pending Evaluation", DateOfUpdate = DateTime.Now });
                 _context.SaveChanges();
                 return RedirectToAction("Application", "Home", new { message = "Candidatura efetuada com sucesso!" });
@@ -157,23 +160,26 @@ namespace CIMOBProject.Controllers
                 item.FinalGrade = (item.MotivationLetter + item.Enterview + item.ArithmeticMean) / 3;
                 await _context.SaveChangesAsync();
             }
-            
 
             var OrderedList =  queryGetApplication.OrderByDescending(q => q.FinalGrade).ToList();
             foreach (var item in OrderedList)
             {
+                string studentEmail = _context.Students.Where(s => s.Id.Equals(item.StudentId)).Select(s => s.Email).FirstOrDefault();
                 if (item.BilateralProtocol1.OpenSlots > 0 && item.FinalGrade >= 9.5)
                 {
+                    String appStat = _context.ApplicationStats.SingleOrDefault(a => a.Id == item.ApplicationStatId).Name;
+                    _context.ApplicationStatHistory.Add(new ApplicationStatHistory { ApplicationId = item.ApplicationId, ApplicationStat = appStat, DateOfUpdate = DateTime.Now });                    
                     item.ApplicationStatId = 4;
                     item.ApplicationStat = _context.ApplicationStats.SingleOrDefault(a => a.Id == 4);
                     item.BilateralProtocol1.OpenSlots -= 1;
                     item.BilateralProtocol2 = null;
                     item.BilateralProtocol3 = null;
                     await _context.SaveChangesAsync();
-                    
                 }
                 else if(item.BilateralProtocol2 != null && item.BilateralProtocol2.OpenSlots > 0 && item.FinalGrade >= 9.5)
                 {
+                    String appStat = _context.ApplicationStats.SingleOrDefault(a => a.Id == item.ApplicationStatId).Name;
+                    _context.ApplicationStatHistory.Add(new ApplicationStatHistory { ApplicationId = item.ApplicationId, ApplicationStat = appStat, DateOfUpdate = DateTime.Now });
                     item.ApplicationStatId = 4;
                     item.ApplicationStat = _context.ApplicationStats.SingleOrDefault(a => a.Id == 4);
                     item.BilateralProtocol2.OpenSlots -= 1;
@@ -184,21 +190,24 @@ namespace CIMOBProject.Controllers
                 }
                 else if(item.BilateralProtocol3 != null && item.BilateralProtocol3.OpenSlots > 0 && item.FinalGrade >= 9.5)
                 {
+                    String appStat = _context.ApplicationStats.SingleOrDefault(a => a.Id == item.ApplicationStatId).Name;
+                    _context.ApplicationStatHistory.Add(new ApplicationStatHistory { ApplicationId = item.ApplicationId, ApplicationStat = appStat, DateOfUpdate = DateTime.Now });
                     item.ApplicationStatId = 4;
                     item.ApplicationStat = _context.ApplicationStats.SingleOrDefault(a => a.Id == 4);
                     item.BilateralProtocol3.OpenSlots -= 1;
                     item.BilateralProtocol1 = null;
                     item.BilateralProtocol2 = null;
                     await _context.SaveChangesAsync();
-
                 }
                 else
                 {
+                    String appStat = _context.ApplicationStats.SingleOrDefault(a => a.Id == item.ApplicationStatId).Name;
+                    _context.ApplicationStatHistory.Add(new ApplicationStatHistory { ApplicationId = item.ApplicationId, ApplicationStat = appStat, DateOfUpdate = DateTime.Now });
                     item.ApplicationStatId = 5;
                     item.ApplicationStat = _context.ApplicationStats.SingleOrDefault(a => a.Id == 5);
                     await _context.SaveChangesAsync();
-
                 }
+                emailSender.SendStateEmail(item.ApplicationStatId, studentEmail);
             }
             return RedirectToAction("DisplaySeriation", "Applications");
 
@@ -272,7 +281,7 @@ namespace CIMOBProject.Controllers
             ViewData["BilateralProtocol1Id"] = application.BilateralProtocol1Id;
             ViewData["BilateralProtocol2Id"] = application.BilateralProtocol2Id;
             ViewData["BilateralProtocol3Id"] = application.BilateralProtocol3Id;
-            ViewData["ApplicationStatId"] = new SelectList(_context.ApplicationStats.Where(a => a.Id != 1), "Id", "Name", application.ApplicationStatId);
+            ViewData["ApplicationStatId"] = new SelectList(_context.ApplicationStats.Where(a => a.Id != 1 && a.Id < 4), "Id", "Name", application.ApplicationStatId);
             ViewData["EmployeeId"] = application.EmployeeId;
             ViewData["StudentId"] = application.StudentId;
             ViewData["CreationDate"] = application.CreationDate;
@@ -302,9 +311,7 @@ namespace CIMOBProject.Controllers
                         var student = _context.Students.Where(u => u.Id.Equals(application.StudentId)).FirstOrDefault();
                         string newStat = _context.ApplicationStats.Where(a => a.Id == application.ApplicationStatId).Select(a => a.Name).FirstOrDefault();
                         _context.ApplicationStatHistory.Add(new ApplicationStatHistory { ApplicationId = id, ApplicationStat = getPreviousStat.ApplicationStat.Name, DateOfUpdate = DateTime.Now });
-                        EmailSender emailSender = new EmailSender();
-                        await emailSender.Execute("Atualização na sua candidatura!", "Saudações " + student.UserFullname
-                                + ", foi realizada uma atualização na sua candidatura e esta encontra-se no estado " + newStat + ".", student.Email);
+                        emailSender.SendStateEmail(application.ApplicationStatId, student.Email);
                     }
                     _context.Entry(getPreviousStat).State = EntityState.Detached;
                     _context.Update(application);
@@ -372,10 +379,14 @@ namespace CIMOBProject.Controllers
             return View(_context.Applications.Include(a => a.Student).Where(a => a.ApplicationId == id).SingleOrDefault());
         }
 
-        public async Task<IActionResult> EmailScheduleInterview(string employeeID, DateTime interviewDate)
+        public async Task<IActionResult> EmailScheduleInterview(string studentId, string employeeID, DateTime interviewDate)
         {
             //Zé does the email stuff here//
-
+            Student user = _context.Students.Where(s => s.Id.Equals(studentId)).FirstOrDefault();
+            await emailSender.Execute("Entrevista Agendada", "Saudações, " +
+                user.UserFullname + " uma entrevista consigo foi agendada para o dia " + interviewDate +
+                " no nosso gabinete. Entre em contacto conosco se não for possivel comparecer a esta entrevista." +
+                " Uma falta sem justificação irá resulta numa avaliação de 0.", user.Email);            
             return RedirectToAction("Index", "Applications", new { employeeId = employeeID });
         }
 
