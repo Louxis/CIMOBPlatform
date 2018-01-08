@@ -44,54 +44,52 @@ namespace CIMOBProject.Controllers
                     IsPublished = true,
                     Title = title,
                     TextContent = content
-                };
+                };                               
+                EmailSender sender = new EmailSender();
+                sender.SendMultipleEmail(filterFinalStudents(), title, $"Aqui está o seu questionário:" +
+                    $" <a href='{HtmlEncoder.Default.Encode(quizz.QuizzUrl)}'>link</a>.");
                 quizz.IsPublished = true;
                 _context.Update(quizz);
                 _context.Add(news);
                 _context.SaveChanges();
-
-                //get all the students that finished outgoing
-                //validation
-                List<Edital> latestEditals = _context.Editals.OrderByDescending(e => e.Id).Take(2).ToList(); //get last 2 editals
-                List<string> emails = new List<string>();
-                List<Student> students = _context.Students.Include(s => s.Applications).ThenInclude(a => a.ApplicationStat).ToList();
-                Application latestApplication = null;
-                foreach (Student student in students.ToList()) {
-                    latestApplication = student.Applications.OrderBy(a => a.ApplicationId).LastOrDefault();
-                    if (latestApplication == null) {
-                        students.Remove(student);
-                    }
-                    else if(latestApplication.ApplicationStatId != FINAL_STAT_ID) {
-                        students.Remove(student);
-                    }
-                    else if(latestEditals.Count > 0){
-                        if(latestEditals[0] != null && latestEditals.Count > 1) {
-                            if(latestEditals[1] != null) {
-                                if (!(latestApplication.CreationDate.Ticks > latestEditals[0].OpenDate.Ticks &&
-                                latestApplication.CreationDate.Ticks < latestEditals[0].CloseDate.Ticks) ||
-                                (latestApplication.CreationDate.Ticks > latestEditals[1].OpenDate.Ticks &&
-                                latestApplication.CreationDate.Ticks < latestEditals[1].CloseDate.Ticks)) {
-                                    students.Remove(student);
-                                }
-                            }
-                            else {
-                                if (!(latestApplication.CreationDate.Ticks > latestEditals[0].OpenDate.Ticks &&
-                                latestApplication.CreationDate.Ticks < latestEditals[0].CloseDate.Ticks)) {
-                                    students.Remove(student);
-                                }
-                            }                            
-                        }                        
-                    }                             
-                }
-                emails = students.Select(s => s.Email).ToList();
-                EmailSender sender = new EmailSender();
-                sender.SendMultipleEmail(emails, title, $"Aqui está o seu questionário:" +
-                    $" <a href='{HtmlEncoder.Default.Encode(quizz.QuizzUrl)}'>link</a>.");
-            }
-            else {
-
             }
             return RedirectToAction("Index", "News");
+        }
+
+        private List<string> filterFinalStudents() {
+            List<Edital> latestEditals = _context.Editals.OrderByDescending(e => e.Id).Take(2).ToList(); //get last 2 editals
+            List<string> emails = new List<string>();
+            List<Student> students = _context.Students.Include(s => s.Applications).ThenInclude(a => a.ApplicationStat).ToList();
+            Application latestApplication = null;
+            foreach (Student student in students.ToList()) {
+                latestApplication = student.Applications.OrderBy(a => a.ApplicationId).LastOrDefault();
+                if (latestApplication == null) {
+                    students.Remove(student);
+                }
+                else if (latestApplication.ApplicationStatId != FINAL_STAT_ID) {
+                    students.Remove(student);
+                }
+                else if (latestEditals.Count > 0) {
+                    if (latestEditals[0] != null && latestEditals.Count > 1) {
+                        if (latestEditals[1] != null) {
+                            if (!(latestApplication.CreationDate.Ticks > latestEditals[0].OpenDate.Ticks &&
+                            latestApplication.CreationDate.Ticks < latestEditals[0].CloseDate.Ticks) ||
+                            (latestApplication.CreationDate.Ticks > latestEditals[1].OpenDate.Ticks &&
+                            latestApplication.CreationDate.Ticks < latestEditals[1].CloseDate.Ticks)) {
+                                students.Remove(student);
+                            }
+                        }
+                        else {
+                            if (!(latestApplication.CreationDate.Ticks > latestEditals[0].OpenDate.Ticks &&
+                            latestApplication.CreationDate.Ticks < latestEditals[0].CloseDate.Ticks)) {
+                                students.Remove(student);
+                            }
+                        }
+                    }
+                }
+            }
+            emails = students.Select(s => s.Email).ToList();
+            return emails;
         }
 
         // GET: Quizzs/Details/5
