@@ -12,8 +12,8 @@ using System;
 namespace CIMOBProject.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20180106141806_FirstMigration")]
-    partial class FirstMigration
+    [Migration("20180108140712_finaldebug")]
+    partial class finaldebug
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -277,6 +277,9 @@ namespace CIMOBProject.Migrations
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("HelpDescription")
+                        .IsRequired();
+
+                    b.Property<string>("HelpName")
                         .IsRequired();
 
                     b.HasKey("Id");

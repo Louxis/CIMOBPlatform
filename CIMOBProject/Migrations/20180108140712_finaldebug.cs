@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace CIMOBProject.Migrations
 {
-    public partial class FirstMigration : Migration
+    public partial class finaldebug : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -70,7 +70,8 @@ namespace CIMOBProject.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    HelpDescription = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    HelpDescription = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    HelpName = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
