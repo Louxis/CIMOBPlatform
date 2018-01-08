@@ -7,6 +7,10 @@ using System.Threading.Tasks;
 
 namespace CIMOBProject.Models
 {
+    ///<summary>
+    ///In this class we define the atributes of the quizz that will be delivered to students when they finish theyer outgoing process.
+    ///It is composed of a year, a semester to which it belongs, a QuizzUrl to take the student to the quizz and finally a bool that represents if it as been published or not. 
+    ///</summary> 
     public class Quizz
     {
         public int Id { get; set; }

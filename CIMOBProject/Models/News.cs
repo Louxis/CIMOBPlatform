@@ -6,11 +6,14 @@ using System.Threading.Tasks;
 
 namespace CIMOBProject.Models
 {
+    ///<summary>
+    ///In this class we define the atributes of the news class.
+    ///It is composed of a title, a text content and a bool that represents if it as been published or not.
+    ///It also may have a document that student can download.
+    ///</summary> 
     public class News
     {
         public int Id { get; set; }
-
-        
         public string EmployeeId { get; set; }
 
         [Required]

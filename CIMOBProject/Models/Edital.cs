@@ -6,6 +6,10 @@ using System.Threading.Tasks;
 
 namespace CIMOBProject.Models
 {
+    ///<summary>
+    ///In this class we define the atributes of the edital which extends news.
+    ///Unlike the news this class also has a open date and a close date that represent the start and finish of the current period to enroll on the outgoing process.
+    ///</summary> 
     public class Edital : News
     {
         [Display(Name = "Data de Início de Candidaturas")]
