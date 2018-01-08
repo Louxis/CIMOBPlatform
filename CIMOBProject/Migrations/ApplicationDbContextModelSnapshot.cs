@@ -278,6 +278,9 @@ namespace CIMOBProject.Migrations
                     b.Property<string>("HelpDescription")
                         .IsRequired();
 
+                    b.Property<string>("HelpName")
+                        .IsRequired();
+
                     b.HasKey("Id");
 
                     b.ToTable("Helps");

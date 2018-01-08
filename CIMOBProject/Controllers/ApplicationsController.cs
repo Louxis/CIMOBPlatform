@@ -101,6 +101,8 @@ namespace CIMOBProject.Controllers
                 ViewData["EmployeeId"] = "";
                 ViewData["CreationDate"] = DateTime.Now;
 
+                loadHelp();
+
                 //ViewData["StudentId"] = new SelectList(_context.Students, "Id", "Id");
                 return View();
             }
@@ -383,6 +385,7 @@ namespace CIMOBProject.Controllers
         public IActionResult ScheduleInterview(int id)
         {
             ViewData["ApplicationId"] = id;
+            loadHelp();
             return View(_context.Applications.Include(a => a.Student).Where(a => a.ApplicationId == id).SingleOrDefault());
         }
 
@@ -395,11 +398,12 @@ namespace CIMOBProject.Controllers
 
         private void loadHelp()
         {
-            ViewData["BilateralTip"] = (_context.Helps.FirstOrDefault(h => h.Id == 17) as Help).HelpDescription;
-            ViewData["MotivationTip"] = (_context.Helps.FirstOrDefault(h => h.Id == 18) as Help).HelpDescription;
-            ViewData["GradeTip"] = (_context.Helps.FirstOrDefault(h => h.Id == 19) as Help).HelpDescription;
-            ViewData["MotivationGradeTip"] = (_context.Helps.FirstOrDefault(h => h.Id == 20) as Help).HelpDescription;
-            ViewData["InterviewTip"] = (_context.Helps.FirstOrDefault(h => h.Id == 21) as Help).HelpDescription;
+            ViewData["BilateralTip"] = (_context.Helps.FirstOrDefault(h => h.HelpName == "Bilateral") as Help).HelpDescription;
+            ViewData["MotivationTip"] = (_context.Helps.FirstOrDefault(h => h.HelpName == "MotivationLetter") as Help).HelpDescription;
+            ViewData["GradeTip"] = (_context.Helps.FirstOrDefault(h => h.HelpName == "Grade") as Help).HelpDescription;
+            ViewData["MotivationGradeTip"] = (_context.Helps.FirstOrDefault(h => h.HelpName == "MotivationGrade") as Help).HelpDescription;
+            ViewData["InterviewTip"] = (_context.Helps.FirstOrDefault(h => h.HelpName == "Interview") as Help).HelpDescription;
+            ViewData["InterviewDateTip"] = (_context.Helps.FirstOrDefault(h => h.HelpName == "InterviewDate") as Help).HelpDescription;
         }
 
         private bool ApplicationExists(int id)

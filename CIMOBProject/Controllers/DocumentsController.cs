@@ -185,8 +185,8 @@ namespace CIMOBProject.Controllers {
 
         private void loadHelp()
         {
-            ViewData["DescriptionTip"] = (_context.Helps.FirstOrDefault(h => h.Id == 14) as Help).HelpDescription;
-            ViewData["FileURLTip"] = (_context.Helps.FirstOrDefault(h => h.Id == 15) as Help).HelpDescription;
+            ViewData["DescriptionTip"] = (_context.Helps.FirstOrDefault(h => h.HelpName == "Description") as Help).HelpDescription;
+            ViewData["FileURLTip"] = (_context.Helps.FirstOrDefault(h => h.HelpName == "FileURL") as Help).HelpDescription;
         }
     }
 }

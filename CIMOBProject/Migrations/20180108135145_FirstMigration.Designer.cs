@@ -12,7 +12,7 @@ using System;
 namespace CIMOBProject.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20180108120545_FirstMigration")]
+    [Migration("20180108135145_FirstMigration")]
     partial class FirstMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -277,6 +277,9 @@ namespace CIMOBProject.Migrations
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("HelpDescription")
+                        .IsRequired();
+
+                    b.Property<string>("HelpName")
                         .IsRequired();
 
                     b.HasKey("Id");

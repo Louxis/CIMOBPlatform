@@ -184,9 +184,9 @@ namespace CIMOBProject.Controllers
 
         private void loadHelp()
         {
-            ViewData["YearTip"] = (_context.Helps.FirstOrDefault(h => h.Id == 26) as Help).HelpDescription;
-            ViewData["SemesterTip"] = (_context.Helps.FirstOrDefault(h => h.Id == 27) as Help).HelpDescription;
-            ViewData["QuizURLTip"] = (_context.Helps.FirstOrDefault(h => h.Id == 28) as Help).HelpDescription;
+            ViewData["YearTip"] = (_context.Helps.FirstOrDefault(h => h.HelpName == "Year") as Help).HelpDescription;
+            ViewData["SemesterTip"] = (_context.Helps.FirstOrDefault(h => h.HelpName == "Semester") as Help).HelpDescription;
+            ViewData["QuizURLTip"] = (_context.Helps.FirstOrDefault(h => h.HelpName == "QuizURL") as Help).HelpDescription;
         }
 
         private bool QuizzExists(int id)

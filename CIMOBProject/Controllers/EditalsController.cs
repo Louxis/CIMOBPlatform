@@ -197,11 +197,11 @@ namespace CIMOBProject.Controllers
 
         private void loadHelp()
         {
-            ViewData["OpenDateTip"] = (_context.Helps.FirstOrDefault(h => h.Id == 24) as Help).HelpDescription;
-            ViewData["CloseDateTip"] = (_context.Helps.FirstOrDefault(h => h.Id == 25) as Help).HelpDescription;
-            ViewData["TitleTip"] = (_context.Helps.FirstOrDefault(h => h.Id == 22) as Help).HelpDescription;
-            ViewData["TextContentTip"] = (_context.Helps.FirstOrDefault(h => h.Id == 23) as Help).HelpDescription;
-            ViewData["DocumentTip"] = (_context.Helps.FirstOrDefault(h => h.Id == 15) as Help).HelpDescription;
+            ViewData["OpenDateTip"] = (_context.Helps.FirstOrDefault(h => h.HelpName == "OpenDate") as Help).HelpDescription;
+            ViewData["CloseDateTip"] = (_context.Helps.FirstOrDefault(h => h.HelpName == "CloseDate") as Help).HelpDescription;
+            ViewData["TitleTip"] = (_context.Helps.FirstOrDefault(h => h.HelpName == "Title") as Help).HelpDescription;
+            ViewData["TextContentTip"] = (_context.Helps.FirstOrDefault(h => h.HelpName == "TextContent") as Help).HelpDescription;
+            ViewData["DocumentTip"] = (_context.Helps.FirstOrDefault(h => h.HelpName == "FileURL") as Help).HelpDescription;
         }
 
     }

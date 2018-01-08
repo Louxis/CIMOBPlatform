@@ -160,13 +160,13 @@ namespace CIMOBProject.Controllers
 
         private void loadHelp()
         {
-            ViewData["UserNameTip"] = (_context.Helps.FirstOrDefault(h => h.Id == 1) as Help).HelpDescription;
-            ViewData["BirthDateTip"] = (_context.Helps.FirstOrDefault(h => h.Id == 8) as Help).HelpDescription;
-            ViewData["UserCcTip"] = (_context.Helps.FirstOrDefault(h => h.Id == 9) as Help).HelpDescription;
-            ViewData["PhoneNumberTip"] = (_context.Helps.FirstOrDefault(h => h.Id == 5) as Help).HelpDescription;
-            ViewData["UserAddressTip"] = (_context.Helps.FirstOrDefault(h => h.Id == 6) as Help).HelpDescription;
-            ViewData["PostalCodeTip"] = (_context.Helps.FirstOrDefault(h => h.Id == 7) as Help).HelpDescription;
-            ViewData["EmployeeNumberTip"] = (_context.Helps.FirstOrDefault(h => h.Id == 13) as Help).HelpDescription;
+            ViewData["UserNameTip"] = (_context.Helps.FirstOrDefault(h => h.HelpName == "UserName") as Help).HelpDescription;
+            ViewData["BirthDateTip"] = (_context.Helps.FirstOrDefault(h => h.HelpName == "BirthDate") as Help).HelpDescription;
+            ViewData["UserCcTip"] = (_context.Helps.FirstOrDefault(h => h.HelpName == "UserCc") as Help).HelpDescription;
+            ViewData["PhoneNumberTip"] = (_context.Helps.FirstOrDefault(h => h.HelpName == "PhoneNumber") as Help).HelpDescription;
+            ViewData["UserAddressTip"] = (_context.Helps.FirstOrDefault(h => h.HelpName == "UserAddress") as Help).HelpDescription;
+            ViewData["PostalCodeTip"] = (_context.Helps.FirstOrDefault(h => h.HelpName == "PostalCode") as Help).HelpDescription;
+            ViewData["EmployeeNumberTip"] = (_context.Helps.FirstOrDefault(h => h.HelpName == "EmployeeNumber") as Help).HelpDescription;
         }
     }
 }
