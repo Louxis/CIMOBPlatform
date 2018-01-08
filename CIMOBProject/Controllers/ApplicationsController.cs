@@ -10,6 +10,7 @@ using CIMOBProject.Models;
 using System.Globalization;
 using Microsoft.AspNetCore.Authorization;
 using CIMOBProject.Services;
+using System.Security.Claims;
 
 namespace CIMOBProject.Controllers
 {
@@ -36,15 +37,16 @@ namespace CIMOBProject.Controllers
             return View(await applicationDbContext.ToListAsync());
         }
 
+        private const int ASSIGNED_ID = 2;
         ///<summary>
-        ///The objective of this method is to assign an employee to an application who will later evaluat it.
+        ///The objective of this method is to assign an employee to an application who will later evaluate it.
         ///</summary>
         public async Task<IActionResult> AssignEmployee(String employeeId, int applicationId)
         {
             var getAppliaction = _context.Applications.SingleOrDefault(a => a.ApplicationId == applicationId);
 
             getAppliaction.EmployeeId = employeeId;
-            getAppliaction.ApplicationStatId = 2;
+            getAppliaction.ApplicationStatId = ASSIGNED_ID;
             await _context.SaveChangesAsync();
             return RedirectToAction("Index", "Applications", new { employeeId = employeeId });
         }
@@ -207,12 +209,35 @@ namespace CIMOBProject.Controllers
                     item.ApplicationStat = _context.ApplicationStats.SingleOrDefault(a => a.Id == 5);
                     await _context.SaveChangesAsync();
                 }
-                emailSender.SendStateEmail(item.ApplicationStatId, studentEmail);
+                emailSender.SendStateEmail(item.ApplicationStatId, studentEmail);                
             }
+            //move this   
+            publishSeriationNews();
             return RedirectToAction("DisplaySeriation", "Applications");
-
-            //return View(OrderedList);
         }
+
+        private async void publishSeriationNews() {
+            Edital latestEdital = _context.Editals.OrderByDescending(e => e.Id).FirstOrDefault();
+            string title = "Seriação " + latestEdital.CloseDate.Year;
+            string content = "Encontra-se disponivel a seriação dos alunos respetiva do ultimo edital";
+            News news = new News() {
+                EmployeeId = this.User.FindFirstValue(ClaimTypes.NameIdentifier),
+                IsPublished = true,
+                Title = title,
+                TextContent = content
+            };
+            Document urlDoc = new Document {
+                EmployeeId = news.EmployeeId,
+                Description = "Documento de " + news.Title,
+                FileUrl = "Seriacoes",//Url.Action("DisplaySeriation", "Applications"),
+                UploadDate = DateTime.Now
+            };
+            _context.Add(urlDoc);
+            news.Document = urlDoc;
+            _context.Add(news);
+            await _context.SaveChangesAsync();
+        }
+
         ///<summary>
         ///This method displays the results of the seriation.
         ///All the stundentds will be displayed with theyr respective grade

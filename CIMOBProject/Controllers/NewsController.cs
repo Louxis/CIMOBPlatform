@@ -29,10 +29,8 @@ namespace CIMOBProject.Controllers
                 return View(await news.ToListAsync());
             }
             var publishedNews = news.Where(n => n.IsPublished == true);
-            return View(await publishedNews.ToListAsync());
-            
+            return View(await publishedNews.ToListAsync());            
         }
-
 
         public async Task<IActionResult> Publish(int id)
         {
