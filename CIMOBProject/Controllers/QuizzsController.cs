@@ -56,16 +56,16 @@ namespace CIMOBProject.Controllers
                 List<string> emails = new List<string>();
                 List<Student> students = _context.Students.Include(s => s.Applications).ThenInclude(a => a.ApplicationStat).ToList();
                 Application latestApplication = null;
-                foreach (Student student in students) {
-                    latestApplication = student.Applications.OrderBy(a => a.ApplicationId).Last();
+                foreach (Student student in students.ToList()) {
+                    latestApplication = student.Applications.OrderBy(a => a.ApplicationId).LastOrDefault();
                     if (latestApplication == null) {
                         students.Remove(student);
                     }
                     else if(latestApplication.ApplicationStatId != FINAL_STAT_ID) {
                         students.Remove(student);
                     }
-                    else {
-                        if(latestEditals[0] != null) {
+                    else if(latestEditals.Count > 0){
+                        if(latestEditals[0] != null && latestEditals.Count > 1) {
                             if(latestEditals[1] != null) {
                                 if (!(latestApplication.CreationDate.Ticks > latestEditals[0].OpenDate.Ticks &&
                                 latestApplication.CreationDate.Ticks < latestEditals[0].CloseDate.Ticks) ||
@@ -89,7 +89,7 @@ namespace CIMOBProject.Controllers
                     $" <a href='{HtmlEncoder.Default.Encode(quizz.QuizzUrl)}'>link</a>.");
             }
             else {
-                //Something went bad
+
             }
             return RedirectToAction("Index", "News");
         }
