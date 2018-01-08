@@ -15,6 +15,8 @@ namespace CIMOBProject.Controllers {
 
         private const int MINIMUM_STAT_ID = 3;
 
+        private const int REJECTED_STAT_ID = 5;
+
         public DocumentsController(ApplicationDbContext context)
         {
             _context = context;
@@ -28,7 +30,9 @@ namespace CIMOBProject.Controllers {
             var applicationContext = _context.Applications.Include(a => a.Student).Where(s => s.ApplicationId == applicationId).FirstOrDefault();
             ViewData["StudentName"] = applicationContext.Student.UserFullname;
             ViewData["ApplicationId"] = applicationId;
-            if(User.IsInRole("Employee") && applicationContext.ApplicationStatId < MINIMUM_STAT_ID) 
+            if(User.IsInRole("Employee") && 
+                (applicationContext.ApplicationStatId < MINIMUM_STAT_ID ||
+                applicationContext.ApplicationStatId == REJECTED_STAT_ID)) 
             {
                 ViewData["EvaluationApp"] = "true";
             }
@@ -70,7 +74,9 @@ namespace CIMOBProject.Controllers {
             ViewData["ApplicationId"] = applicationId;
             Application application = _context.Applications.Where(a => a.ApplicationId == applicationId).FirstOrDefault();
             if (application != null) {
-                if (User.IsInRole("Employee") && application.ApplicationStatId < MINIMUM_STAT_ID) {
+                if (User.IsInRole("Employee") &&
+                (applicationContext.ApplicationStatId < MINIMUM_STAT_ID ||
+                applicationContext.ApplicationStatId == REJECTED_STAT_ID)) {
                     return RedirectToAction("Application", "Home", new { message = "Não pode carregar documentos se o aluno se encontra em avaliação." });
                 }
             }            
