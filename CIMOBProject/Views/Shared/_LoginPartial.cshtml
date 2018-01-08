@@ -11,7 +11,7 @@
             <li>
                 @if (User.IsInRole("Student"))
                 {
-                    <a asp-area="" asp-controller="Students" asp-action="Details" asp-route-id=@UserManager.GetUserId(User) title="Manage">Bem Vindo @UserManager.GetUserName(User)!</a>
+                    <a asp-area="" asp-controller="Students" asp-action="Details" asp-route-id=@UserManager.GetUserId(User) title="Manage" id="Details">Bem Vindo @UserManager.GetUserName(User)!</a>
                 }
                 else if (User.IsInRole("Employee"))
                 {
@@ -19,7 +19,7 @@
                 }
             </li>
             <li>
-                <button type="submit" class="btn btn-link navbar-btn navbar-link">Log out</button>
+                <button type="submit" class="btn btn-link navbar-btn navbar-link" id="LogOut">Log out</button>
             </li>
         </ul>   
     </form>
@@ -28,6 +28,6 @@ else
 {
     <ul class="nav navbar-nav navbar-right">
         <li><a asp-area="" asp-controller="Account" asp-action="Register">Registar</a></li>
-        <li><a asp-area="" asp-controller="Account" asp-action ="Login">Log in</a></li>
+        <li><a asp-area="" asp-controller="Account" asp-action ="Login" id="LogIn">Log in</a></li>
     </ul>
 }

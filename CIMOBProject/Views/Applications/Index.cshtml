@@ -18,7 +18,7 @@
     <input type="submit" class="btn btn-default" value="Filter">
 </form>
 <br />
-<table class="table">
+<table class="table" id="table">
     <thead>
         <tr>
             <th>
@@ -36,13 +36,13 @@
     <tbody>
 @foreach (var item in Model) {
         <tr>
-            <td>
+            <td id="UserFullName">
                 @Html.DisplayFor(modelItem => item.Student.UserFullname)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Employee.UserFullname)
             </td>
-            <td>
+            <td id="ApplicationStat">
                 @Html.DisplayFor(modelItem => item.ApplicationStat.Name)
             </td>
             <td>
@@ -50,7 +50,7 @@
                 {
                     if (item.EmployeeId == @UserManager.GetUserId(User))
                     {
-                        <a class="btn btn-default" asp-action="Edit" asp-route-id="@item.ApplicationId">Editar</a>
+                        <a class="btn btn-default" asp-action="Edit" asp-route-id="@item.ApplicationId" id="Edit">Editar</a>
                         <a class="btn btn-default" asp-action="ScheduleInterview" asp-route-id="@item.ApplicationId">Marcar Entrevista</a>
                     }
 
@@ -58,7 +58,7 @@
                 <a class="btn btn-default" asp-action="Details" asp-route-id="@item.ApplicationId">Detalhes</a>
                 @if (item.EmployeeId == null && User.IsInRole("Employee"))
                 {
-                    <a class="btn btn-default" asp-action="AssignEmployee" asp-route-employeeId="@UserManager.GetUserId(User)" asp-route-applicationId ="@item.ApplicationId">Avaliar</a>
+                    <a class="btn btn-default" asp-action="AssignEmployee" asp-route-employeeId="@UserManager.GetUserId(User)" asp-route-applicationId ="@item.ApplicationId" id="Evaluate">Avaliar</a>
                 }
             </td>
         </tr>
@@ -68,7 +68,7 @@
 <br />
 @if (Model.Count() == Model.Where(a => a.ApplicationStatId == 3).Count())
 {
-    <a class="btn btn-default" asp-controller="Applications" asp-action="Seriation">Lançar Seriação</a>
+    <a class="btn btn-default" asp-controller="Applications" asp-action="Seriation" id="Seriation">Lançar Seriação</a>
 }
     <a class="btn btn-default" asp-controller="Quizzs" asp-action="Index">Questionários</a>
     
