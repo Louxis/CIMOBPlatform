@@ -229,7 +229,7 @@ namespace CIMOBProject.Controllers
             Document urlDoc = new Document {
                 EmployeeId = news.EmployeeId,
                 Description = "Documento de " + news.Title,
-                FileUrl = "Seriacoes",//Url.Action("DisplaySeriation", "Applications"),
+                FileUrl = "Seriacoes",
                 UploadDate = DateTime.Now
             };
             _context.Add(urlDoc);

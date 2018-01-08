@@ -28,6 +28,8 @@ namespace CIMOBProject.Controllers
             return View(await _context.Quizzs.ToListAsync());
         }
 
+        private const int FINAL_STAT_ID = 6;
+
         public IActionResult Publish(int id) {
             Quizz quizz = _context.Quizzs.Where(q => q.Id == id).FirstOrDefault();
             string employeeId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -47,13 +49,44 @@ namespace CIMOBProject.Controllers
                 _context.Update(quizz);
                 _context.Add(news);
                 _context.SaveChanges();
-                //put code to send email here
+
                 //get all the students that finished outgoing
-                List<string> emails = _context.Students.Select(s => s.Email).ToList();
+                //validation
+                List<Edital> latestEditals = _context.Editals.OrderByDescending(e => e.Id).Take(2).ToList(); //get last 2 editals
+                List<string> emails = new List<string>();
+                List<Student> students = _context.Students.Include(s => s.Applications).ThenInclude(a => a.ApplicationStat).ToList();
+                Application latestApplication = null;
+                foreach (Student student in students) {
+                    latestApplication = student.Applications.OrderBy(a => a.ApplicationId).Last();
+                    if (latestApplication == null) {
+                        students.Remove(student);
+                    }
+                    else if(latestApplication.ApplicationStatId != FINAL_STAT_ID) {
+                        students.Remove(student);
+                    }
+                    else {
+                        if(latestEditals[0] != null) {
+                            if(latestEditals[1] != null) {
+                                if (!(latestApplication.CreationDate.Ticks > latestEditals[0].OpenDate.Ticks &&
+                                latestApplication.CreationDate.Ticks < latestEditals[0].CloseDate.Ticks) ||
+                                (latestApplication.CreationDate.Ticks > latestEditals[1].OpenDate.Ticks &&
+                                latestApplication.CreationDate.Ticks < latestEditals[1].CloseDate.Ticks)) {
+                                    students.Remove(student);
+                                }
+                            }
+                            else {
+                                if (!(latestApplication.CreationDate.Ticks > latestEditals[0].OpenDate.Ticks &&
+                                latestApplication.CreationDate.Ticks < latestEditals[0].CloseDate.Ticks)) {
+                                    students.Remove(student);
+                                }
+                            }                            
+                        }                        
+                    }                             
+                }
+                emails = students.Select(s => s.Email).ToList();
                 EmailSender sender = new EmailSender();
                 sender.SendMultipleEmail(emails, title, $"Aqui está o seu questionário:" +
                     $" <a href='{HtmlEncoder.Default.Encode(quizz.QuizzUrl)}'>link</a>.");
-                //TO-DO Filter students
             }
             else {
                 //Something went bad

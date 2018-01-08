@@ -17,9 +17,11 @@ namespace CIMOBProject.Services
         }
 
         public static void SendMultipleEmail(this IEmailSender emailSender, List<string> emails, string title, string message) {
-            foreach(string email in emails){
-                emailSender.SendEmailAsync(email, title, message);
-            }
+            if(emails != null) {
+                foreach (string email in emails) {
+                    emailSender.SendEmailAsync(email, title, message);
+                }
+            }            
         }
 
         public static void SendStateEmail(this IEmailSender emailSender, int statId, string email) {
