@@ -32,6 +32,7 @@ namespace XUnitTesting
             _options = new DbContextOptionsBuilder<ApplicationDbContext>()
                 .UseSqlServer(_configuration.GetConnectionString("DefaultConnection"))
                 .Options;
+            InitializeDatabaseWithDataTest();
         }
 
         internal void InitializeDatabaseWithDataTest()
@@ -243,7 +244,6 @@ namespace XUnitTesting
         [Fact]
         public async Task TestingFilterAssignedEmployee()
         {
-            InitializeDatabaseWithDataTest();
             ApplicationsController controller = new ApplicationsController(_context);
             // Act
             String employeeId = _context.Employees.SingleOrDefault(a => a.UserFullname.Equals("Empregado Teste")).Id;
@@ -260,7 +260,6 @@ namespace XUnitTesting
         [Fact]
         public async Task TestingFilterNotAssigned()
         {
-            InitializeDatabaseWithDataTest();
             ApplicationsController controller = new ApplicationsController(_context);
             // Act
             String employeeId = _context.Employees.SingleOrDefault(a => a.UserFullname.Equals("Empregado Teste")).Id;
@@ -277,7 +276,6 @@ namespace XUnitTesting
         [Fact]
         public async Task TestingNoFilter()
         {
-            InitializeDatabaseWithDataTest();
             ApplicationsController controller = new ApplicationsController(_context);
             // Act
             String employeeId = _context.Employees.SingleOrDefault(a => a.UserFullname.Equals("Empregado Teste")).Id;
@@ -294,7 +292,6 @@ namespace XUnitTesting
         [Fact]
         public async Task TestingSeriationSuccessfull()
         {
-            InitializeDatabaseWithDataTest();
             ApplicationsController controller = new ApplicationsController(_context);
             // Act
             var result = await controller.Seriation();
@@ -307,7 +304,6 @@ namespace XUnitTesting
         [Fact]
         public async Task TestingSeriationNotSuccessfull()
         {
-            InitializeDatabaseWithDataTest();
             ApplicationsController controller = new ApplicationsController(_context);
             // Act
             _context.Applications.First().ApplicationStatId = 1;
@@ -322,7 +318,6 @@ namespace XUnitTesting
         [Fact]
         public async Task TestingAssignEmployeeSuccessfull()
         {
-            InitializeDatabaseWithDataTest();
             ApplicationsController controller = new ApplicationsController(_context);
             // Act
             _context.Applications.First().EmployeeId = null;
@@ -337,7 +332,6 @@ namespace XUnitTesting
         [Fact]
         public async Task TestingAssignEmployeeFailed()
         {
-            InitializeDatabaseWithDataTest();
             ApplicationsController controller = new ApplicationsController(_context);
             // Act
             String employeeId1 = _context.Employees.SingleOrDefault(a => a.UserFullname.Equals("Empregado Teste1")).Id;
@@ -382,7 +376,6 @@ namespace XUnitTesting
         [Fact]
         public async Task TestingApplicationHistory()
         {
-            InitializeDatabaseWithDataTest();
             ApplicationsController controller = new ApplicationsController(_context);
             // Act
             String studentId = _context.Students.Where(s => s.UserFullname.Equals("Teste User 1")).FirstOrDefault().Id;

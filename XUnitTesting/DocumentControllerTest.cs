@@ -31,6 +31,7 @@ namespace XUnitTesting
             _options = new DbContextOptionsBuilder<ApplicationDbContext>()
                 .UseSqlServer(_configuration.GetConnectionString("DefaultConnection"))
                 .Options;
+            InitializeDatabaseWithDataTest();
         }
 
         internal void InitializeDatabaseWithDataTest()
@@ -230,7 +231,7 @@ namespace XUnitTesting
         [Fact]
         public async Task TestingGetDocumentsFromStudent()
         {
-            InitializeDatabaseWithDataTest();
+            //InitializeDatabaseWithDataTest();
             DocumentsController controller = new DocumentsController(_context);
 
 
@@ -250,7 +251,7 @@ namespace XUnitTesting
         [Fact]
         public async Task TestingGetDocumentsFromStudentWithNoDocuments()
         {
-            InitializeDatabaseWithDataTest();
+            //InitializeDatabaseWithDataTest();
             DocumentsController controller = new DocumentsController(_context);
 
             string studentIndex = _context.Students.Where(m => m.UserFullname == "Teste User 2").First().Id;
