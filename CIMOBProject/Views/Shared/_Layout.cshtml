@@ -53,14 +53,21 @@
         <div class="menu-container">
             <ul class="menubar">
                 <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
-                <li><a asp-area="" asp-controller="News" asp-action="Index" id="News">Publicações</a></li>
                 @if (User.IsInRole("Employee"))
                 {
-                    <li><a asp-area="" asp-controller="Applications" asp-action="Index" asp-route-employeeId = "@UserManager.GetUserId(User)" id="Application">Candidaturas</a></li>
+                    <li><a asp-area="" asp-controller="News" asp-action="Index">Publicações</a></li>
+                }
+                else
+                {
+                    <li><a asp-area="" asp-controller="News" asp-action="RecentNews">Publicações</a></li>
+                }
+                @if (User.IsInRole("Employee"))
+                {
+                    <li><a asp-area="" asp-controller="Applications" asp-action="Index" asp-route-employeeId = "@UserManager.GetUserId(User)">Candidaturas</a></li>
                 }
                 else if (User.IsInRole("Student"))
                 {
-                    <li><a asp-area="" asp-controller="Applications" asp-action="Create" asp-route-userId="@UserManager.GetUserId(User)" id="Application">Candidaturas</a></li>
+                    <li><a asp-area="" asp-controller="Home" asp-action="Application" asp-route-userId="@UserManager.GetUserId(User)">Candidaturas</a></li>
                 }
                 else
                 {

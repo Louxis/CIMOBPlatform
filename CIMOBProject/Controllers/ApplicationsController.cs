@@ -10,6 +10,7 @@ using CIMOBProject.Models;
 using System.Globalization;
 using Microsoft.AspNetCore.Authorization;
 using CIMOBProject.Services;
+using System.Security.Claims;
 
 namespace CIMOBProject.Controllers
 {
@@ -36,8 +37,9 @@ namespace CIMOBProject.Controllers
             return View(await applicationDbContext.ToListAsync());
         }
 
+        private const int ASSIGNED_ID = 2;
         ///<summary>
-        ///The objective of this method is to assign an employee to an application who will later evaluat it.
+        ///The objective of this method is to assign an employee to an application who will later evaluate it.
         ///</summary>
         public async Task<IActionResult> AssignEmployee(String employeeId, int applicationId)
         {
@@ -50,7 +52,7 @@ namespace CIMOBProject.Controllers
             }
 
             getAppliaction.EmployeeId = employeeId;
-            getAppliaction.ApplicationStatId = 2;
+            getAppliaction.ApplicationStatId = ASSIGNED_ID;
             await _context.SaveChangesAsync();
             return RedirectToAction("Index", "Applications", new { employeeId = employeeId });
         }
@@ -92,7 +94,7 @@ namespace CIMOBProject.Controllers
             }
             if (DateTime.Now > _context.Editals.OrderByDescending(e => e.Id).First().CloseDate)
             {
-                return RedirectToAction("Application", "Home", new { message = "Já terminou a data de entrega das candidaturas(" + _context.Editals.OrderByDescending(e => e.Id).First().CloseDate.ToString("MM/dd/yyyy") + ") para o processo outgoing" });
+                return RedirectToAction("Application", "Home", new { message = "Já terminou a data de entrega das candidaturas (" + _context.Editals.OrderByDescending(e => e.Id).First().CloseDate.ToString("MM/dd/yyyy") + ") para o processo outgoing" });
             }
 
             if (applicationInCurrentEdital != null)
@@ -108,6 +110,9 @@ namespace CIMOBProject.Controllers
                 ViewData["ApplicationStatId"] = 1;
                 ViewData["EmployeeId"] = "";
                 ViewData["CreationDate"] = DateTime.Now;
+
+                loadHelp();
+
                 //ViewData["StudentId"] = new SelectList(_context.Students, "Id", "Id");
                 return View();
             }
@@ -140,6 +145,9 @@ namespace CIMOBProject.Controllers
             ViewData["EmployeeId"] = "";
             ViewData["CreationDate"] = DateTime.Now;
             //ViewData["StudentId"] = new SelectList(_context.Students, "Id", "Id", application.StudentId);
+
+            loadHelp();
+
             return RedirectToAction("Create", new { userId = application.StudentId });
         }
         ///<summary>
@@ -213,12 +221,35 @@ namespace CIMOBProject.Controllers
                     item.ApplicationStat = _context.ApplicationStats.SingleOrDefault(a => a.Id == 5);
                     await _context.SaveChangesAsync();
                 }
-                emailSender.SendStateEmail(item.ApplicationStatId, studentEmail);
+                emailSender.SendStateEmail(item.ApplicationStatId, studentEmail);                
             }
+            //move this   
+            publishSeriationNews();
             return RedirectToAction("DisplaySeriation", "Applications");
-
-            //return View(OrderedList);
         }
+
+        private async void publishSeriationNews() {
+            Edital latestEdital = _context.Editals.OrderByDescending(e => e.Id).FirstOrDefault();
+            string title = "Seriação " + latestEdital.CloseDate.Year;
+            string content = "Encontra-se disponivel a seriação dos alunos respetiva do ultimo edital";
+            News news = new News() {
+                EmployeeId = this.User.FindFirstValue(ClaimTypes.NameIdentifier),
+                IsPublished = true,
+                Title = title,
+                TextContent = content
+            };
+            Document urlDoc = new Document {
+                EmployeeId = news.EmployeeId,
+                Description = "Documento de " + news.Title,
+                FileUrl = "Seriacoes",
+                UploadDate = DateTime.Now
+            };
+            _context.Add(urlDoc);
+            news.Document = urlDoc;
+            _context.Add(news);
+            await _context.SaveChangesAsync();
+        }
+
         ///<summary>
         ///This method displays the results of the seriation.
         ///All the stundentds will be displayed with theyr respective grade
@@ -296,6 +327,9 @@ namespace CIMOBProject.Controllers
             ViewData["EmployeeId"] = application.EmployeeId;
             ViewData["StudentId"] = application.StudentId;
             ViewData["CreationDate"] = application.CreationDate;
+
+            loadHelp();
+
             return View(application);
         }
 
@@ -387,6 +421,7 @@ namespace CIMOBProject.Controllers
         public IActionResult ScheduleInterview(int id)
         {
             ViewData["ApplicationId"] = id;
+            loadHelp();
             return View(_context.Applications.Include(a => a.Student).Where(a => a.ApplicationId == id).SingleOrDefault());
         }
 
@@ -399,6 +434,16 @@ namespace CIMOBProject.Controllers
                 " no nosso gabinete. Entre em contacto conosco se não for possivel comparecer a esta entrevista." +
                 " Uma falta sem justificação irá resulta numa avaliação de 0.", user.Email);            
             return RedirectToAction("Index", "Applications", new { employeeId = employeeID });
+        }
+
+        private void loadHelp()
+        {
+            ViewData["BilateralTip"] = (_context.Helps.FirstOrDefault(h => h.HelpName == "Bilateral") as Help).HelpDescription;
+            ViewData["MotivationTip"] = (_context.Helps.FirstOrDefault(h => h.HelpName == "MotivationLetter") as Help).HelpDescription;
+            ViewData["GradeTip"] = (_context.Helps.FirstOrDefault(h => h.HelpName == "Grade") as Help).HelpDescription;
+            ViewData["MotivationGradeTip"] = (_context.Helps.FirstOrDefault(h => h.HelpName == "MotivationGrade") as Help).HelpDescription;
+            ViewData["InterviewTip"] = (_context.Helps.FirstOrDefault(h => h.HelpName == "Interview") as Help).HelpDescription;
+            ViewData["InterviewDateTip"] = (_context.Helps.FirstOrDefault(h => h.HelpName == "InterviewDate") as Help).HelpDescription;
         }
 
         private bool ApplicationExists(int id)

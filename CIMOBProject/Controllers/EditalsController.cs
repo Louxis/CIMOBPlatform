@@ -52,6 +52,9 @@ namespace CIMOBProject.Controllers
         public IActionResult Create(string userId)
         {
             ViewData["EmployeeId"] = userId;
+
+            loadHelp();
+
             return View();
         }
 
@@ -113,7 +116,9 @@ namespace CIMOBProject.Controllers
             {
                 return NotFound();
             }
-          
+
+            loadHelp();
+
             return View(edital);
         }
 
@@ -194,6 +199,15 @@ namespace CIMOBProject.Controllers
             _context.Editals.Remove(edital);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
+        }
+
+        private void loadHelp()
+        {
+            ViewData["OpenDateTip"] = (_context.Helps.FirstOrDefault(h => h.HelpName == "OpenDate") as Help).HelpDescription;
+            ViewData["CloseDateTip"] = (_context.Helps.FirstOrDefault(h => h.HelpName == "CloseDate") as Help).HelpDescription;
+            ViewData["TitleTip"] = (_context.Helps.FirstOrDefault(h => h.HelpName == "Title") as Help).HelpDescription;
+            ViewData["TextContentTip"] = (_context.Helps.FirstOrDefault(h => h.HelpName == "TextContent") as Help).HelpDescription;
+            ViewData["DocumentTip"] = (_context.Helps.FirstOrDefault(h => h.HelpName == "FileURL") as Help).HelpDescription;
         }
 
     }
