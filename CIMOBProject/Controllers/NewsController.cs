@@ -108,7 +108,7 @@ namespace CIMOBProject.Controllers
             {
                 if (!String.IsNullOrEmpty(link))
                 {
-                    news.Document = createAndValidateDocument(news,link);
+                    news.Document = CreateAndValidateDocument(news,link);
                 }
                     //news.DocumentId = doc.DocumentId;
                     _context.Add(news);
@@ -118,7 +118,7 @@ namespace CIMOBProject.Controllers
             return View(news);
         }
 
-        private Document createAndValidateDocument (News news, string link) 
+        private Document CreateAndValidateDocument (News news, string link) 
         {
             Document urlDoc = _context.Documents.Where(d => d.FileUrl.Equals(link)).FirstOrDefault();
             if(urlDoc == null) 
@@ -166,7 +166,7 @@ namespace CIMOBProject.Controllers
             newsToUpdate.Title = news.Title;
             //If it's desired to change employee id to the one updating it
             //newsToUpdate.EmployeeId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            Document editedDoc = createAndValidateDocument(news, link);
+            Document editedDoc = CreateAndValidateDocument(news, link);
             editedDoc.EmployeeId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             newsToUpdate.Document = editedDoc;
             newsToUpdate.TextContent = news.TextContent;
