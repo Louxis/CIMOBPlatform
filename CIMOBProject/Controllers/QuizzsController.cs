@@ -30,9 +30,8 @@ namespace CIMOBProject.Controllers
 
         private const int FINAL_STAT_ID = 6;
 
-        public IActionResult Publish(int id) {
+        public IActionResult Publish(int id , string employeeId) {
             Quizz quizz = _context.Quizzs.Where(q => q.Id == id).FirstOrDefault();
-            string employeeId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             if (quizz != null) {
                 string title = "Questionário " + quizz.Year + " " + quizz.Semester + "º semestre";
                 string content = "Encontra-se no email dos alunos que terminaram a mobilização uma " +
