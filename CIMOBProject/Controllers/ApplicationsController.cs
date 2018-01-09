@@ -45,6 +45,12 @@ namespace CIMOBProject.Controllers
         {
             var getAppliaction = _context.Applications.SingleOrDefault(a => a.ApplicationId == applicationId);
 
+
+            if(getAppliaction.EmployeeId != null)
+            {
+                return RedirectToAction("Application", "Home", new { message = "Candidatura já está a ser avaliada." });
+            }
+
             getAppliaction.EmployeeId = employeeId;
             getAppliaction.ApplicationStatId = ASSIGNED_ID;
             await _context.SaveChangesAsync();
@@ -252,7 +258,8 @@ namespace CIMOBProject.Controllers
         {
             DateTime openDate = _context.Editals.Last().OpenDate;
             DateTime closeDate = _context.Editals.Last().CloseDate;
-            var queryGetApplication = await _context.Applications.Include(a => a.ApplicationStat).Include(a => a.Student).Include(a => a.Student.CollegeSubject).Include(a => a.Student.CollegeSubject.College).Include(a => a.BilateralProtocol1).Include(a => a.BilateralProtocol2).Include(a => a.BilateralProtocol3).Where(a => a.CreationDate >= openDate && a.CreationDate <= closeDate).OrderByDescending(q => q.FinalGrade).ToListAsync();
+            var queryGetApplication = await _context.Applications.Include(a => a.ApplicationStat).Include(a => a.Student).Include(a => a.Student.CollegeSubject).Include(a => a.Student.CollegeSubject.College).Include(a => a.BilateralProtocol1).Include(a => a.BilateralProtocol2).Include(a => a.BilateralProtocol3).Where(a => a.CreationDate >= openDate && a.CreationDate <= closeDate)
+                .Where(a => a.ApplicationStatId == 4 || a.ApplicationStatId == 5).OrderByDescending(q => q.FinalGrade).ToListAsync();
 
             return View(queryGetApplication.ToList());
         }
@@ -262,6 +269,10 @@ namespace CIMOBProject.Controllers
         ///</summary>
         public async Task<IActionResult> ApplicationHistory(String studentId)
         {
+            if(_context.Applications.Include(a => a.Student).Where(a => a.StudentId.Equals(studentId)).Count() == 0)
+            {
+                return RedirectToAction("Application", "Home", new { message = "Não possui uma candidatura" });
+            }
             int getCurrentApplication = _context.Applications.Include(a => a.Student).Where(a => a.StudentId.Equals(studentId)).Last().ApplicationId;
             var getCurrentApplicationHistory = _context.ApplicationStatHistory.Where(a => a.ApplicationId == getCurrentApplication);
             return View(await getCurrentApplicationHistory.ToListAsync());

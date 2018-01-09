@@ -52,12 +52,44 @@ namespace XUnitTesting
             {
                 _context.CollegeSubjects.Add(new CollegeSubject { SubjectAlias = "EI", SubjectName = "Engenharia Informática", CollegeId = 1 });
                 _context.CollegeSubjects.Add(new CollegeSubject { SubjectAlias = "EM", SubjectName = "Engenharia Mecânica", CollegeId = 1 });
+                _context.CollegeSubjects.Add(new CollegeSubject { SubjectAlias = "T1", SubjectName = "CursoTeste1", CollegeId = 2 });
+                _context.CollegeSubjects.Add(new CollegeSubject { SubjectAlias = "T2", SubjectName = "CursoTeste2", CollegeId = 3 });
+                _context.CollegeSubjects.Add(new CollegeSubject { SubjectAlias = "T3", SubjectName = "CursoTeste3", CollegeId = 3 });
+                _context.CollegeSubjects.Add(new CollegeSubject { SubjectAlias = "T4", SubjectName = "CursoTeste4", CollegeId = 4 });
+                _context.SaveChanges();
+            }
+
+            if (!_context.ApplicationStats.Any())
+            {
+                _context.ApplicationStats.Add(new ApplicationStat { Name = "Avaliação Pendente" });
+                _context.ApplicationStats.Add(new ApplicationStat { Name = "Em Avaliação" });
+                _context.ApplicationStats.Add(new ApplicationStat { Name = "Seriação Pendente" });
+                _context.ApplicationStats.Add(new ApplicationStat { Name = "Aprovado" });
+                _context.ApplicationStats.Add(new ApplicationStat { Name = "Reprovado" });
+                _context.ApplicationStats.Add(new ApplicationStat { Name = "Finalizado" });
+                _context.SaveChanges();
+            }
+
+            if (!_context.BilateralProtocols.Any())
+            {
+                _context.BilateralProtocols.Add(new BilateralProtocol { SubjectId = 1, Destination = "Lithuania", OpenSlots = 1 });
+                _context.BilateralProtocols.Add(new BilateralProtocol { SubjectId = 2, Destination = "Spain", OpenSlots = 1 });
+                _context.BilateralProtocols.Add(new BilateralProtocol { SubjectId = 3, Destination = "Testing1", OpenSlots = 1 });
+                _context.BilateralProtocols.Add(new BilateralProtocol { SubjectId = 4, Destination = "Testing2", OpenSlots = 1 });
+                _context.BilateralProtocols.Add(new BilateralProtocol { SubjectId = 1, Destination = "Lithuania", OpenSlots = 1 });
+                _context.BilateralProtocols.Add(new BilateralProtocol { SubjectId = 2, Destination = "Testing4", OpenSlots = 1 });
+                _context.BilateralProtocols.Add(new BilateralProtocol { SubjectId = 3, Destination = "Testing5", OpenSlots = 1 });
+                _context.BilateralProtocols.Add(new BilateralProtocol { SubjectId = 4, Destination = "Testing6", OpenSlots = 1 });
+                _context.BilateralProtocols.Add(new BilateralProtocol { SubjectId = 1, Destination = "Testing7", OpenSlots = 1 });
+                _context.BilateralProtocols.Add(new BilateralProtocol { SubjectId = 2, Destination = "Testing8", OpenSlots = 1 });
+                _context.BilateralProtocols.Add(new BilateralProtocol { SubjectId = 3, Destination = "Testing9", OpenSlots = 1 });
+                _context.BilateralProtocols.Add(new BilateralProtocol { SubjectId = 4, Destination = "Testing10", OpenSlots = 1 });
                 _context.SaveChanges();
             }
 
             if (!_context.Students.Any())
             {
-                var user1 = new Student
+                _context.Students.Add(new Student
                 {
                     UserName = "test@test",
                     UserFullname = "Teste User 1",
@@ -70,125 +102,167 @@ namespace XUnitTesting
                     StudentNumber = "123123123",
                     ALOGrade = 0,
                     CollegeSubjectId = 1
-                };
-
-                var user2 = new Student
+                });
+                _context.Students.Add(new Student
                 {
-                    UserName = "test1@test",
+                    UserName = "test2@test",
                     UserFullname = "Teste User 2",
-                    Email = "test1@test",
-                    UserCc = "12345689",
-                    PhoneNumber = "936936938",
-                    UserAddress = "Avenida para teste1",
-                    PostalCode = "2912-124",
-                    BirthDate = new DateTime(1995, 2, 1),
-                    StudentNumber = "123123321",
+                    Email = "test2@test",
+                    UserCc = "12345678",
+                    PhoneNumber = "936936936",
+                    UserAddress = "Avenida para teste",
+                    PostalCode = "2912-123",
+                    BirthDate = new DateTime(1995, 1, 1),
+                    StudentNumber = "123123123",
                     ALOGrade = 0,
                     CollegeSubjectId = 1
-                };
+                });
+                _context.SaveChanges();
+            }
 
-                var user3 = new Student
+            if (!_context.Employees.Any())
+            {
+                _context.Employees.Add(new Employee
                 {
-                    UserName = "stuff@stuff",
-                    UserFullname = "Stuff user",
-                    Email = "stuff@stuff",
+                    UserName = "testemployee@cimob.pt",
+                    UserFullname = "Empregado Teste",
+                    Email = "testemployee@cimob.pt",
                     UserCc = "12345689",
-                    PhoneNumber = "936936899",
-                    UserAddress = "Avenida para stuff",
-                    PostalCode = "2912-193",
-                    BirthDate = new DateTime(1995, 3, 1),
-                    StudentNumber = "321321321",
-                    ALOGrade = 0,
-                    CollegeSubjectId = 1
-                };
+                    PhoneNumber = "936936936",
+                    UserAddress = "RuaTeste",
+                    PostalCode = "2900-000",
+                    BirthDate = new DateTime(1996, 1, 1),
+                    EmployeeNumber = 150221055
+                });
 
-                var user4 = new Student
+                _context.Employees.Add(new Employee
                 {
-                    UserName = "random@random",
-                    UserFullname = "Random user",
-                    Email = "random@random",
-                    UserCc = "12356789",
-                    PhoneNumber = "936936999",
-                    UserAddress = "Avenida random",
-                    PostalCode = "2912-200",
-                    BirthDate = new DateTime(1995, 3, 2),
-                    StudentNumber = "987987987",
-                    ALOGrade = 0,
+                    UserName = "testemployee1@cimob.pt",
+                    UserFullname = "Empregado Teste1",
+                    Email = "testemployee1@cimob.pt",
+                    UserCc = "12345689",
+                    PhoneNumber = "936936936",
+                    UserAddress = "RuaTeste",
+                    PostalCode = "2900-000",
+                    BirthDate = new DateTime(1996, 1, 1),
+                    EmployeeNumber = 150221055
+                });
+                _context.SaveChanges();
+            }
 
-                    CollegeSubjectId = 1
+            if (!_context.Applications.Any())
+            {
 
-                };
+                _context.Applications.Add(new Application
+                {
+                    StudentId = _context.Students.Where(s => s.UserFullname.Equals("Teste User 1")).FirstOrDefault().Id,
+                    ApplicationStatId = 3,
+                    BilateralProtocol1Id = 1,
+                    BilateralProtocol2Id = 5,
+                    BilateralProtocol3Id = 9,
+                    EmployeeId = _context.Employees.Where(s => s.UserFullname.Equals("Empregado Teste")).FirstOrDefault().Id,
+                    CreationDate = new DateTime(2018, 01, 03),
+                    ArithmeticMean = 20.0,
+                    ECTS = 120,
+                    MotivationLetter = 20.0,
+                    Enterview = 20.0,
+                    FinalGrade = 20.0
+                });
 
-                _context.ApplicationUsers.Add(user1);
-                _context.ApplicationUsers.Add(user2);
-                _context.ApplicationUsers.Add(user3);
-                _context.ApplicationUsers.Add(user4);
+                _context.Applications.Add(new Application
+                {
+                    StudentId = _context.Students.Where(s => s.UserFullname.Equals("Teste User 2")).FirstOrDefault().Id,
+                    ApplicationStatId = 3,
+                    BilateralProtocol1Id = 1,
+                    BilateralProtocol2Id = 5,
+                    BilateralProtocol3Id = 9,
+                    EmployeeId = _context.Employees.Where(s => s.UserFullname.Equals("Empregado Teste")).FirstOrDefault().Id,
+                    CreationDate = new DateTime(2018, 01, 03),
+                    ArithmeticMean = 10.0,
+                    ECTS = 120,
+                    MotivationLetter = 10.0,
+                    Enterview = 10.0,
+                    FinalGrade = 10.0
+                });
+
+                _context.SaveChanges();
+            }
+
+            if (!_context.Editals.Any())
+            {
+                _context.Editals.Add(new Edital { Title = "Edital teste", TextContent = "Edital publicado", OpenDate = new DateTime(2017, 11, 10), CloseDate = new DateTime(2018, 02, 03) });
                 _context.SaveChanges();
             }
             if (!_context.Documents.Any())
             {
 
-                //var doc1 = new Document
-                //{
-                //    Description = "Test document1",
-                //    FileUrl = "URL.COM",
-                //    ApplicationUserId = _context.Students.Where(s => s.UserFullname.Equals("Random user")).FirstOrDefault().Id
-                //};
+                var doc1 = new Document
+                {
+                    Description = "Test document1",
+                    FileUrl = "URL.COM",
+                    UploadDate = DateTime.Now,
+                    ApplicationId = _context.Applications.Where(a => a.ApplicationId == 1).FirstOrDefault().ApplicationId
+                };
 
-                //var doc2 = new Document
-                //{
-                //    Description = "Test document2",
-                //    FileUrl = "URL.COM",
-                //    ApplicationUserId = _context.Students.Where(s => s.UserFullname.Equals("Random user")).FirstOrDefault().Id
-                //};
+                var doc2 = new Document
+                {
+                    Description = "Test document2",
+                    FileUrl = "URL.COM",
+                    UploadDate = DateTime.Now,
+                    ApplicationId = _context.Applications.Where(a => a.ApplicationId == 1).FirstOrDefault().ApplicationId
+                };
 
-                //var doc3 = new Document
-                //{
-                //    Description = "Test document3",
-                //    FileUrl = "URL.COM",
-                //    ApplicationUserId = _context.Students.Where(m => m.UserFullname == "Stuff user").First().Id
-                //};
-                //_context.Documents.Add(doc1);
-                //_context.Documents.Add(doc2);
-                //_context.Documents.Add(doc3);
+                var doc3 = new Document
+                {
+                    Description = "Test document3",
+                    FileUrl = "URL.COM",
+                    UploadDate = DateTime.Now,
+                    ApplicationId = _context.Applications.Where(a => a.ApplicationId == 1).FirstOrDefault().ApplicationId
+                };
+                _context.Documents.Add(doc1);
+                _context.Documents.Add(doc2);
+                _context.Documents.Add(doc3);
                 _context.SaveChanges();
             }
         }
 
 
-        //[Fact]
-        //public async Task TestingGetDocumentsFromStudent()
-        //{
-        //    InitializeDatabaseWithDataTest();
-        //    DocumentsController controller = new DocumentsController(_context);
+        [Fact]
+        public async Task TestingGetDocumentsFromStudent()
+        {
+            InitializeDatabaseWithDataTest();
+            DocumentsController controller = new DocumentsController(_context);
 
-            
 
-        //    string studentIndex = _context.Students.Where(s => s.UserFullname.Equals("Random user")).FirstOrDefault().Id;
-        //    // Act
-        //    var result = await controller.Index(studentIndex);
 
-        //    // Assert
-        //    var viewResult = Assert.IsType<ViewResult>(result);
-        //    var model = Assert.IsAssignableFrom<IEnumerable<Document>>(
-        //        viewResult.ViewData.Model);
-        //    Assert.Equal(2, model.Count());
-        //}
-        //[Fact]
-        //public async Task TestingGetDocumentsFromStudentWithNoDocuments()
-        //{
-        //    InitializeDatabaseWithDataTest();
-        //    DocumentsController controller = new DocumentsController(_context);
+            String studentId = _context.Students.Where(s => s.UserFullname.Equals("Teste User 1")).FirstOrDefault().Id;
+            int appId = _context.Applications.Where(a => a.StudentId.Equals(studentId)).FirstOrDefault().ApplicationId;
 
-        //    string studentIndex = _context.Students.Where(m => m.UserFullname == "Teste User 1").First().Id;
-        //    // Act
-        //    var result = await controller.Index(studentIndex);
+            // Act
+            var result = await controller.Index(appId);
 
-        //    // Assert
-        //    var viewResult = Assert.IsType<ViewResult>(result);
-        //    var model = Assert.IsAssignableFrom<IEnumerable<Document>>(
-        //        viewResult.ViewData.Model);
-        //    Assert.Empty(model);
-        //}
+            // Assert
+            var viewResult = Assert.IsType<ViewResult>(result);
+            var model = Assert.IsAssignableFrom<IEnumerable<Document>>(
+                viewResult.ViewData.Model);
+            Assert.Equal(3, model.Count());
+        }
+        [Fact]
+        public async Task TestingGetDocumentsFromStudentWithNoDocuments()
+        {
+            InitializeDatabaseWithDataTest();
+            DocumentsController controller = new DocumentsController(_context);
+
+            string studentIndex = _context.Students.Where(m => m.UserFullname == "Teste User 2").First().Id;
+            int appId = _context.Applications.Where(a => a.StudentId.Equals(studentIndex)).FirstOrDefault().ApplicationId;
+            // Act
+            var result = await controller.Index(appId);
+
+            // Assert
+            var viewResult = Assert.IsType<ViewResult>(result);
+            var model = Assert.IsAssignableFrom<IEnumerable<Document>>(
+                viewResult.ViewData.Model);
+            Assert.Empty(model);
+        }
     }
 }

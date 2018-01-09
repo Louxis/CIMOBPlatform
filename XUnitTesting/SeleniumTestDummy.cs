@@ -16,15 +16,17 @@ namespace XUnitTesting {
     public class SeleniumTestDummy
     {
         [Fact]
-        public void TestNewsFirefox() {            
+        public void TestNewsFirefox()
+        {
             using (var driver = new FirefoxDriver((Path.GetDirectoryName
-                                    (Assembly.GetExecutingAssembly().Location)))) {
+                                    (Assembly.GetExecutingAssembly().Location))))
+            {
                 driver.Navigate().GoToUrl
                        (@"https://localhost:44334/");
                 var wait = new WebDriverWait(driver, TimeSpan.FromMinutes(1));
                 wait.Until
                          (ExpectedConditions.ElementToBeClickable(By.Id("News")));
-                ApplicationControllerTest.LogIn(driver, "testemployee@cimob.pt", "teste12");                
+                ApplicationControllerTest.LogIn(driver, "testemployee@cimob.pt", "teste12");
                 driver.FindElement(By.Id("News")).Click();
                 driver.FindElement(By.Id("CreateNews")).Click();
                 string testTitle = "I'm a testing new!";
@@ -34,12 +36,13 @@ namespace XUnitTesting {
                 driver.FindElement(By.Id("TextContent")).SendKeys(testContent);
                 driver.FindElement(By.Id("link-text")).SendKeys(testUrl);
                 driver.FindElement(By.Id("NewsSubmit")).Click();
-                wait.Until(ExpectedConditions.TextToBePresentInElement(driver.FindElement(By.ClassName("table")),testTitle));
+                wait.Until(ExpectedConditions.TextToBePresentInElement(driver.FindElement(By.ClassName("table")), testTitle));
                 TestPublish(driver);
             }
         }
 
-        private void TestPublish(IWebDriver driver) {
+        private void TestPublish(IWebDriver driver)
+        {
             var wait = new WebDriverWait(driver, TimeSpan.FromMinutes(1));
             IWebElement tableElement = driver.FindElement(By.TagName("tbody"));
             IList<IWebElement> tableRow = tableElement.FindElements(By.TagName("tr"));
@@ -56,9 +59,11 @@ namespace XUnitTesting {
         }
 
         [Fact]
-        public void TestEditalFirefox() {
+        public void TestEditalFirefox()
+        {
             using (var driver = new FirefoxDriver((Path.GetDirectoryName
-                                    (Assembly.GetExecutingAssembly().Location)))) {
+                                    (Assembly.GetExecutingAssembly().Location))))
+            {
                 driver.Navigate().GoToUrl
                        (@"https://localhost:44334/");
                 var wait = new WebDriverWait(driver, TimeSpan.FromMinutes(1));
@@ -84,9 +89,11 @@ namespace XUnitTesting {
 
         //TO-DO Move quizz to final window
         [Fact]
-        public void TestQuizzFirefox() {
+        public void TestQuizzFirefox()
+        {
             using (var driver = new FirefoxDriver((Path.GetDirectoryName
-                                    (Assembly.GetExecutingAssembly().Location)))) {
+                                    (Assembly.GetExecutingAssembly().Location))))
+            {
                 driver.Navigate().GoToUrl
                        (@"https://localhost:44334/");
                 var wait = new WebDriverWait(driver, TimeSpan.FromMinutes(1));
@@ -111,9 +118,11 @@ namespace XUnitTesting {
         }
 
         [Fact]
-        public void TestWithChromeDriver() {
+        public void TestWithChromeDriver()
+        {
             using (var driver = new ChromeDriver(Path.GetDirectoryName
-                                        (Assembly.GetExecutingAssembly().Location))) {
+                                        (Assembly.GetExecutingAssembly().Location)))
+            {
                 driver.Navigate().GoToUrl
                        (@"https://automatetheplanet.com/multiple-files-page-objects-item-templates/");
                 var link = driver.FindElement(By.PartialLinkText("TFS Test API"));
@@ -127,9 +136,11 @@ namespace XUnitTesting {
         }
 
         [Fact]
-        public void TestWithEdgeDriver() {
+        public void TestWithEdgeDriver()
+        {
             using (var driver = new EdgeDriver(Path.GetDirectoryName
-                               (Assembly.GetExecutingAssembly().Location))) {
+                               (Assembly.GetExecutingAssembly().Location)))
+            {
                 driver.Navigate().GoToUrl
                      (@"https://automatetheplanet.com/multiple-files-page-objects-item-templates/");
                 var link = driver.FindElement(By.PartialLinkText("TFS Test API"));
