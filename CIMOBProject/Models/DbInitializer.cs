@@ -58,18 +58,18 @@ namespace CIMOBProject.Models {
 
             if (!context.BilateralProtocols.Any())
             {
-                context.BilateralProtocols.Add(new BilateralProtocol { SubjectId = 1, Destination = "Lithuania", OpenSlots = 1 });
+                context.BilateralProtocols.Add(new BilateralProtocol { SubjectId = 1, Destination = "France", OpenSlots = 1 });
                 context.BilateralProtocols.Add(new BilateralProtocol { SubjectId = 2, Destination = "Spain", OpenSlots = 1 });
-                context.BilateralProtocols.Add(new BilateralProtocol { SubjectId = 3, Destination = "Testing1", OpenSlots = 1 });
-                context.BilateralProtocols.Add(new BilateralProtocol { SubjectId = 4, Destination = "Testing2", OpenSlots = 1 });
+                context.BilateralProtocols.Add(new BilateralProtocol { SubjectId = 3, Destination = "Italy", OpenSlots = 1 });
+                context.BilateralProtocols.Add(new BilateralProtocol { SubjectId = 4, Destination = "Romenia", OpenSlots = 1 });
                 context.BilateralProtocols.Add(new BilateralProtocol { SubjectId = 1, Destination = "Lithuania", OpenSlots = 1 });
-                context.BilateralProtocols.Add(new BilateralProtocol { SubjectId = 2, Destination = "Testing4", OpenSlots = 1 });
-                context.BilateralProtocols.Add(new BilateralProtocol { SubjectId = 3, Destination = "Testing5", OpenSlots = 1 });
-                context.BilateralProtocols.Add(new BilateralProtocol { SubjectId = 4, Destination = "Testing6", OpenSlots = 1 });
-                context.BilateralProtocols.Add(new BilateralProtocol { SubjectId = 1, Destination = "Testing7", OpenSlots = 1 });
-                context.BilateralProtocols.Add(new BilateralProtocol { SubjectId = 2, Destination = "Testing8", OpenSlots = 1 });
-                context.BilateralProtocols.Add(new BilateralProtocol { SubjectId = 3, Destination = "Testing9", OpenSlots = 1 });
-                context.BilateralProtocols.Add(new BilateralProtocol { SubjectId = 4, Destination = "Testing10", OpenSlots = 1 });
+                context.BilateralProtocols.Add(new BilateralProtocol { SubjectId = 2, Destination = "Poland", OpenSlots = 1 });
+                context.BilateralProtocols.Add(new BilateralProtocol { SubjectId = 3, Destination = "Russia", OpenSlots = 1 });
+                context.BilateralProtocols.Add(new BilateralProtocol { SubjectId = 4, Destination = "London", OpenSlots = 1 });
+                context.BilateralProtocols.Add(new BilateralProtocol { SubjectId = 1, Destination = "Irland", OpenSlots = 1 });
+                context.BilateralProtocols.Add(new BilateralProtocol { SubjectId = 2, Destination = "Turkey", OpenSlots = 1 });
+                context.BilateralProtocols.Add(new BilateralProtocol { SubjectId = 3, Destination = "France", OpenSlots = 1 });
+                context.BilateralProtocols.Add(new BilateralProtocol { SubjectId = 4, Destination = "Belrus", OpenSlots = 1 });
                 context.SaveChanges();
             }
 
@@ -382,7 +382,12 @@ namespace CIMOBProject.Models {
 
             if (!context.Editals.Any())
             {
-                context.Editals.Add(new Edital {Title = "Edital teste", TextContent = "Edital publicado", OpenDate = new DateTime(2017,11,10), CloseDate = new DateTime(2018,02,03) });
+                context.Editals.Add(new Edital {
+                    Title = "Edital teste",
+                    TextContent = "Edital publicado",
+                    OpenDate = new DateTime(2017,11,10),
+                    CloseDate = new DateTime(2018,02,03),
+                    IsPublished = true });
                 context.SaveChanges();
             }
 

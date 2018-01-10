@@ -201,60 +201,60 @@ namespace XUnitTesting {
             }
         }
 
-        [Fact]
-        public void TestWithChromeCloseApplication()
-        {
-            using (var driver = new ChromeDriver
-                  (Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)))
-            {
-                driver.Navigate().GoToUrl
-                 (@"https://localhost:44334/");
-                LogIn(driver, "testemployee@cimob.pt", "teste12");
+        //[Fact]
+        //public void TestWithChromeCloseApplication()
+        //{
+        //    using (var driver = new ChromeDriver
+        //          (Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)))
+        //    {
+        //        driver.Navigate().GoToUrl
+        //         (@"https://localhost:44334/");
+        //        LogIn(driver, "testemployee@cimob.pt", "teste12");
 
-                driver.FindElement(By.Id("Application")).Click();
+        //        driver.FindElement(By.Id("Application")).Click();
 
-                IWebElement table = driver.FindElement(By.TagName("tbody"));
-                IList<IWebElement> tableRows = table.FindElements(By.TagName("tr"));
-                IList<IWebElement> rowTD;
-                foreach (IWebElement row in tableRows)
-                {
-                    rowTD = row.FindElements(By.TagName("td"));
+        //        IWebElement table = driver.FindElement(By.TagName("tbody"));
+        //        IList<IWebElement> tableRows = table.FindElements(By.TagName("tr"));
+        //        IList<IWebElement> rowTD;
+        //        foreach (IWebElement row in tableRows)
+        //        {
+        //            rowTD = row.FindElements(By.TagName("td"));
 
-                    if (rowTD.First().FindElement(By.Id("UserFullName")).Text.Equals("Teste User 4"))
-                    {
-                        rowTD.Last().FindElement(By.Id("Finish")).Click();
-                        break;
-                    }
-                }
+        //            if (rowTD.First().FindElement(By.Id("UserFullName")).Text.Equals("Teste User 4"))
+        //            {
+        //                rowTD.Last().FindElement(By.Id("Finish")).Click();
+        //                break;
+        //            }
+        //        }
 
-                driver.FindElement(By.Id("Finish")).Click();
+        //        driver.FindElement(By.Id("Finish")).Click();
 
-                foreach (IWebElement row in tableRows)
-                {
-                    rowTD = row.FindElements(By.TagName("td"));
+        //        foreach (IWebElement row in tableRows)
+        //        {
+        //            rowTD = row.FindElements(By.TagName("td"));
 
-                    if (rowTD.First().FindElement(By.Id("UserFullName")).Text.Equals("Teste User 4"))
-                    {
-                        rowTD.Last().FindElement(By.Id("Finish")).Click();
-                        break;
-                    }
-                }
+        //            if (rowTD.First().FindElement(By.Id("UserFullName")).Text.Equals("Teste User 4"))
+        //            {
+        //                rowTD.Last().FindElement(By.Id("Finish")).Click();
+        //                break;
+        //            }
+        //        }
 
-                table = driver.FindElement(By.TagName("tbody"));
-                tableRows = table.FindElements(By.TagName("tr"));
+        //        table = driver.FindElement(By.TagName("tbody"));
+        //        tableRows = table.FindElements(By.TagName("tr"));
 
-                foreach (IWebElement row in tableRows)
-                {
-                    rowTD = row.FindElements(By.TagName("td"));
+        //        foreach (IWebElement row in tableRows)
+        //        {
+        //            rowTD = row.FindElements(By.TagName("td"));
 
-                    if (rowTD.First().FindElement(By.Id("UserFullName")).Text.Equals("Teste User 4"))
-                    {
-                        ExpectedConditions.TextToBePresentInElement(rowTD[2].FindElement(By.Id("ApplicationStat")), "Finalizado");
-                        break;
-                    }
-                }
-            }
-        }
+        //            if (rowTD.First().FindElement(By.Id("UserFullName")).Text.Equals("Teste User 4"))
+        //            {
+        //                ExpectedConditions.TextToBePresentInElement(rowTD[2].FindElement(By.Id("ApplicationStat")), "Finalizado");
+        //                break;
+        //            }
+        //        }
+        //    }
+        //}
 
 
         //[Fact]
@@ -310,7 +310,7 @@ namespace XUnitTesting {
             TestWithChromeDriverEvaluateApplication();
             TestWithChromeDriverSeriation();
             TestWithChromeDriverCheckApplicationHistory();
-            TestWithChromeCloseApplication();
+            //TestWithChromeCloseApplication();
         }
     }
 }
