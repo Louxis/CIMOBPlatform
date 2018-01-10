@@ -76,7 +76,7 @@ namespace XUnitTesting
             Quizz toPublish = _context.Quizzs.FirstOrDefault();
             Employee employee = _context.Employees.FirstOrDefault();
             var result = controller.Publish(toPublish.Id, employee.Id);
-            var viewResult = Assert.IsType<RedirectToActionResult>(result);            
+            var viewResult = Assert.IsType<RedirectToActionResult>(result);        
         }
 
         [Fact]

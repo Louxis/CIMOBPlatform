@@ -25,6 +25,11 @@
                     <input asp-for="ArithmeticMean" class="form-control" id="ArithmeticMean"/>
                     <span asp-validation-for="ArithmeticMean" class="text-danger"></span>
                 </div>
+                <div class="form-group">
+                    <label asp-for="ECTS" class="control-label"></label>  <div class="tooltip">(?)<span class="tooltiptext">@ViewData["GradeTip"]</span></div>
+                    <input asp-for="ECTS" class="form-control" id="ECTS" />
+                    <span asp-validation-for="ECTS" class="text-danger"></span>
+                </div>
                 <div class="edit-application-motivations">
                     <label>@Html.DisplayNameFor(model => model.Motivations):&nbsp;</label>
                     <br />
