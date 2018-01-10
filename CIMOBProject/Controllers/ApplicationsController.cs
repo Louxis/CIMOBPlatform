@@ -417,7 +417,10 @@ namespace CIMOBProject.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-
+        ///<summary>
+        ///This action will load a view with a date picker so the employee can pick a date for an interview with a student.
+        ///<param name="id">Application Id.</param>
+        ///</summary>
         public IActionResult ScheduleInterview(int id)
         {
             ViewData["ApplicationId"] = id;
@@ -425,9 +428,14 @@ namespace CIMOBProject.Controllers
             return View(_context.Applications.Include(a => a.Student).Where(a => a.ApplicationId == id).SingleOrDefault());
         }
 
+        ///<summary>
+        ///This method will send an email to the student witth the date of his interview, selected by the employee
+        ///<param name="studentId">Student selected.</param>
+        ///<param name="employeeID">Logged in employee.</param>
+        ///<param name="interviewDate">Desired interview date.</param>
+        ///</summary>
         public async Task<IActionResult> EmailScheduleInterview(string studentId, string employeeID, DateTime interviewDate)
         {
-            //Zé does the email stuff here//
             Student user = _context.Students.Where(s => s.Id.Equals(studentId)).FirstOrDefault();
             await emailSender.Execute("Entrevista Agendada", "Saudações, " +
                 user.UserFullname + " uma entrevista consigo foi agendada para o dia " + interviewDate +
@@ -436,6 +444,7 @@ namespace CIMOBProject.Controllers
             return RedirectToAction("Index", "Applications", new { employeeId = employeeID });
         }
 
+        //Loads help tips
         private void loadHelp()
         {
             ViewData["BilateralTip"] = (_context.Helps.FirstOrDefault(h => h.HelpName == "Bilateral") as Help).HelpDescription;
@@ -446,6 +455,7 @@ namespace CIMOBProject.Controllers
             ViewData["InterviewDateTip"] = (_context.Helps.FirstOrDefault(h => h.HelpName == "InterviewDate") as Help).HelpDescription;
         }
 
+        //verifies if an application with a given id exists
         private bool ApplicationExists(int id)
         {
             return _context.Applications.Any(e => e.ApplicationId == id);

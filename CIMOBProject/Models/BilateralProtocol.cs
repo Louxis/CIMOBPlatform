@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -12,14 +13,15 @@ namespace CIMOBProject.Models
     ///</summary> 
     public class BilateralProtocol
     {
+
         public int Id { get; set; }
 
         public int SubjectId { get; set; }
-
+        [Required(ErrorMessage = "O destino é obrigatório")]
         public string Destination { get; set; }
-
+        [Required(ErrorMessage = "O número de vagas é obrigatório.")]
+        [Range(0,int.MaxValue, ErrorMessage = "O número de vagas precisa de ser positivo.")]
         public int OpenSlots { get; set; }
-
         public virtual CollegeSubject Subject { get; set; }
     }
 }
