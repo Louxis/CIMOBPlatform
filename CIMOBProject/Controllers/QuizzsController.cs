@@ -73,7 +73,7 @@ namespace CIMOBProject.Controllers
                         if (latestEditals[1] != null) {
                             if (!(latestApplication.CreationDate.Ticks > latestEditals[0].OpenDate.Ticks &&
                             latestApplication.CreationDate.Ticks < latestEditals[0].CloseDate.Ticks) ||
-                            (latestApplication.CreationDate.Ticks > latestEditals[1].OpenDate.Ticks &&
+                            !(latestApplication.CreationDate.Ticks > latestEditals[1].OpenDate.Ticks &&
                             latestApplication.CreationDate.Ticks < latestEditals[1].CloseDate.Ticks)) {
                                 students.Remove(student);
                             }
