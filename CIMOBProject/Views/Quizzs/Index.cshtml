@@ -1,4 +1,6 @@
 ﻿@model IEnumerable<CIMOBProject.Models.Quizz>
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
 
 @{
     ViewData["Title"] = "Index";
@@ -35,7 +37,8 @@
             <td>
                 <a class="btn btn-default" asp-action="Details" asp-route-id="@item.Id">Detalhes</a>
                 @if (item.IsPublished == false) {
-                    <a class="btn btn-default" asp-action="Publish" asp-route-id="@item.Id">Publicar</a>
+                    <a class="btn btn-default" asp-action="Publish" asp-route-id="@item.Id" 
+                       asp-route-employeeId ="@UserManager.GetUserId(User)">Publicar</a>
                 }                
             </td>
         </tr>

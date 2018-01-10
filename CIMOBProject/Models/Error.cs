@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace CIMOBProject.Models
 {
+    ///<summary>
+    ///We use this class in order to display the errors that might ocurre with the system.
+    ///</summary> 
     public class Error
     {
         public int Id { get; set; }

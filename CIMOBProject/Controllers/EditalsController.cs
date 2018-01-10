@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using CIMOBProject.Data;
 using CIMOBProject.Models;
 using System.Security.Claims;
+using CIMOBProject.Services;
 
 namespace CIMOBProject.Controllers
 {
@@ -74,6 +75,11 @@ namespace CIMOBProject.Controllers
                 //news.DocumentId = doc.DocumentId;
                 _context.Add(edital);
                 await _context.SaveChangesAsync();
+                EmailSender emailSender = new EmailSender();
+                List<string> emails = _context.Students.Select(s => s.Email).ToList();
+                emailSender.SendMultipleEmail(emails, "Edital Publicado", "Saudações a todos os estudantes, " +
+                    "encontra-se disponivel na plataforma o edital para as novas inscrições de Erasmus nas datas " +
+                    edital.OpenDate.ToShortDateString() + " e " + edital.CloseDate.ToShortDateString() + ". Obrigado, CIMOB");
                 return RedirectToAction("Index", "News");
             }
             return RedirectToAction("Index", "News");

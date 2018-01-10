@@ -46,12 +46,12 @@
                 }
                 else
                 {
-                    <td>Nao</td>
+                    <td>Não</td>
                 }
             <td align="center">
                 @if (item.IsPublished == false)
                 {
-                    <a class="btn btn-default" asp-action="Publish" asp-controller="News" asp-route-id="@item.Id">Publicar</a>
+                    <a class="btn btn-default" asp-action="Publish" asp-controller="News" asp-route-id="@item.Id" id="Publish">Publicar</a>
                 }
                 @if (item.GetType() == typeof(Edital))
                 {
