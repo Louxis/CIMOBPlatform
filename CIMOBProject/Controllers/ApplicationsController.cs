@@ -69,6 +69,7 @@ namespace CIMOBProject.Controllers
                 .Include(a => a.ApplicationStat)
                 .Include(a => a.Employee)
                 .Include(a => a.Student)
+                .ThenInclude(s => s.CollegeSubject)
                 .Include(a => a.BilateralProtocol1)
                 .Include(a => a.BilateralProtocol2)
                 .Include(a => a.BilateralProtocol3)
