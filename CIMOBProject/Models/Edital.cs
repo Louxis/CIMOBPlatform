@@ -12,9 +12,11 @@ namespace CIMOBProject.Models
     ///</summary> 
     public class Edital : News
     {
+        [DataType(DataType.Date)]
         [Display(Name = "Data de Início de Candidaturas")]
         public DateTime OpenDate { get; set; }
 
+        [DataType(DataType.Date)]
         [Display(Name = "Data de Fim de Candidaturas")]
         public DateTime CloseDate { get; set; }
     }
