@@ -32,8 +32,7 @@ namespace CIMOBProject.Controllers
             DateTime openDate = _context.Editals.Last().OpenDate;
             DateTime closeDate = _context.Editals.Last().CloseDate;
             var applicationDbContext = _context.Applications.Include(a => a.ApplicationStat)
-                .Include(a => a.Employee).Include(a => a.Student).Include(a => a.BilateralProtocol1).Include(a => a.BilateralProtocol2).Include(a => a.BilateralProtocol3).Where(a => a.CreationDate >= openDate && a.CreationDate <= closeDate)
-                .Where(a => a.EmployeeId.Equals(employeeId) || String.IsNullOrEmpty(a.EmployeeId));
+                .Include(a => a.Employee).Include(a => a.Student).Include(a => a.BilateralProtocol1).Include(a => a.BilateralProtocol2).Include(a => a.BilateralProtocol3).Where(a => a.CreationDate >= openDate && a.CreationDate <= closeDate);
             return View(await applicationDbContext.ToListAsync());
         }
 
