@@ -38,6 +38,7 @@ namespace CIMOBProject
             _options = new DbContextOptionsBuilder<ApplicationDbContext>()
                 .UseSqlServer(_configuration.GetConnectionString("DefaultConnection"))
                 .Options;
+            InitializeDatabaseWithDataTest();
         }
 
         internal void InitializeDatabaseWithDataTest()
@@ -138,7 +139,7 @@ namespace CIMOBProject
         [Fact]
         public async Task TestingSearchBySpecificName()
         {
-            InitializeDatabaseWithDataTest();
+            //InitializeDatabaseWithDataTest();
             StudentsController controller = new StudentsController(_context);
             // Act
             var result = await controller.Search("studentName", "Random");
@@ -152,7 +153,7 @@ namespace CIMOBProject
         [Fact]
         public async Task TestingSearchByGenericName()
         {
-            InitializeDatabaseWithDataTest();
+            //InitializeDatabaseWithDataTest();
             StudentsController controller = new StudentsController(_context);
             // Act
             var result = await controller.Search("studentName", "Test");
@@ -166,7 +167,7 @@ namespace CIMOBProject
         [Fact]
         public async Task TestingSearchWithNonExistentName()
         {
-            InitializeDatabaseWithDataTest();
+            //InitializeDatabaseWithDataTest();
             StudentsController controller = new StudentsController(_context);
             // Act
             var result = await controller.Search("studentName", "NoName");
@@ -183,7 +184,7 @@ namespace CIMOBProject
         [Fact]
         public async Task TestingSearchBySpecificNumber()
         {
-            InitializeDatabaseWithDataTest();
+            //InitializeDatabaseWithDataTest();
             StudentsController controller = new StudentsController(_context);
             // Act
             var result = await controller.Search("studentNumber", "123123321");
@@ -197,7 +198,7 @@ namespace CIMOBProject
         [Fact]
         public async Task TestingSearchByGenericNumber()
         {
-            InitializeDatabaseWithDataTest();
+            //InitializeDatabaseWithDataTest();
             StudentsController controller = new StudentsController(_context);
             // Act
             var result = await controller.Search("studentNumber", "123123");
@@ -211,7 +212,7 @@ namespace CIMOBProject
         [Fact]
         public async Task TestingSearchWithNonExistentNumber()
         {
-            InitializeDatabaseWithDataTest();
+            //InitializeDatabaseWithDataTest();
             StudentsController controller = new StudentsController(_context);
             // Act
             var result = await controller.Search("studentNumber", "000000000");
@@ -226,7 +227,7 @@ namespace CIMOBProject
         [Fact]
         public async Task TestingSearchBySpecificMail()
         {
-            InitializeDatabaseWithDataTest();
+            //InitializeDatabaseWithDataTest();
             StudentsController controller = new StudentsController(_context);
             // Act
             var result = await controller.Search("mail", "random@random");
@@ -240,7 +241,7 @@ namespace CIMOBProject
         [Fact]
         public async Task TestingSearchByGenericMail()
         {
-            InitializeDatabaseWithDataTest();
+            //InitializeDatabaseWithDataTest();
             StudentsController controller = new StudentsController(_context);
             // Act
             var result = await controller.Search("mail", "test");
@@ -254,7 +255,7 @@ namespace CIMOBProject
         [Fact]
         public async Task TestingSearchWithNonExistentMail()
         {
-            InitializeDatabaseWithDataTest();
+            //InitializeDatabaseWithDataTest();
             StudentsController controller = new StudentsController(_context);
             // Act
             var result = await controller.Search("mail", "noMail");
@@ -269,7 +270,7 @@ namespace CIMOBProject
         [Fact]
         public async Task TestingSearchBySpecificCollege()
         {
-            InitializeDatabaseWithDataTest();
+            //InitializeDatabaseWithDataTest();
             StudentsController controller = new StudentsController(_context);
             // Act
             var result = await controller.Search("studentCollege", "Escola Superior de Tecnologia de Setúbal");
@@ -283,7 +284,7 @@ namespace CIMOBProject
         [Fact]
         public async Task TestingSearchByGenericCollege()
         {
-            InitializeDatabaseWithDataTest();
+            //InitializeDatabaseWithDataTest();
             StudentsController controller = new StudentsController(_context);
             // Act
             var result = await controller.Search("studentCollege", "Escola");
@@ -297,7 +298,7 @@ namespace CIMOBProject
         [Fact]
         public async Task TestingSearchWithNonExistentCollege()
         {
-            InitializeDatabaseWithDataTest();
+            //InitializeDatabaseWithDataTest();
             StudentsController controller = new StudentsController(_context);
             // Act
             var result = await controller.Search("studentCollege", "NoSchool");
@@ -312,7 +313,7 @@ namespace CIMOBProject
         [Fact]
         public async Task TestingUpdateStudentDetails()
         {
-            InitializeDatabaseWithDataTest();
+            //InitializeDatabaseWithDataTest();
             StudentsController controller = new StudentsController(_context);
             string studentIndex = _context.Students.Where(s => s.UserFullname.Equals("Random user")).FirstOrDefault().Id;
 
