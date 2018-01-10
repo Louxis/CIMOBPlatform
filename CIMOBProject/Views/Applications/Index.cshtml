@@ -60,6 +60,10 @@
                 {
                     <a class="btn btn-default" asp-action="AssignEmployee" asp-route-employeeId="@UserManager.GetUserId(User)" asp-route-applicationId ="@item.ApplicationId" id="Evaluate">Avaliar</a>
                 }
+                @if (item.ApplicationStatId == 4)
+                {
+                    <a class="btn btn-default" asp-controller="Applications" asp-action="CloseApplication" asp-route-studentId="@item.StudentId" id="Finish">Finalizar</a>
+                }
             </td>
         </tr>
 }

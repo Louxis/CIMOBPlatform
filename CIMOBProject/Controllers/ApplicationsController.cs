@@ -306,6 +306,32 @@ namespace CIMOBProject.Controllers
             return View(await allApplications.ToListAsync());
         }
 
+        public async Task<IActionResult> CloseApplication(String studentId)
+        {
+            var getCurrentApplication = await _context.Applications.Include(a => a.Student).LastOrDefaultAsync(a => a.StudentId.Equals(studentId));
+            
+            return View(getCurrentApplication);
+        }
+
+        public async Task<IActionResult> FinishApplication(int applicationId, String employeeId)
+        {
+            
+            var changedApplication = await _context.Applications.Include(a => a.Student).Include(a => a.ApplicationStat).SingleOrDefaultAsync(a => a.ApplicationId == applicationId);
+            if (changedApplication.ApplicationStatId != 4)
+            {
+                return RedirectToAction("Index", "Applications", new { employeeId = changedApplication.EmployeeId });
+            }
+            _context.ApplicationStatHistory.Add(new ApplicationStatHistory { ApplicationId = changedApplication.ApplicationId, ApplicationStat = changedApplication.ApplicationStat.Name, DateOfUpdate = DateTime.Now });
+            _context.SaveChanges();
+            _context.Entry(changedApplication).State = EntityState.Detached;
+            changedApplication = await _context.Applications.Include(a => a.Student).SingleOrDefaultAsync(a => a.ApplicationId == applicationId);
+            changedApplication.ApplicationStatId = 6;
+            _context.SaveChanges();
+
+            return RedirectToAction("Index", "Applications", new { employeeId = employeeId });
+        }
+
+
         // GET: Applications/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
@@ -332,6 +358,8 @@ namespace CIMOBProject.Controllers
 
             return View(application);
         }
+
+
 
         // POST: Applications/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
