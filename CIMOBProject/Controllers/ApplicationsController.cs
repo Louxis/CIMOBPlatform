@@ -69,6 +69,7 @@ namespace CIMOBProject.Controllers
                 .Include(a => a.ApplicationStat)
                 .Include(a => a.Employee)
                 .Include(a => a.Student)
+                .ThenInclude(s => s.CollegeSubject)
                 .Include(a => a.BilateralProtocol1)
                 .Include(a => a.BilateralProtocol2)
                 .Include(a => a.BilateralProtocol3)
@@ -157,8 +158,7 @@ namespace CIMOBProject.Controllers
         ///</summary>
         [Authorize(Roles = "Employee")]
         public async Task<IActionResult> Seriation()
-        {
-            
+        {            
             DateTime openDate = _context.Editals.Last().OpenDate;
             DateTime closeDate = _context.Editals.Last().CloseDate;
             
@@ -166,7 +166,7 @@ namespace CIMOBProject.Controllers
             var queryGetAllApplication = await _context.Applications.Where(a => a.CreationDate >= openDate && a.CreationDate <= closeDate).ToListAsync();
             if (queryGetApplication.Count() != queryGetAllApplication.Count())
             {
-                return RedirectToAction("Application", "Home", new { message = "Ainda existem candidaturas por avaliar" });
+                return RedirectToAction("Applications", "Home", new { message = "Ainda existem candidaturas por avaliar" });
             }
 
             foreach (var item in queryGetApplication)
@@ -223,12 +223,11 @@ namespace CIMOBProject.Controllers
                 }
                 emailSender.SendStateEmail(item.ApplicationStatId, studentEmail);                
             }
-            //move this   
             publishSeriationNews();
             return RedirectToAction("DisplaySeriation", "Applications");
         }
 
-        private async void publishSeriationNews() {
+        private void publishSeriationNews() {
             Edital latestEdital = _context.Editals.OrderByDescending(e => e.Id).FirstOrDefault();
             string title = "Seriação " + latestEdital.CloseDate.Year;
             string content = "Encontra-se disponivel a seriação dos alunos respetiva do ultimo edital";
@@ -247,12 +246,12 @@ namespace CIMOBProject.Controllers
             _context.Add(urlDoc);
             news.Document = urlDoc;
             _context.Add(news);
-            await _context.SaveChangesAsync();
+            _context.SaveChanges();
         }
 
         ///<summary>
         ///This method displays the results of the seriation.
-        ///All the stundentds will be displayed with theyr respective grade
+        ///All the stundentds will be displayed with their respective grade
         ///</summary>
         public async Task<IActionResult> DisplaySeriation()
         {
