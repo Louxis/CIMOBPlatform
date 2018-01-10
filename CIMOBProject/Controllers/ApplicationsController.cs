@@ -136,6 +136,7 @@ namespace CIMOBProject.Controllers
                 _context.ApplicationStatHistory.Add(new ApplicationStatHistory { ApplicationId = _context.Applications.Last().ApplicationId, ApplicationStat = "Pending Evaluation", DateOfUpdate = DateTime.Now });
                 _context.SaveChanges();
                 return RedirectToAction("Application", "Home", new { message = "Candidatura efetuada com sucesso!" });
+                //return RedirectToAction("Details", "Applications", new { id = newStudent.StudentNumber });
             }
 
             ViewData["BilateralProtocol1Id"] = new SelectList(_context.BilateralProtocols.Where(p => p.SubjectId == student.CollegeSubjectId), "Id", "Destination");
@@ -147,6 +148,7 @@ namespace CIMOBProject.Controllers
             //ViewData["StudentId"] = new SelectList(_context.Students, "Id", "Id", application.StudentId);
 
             loadHelp();
+
 
             return RedirectToAction("Create", new { userId = application.StudentId });
         }
