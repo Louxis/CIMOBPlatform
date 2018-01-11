@@ -135,8 +135,8 @@ namespace CIMOBProject.Controllers
                 await emailSender.Execute("Candidatura Submetida","Saudações, a sua candidatura foi submetida no sistema com sucesso, boa sorte!", newStudent.Email);
                 _context.ApplicationStatHistory.Add(new ApplicationStatHistory { ApplicationId = _context.Applications.Last().ApplicationId, ApplicationStat = "Pending Evaluation", DateOfUpdate = DateTime.Now });
                 _context.SaveChanges();
-                return RedirectToAction("Application", "Home", new { message = "Candidatura efetuada com sucesso!" });
-                //return RedirectToAction("Details", "Applications", new { id = newStudent.StudentNumber });
+                //return RedirectToAction("Application", "Home", new { message = "Candidatura efetuada com sucesso!" });
+                return RedirectToAction("Details", "Applications", new { id = application.ApplicationId });
             }
 
             ViewData["BilateralProtocol1Id"] = new SelectList(_context.BilateralProtocols.Where(p => p.SubjectId == student.CollegeSubjectId), "Id", "Destination");

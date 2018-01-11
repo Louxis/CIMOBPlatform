@@ -12,8 +12,8 @@ using System;
 namespace CIMOBProject.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20180110195209_readyToRelease")]
-    partial class readyToRelease
+    [Migration("20180111001332_ReleaseV2")]
+    partial class ReleaseV2
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
