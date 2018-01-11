@@ -35,20 +35,28 @@ namespace CIMOBProject.Controllers
             return View();
         }
 
-        public IActionResult Application(String message)
+        public IActionResult Application(String message, String userId)
         {
-            if (DateTime.Now < _context.Editals.OrderByDescending(e => e.Id).First().OpenDate)
+            DateTime openDate = _context.Editals.OrderByDescending(e => e.Id).First().OpenDate;
+            DateTime closeDate = _context.Editals.OrderByDescending(e => e.Id).First().CloseDate;
+
+            if (DateTime.Now < openDate)
             { 
                 message = "As candidaturas serão disponibilizadas no dia " + _context.Editals.OrderByDescending(e => e.Id).First().OpenDate.ToString("MM/dd/yyyy") + ".";
                 return View((object)message);
             }
-            if (DateTime.Now > _context.Editals.OrderByDescending(e => e.Id).First().CloseDate)
+            if (DateTime.Now > closeDate)
             {
                 message = "Já terminou a data de entrega das candidaturas (" + _context.Editals.OrderByDescending(e => e.Id).First().CloseDate.ToString("MM/dd/yyyy") + ") para o processo outgoing.";
                 return View((object)message);
             }
             else
             {
+                var query = _context.Applications.Where(s => s.StudentId.Equals(userId)).Where(a => a.CreationDate >= openDate && a.CreationDate <= closeDate);
+                if (query.Any())
+                {
+                    return RedirectToAction("Details", "Applications", new { id = query.Last().ApplicationId });
+                }
                 message = "As candidaturas estão abertas!";
                 return View((object)message);
             }

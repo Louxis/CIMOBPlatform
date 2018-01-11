@@ -46,12 +46,12 @@
                 @Html.DisplayFor(modelItem => item.ApplicationStat.Name)
             </td>
             <td>
-                @if (item.EmployeeId != null)
-                {
-                    if (item.EmployeeId == @UserManager.GetUserId(User))
-                    {
-                        <a class="btn btn-default" asp-action="Edit" asp-route-id="@item.ApplicationId" id="Edit">Editar</a>
-                        <a class="btn btn-default" asp-action="ScheduleInterview" asp-route-id="@item.ApplicationId">Marcar Entrevista</a>
+                @if (item.EmployeeId != null) {
+                    if (item.EmployeeId == @UserManager.GetUserId(User)) {
+                        if (item.ApplicationStatId < 3) {
+                            <a class="btn btn-default" asp-action="Edit" asp-route-id="@item.ApplicationId" id="Edit">Editar</a>
+                            <a class="btn btn-default" asp-action="ScheduleInterview" asp-route-id="@item.ApplicationId">Marcar Entrevista</a>
+                        }
                     }
 
                 }
@@ -59,6 +59,10 @@
                 @if (item.EmployeeId == null && User.IsInRole("Employee"))
                 {
                     <a class="btn btn-default" asp-action="AssignEmployee" asp-route-employeeId="@UserManager.GetUserId(User)" asp-route-applicationId ="@item.ApplicationId" id="Evaluate">Avaliar</a>
+                }
+                @if (item.ApplicationStatId == 4)
+                {
+                    <a class="btn btn-default" asp-controller="Applications" asp-action="CloseApplication" asp-route-studentId="@item.StudentId" id="Finish">Finalizar</a>
                 }
             </td>
         </tr>

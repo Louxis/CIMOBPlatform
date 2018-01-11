@@ -44,7 +44,6 @@ namespace CIMOBProject.Controllers
             {
                 return NotFound();
             }
-
             return View(edital);
         }
 
@@ -65,7 +64,6 @@ namespace CIMOBProject.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("OpenDate,CloseDate,Id,EmployeeId,Title,TextContent,IsPublished,DocumentId")] Edital edital, string link)
         {
-
             if (ModelState.IsValid)
             {
                 if (!String.IsNullOrEmpty(link))
@@ -82,7 +80,7 @@ namespace CIMOBProject.Controllers
                     edital.OpenDate.ToShortDateString() + " e " + edital.CloseDate.ToShortDateString() + ". Obrigado, CIMOB");
                 return RedirectToAction("Index", "News");
             }
-            return RedirectToAction("Index", "News");
+            return View(edital);
         }
 
         private Document CreateAndValidateDocument(Edital edital, string link)

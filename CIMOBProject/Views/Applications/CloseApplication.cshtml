@@ -1,0 +1,12 @@
+﻿@model CIMOBProject.Models.Application
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+<h1>Terminar a candaidatura do estudante @Model.Student.UserFullname</h1>
+<div class="applications">
+    <p>Tem a certeza que deseja terminar a candidatura do estudante @Model.Student.UserFullname</p>
+    <br />
+    <a asp-area="" asp-controller="Applications" asp-action="FinishApplication" asp-route-applicationId="@Model.ApplicationId" asp-route-EmployeeId ="@UserManager.GetUserId(User)" class="btn btn-default" id="Finish">Terminar</a>
+    <a asp-area="" asp-controller="Applications" asp-action="Index" asp-route-applicationId="@UserManager.GetUserId(User)" class="btn btn-default">Voltar atrás</a>
+
+</div>

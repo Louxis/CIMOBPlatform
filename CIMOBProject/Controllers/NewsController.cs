@@ -34,7 +34,10 @@ namespace CIMOBProject.Controllers
 
         public async Task<IActionResult> RecentNews()
         {
-            var publishedNews = _context.News.Where(n => n.IsPublished == true).OrderByDescending(n => n.Id).Take(3); ;
+            var publishedNews = _context.News.Where(n => n.IsPublished == true)
+                                .Include(n => n.Document)
+                                .Include(n => n.Employee)
+                                .OrderByDescending(n => n.Id).Take(3);
             return View(await publishedNews.ToListAsync());
         }
 

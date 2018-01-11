@@ -55,8 +55,10 @@ namespace CIMOBProject.Models
 
         public virtual Student Student { get; set; }
 
+        [Display(Name = "Avaliador")]
         public virtual Employee Employee { get; set; }
 
+        [Display(Name = "Estado da candidatura")]
         public virtual ApplicationStat ApplicationStat { get; set; }
 
         public virtual List<Document> Documents { get; set; }

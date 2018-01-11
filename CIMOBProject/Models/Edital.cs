@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CIMOBProject.Models.AccountViewModels;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -12,10 +13,17 @@ namespace CIMOBProject.Models
     ///</summary> 
     public class Edital : News
     {
+        [DataType(DataType.Date)]
         [Display(Name = "Data de Início de Candidaturas")]
+        [Required]
+        [PresentDate(ErrorMessage = "Não pode criar editais no passado..")]
         public DateTime OpenDate { get; set; }
 
+        [DataType(DataType.Date)]
         [Display(Name = "Data de Fim de Candidaturas")]
+        [OlderThan]
+        [Required]
+        [PresentDate(ErrorMessage = "Não pode criar editais no passado..")]
         public DateTime CloseDate { get; set; }
     }
 }
