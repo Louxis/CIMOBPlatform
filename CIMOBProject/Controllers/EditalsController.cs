@@ -44,7 +44,6 @@ namespace CIMOBProject.Controllers
             {
                 return NotFound();
             }
-
             return View(edital);
         }
 
