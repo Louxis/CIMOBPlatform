@@ -13,7 +13,7 @@
         <div>
             @Html.DisplayFor(Model => item.TextContent)
             <hr />
-            <label>@Html.DisplayNameFor(Model => item.Document):&nbsp;</label>@Html.DisplayFor(Model => item.Document.FileUrl)
+            <label>@Html.DisplayNameFor(Model => item.Document):&nbsp;</label><a href="@Html.DisplayFor(Model => item.Document.FileUrl)">@Html.DisplayFor(Model => item.Document.FileUrl)</a>
             <br />
             <label>Publicado por:&nbsp;</label>@Html.DisplayFor(Model => item.Employee.UserFullname)
         </div>

@@ -37,7 +37,7 @@ namespace CIMOBProject
 
 
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(connection));
+                options.UseSqlServer(connection1));
 
 
             services.AddIdentity<ApplicationUser, IdentityRole>(config =>
@@ -114,7 +114,7 @@ namespace CIMOBProject
             {
                 routes.MapRoute(
                     name: "seriations",
-                    template: "News/Details/Seriacoes",
+                    template: "News/Seriacoes",
                     defaults: new { controller = "Applications", action = "DisplaySeriation" });
                 routes.MapRoute(
                     name: "default",
