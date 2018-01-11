@@ -54,15 +54,15 @@ namespace CIMOBProject.Controllers {
         // GET: Documents/Create
         public IActionResult Create(string userId)
         {
-            var latestEdital = _context.Editals.OrderByDescending(a => a.Id).FirstOrDefault();
-            var application = _context.Applications.Where(a => a.StudentId == userId
-                                        && (latestEdital.OpenDate <= a.CreationDate)
-                                        && (a.CreationDate <= latestEdital.CloseDate)).First();
-
-            if (User.IsInRole("Employee") && application != null)
+            if (User.IsInRole("Employee"))
             {
                 return RedirectToAction("Application", "Home", new { message = "Não tem permissão para aceder a esta funcionalidade" });
             }
+            var latestEdital = _context.Editals.OrderByDescending(a => a.Id).FirstOrDefault();
+
+            var application = _context.Applications.Where(a => a.StudentId == userId 
+                                        && (latestEdital.OpenDate <= a.CreationDate) 
+                                        && (a.CreationDate <= latestEdital.CloseDate)).First();
 
             ViewData["ApplicationId"] = application.ApplicationId;
             //ViewData["Date"] = DateTime.Now;
@@ -75,14 +75,14 @@ namespace CIMOBProject.Controllers {
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("DocumentId,Description,FileUrl,UploadDate,ApplicationId,EmployeeId")] Document document)
+        public async Task<IActionResult> Create([Bind("DocumentId,Description,FileUrl,UploadDate,ApplicationId")] Document document)
         {
             int currentApplicationId = 0;
 
             if (ModelState.IsValid)
             {
                 document.UploadDate = DateTime.Now;
-                currentApplicationId = (int)document.ApplicationId;
+                currentApplicationId = document.ApplicationId.Value;
                 _context.Add(document);
                 await _context.SaveChangesAsync();
             }

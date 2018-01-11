@@ -7,21 +7,20 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
-
-<p>
-    <a asp-area="" asp-controller="News" asp-action="Create" asp-route-userId="@UserManager.GetUserId(User)">Nova Publicação</a>
-    <a asp-area="" asp-controller="Editals" asp-action="Create" asp-route-userId="@UserManager.GetUserId(User)">Novo Edital</a>
-</p>
+<h1>Publicações</h1>
+<h3 class="description">Aqui encontra as mais recentes notícias referentes aos processos de mobilidade.</h3>
 <table class="table">
     <thead>
         <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.Title)
-                </th>
-                <th>
-                    Publicado
-                </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Title) da Publicação
+            </th>
+        @if (SignInManager.IsSignedIn(User) && User.IsInRole("Employee"))
+        {
+            <th>
+                Publicado
+            </th>
+        }
             <th></th>
         </tr>
     </thead>
@@ -39,6 +38,8 @@
                 }
                 
             </td>
+@if (SignInManager.IsSignedIn(User) && User.IsInRole("Employee"))
+{
                 @if (item.IsPublished == true)
                 {
                     <td>Sim</td>
@@ -47,27 +48,34 @@
                 {
                     <td>Nao</td>
                 }
-            <td>
-
-                @if (item.IsPublished == false) {
-                    <a asp-action="Publish" asp-controller="News" asp-route-id="@item.Id">Publicar |</a> 
-                }
-                @if(item.GetType() == typeof(Edital))
+            <td align="center">
+                @if (item.IsPublished == false)
                 {
-                    <a asp-action="Edit" asp-controller="Editals" asp-route-id="@item.Id">Editar |</a> 
+                    <a class="btn btn-default" asp-action="Publish" asp-controller="News" asp-route-id="@item.Id">Publicar</a>
+                }
+                @if (item.GetType() == typeof(Edital))
+                {
+                    <a class="btn btn-default" asp-action="Edit" asp-controller="Editals" asp-route-id="@item.Id">Editar</a>
 
-                    <a asp-action="Delete" asp-controller="Editals" asp-route-id="@item.Id">Eliminar</a>
-
+                    <a class="btn btn-default" asp-action="Delete" asp-controller="News" asp-route-id="@item.Id">Eliminar</a>
                 }
                 else
                 {
-                    <a asp-action="Edit" asp-route-id="@item.Id">Editar |</a> 
-                <a asp-action="Delete" asp-route-id="@item.Id">Eliminar</a>
-
+                    <a class="btn btn-default" asp-action="Edit" asp-route-id="@item.Id">Editar</a>
+                    <a class="btn btn-default" asp-action="Delete" asp-route-id="@item.Id">Eliminar</a>
                 }
-
             </td>
+}
         </tr>
 }
     </tbody>
 </table>
+
+@if (SignInManager.IsSignedIn(User) && User.IsInRole("Employee"))
+{
+    <div>
+        <a class="btn btn-default" asp-area="" asp-controller="News" asp-action="Create" asp-route-userId="@UserManager.GetUserId(User)">Nova Publicação</a>
+        <a class="btn btn-default" asp-area="" asp-controller="Editals" asp-action="Create" asp-route-userId="@UserManager.GetUserId(User)">Novo Edital</a>
+    </div>
+}
+

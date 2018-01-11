@@ -9,6 +9,7 @@ namespace CIMOBProject.Models {
     {
         public static void Initialize(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
+
             context.Database.EnsureCreated();            
             // Seed the database.
             if (context.Roles.SingleOrDefault(r => r.Name == "Student") == null)
@@ -46,12 +47,12 @@ namespace CIMOBProject.Models {
 
             if (!context.ApplicationStats.Any())
             {
-                context.ApplicationStats.Add(new ApplicationStat { Name = "Pending Evaluation" });
-                context.ApplicationStats.Add(new ApplicationStat { Name = "Evaluating" });
-                context.ApplicationStats.Add(new ApplicationStat { Name = "Pending Serialization" });
-                context.ApplicationStats.Add(new ApplicationStat { Name = "Approved" });
-                context.ApplicationStats.Add(new ApplicationStat { Name = "Repproved" });
-                context.ApplicationStats.Add(new ApplicationStat { Name = "Finished" });
+                context.ApplicationStats.Add(new ApplicationStat { Name = "Avaliação Pendente" });
+                context.ApplicationStats.Add(new ApplicationStat { Name = "Em Avaliação" });
+                context.ApplicationStats.Add(new ApplicationStat { Name = "Seriação Pendente" });
+                context.ApplicationStats.Add(new ApplicationStat { Name = "Aprovado" });
+                context.ApplicationStats.Add(new ApplicationStat { Name = "Reprovado" });
+                context.ApplicationStats.Add(new ApplicationStat { Name = "Finalizado" });
                 context.SaveChanges();
             }
 
@@ -215,6 +216,25 @@ namespace CIMOBProject.Models {
                 context.Students.
                     SingleOrDefault(e => e.UserName.Equals("test7@test")).EmailConfirmed = true;
 
+                var user8 = new Student
+                {
+                    UserName = "test8@test",
+                    UserFullname = "Teste User 8",
+                    Email = "test8@test",
+                    UserCc = "12345678",
+                    PhoneNumber = "936936936",
+                    UserAddress = "Avenida para teste",
+                    PostalCode = "2912-123",
+                    BirthDate = new DateTime(1995, 1, 1),
+                    StudentNumber = "123123123",
+                    ALOGrade = 0,
+                    CollegeSubjectId = 4
+                };
+                userManager.CreateAsync(user8, "teste18").Wait();
+                userManager.AddToRoleAsync(user8, role.Name).Wait();
+                context.SaveChanges();
+                context.Students.
+                    SingleOrDefault(e => e.UserName.Equals("test8@test")).EmailConfirmed = true;
 
                 context.SaveChanges();
             }
@@ -362,7 +382,7 @@ namespace CIMOBProject.Models {
 
             if (!context.Editals.Any())
             {
-                context.Editals.Add(new Edital {Title = "Edital teste", TextContent = "Edital publicado", OpenDate = new DateTime(2017,11,10), CloseDate = new DateTime(2018,01,03) });
+                context.Editals.Add(new Edital {Title = "Edital teste", TextContent = "Edital publicado", OpenDate = new DateTime(2017,11,10), CloseDate = new DateTime(2018,02,03) });
                 context.SaveChanges();
             }
 
