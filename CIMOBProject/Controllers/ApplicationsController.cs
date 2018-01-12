@@ -40,6 +40,8 @@ namespace CIMOBProject.Controllers
         ///<summary>
         ///The objective of this method is to assign an employee to an application who will later evaluate it.
         ///</summary>
+        /// <param name="employeeId">A String that represents the id of the current employee.</param>
+        /// <param name="applicationId">A int that represents the id of the application which the employee wants to evaluate.</param>
         public async Task<IActionResult> AssignEmployee(String employeeId, int applicationId)
         {
             var getAppliaction = _context.Applications.SingleOrDefault(a => a.ApplicationId == applicationId);
@@ -224,7 +226,8 @@ namespace CIMOBProject.Controllers
                 }
                 emailSender.SendStateEmail(item.ApplicationStatId, studentEmail);                
             }
-            publishSeriationNews();
+            //->NEEDS TO BE CHECKED<-
+            //publishSeriationNews();
             return RedirectToAction("DisplaySeriation", "Applications");
         }
 
@@ -267,6 +270,7 @@ namespace CIMOBProject.Controllers
         ///This method displays the various stages that the application had over the time.
         ///This only displays the history of the most recent application.
         ///</summary>
+        ///<param name="studentId">A String that represents the id of the current student which wants to check his application history.</param>
         public async Task<IActionResult> ApplicationHistory(String studentId)
         {
             if(_context.Applications.Include(a => a.Student).Where(a => a.StudentId.Equals(studentId)).Count() == 0)
@@ -282,6 +286,8 @@ namespace CIMOBProject.Controllers
         ///<summary>
         ///The objective of this method is filter all applications by the ones the current logged in employee is evaluating or the ones that currently aren't being evaluated.
         ///</summary>
+        /// <param name="filterType">A String that represents the filter that will be applyed to the application list.</param>
+        /// <param name="employeeId">A String that represents the id of the employee who is currently checking the application list.</param>
         [Authorize(Roles = "Employee")]
         public async Task<IActionResult> Filter(String filterType, String employeeId)
         {
@@ -305,14 +311,23 @@ namespace CIMOBProject.Controllers
 
             return View(await allApplications.ToListAsync());
         }
-
+        /// <summary>
+        /// This method sends the current employee to a verification screen to make sure the employee wants to finalize the application.
+        /// </summary>
+        /// <param name="studentId">A String that represents the stundent who has the application that the employee wants to finalize.</param>
+        /// <returns></returns>
         public async Task<IActionResult> CloseApplication(String studentId)
         {
             var getCurrentApplication = await _context.Applications.Include(a => a.Student).LastOrDefaultAsync(a => a.StudentId.Equals(studentId));
             
             return View(getCurrentApplication);
         }
-
+        /// <summary>
+        /// This method finalizes the application and concludes the outgoing process of the application.
+        /// </summary>
+        /// <param name="applicationId">A int that represents the id of the application that will be closed.</param>
+        /// <param name="employeeId">A String that represents the employee who has the application that the employee wants to finalize.</param>
+        /// <returns></returns>
         public async Task<IActionResult> FinishApplication(int applicationId, String employeeId)
         {
             

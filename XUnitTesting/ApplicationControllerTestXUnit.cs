@@ -290,10 +290,8 @@ namespace XUnitTesting
             InitializeDatabaseWithDataTest();
             ApplicationsController controller = new ApplicationsController(_context);
             // Act
-            var result = await controller.Seriation();
-
+            await controller.Seriation();
             // Assert
-
             Assert.Equal(0, _context.Applications.Count(a => a.ApplicationStatId == 3));
         }
 
