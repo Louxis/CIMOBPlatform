@@ -55,11 +55,11 @@
                 <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
                 @if (User.IsInRole("Employee"))
                 {
-                    <li><a asp-area="" asp-controller="News" asp-action="Index">Publicações</a></li>
+                    <li><a asp-area="" asp-controller="News" asp-action="Index" id="News">Publicações</a></li>
                 }
                 else
                 {
-                    <li><a asp-area="" asp-controller="News" asp-action="RecentNews">Publicações</a></li>
+                    <li><a asp-area="" asp-controller="News" asp-action="RecentNews" id="News">Publicações</a></li>
                 }
                 @if (User.IsInRole("Employee"))
                 {

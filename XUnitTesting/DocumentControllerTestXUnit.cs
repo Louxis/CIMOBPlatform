@@ -13,7 +13,7 @@ using Xunit;
 
 namespace XUnitTesting
 {
-    public class DocumentControllerTest
+    public class DocumentControllerTestXUnit
     {
         private IConfigurationRoot _configuration;
 
@@ -21,7 +21,7 @@ namespace XUnitTesting
         private DbContextOptions<ApplicationDbContext> _options;
         private ApplicationDbContext _context;
 
-        public DocumentControllerTest()
+        public DocumentControllerTestXUnit()
         {
             var builder = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
@@ -233,9 +233,6 @@ namespace XUnitTesting
         {
             //InitializeDatabaseWithDataTest();
             DocumentsController controller = new DocumentsController(_context);
-
-
-
             String studentId = _context.Students.Where(s => s.UserFullname.Equals("Teste User 1")).FirstOrDefault().Id;
             int appId = _context.Applications.Where(a => a.StudentId.Equals(studentId)).FirstOrDefault().ApplicationId;
 

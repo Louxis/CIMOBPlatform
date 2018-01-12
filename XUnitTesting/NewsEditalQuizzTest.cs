@@ -13,8 +13,8 @@ using System.Reflection;
 using Xunit;
 
 namespace XUnitTesting {
-    public class SeleniumTestDummy
-    {
+    public class NewsEditalQuizzTest {
+
         [Fact]
         public void TestNewsFirefox()
         {
