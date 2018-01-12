@@ -41,6 +41,58 @@ namespace XUnitTesting {
             }
         }
 
+        [Fact]
+        public void TestNewsChrome()
+        {
+            using (var driver = new ChromeDriver(Path.GetDirectoryName
+                                        (Assembly.GetExecutingAssembly().Location)))
+            {
+                driver.Navigate().GoToUrl
+                       (@"https://localhost:44334/");
+                var wait = new WebDriverWait(driver, TimeSpan.FromMinutes(1));
+                wait.Until
+                         (ExpectedConditions.ElementToBeClickable(By.Id("News")));
+                ApplicationControllerTest.LogIn(driver, "testemployee@cimob.pt", "teste12");
+                driver.FindElement(By.Id("News")).Click();
+                driver.FindElement(By.Id("CreateNews")).Click();
+                string testTitle = "I'm a testing new!";
+                string testContent = "I'm a News Test Content!";
+                string testUrl = "www.testing.test";
+                driver.FindElement(By.Id("Title")).SendKeys(testTitle);
+                driver.FindElement(By.Id("TextContent")).SendKeys(testContent);
+                driver.FindElement(By.Id("link-text")).SendKeys(testUrl);
+                driver.FindElement(By.Id("NewsSubmit")).Click();
+                wait.Until(ExpectedConditions.TextToBePresentInElement(driver.FindElement(By.ClassName("table")), testTitle));
+                TestPublish(driver);
+            }
+        }
+
+        [Fact]
+        public void TestNewsEdge()
+        {
+            using (var driver = new EdgeDriver(Path.GetDirectoryName
+                               (Assembly.GetExecutingAssembly().Location)))
+            {
+                driver.Navigate().GoToUrl
+                       (@"https://localhost:44334/");
+                var wait = new WebDriverWait(driver, TimeSpan.FromMinutes(1));
+                wait.Until
+                         (ExpectedConditions.ElementToBeClickable(By.Id("News")));
+                ApplicationControllerTest.LogIn(driver, "testemployee@cimob.pt", "teste12");
+                driver.FindElement(By.Id("News")).Click();
+                driver.FindElement(By.Id("CreateNews")).Click();
+                string testTitle = "I'm a testing new!";
+                string testContent = "I'm a News Test Content!";
+                string testUrl = "www.testing.test";
+                driver.FindElement(By.Id("Title")).SendKeys(testTitle);
+                driver.FindElement(By.Id("TextContent")).SendKeys(testContent);
+                driver.FindElement(By.Id("link-text")).SendKeys(testUrl);
+                driver.FindElement(By.Id("NewsSubmit")).Click();
+                wait.Until(ExpectedConditions.TextToBePresentInElement(driver.FindElement(By.ClassName("table")), testTitle));
+                TestPublish(driver);
+            }
+        }
+
         private void TestPublish(IWebDriver driver)
         {
             var wait = new WebDriverWait(driver, TimeSpan.FromMinutes(1));
@@ -87,7 +139,64 @@ namespace XUnitTesting {
             }
         }
 
-        //TO-DO Move quizz to final window
+        [Fact]
+        public void TestEditalChrome()
+        {
+            using (var driver = new ChromeDriver(Path.GetDirectoryName
+                                        (Assembly.GetExecutingAssembly().Location)))
+            {
+                driver.Navigate().GoToUrl
+                       (@"https://localhost:44334/");
+                var wait = new WebDriverWait(driver, TimeSpan.FromMinutes(1));
+                wait.Until
+                         (ExpectedConditions.ElementToBeClickable(By.Id("News")));
+                ApplicationControllerTest.LogIn(driver, "testemployee@cimob.pt", "teste12");
+                driver.FindElement(By.Id("News")).Click();
+                driver.FindElement(By.Id("CreateEdital")).Click();
+                string testOpenDate = "01/01/2018";
+                string testCloseDate = "10/10/2018";
+                string testTitle = "I'm a testing edital!";
+                string testContent = "I'm a edital Test Content!";
+                string testUrl = "www.testing.testedital";
+                driver.FindElement(By.Id("OpenDate")).SendKeys(testOpenDate);
+                driver.FindElement(By.Id("CloseDate")).SendKeys(testCloseDate);
+                driver.FindElement(By.Id("Title")).SendKeys(testTitle);
+                driver.FindElement(By.Id("TextContent")).SendKeys(testContent);
+                driver.FindElement(By.Id("link-text")).SendKeys(testUrl);
+                driver.FindElement(By.Id("EditalSubmit")).Click();
+                wait.Until(ExpectedConditions.TextToBePresentInElement(driver.FindElement(By.ClassName("table")), testTitle));
+            }
+        }
+
+        [Fact]
+        public void TestEditalEdge()
+        {
+            using (var driver = new EdgeDriver(Path.GetDirectoryName
+                               (Assembly.GetExecutingAssembly().Location)))
+            {
+                driver.Navigate().GoToUrl
+                       (@"https://localhost:44334/");
+                var wait = new WebDriverWait(driver, TimeSpan.FromMinutes(1));
+                wait.Until
+                         (ExpectedConditions.ElementToBeClickable(By.Id("News")));
+                ApplicationControllerTest.LogIn(driver, "testemployee@cimob.pt", "teste12");
+                driver.FindElement(By.Id("News")).Click();
+                driver.FindElement(By.Id("CreateEdital")).Click();
+                string testOpenDate = "01/01/2018";
+                string testCloseDate = "10/10/2018";
+                string testTitle = "I'm a testing edital!";
+                string testContent = "I'm a edital Test Content!";
+                string testUrl = "www.testing.testedital";
+                driver.FindElement(By.Id("OpenDate")).SendKeys(testOpenDate);
+                driver.FindElement(By.Id("CloseDate")).SendKeys(testCloseDate);
+                driver.FindElement(By.Id("Title")).SendKeys(testTitle);
+                driver.FindElement(By.Id("TextContent")).SendKeys(testContent);
+                driver.FindElement(By.Id("link-text")).SendKeys(testUrl);
+                driver.FindElement(By.Id("EditalSubmit")).Click();
+                wait.Until(ExpectedConditions.TextToBePresentInElement(driver.FindElement(By.ClassName("table")), testTitle));
+            }
+        }
+
         [Fact]
         public void TestQuizzFirefox()
         {
@@ -118,56 +227,60 @@ namespace XUnitTesting {
         }
 
         [Fact]
-        public void TestWithChromeDriver()
+        public void TestQuizzChrome()
         {
             using (var driver = new ChromeDriver(Path.GetDirectoryName
                                         (Assembly.GetExecutingAssembly().Location)))
             {
                 driver.Navigate().GoToUrl
-                       (@"https://automatetheplanet.com/multiple-files-page-objects-item-templates/");
-                var link = driver.FindElement(By.PartialLinkText("TFS Test API"));
-                var jsToBeExecuted = $"window.scroll(0, {link.Location.Y});";
-                ((IJavaScriptExecutor)driver).ExecuteScript(jsToBeExecuted);
+                       (@"https://localhost:44334/");
                 var wait = new WebDriverWait(driver, TimeSpan.FromMinutes(1));
-                var clickableElement = wait.Until
-                      (ExpectedConditions.ElementToBeClickable(By.PartialLinkText("TFS Test API")));
-                clickableElement.Click();
+                wait.Until
+                         (ExpectedConditions.ElementToBeClickable(By.Id("News")));
+                ApplicationControllerTest.LogIn(driver, "testemployee@cimob.pt", "teste12");
+                driver.FindElement(By.Id("News")).Click();
+                driver.FindElement(By.Id("CreateEdital")).Click();
+                string testOpenDate = "01/01/2018";
+                string testCloseDate = "10/10/2018";
+                string testTitle = "I'm a testing edital!";
+                string testContent = "I'm a edital Test Content!";
+                string testUrl = "www.testing.testedital";
+                driver.FindElement(By.Id("OpenDate")).SendKeys(testOpenDate);
+                driver.FindElement(By.Id("CloseDate")).SendKeys(testCloseDate);
+                driver.FindElement(By.Id("Title")).SendKeys(testTitle);
+                driver.FindElement(By.Id("TextContent")).SendKeys(testContent);
+                driver.FindElement(By.Id("link-text")).SendKeys(testUrl);
+                driver.FindElement(By.Id("EditalSubmit")).Click();
+                wait.Until(ExpectedConditions.TextToBePresentInElement(driver.FindElement(By.ClassName("table")), testTitle));
             }
         }
 
         [Fact]
-        public void TestWithEdgeDriver()
+        public void TestQuizzEdge()
         {
             using (var driver = new EdgeDriver(Path.GetDirectoryName
                                (Assembly.GetExecutingAssembly().Location)))
             {
                 driver.Navigate().GoToUrl
-                     (@"https://automatetheplanet.com/multiple-files-page-objects-item-templates/");
-                var link = driver.FindElement(By.PartialLinkText("TFS Test API"));
-                var jsToBeExecuted = $"window.scroll(0, {link.Location.Y});";
-                ((IJavaScriptExecutor)driver).ExecuteScript(jsToBeExecuted);
+                       (@"https://localhost:44334/");
                 var wait = new WebDriverWait(driver, TimeSpan.FromMinutes(1));
-                var clickableElement = wait.Until
-                      (ExpectedConditions.ElementToBeClickable(By.PartialLinkText("TFS Test API")));
-                clickableElement.Click();
-            }
-        }
-
-        [Fact]
-        public void TestWithChromeCreateApplication()
-        {
-            using (var driver = new EdgeDriver(Path.GetDirectoryName
-                               (Assembly.GetExecutingAssembly().Location)))
-            {
-                driver.Navigate().GoToUrl
-                     (@"https://automatetheplanet.com/multiple-files-page-objects-item-templates/");
-                var link = driver.FindElement(By.PartialLinkText("TFS Test API"));
-                var jsToBeExecuted = $"window.scroll(0, {link.Location.Y});";
-                ((IJavaScriptExecutor)driver).ExecuteScript(jsToBeExecuted);
-                var wait = new WebDriverWait(driver, TimeSpan.FromMinutes(1));
-                var clickableElement = wait.Until
-                      (ExpectedConditions.ElementToBeClickable(By.PartialLinkText("TFS Test API")));
-                clickableElement.Click();
+                wait.Until
+                         (ExpectedConditions.ElementToBeClickable(By.Id("News")));
+                ApplicationControllerTest.LogIn(driver, "testemployee@cimob.pt", "teste12");
+                driver.FindElement(By.Id("News")).Click();
+                driver.FindElement(By.Id("CreateEdital")).Click();
+                string testOpenDate = "01/01/2018";
+                string testCloseDate = "10/10/2018";
+                string testTitle = "I'm a testing edital!";
+                string testContent = "I'm a edital Test Content!";
+                string testUrl = "www.testing.testedital";
+                driver.FindElement(By.Id("OpenDate")).SendKeys(testOpenDate);
+                driver.FindElement(By.Id("CloseDate")).SendKeys(testCloseDate);
+                driver.FindElement(By.Id("Title")).SendKeys(testTitle);
+                driver.FindElement(By.Id("TextContent")).SendKeys(testContent);
+                driver.FindElement(By.Id("link-text")).SendKeys(testUrl);
+                driver.FindElement(By.Id("EditalSubmit")).Click();
+                wait.Until(ExpectedConditions.TextToBePresentInElement(driver.FindElement(By.ClassName("table")), testTitle));
             }
         }
     }
