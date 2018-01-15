@@ -1,17 +1,36 @@
 ﻿using CIMOBProject.Models;
+using Microsoft.AspNet.Identity.EntityFramework;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WPF {
-    class ApplicationDbContext : DbContext {
+namespace BackOfficeWPF
+{
+    class ApplicationDbContext : IdentityDbContext<ApplicationUser>
+    {
+
+        public ApplicationDbContext() : base(@"Server=(localdb)\mssqllocaldb;Database=CimobPlatform;Trusted_Connection=True;")
+        {
+        }
+
+        public static ApplicationDbContext Create()
+        {
+            return new ApplicationDbContext();
+        }
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<ApplicationUser>().Ignore(c => c.LockoutEndDateUtc);
+        }
+
         public DbSet<Document> Documents { get; set; }
-        //public DbSet<Student> Students { get; set; }
-        //public DbSet<Employee> Employees { get; set; }
-        public DbSet<ApplicationUser> ApplicationUsers { get; set; }
+        public DbSet<Student> Students { get; set; }
+        public DbSet<Employee> Employees { get; set; }
         public DbSet<College> Colleges { get; set; }
         public DbSet<CollegeSubject> CollegeSubjects { get; set; }
         public DbSet<Help> Helps { get; set; }
@@ -24,7 +43,7 @@ namespace WPF {
         public DbSet<Quizz> Quizzs { get; set; }
         public DbSet<ApplicationStatHistory> ApplicationStatHistory { get; set; }
 
-        public ApplicationDbContext() : base(@"Server=(localdb)\mssqllocaldb;Database=PVLab10;Trusted_Connection=True;")
-        { }
+
+        
     }
 }
