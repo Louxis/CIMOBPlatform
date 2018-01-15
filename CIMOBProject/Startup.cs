@@ -37,7 +37,7 @@ namespace CIMOBProject
 
 
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(connection1));
+                options.UseSqlServer(connection));
 
 
             services.AddIdentity<ApplicationUser, IdentityRole>(config =>
