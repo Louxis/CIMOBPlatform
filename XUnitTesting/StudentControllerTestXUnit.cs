@@ -7,20 +7,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Xunit;
-using Moq;
-using CIMOBProject.Services;
-using Microsoft.Extensions.Logging;
 using CIMOBProject.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.EntityFrameworkCore;
 using System.IO;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using Microsoft.AspNetCore.Http;
 
 namespace CIMOBProject
 {
-    public class StudentControllerTest {
+    public class StudentControllerTestXUnit {
 
         private IConfigurationRoot _configuration;
 
@@ -28,7 +23,7 @@ namespace CIMOBProject
         private DbContextOptions<ApplicationDbContext> _options;
         private ApplicationDbContext _context;
 
-        public StudentControllerTest()
+        public StudentControllerTestXUnit()
         {
             var builder = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
