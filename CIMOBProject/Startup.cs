@@ -28,12 +28,12 @@ namespace CIMOBProject
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            var connection1=@"Server=(localdb)\mssqllocaldb;Database=CimobPlatform;Trusted_Connection=True;";
+            var connection=@"Server=(localdb)\mssqllocaldb;Database=CimobPlatform;Trusted_Connection=True;";
 
             
 
 
-            var connection = @"Data Source=SQL6002.site4now.net;Initial Catalog=DB_A2E98B_cimobgroup6;User Id=DB_A2E98B_cimobgroup6_admin;Password=esw4grupo6;";
+            var connection1 = @"Data Source=SQL6002.site4now.net;Initial Catalog=DB_A2E98B_cimobgroup6;User Id=DB_A2E98B_cimobgroup6_admin;Password=esw4grupo6;";
 
 
             services.AddDbContext<ApplicationDbContext>(options =>

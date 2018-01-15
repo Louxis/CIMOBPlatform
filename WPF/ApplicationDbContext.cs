@@ -23,18 +23,9 @@ namespace WPF {
         public DbSet<Edital> Editals { get; set; }
         public DbSet<BilateralProtocol> BilateralProtocols { get; set; }
         public DbSet<Quizz> Quizzs { get; set; }
+        public DbSet<ApplicationStatHistory> ApplicationStatHistory { get; set; }
 
-        protected override void OnModelCreating(ModelBuilder builder)
-        {
-            base.OnModelCreating(builder);
-            // Customize the ASP.NET Identity model and override the defaults if needed.
-            // For example, you can rename the ASP.NET Identity table names and more.
-            // Add your customizations after calling base.OnModelCreating(builder);
-        }
-
-        public DbSet<CIMOBProject.Models.ApplicationStatHistory> ApplicationStatHistory { get; set; }
-
-        public ApplicationDbContext() : base(@"Server=(localdb)\mssqllocaldb;Database=PVLab10;Trusted_Connection=True;")
+        public ApplicationDbContext() : base(@"Server=(localdb)\mssqllocaldb;Database=CimobPlatform;Trusted_Connection=True;")
         { }
     }
 }

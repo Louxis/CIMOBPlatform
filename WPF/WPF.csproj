@@ -102,5 +102,11 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CIMOBProject\CIMOBProject.csproj">
+      <Project>{d4e903cd-023d-4843-8d64-f69729351d19}</Project>
+      <Name>CIMOBProject</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
