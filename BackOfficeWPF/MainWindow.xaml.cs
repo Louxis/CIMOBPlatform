@@ -27,8 +27,7 @@ namespace BackOfficeWPF
         {
             InitializeComponent();
             //this.DataContext = _db.Users.Local;
-            ListBoxEmpresas.ItemsSource = _db.Users.ToList();
-            ListBoxEmpresas.IsSynchronizedWithCurrentItem = true;
+            employeesGrd.ItemsSource = _db.BilateralProtocols.Include(b => b.Subject).Select(b => new { b.Destination, b.Subject.SubjectName }).ToList();
         }
     }
 }

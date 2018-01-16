@@ -89,6 +89,7 @@
     <Compile Include="Models\ApplicationStatHistory.cs" />
     <Compile Include="Models\ApplicationUser.cs" />
     <Compile Include="Models\BilateralProtocol.cs" />
+    <Compile Include="Models\BilateralProtocolViewModel.cs" />
     <Compile Include="Models\College.cs" />
     <Compile Include="Models\CollegeSubject.cs" />
     <Compile Include="Models\Document.cs" />
