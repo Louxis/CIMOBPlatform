@@ -29,10 +29,17 @@ namespace CIMOBProject.Controllers
                 return View(await news.ToListAsync());
             }
             var publishedNews = news.Where(n => n.IsPublished == true);
-            return View(await publishedNews.ToListAsync());
-            
+            return View(await publishedNews.ToListAsync());            
         }
 
+        public async Task<IActionResult> RecentNews()
+        {
+            var publishedNews = _context.News.Where(n => n.IsPublished == true)
+                                .Include(n => n.Document)
+                                .Include(n => n.Employee)
+                                .OrderByDescending(n => n.Id).Take(3);
+            return View(await publishedNews.ToListAsync());
+        }
 
         public async Task<IActionResult> Publish(int id)
         {
@@ -89,6 +96,7 @@ namespace CIMOBProject.Controllers
         public IActionResult Create(string userId)
         {
             ViewData["EmployeeId"] = userId;
+            loadHelp();
             return View();
         }
 
@@ -97,17 +105,15 @@ namespace CIMOBProject.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,EmployeeId,Title,TextContent,IsPublished")] News news, string link)
+        public async Task<IActionResult> Create([Bind("Id,EmployeeId,Title,TextContent,IsPublished,DocumentId")] News news, string link)
         {
             if (ModelState.IsValid)
             {
-                Document doc = createAndValidateDocument(news, link);
                 if (!String.IsNullOrEmpty(link))
                 {
-                    news.Document = doc;
-                    //news.DocumentId = doc.DocumentId;
+                    news.Document = CreateAndValidateDocument(news,link);
                 }
-                    
+                    //news.DocumentId = doc.DocumentId;
                     _context.Add(news);
                     await _context.SaveChangesAsync();
                     return RedirectToAction(nameof(Index));
@@ -115,7 +121,7 @@ namespace CIMOBProject.Controllers
             return View(news);
         }
 
-        private Document createAndValidateDocument (News news, string link) 
+        private Document CreateAndValidateDocument (News news, string link) 
         {
             Document urlDoc = _context.Documents.Where(d => d.FileUrl.Equals(link)).FirstOrDefault();
             if(urlDoc == null) 
@@ -144,6 +150,7 @@ namespace CIMOBProject.Controllers
             {
                 return NotFound();
             }
+            loadHelp();
             return View(news);
         }
 
@@ -162,7 +169,7 @@ namespace CIMOBProject.Controllers
             newsToUpdate.Title = news.Title;
             //If it's desired to change employee id to the one updating it
             //newsToUpdate.EmployeeId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            Document editedDoc = createAndValidateDocument(news, link);
+            Document editedDoc = CreateAndValidateDocument(news, link);
             editedDoc.EmployeeId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             newsToUpdate.Document = editedDoc;
             newsToUpdate.TextContent = news.TextContent;
@@ -217,6 +224,13 @@ namespace CIMOBProject.Controllers
             _context.News.Remove(news);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
+        }
+
+        private void loadHelp()
+        {
+            ViewData["TitleTip"] = (_context.Helps.FirstOrDefault(h => h.HelpName == "Title") as Help).HelpDescription;
+            ViewData["TextContentTip"] = (_context.Helps.FirstOrDefault(h => h.HelpName == "TextContent") as Help).HelpDescription;
+            ViewData["DocumentTip"] = (_context.Helps.FirstOrDefault(h => h.HelpName == "FileURL") as Help).HelpDescription;
         }
 
         private bool NewsExists(int id)

@@ -1,0 +1,25 @@
+﻿@model IEnumerable<CIMOBProject.Models.News>
+@{
+    ViewData["Title"] = "RecentNews";
+}
+
+<h1>Publicações Recentes</h1>
+<h3 class="description">Aqui encontra as mais recentes notícias referentes aos processos de mobilidade.</h3>
+<br />
+@foreach (var item in Model)
+{
+    <div class="recent-news">
+        <h1>@Html.DisplayFor(Model => item.Title)</h1>
+        <div>
+            @Html.DisplayFor(Model => item.TextContent)
+            <hr />
+            <label>@Html.DisplayNameFor(Model => item.Document):&nbsp;</label><a href="@Html.DisplayFor(Model => item.Document.FileUrl)">@Html.DisplayFor(Model => item.Document.FileUrl)</a>
+            <br />
+            <label>Publicado por:&nbsp;</label>@Html.DisplayFor(Model => item.Employee.UserFullname)
+        </div>
+    </div>
+    <br />
+    <br />
+}
+
+<a class="btn btn-default" asp-action="Index" asp-controller="News">Todas as notícias</a>

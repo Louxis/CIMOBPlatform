@@ -47,7 +47,6 @@ else
                 @Html.DisplayFor(modelItem => item.UploadDate)
             </td>
             <td>
-                <!--isto não se mostra aos funcs-->
                 <a asp-action="Delete" asp-route-id="@item.DocumentId">Delete</a>
             </td>
         </tr>
@@ -55,7 +54,11 @@ else
     </tbody>
 </table>
 }
-<!--isto não se mostra aos funcs-->
-<a asp-action="Create" asp-controller="Documents" asp-route-userId=@UserManager.GetUserId(User) class="btn btn-default">Novo documento</a> 
+@if (ViewData["EvaluationApp"].Equals("false")) {
+    <a asp-action="Create" asp-controller="Documents" asp-route-applicationId="@ViewData["ApplicationId"]" class="btn btn-default">Novo documento</a>
+}
+    
+
+
 
 

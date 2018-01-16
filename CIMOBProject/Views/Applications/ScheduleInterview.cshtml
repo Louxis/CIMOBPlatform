@@ -1,0 +1,23 @@
+﻿@model CIMOBProject.Models.Application
+
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+@{
+    ViewData["Title"] = "ScheduleInterview";
+}
+
+<h1>Marcar Entrevista</h1>
+<h3 class="description">Preencha os campos em baixo para marcar uma entrevista com @Model.Student.UserFullname.</h3>
+<form asp-controller="Applications" asp-action="ScheduleInterview" asp-route-employeeID="@UserManager.GetUserId(User)">
+    <div class="row">
+        <div class="col-md-4">
+            <label>Data da Entrevista</label>  <div class="tooltip">(?)<span class="tooltiptext">@ViewData["InterviewDateTip"]</span></div>
+            <br />
+            <input type="datetime-local" name="interviewDate" class="form-control">
+            <br />
+            <a class="btn btn-default" asp-area="" asp-controller="Applications" asp-action="EmailScheduleInterview" asp-route-studentId="@Model.StudentId" asp-route-employeeId="@UserManager.GetUserId(User)" asp-route-interviewDate=interviewDate>Marcar Entrevista</a>
+            <a class="btn btn-default" asp-area="" asp-controller="Applications" asp-action="Index" asp-route-employeeId="@UserManager.GetUserId(User)">Voltar Atrás</a>
+        </div>
+    </div>
+</form>

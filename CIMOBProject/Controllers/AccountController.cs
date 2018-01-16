@@ -95,17 +95,17 @@ namespace CIMOBProject.Controllers
 
         private void loadHelp()
         {
-            ViewData["EmailTip"] = (_context.Helps.FirstOrDefault(h => h.Id == 2)as Help).HelpDescription;
-            ViewData["PasswordTip"] = (_context.Helps.FirstOrDefault(h => h.Id == 3) as Help).HelpDescription;
-            ViewData["ConfirmPasswordTip"] = (_context.Helps.FirstOrDefault(h => h.Id == 4) as Help).HelpDescription;
-            ViewData["UserNameTip"] = (_context.Helps.FirstOrDefault(h => h.Id == 1) as Help).HelpDescription;
-            ViewData["BirthDateTip"] = (_context.Helps.FirstOrDefault(h => h.Id == 8) as Help).HelpDescription;
-            ViewData["UserCcTip"] = (_context.Helps.FirstOrDefault(h => h.Id == 9) as Help).HelpDescription;
-            ViewData["PhoneNumberTip"] = (_context.Helps.FirstOrDefault(h => h.Id == 5) as Help).HelpDescription;
-            ViewData["UserAddressTip"] = (_context.Helps.FirstOrDefault(h => h.Id == 6) as Help).HelpDescription;
-            ViewData["PostalCodeTip"] = (_context.Helps.FirstOrDefault(h => h.Id == 7) as Help).HelpDescription;
-            ViewData["StudentNumberTip"] = (_context.Helps.FirstOrDefault(h => h.Id == 10) as Help).HelpDescription;
-            ViewData["CollegeSubjectTip"] = (_context.Helps.FirstOrDefault(h => h.Id == 11) as Help).HelpDescription;
+            ViewData["EmailTip"] = (_context.Helps.FirstOrDefault(h => h.HelpName == "Email")as Help).HelpDescription;
+            ViewData["PasswordTip"] = (_context.Helps.FirstOrDefault(h => h.HelpName == "Password") as Help).HelpDescription;
+            ViewData["ConfirmPasswordTip"] = (_context.Helps.FirstOrDefault(h => h.HelpName == "ConfirmPassword") as Help).HelpDescription;
+            ViewData["UserNameTip"] = (_context.Helps.FirstOrDefault(h => h.HelpName == "UserName") as Help).HelpDescription;
+            ViewData["BirthDateTip"] = (_context.Helps.FirstOrDefault(h => h.HelpName == "BirthDate") as Help).HelpDescription;
+            ViewData["UserCcTip"] = (_context.Helps.FirstOrDefault(h => h.HelpName == "UserCc") as Help).HelpDescription;
+            ViewData["PhoneNumberTip"] = (_context.Helps.FirstOrDefault(h => h.HelpName == "PhoneNumber") as Help).HelpDescription;
+            ViewData["UserAddressTip"] = (_context.Helps.FirstOrDefault(h => h.HelpName == "UserAddress") as Help).HelpDescription;
+            ViewData["PostalCodeTip"] = (_context.Helps.FirstOrDefault(h => h.HelpName == "PostalCode") as Help).HelpDescription;
+            ViewData["StudentNumberTip"] = (_context.Helps.FirstOrDefault(h => h.HelpName == "StudentNumber") as Help).HelpDescription;
+            ViewData["CollegeSubjectTip"] = (_context.Helps.FirstOrDefault(h => h.HelpName == "CollegeSubject") as Help).HelpDescription;
         }
 
 
@@ -165,7 +165,7 @@ namespace CIMOBProject.Controllers
             await _signInManager.SignOutAsync();
             _logger.LogInformation("User logged out.");
             ViewData["UserFullName"] = "";
-            return RedirectToAction(nameof(HomeController.Index), "Home");
+            return RedirectToAction(nameof(HomeController.Logout), "Home");
         }
        
         [HttpGet]
@@ -235,6 +235,7 @@ namespace CIMOBProject.Controllers
                 throw new ApplicationException("A reposição de password precisa de um código.");
             }
             var model = new ResetPasswordViewModel { Code = code };
+            loadHelp();
             return View(model);
         }
 

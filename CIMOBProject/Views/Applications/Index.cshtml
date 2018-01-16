@@ -5,21 +5,20 @@
     ViewData["Title"] = "Index";
 }
 
-<h2>Index</h2>
-
-
+<h1>Candidaturas</h1>
 <form asp-controller="Applications" asp-action="Filter" method="get">
     <select class="search-options" for="filterType" name="filterType">
         <option value="CurrentlySupervising">Atualmente a avaliar</option>
         <option value="NotSupervising">Sem avaliador</option>
+        <option value="NoFilter">Sem filtro</option>
     </select>
 
     <input class="search-box" hidden="hidden" type="text" name="employeeId"  value="@UserManager.GetUserId(User)" />
 
     <input type="submit" class="btn btn-default" value="Filter">
 </form>
-
-<table id="Table" class="table">
+<br />
+<table class="table" id="table">
     <thead>
         <tr>
             <th>
@@ -29,90 +28,51 @@
                 @Html.DisplayNameFor(model => model.Employee)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ArithmeticMean)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ECTS)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.MotivationLetter)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Enterview)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.FinalGrade)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.BilateralProtocol1Id)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.ApplicationStat)
-            </th>
-            <th>
-                Options
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-
 @foreach (var item in Model) {
-    
         <tr>
-            <td>
+            <td id="UserFullName">
                 @Html.DisplayFor(modelItem => item.Student.UserFullname)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Employee.UserFullname)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ArithmeticMean)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ECTS)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.MotivationLetter)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Enterview)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FinalGrade)
-            </td>
-            <td>
-                @if (item.BilateralProtocol1 != null)
-                {
-                    @Html.DisplayFor(modelItem => item.BilateralProtocol1.Destination)
-                }
-                else if (item.BilateralProtocol2 != null)
-                {
-                    @Html.DisplayFor(modelItem => item.BilateralProtocol2.Destination)
-                }
-                else
-                {
-                    @Html.DisplayFor(modelItem => item.BilateralProtocol3.Destination)
-                }
-            </td>
-            <td>
+            <td id="ApplicationStat">
                 @Html.DisplayFor(modelItem => item.ApplicationStat.Name)
             </td>
             <td>
-                @if (item.EmployeeId != null)
-                {
-                    if (item.EmployeeId.Equals(@UserManager.GetUserId(User)))
-                    {
-                        <a asp-action="Edit" asp-route-id="@item.ApplicationId">Edit | </a>
+                @if (item.EmployeeId != null) {
+                    if (item.EmployeeId == @UserManager.GetUserId(User)) {
+                        if (item.ApplicationStatId < 3) {
+                            <a class="btn btn-default" asp-action="Edit" asp-route-id="@item.ApplicationId" id="Edit">Editar</a>
+                            <a class="btn btn-default" asp-action="ScheduleInterview" asp-route-id="@item.ApplicationId">Marcar Entrevista</a>
+                        }
                     }
+
                 }
-                <a id="Details" asp-action="Details" asp-route-id="@item.ApplicationId">Details</a>
+                <a class="btn btn-default" asp-action="Details" asp-route-id="@item.ApplicationId">Detalhes</a>
                 @if (item.EmployeeId == null && User.IsInRole("Employee"))
                 {
-                    <a asp-action="AssignEmployee" asp-route-employeeId="@UserManager.GetUserId(User)" asp-route-applicationId ="@item.ApplicationId"> | Evaluat</a>
+                    <a class="btn btn-default" asp-action="AssignEmployee" asp-route-employeeId="@UserManager.GetUserId(User)" asp-route-applicationId ="@item.ApplicationId" id="Evaluate">Avaliar</a>
+                }
+                @if (item.ApplicationStatId == 4)
+                {
+                    <a class="btn btn-default" asp-controller="Applications" asp-action="CloseApplication" asp-route-studentId="@item.StudentId" id="Finish">Finalizar</a>
                 }
             </td>
         </tr>
 }
     </tbody>
 </table>
+<br />
+@if (Model.Count() == Model.Where(a => a.ApplicationStatId == 3).Count())
+{
+    <a class="btn btn-default" asp-controller="Applications" asp-action="Seriation" id="Seriation">Lançar Seriação</a>
+}
+    <a class="btn btn-default" asp-controller="Quizzs" asp-action="Index">Questionários</a>
+    

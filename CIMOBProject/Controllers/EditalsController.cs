@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using CIMOBProject.Data;
 using CIMOBProject.Models;
 using System.Security.Claims;
+using CIMOBProject.Services;
 
 namespace CIMOBProject.Controllers
 {
@@ -43,7 +44,6 @@ namespace CIMOBProject.Controllers
             {
                 return NotFound();
             }
-
             return View(edital);
         }
 
@@ -51,6 +51,9 @@ namespace CIMOBProject.Controllers
         public IActionResult Create(string userId)
         {
             ViewData["EmployeeId"] = userId;
+
+            loadHelp();
+
             return View();
         }
 
@@ -61,7 +64,6 @@ namespace CIMOBProject.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("OpenDate,CloseDate,Id,EmployeeId,Title,TextContent,IsPublished,DocumentId")] Edital edital, string link)
         {
-
             if (ModelState.IsValid)
             {
                 if (!String.IsNullOrEmpty(link))
@@ -71,9 +73,14 @@ namespace CIMOBProject.Controllers
                 //news.DocumentId = doc.DocumentId;
                 _context.Add(edital);
                 await _context.SaveChangesAsync();
+                EmailSender emailSender = new EmailSender();
+                List<string> emails = _context.Students.Select(s => s.Email).ToList();
+                emailSender.SendMultipleEmail(emails, "Edital Publicado", "Saudações a todos os estudantes, " +
+                    "encontra-se disponivel na plataforma o edital para as novas inscrições de Erasmus nas datas " +
+                    edital.OpenDate.ToShortDateString() + " e " + edital.CloseDate.ToShortDateString() + ". Obrigado, CIMOB");
                 return RedirectToAction("Index", "News");
             }
-            return RedirectToAction("Index", "News");
+            return View(edital);
         }
 
         private Document CreateAndValidateDocument(Edital edital, string link)
@@ -107,7 +114,9 @@ namespace CIMOBProject.Controllers
             {
                 return NotFound();
             }
-          
+
+            loadHelp();
+
             return View(edital);
         }
 
@@ -188,6 +197,15 @@ namespace CIMOBProject.Controllers
             _context.Editals.Remove(edital);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
+        }
+
+        private void loadHelp()
+        {
+            ViewData["OpenDateTip"] = (_context.Helps.FirstOrDefault(h => h.HelpName == "OpenDate") as Help).HelpDescription;
+            ViewData["CloseDateTip"] = (_context.Helps.FirstOrDefault(h => h.HelpName == "CloseDate") as Help).HelpDescription;
+            ViewData["TitleTip"] = (_context.Helps.FirstOrDefault(h => h.HelpName == "Title") as Help).HelpDescription;
+            ViewData["TextContentTip"] = (_context.Helps.FirstOrDefault(h => h.HelpName == "TextContent") as Help).HelpDescription;
+            ViewData["DocumentTip"] = (_context.Helps.FirstOrDefault(h => h.HelpName == "FileURL") as Help).HelpDescription;
         }
 
     }

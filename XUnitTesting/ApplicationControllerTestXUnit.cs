@@ -8,12 +8,13 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 
 namespace XUnitTesting
 {
-    public class DocumentControllerTest
+    public class ApplicationControllerTestXUnit
     {
         private IConfigurationRoot _configuration;
 
@@ -21,7 +22,7 @@ namespace XUnitTesting
         private DbContextOptions<ApplicationDbContext> _options;
         private ApplicationDbContext _context;
 
-        public DocumentControllerTest()
+        public ApplicationControllerTestXUnit()
         {
             var builder = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
@@ -194,76 +195,237 @@ namespace XUnitTesting
                 _context.Editals.Add(new Edital { Title = "Edital teste", TextContent = "Edital publicado", OpenDate = new DateTime(2017, 11, 10), CloseDate = new DateTime(2018, 02, 03) });
                 _context.SaveChanges();
             }
-            if (!_context.Documents.Any())
+
+            if (!_context.ApplicationStatHistory.Any())
             {
-
-                var doc1 = new Document
-                {
-                    Description = "Test document1",
-                    FileUrl = "URL.COM",
-                    UploadDate = DateTime.Now,
-                    ApplicationId = _context.Applications.Where(a => a.ApplicationId == 1).FirstOrDefault().ApplicationId
-                };
-
-                var doc2 = new Document
-                {
-                    Description = "Test document2",
-                    FileUrl = "URL.COM",
-                    UploadDate = DateTime.Now,
-                    ApplicationId = _context.Applications.Where(a => a.ApplicationId == 1).FirstOrDefault().ApplicationId
-                };
-
-                var doc3 = new Document
-                {
-                    Description = "Test document3",
-                    FileUrl = "URL.COM",
-                    UploadDate = DateTime.Now,
-                    ApplicationId = _context.Applications.Where(a => a.ApplicationId == 1).FirstOrDefault().ApplicationId
-                };
-                _context.Documents.Add(doc1);
-                _context.Documents.Add(doc2);
-                _context.Documents.Add(doc3);
+                _context.ApplicationStatHistory.Add(new ApplicationStatHistory { ApplicationId = 1, ApplicationStat = "Avaliação Pendente", DateOfUpdate = DateTime.Now });
+                _context.ApplicationStatHistory.Add(new ApplicationStatHistory { ApplicationId = 1, ApplicationStat = "Em Avaliação", DateOfUpdate = DateTime.Now });
                 _context.SaveChanges();
             }
+
         }
 
 
+
         [Fact]
-        public async Task TestingGetDocumentsFromStudent()
+        public async Task TestingEvaluateApplicationSuccessfull()
         {
-            //InitializeDatabaseWithDataTest();
-            DocumentsController controller = new DocumentsController(_context);
-
-
-
-            String studentId = _context.Students.Where(s => s.UserFullname.Equals("Teste User 1")).FirstOrDefault().Id;
-            int appId = _context.Applications.Where(a => a.StudentId.Equals(studentId)).FirstOrDefault().ApplicationId;
-
+            InitializeDatabaseWithDataTest();
+            ApplicationsController controller = new ApplicationsController(_context);
             // Act
-            var result = await controller.Index(appId);
+            Application appTest = _context.Applications.SingleOrDefault(a => a.ApplicationId == 1);
+            Application appModelTest = new Application
+            {
+                ApplicationId = appTest.ApplicationId,
+                StudentId = _context.Students.Where(s => s.UserFullname.Equals("Teste User 1")).FirstOrDefault().Id,
+                ApplicationStatId = 3,
+                BilateralProtocol1Id = 2,
+                BilateralProtocol2Id = 6,
+                BilateralProtocol3Id = 10,
+                EmployeeId = _context.Employees.Where(s => s.UserFullname.Equals("Empregado Teste")).FirstOrDefault().Id,
+                CreationDate = new DateTime(2017, 11, 13),
+                ArithmeticMean = 15.0,
+                ECTS = 66,
+                MotivationLetter = 15.0,
+                Enterview = 15.0,
+                FinalGrade = 15.0
+            };
+            var result = await controller.Edit(appTest.ApplicationId, appModelTest);
 
             // Assert
-            var viewResult = Assert.IsType<ViewResult>(result);
-            var model = Assert.IsAssignableFrom<IEnumerable<Document>>(
-                viewResult.ViewData.Model);
-            Assert.Equal(3, model.Count());
+            /*var viewResult = Assert.IsType<ViewResult>(result);
+            var model = Assert.IsAssignableFrom<IEnumerable<Employee>>(
+                viewResult.ViewData.Model);*/
+            _context.Entry(appTest).State = EntityState.Detached;
+            appTest = _context.Applications.SingleOrDefault(a => a.ApplicationId == 1);
+            Assert.Equal(15, appTest.FinalGrade);
         }
-        [Fact]
-        public async Task TestingGetDocumentsFromStudentWithNoDocuments()
-        {
-            //InitializeDatabaseWithDataTest();
-            DocumentsController controller = new DocumentsController(_context);
 
-            string studentIndex = _context.Students.Where(m => m.UserFullname == "Teste User 2").First().Id;
-            int appId = _context.Applications.Where(a => a.StudentId.Equals(studentIndex)).FirstOrDefault().ApplicationId;
+        [Fact]
+        public async Task TestingFilterAssignedEmployee()
+        {
+            ApplicationsController controller = new ApplicationsController(_context);
             // Act
-            var result = await controller.Index(appId);
+            String employeeId = _context.Employees.SingleOrDefault(a => a.UserFullname.Equals("Empregado Teste")).Id;
+            var result = await controller.Filter("CurrentlySupervising", employeeId);
 
             // Assert
             var viewResult = Assert.IsType<ViewResult>(result);
-            var model = Assert.IsAssignableFrom<IEnumerable<Document>>(
+            var model = Assert.IsAssignableFrom<IEnumerable<Application>>(
                 viewResult.ViewData.Model);
+            
+            Assert.Equal(2, model.Count());
+        }
+
+        [Fact]
+        public async Task TestingFilterNotAssigned()
+        {
+            ApplicationsController controller = new ApplicationsController(_context);
+            // Act
+            String employeeId = _context.Employees.SingleOrDefault(a => a.UserFullname.Equals("Empregado Teste")).Id;
+            var result = await controller.Filter("NotSupervising", employeeId);
+
+            // Assert
+            var viewResult = Assert.IsType<ViewResult>(result);
+            var model = Assert.IsAssignableFrom<IEnumerable<Application>>(
+                viewResult.ViewData.Model);
+
             Assert.Empty(model);
         }
+
+        [Fact]
+        public async Task TestingNoFilter()
+        {
+            ApplicationsController controller = new ApplicationsController(_context);
+            // Act
+            String employeeId = _context.Employees.SingleOrDefault(a => a.UserFullname.Equals("Empregado Teste")).Id;
+            var result = await controller.Filter("", employeeId);
+
+            // Assert
+            var viewResult = Assert.IsType<ViewResult>(result);
+            var model = Assert.IsAssignableFrom<IEnumerable<Application>>(
+                viewResult.ViewData.Model);
+
+            Assert.Equal(2, model.Count());
+        }
+
+        [Fact]
+        public async Task TestingSeriationSuccessfull()
+        {
+            ApplicationsController controller = new ApplicationsController(_context);
+            // Act
+            var result = await controller.Seriation();
+
+            // Assert
+
+            Assert.Equal(0, _context.Applications.Count(a => a.ApplicationStatId == 3));
+        }
+
+        [Fact]
+        public async Task TestingSeriationNotSuccessfull()
+        {
+            ApplicationsController controller = new ApplicationsController(_context);
+            // Act
+            _context.Applications.First().ApplicationStatId = 1;
+            _context.SaveChanges();
+            var result = await controller.Seriation();
+
+            // Assert
+
+            Assert.Equal(1, _context.Applications.Count(a => a.ApplicationStatId == 3));
+        }
+
+        [Fact]
+        public async Task TestingAssignEmployeeSuccessfull()
+        {
+            ApplicationsController controller = new ApplicationsController(_context);
+            // Act
+            _context.Applications.First().EmployeeId = null;
+            _context.SaveChanges();
+            String employeeId = _context.Employees.SingleOrDefault(a => a.UserFullname.Equals("Empregado Teste")).Id;
+            await controller.AssignEmployee(employeeId, 1);
+            // Assert
+
+            Assert.Equal(employeeId, _context.Applications.First().EmployeeId);
+        }
+
+        [Fact]
+        public async Task TestingAssignEmployeeFailed()
+        {
+            ApplicationsController controller = new ApplicationsController(_context);
+            // Act
+            String employeeId1 = _context.Employees.SingleOrDefault(a => a.UserFullname.Equals("Empregado Teste1")).Id;
+            String employeeId2 = _context.Employees.SingleOrDefault(a => a.UserFullname.Equals("Empregado Teste")).Id;
+            await controller.AssignEmployee(employeeId1, 1);
+            // Assert
+
+            Assert.Equal(employeeId2, _context.Applications.First().EmployeeId);
+        }
+
+        [Fact]
+        public async Task TestingDisplaySeriationAfterSeriation()
+        {
+            InitializeDatabaseWithDataTest();
+            ApplicationsController controller = new ApplicationsController(_context);
+            // Act
+            await controller.Seriation();
+            var result = await controller.DisplaySeriation();
+            // Assert
+            var viewResult = Assert.IsType<ViewResult>(result);
+            var model = Assert.IsAssignableFrom<IEnumerable<Application>>(
+                viewResult.ViewData.Model);
+
+            Assert.Equal(2, model.Count());
+        }
+
+        [Fact]
+        public async Task TestingDisplaySeriationBeforeSeriation()
+        {
+            InitializeDatabaseWithDataTest();
+            ApplicationsController controller = new ApplicationsController(_context);
+            // Act
+            var result = await controller.DisplaySeriation();
+            // Assert
+            var viewResult = Assert.IsType<ViewResult>(result);
+            var model = Assert.IsAssignableFrom<IEnumerable<Application>>(
+                viewResult.ViewData.Model);
+
+            Assert.Empty(model);
+        }
+
+        [Fact]
+        public async Task TestingApplicationHistory()
+        {
+            ApplicationsController controller = new ApplicationsController(_context);
+            // Act
+            String studentId = _context.Students.Where(s => s.UserFullname.Equals("Teste User 1")).FirstOrDefault().Id;
+            var result = await controller.ApplicationHistory(studentId);
+            // Assert
+            var viewResult = Assert.IsType<ViewResult>(result);
+            var model = Assert.IsAssignableFrom<IEnumerable<ApplicationStatHistory>>(
+                viewResult.ViewData.Model);
+
+            Assert.Equal(2, model.Count());
+        }
+
+        [Fact]
+        public async Task TestingApplicationClosingSuccessfull()
+        {
+            ApplicationsController controller = new ApplicationsController(_context);
+            // Act
+            String studentId = _context.Students.Where(s => s.UserFullname.Equals("Teste User 1")).FirstOrDefault().Id;
+            var application = await _context.Applications.SingleOrDefaultAsync(a => a.ApplicationId == 1);
+            application.ApplicationStatId = 4;
+            _context.SaveChanges();
+            String currentEmployee = _context.Employees.Where(s => s.UserFullname.Equals("Empregado Teste")).FirstOrDefault().Id;
+            await controller.FinishApplication(application.ApplicationId, currentEmployee);
+
+            _context.Entry(application).State = EntityState.Detached;
+
+            application = await _context.Applications.SingleOrDefaultAsync(a => a.ApplicationId == 1);
+            // Assert
+
+            Assert.Equal(6, application.ApplicationStatId);
+        }
+
+        [Fact]
+        public async Task TestingApplicationClosingFailed()
+        {
+            ApplicationsController controller = new ApplicationsController(_context);
+            // Act
+            String studentId = _context.Students.Where(s => s.UserFullname.Equals("Teste User 1")).FirstOrDefault().Id;
+            var application = await _context.Applications.SingleOrDefaultAsync(a => a.ApplicationId == 1);
+            application.ApplicationStatId = 2;
+            _context.SaveChanges();
+            String currentEmployee = _context.Employees.Where(s => s.UserFullname.Equals("Empregado Teste")).FirstOrDefault().Id;
+            await controller.FinishApplication(application.ApplicationId, currentEmployee);
+
+            _context.Entry(application).State = EntityState.Detached;
+
+            application = await _context.Applications.SingleOrDefaultAsync(a => a.ApplicationId == 1);
+            // Assert
+            Assert.Equal(2, application.ApplicationStatId);
+        }
+
     }
 }

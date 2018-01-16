@@ -15,13 +15,13 @@
             <div class="create-edital-dates">
                 <h4>Datas</h4>
                 <div class="form-group">
-                    <label asp-for="OpenDate" class="control-label"></label>
-                    <input asp-for="OpenDate" class="form-control" />
+                    <label asp-for="OpenDate" class="control-label"></label>  <div class="tooltip">(?)<span class="tooltiptext">@ViewData["OpenDateTip"]</span></div>
+                    <input asp-for="OpenDate" class="form-control" id="OpenDate"/>
                     <span asp-validation-for="OpenDate" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="CloseDate" class="control-label"></label>
-                    <input asp-for="CloseDate" class="form-control" />
+                    <label asp-for="CloseDate" class="control-label"></label>  <div class="tooltip">(?)<span class="tooltiptext">@ViewData["CloseDateTip"]</span></div>
+                    <input asp-for="CloseDate" class="form-control" id="CloseDate"/>
                     <span asp-validation-for="CloseDate" class="text-danger"></span>
                 </div>
             </div>
@@ -29,23 +29,23 @@
             <div class="create-edital-content">
                 <h4>Conteúdo</h4>
                 <div class="form-group">
-                    <label asp-for="Title" class="control-label"></label>
-                    <input asp-for="Title" class="form-control" />
+                    <label asp-for="Title" class="control-label"></label>  <div class="tooltip">(?)<span class="tooltiptext">@ViewData["TitleTip"]</span></div>
+                    <input asp-for="Title" class="form-control" id="Title"/>
                     <span asp-validation-for="Title" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="TextContent" class="control-label"></label>
-                    <textarea asp-for="TextContent" class="form-control"></textarea>
+                    <label asp-for="TextContent" class="control-label"></label>  <div class="tooltip">(?)<span class="tooltiptext">@ViewData["TextTitleTip"]</span></div>
+                    <textarea asp-for="TextContent" class="form-control" id="TextContent"></textarea>
                     <span asp-validation-for="TextContent" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label for="link-text" class="control-label">Link do documento</label><br />
+                    <label for="link-text" class="control-label">Link do documento</label>  <div class="tooltip">(?)<span class="tooltiptext">@ViewData["DocumentTip"]</span></div><br />
                     <input id="link-text" type="text" name="link" class="form-control" />
                 </div>
             </div>
             <hr />
             <div class="form-group">
-                <input type="submit" value="Criar Edital" class="btn btn-default" />
+                <input type="submit" value="Criar Edital" class="btn btn-default" id="EditalSubmit" />
                 <a class="btn btn-default" asp-controller="News" asp-action="Index">Voltar Atrás</a>
             </div>
         </form>

@@ -9,8 +9,9 @@
 
 <h1>@Html.DisplayFor(model => model.Title)</h1>
 <div>
-    <h3 class="description">@Html.DisplayFor(model => model.TextContent)</h3>
-    <label>@Html.DisplayNameFor(model => model.Document):&nbsp;</label>@Html.DisplayFor(model => model.Document.FileUrl)
+    @Html.DisplayFor(model => model.TextContent)
+    <hr />
+    <label>@Html.DisplayNameFor(model => model.Document):&nbsp;</label><a href="@Html.DisplayFor(model => model.Document.FileUrl)">@Html.DisplayFor(model => model.Document.FileUrl)</a>
     <br />
     <label>Publicado por:&nbsp;</label>@Html.DisplayFor(model => model.Employee.UserFullname)
 </div>

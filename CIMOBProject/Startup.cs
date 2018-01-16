@@ -113,8 +113,12 @@ namespace CIMOBProject
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
+                    name: "seriations",
+                    template: "News/Seriacoes",
+                    defaults: new { controller = "Applications", action = "DisplaySeriation" });
+                routes.MapRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                    template: "{controller=Home}/{action=Index}/{id?}");                
             });
             var serviceScope = app.ApplicationServices.CreateScope();
             var userManager = serviceScope.ServiceProvider.GetService<UserManager<ApplicationUser>>();            

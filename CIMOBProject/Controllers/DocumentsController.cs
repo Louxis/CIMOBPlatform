@@ -7,10 +7,15 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CIMOBProject.Data;
 using CIMOBProject.Models;
+using System.Security.Claims;
 
 namespace CIMOBProject.Controllers {
     public class DocumentsController : Controller {
         private readonly ApplicationDbContext _context;
+
+        private const int MINIMUM_STAT_ID = 3;
+
+        private const int REJECTED_STAT_ID = 5;
 
         public DocumentsController(ApplicationDbContext context)
         {
@@ -22,14 +27,25 @@ namespace CIMOBProject.Controllers {
         {
             var latestEdital = _context.Editals.OrderByDescending(e => e.Id).FirstOrDefault();
             
-            var applicationContext = _context.Applications.Include(a => a.Student).Where(s => s.ApplicationId == applicationId).FirstOrDefault();
-            ViewData["StudentName"] = applicationContext.Student.UserFullname;
+            var application = _context.Applications.Include(a => a.Student).Where(s => s.ApplicationId == applicationId).FirstOrDefault();
+            ViewData["StudentName"] = application.Student.UserFullname;
+            ViewData["ApplicationId"] = applicationId;
+            if(User.IsInRole("Employee") && 
+                (application.ApplicationStatId < MINIMUM_STAT_ID ||
+                application.ApplicationStatId == REJECTED_STAT_ID)) 
+            {
+                ViewData["EvaluationApp"] = "true";
+            }
+            else
+            {
+                ViewData["EvaluationApp"] = "false";
+            }
             var applicationDbContext = _context.Documents.Include(d => d.Application).Where(s => s.ApplicationId == applicationId && ( latestEdital.OpenDate <= s.Application.CreationDate) && (s.Application.CreationDate <= latestEdital.CloseDate));
             if (applicationDbContext == null)
             {
                 return NotFound();
             }
-            //ViewData["studentName"] = applicationDbContext.First().Student.UserFullname;
+            
             return View(await applicationDbContext.ToListAsync());
         }
 
@@ -52,23 +68,22 @@ namespace CIMOBProject.Controllers {
         }
 
         // GET: Documents/Create
-        public IActionResult Create(string userId)
+        public IActionResult Create(int applicationId)
         {
-            if (User.IsInRole("Employee"))
-            {
-                return RedirectToAction("Application", "Home", new { message = "Não tem permissão para aceder a esta funcionalidade" });
-            }
-            var latestEdital = _context.Editals.OrderByDescending(a => a.Id).FirstOrDefault();
-
-            var application = _context.Applications.Where(a => a.StudentId == userId 
-                                        && (latestEdital.OpenDate <= a.CreationDate) 
-                                        && (a.CreationDate <= latestEdital.CloseDate)).First();
-
-            ViewData["ApplicationId"] = application.ApplicationId;
+            //var latestEdital = _context.Editals.OrderByDescending(a => a.Id).FirstOrDefault();
+            ViewData["ApplicationId"] = applicationId;
+            Application application = _context.Applications.Where(a => a.ApplicationId == applicationId).FirstOrDefault();
+            if (application != null) {
+                if (User.IsInRole("Employee") &&
+                (application.ApplicationStatId < MINIMUM_STAT_ID ||
+                application.ApplicationStatId == REJECTED_STAT_ID)) {
+                    return RedirectToAction("Application", "Home", new { message = "Não pode carregar documentos se o aluno se encontra em avaliação." });
+                }
+            }            
             //ViewData["Date"] = DateTime.Now;
             loadHelp();
             return View();
-        }
+        }      
 
         // POST: Documents/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
@@ -77,16 +92,17 @@ namespace CIMOBProject.Controllers {
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("DocumentId,Description,FileUrl,UploadDate,ApplicationId")] Document document)
         {
-            int currentApplicationId = 0;
-
             if (ModelState.IsValid)
             {
                 document.UploadDate = DateTime.Now;
-                currentApplicationId = document.ApplicationId.Value;
+                if (User.IsInRole("Employee")) 
+                {
+                    document.EmployeeId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+                }
                 _context.Add(document);
                 await _context.SaveChangesAsync();
             }
-            return RedirectToAction("Index", "Documents", new { applicationId = currentApplicationId });
+            return RedirectToAction("Index", "Documents", new { applicationId = document.ApplicationId.GetValueOrDefault() });
         }
 
         // GET: Documents/Edit/5
@@ -185,8 +201,8 @@ namespace CIMOBProject.Controllers {
 
         private void loadHelp()
         {
-            ViewData["DescriptionTip"] = (_context.Helps.FirstOrDefault(h => h.Id == 14) as Help).HelpDescription;
-            ViewData["FileURLTip"] = (_context.Helps.FirstOrDefault(h => h.Id == 15) as Help).HelpDescription;
+            ViewData["DescriptionTip"] = (_context.Helps.FirstOrDefault(h => h.HelpName == "Description") as Help).HelpDescription;
+            ViewData["FileURLTip"] = (_context.Helps.FirstOrDefault(h => h.HelpName == "FileURL") as Help).HelpDescription;
         }
     }
 }

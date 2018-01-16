@@ -8,7 +8,7 @@
 }
 
 <h1>Publicações</h1>
-<h3 class="description">Aqui encontra as mais recentes notícias referentes aos processos de mobilidade.</h3>
+<h3 class="description">Aqui encontra todas as notícias referentes aos processos de mobilidade.</h3>
 <table class="table">
     <thead>
         <tr>
@@ -46,12 +46,12 @@
                 }
                 else
                 {
-                    <td>Nao</td>
+                    <td>Não</td>
                 }
             <td align="center">
                 @if (item.IsPublished == false)
                 {
-                    <a class="btn btn-default" asp-action="Publish" asp-controller="News" asp-route-id="@item.Id">Publicar</a>
+                    <a class="btn btn-default" asp-action="Publish" asp-controller="News" asp-route-id="@item.Id" id="Publish">Publicar</a>
                 }
                 @if (item.GetType() == typeof(Edital))
                 {
@@ -74,8 +74,8 @@
 @if (SignInManager.IsSignedIn(User) && User.IsInRole("Employee"))
 {
     <div>
-        <a class="btn btn-default" asp-area="" asp-controller="News" asp-action="Create" asp-route-userId="@UserManager.GetUserId(User)">Nova Publicação</a>
-        <a class="btn btn-default" asp-area="" asp-controller="Editals" asp-action="Create" asp-route-userId="@UserManager.GetUserId(User)">Novo Edital</a>
+        <a class="btn btn-default" asp-area="" asp-controller="News" asp-action="Create" asp-route-userId="@UserManager.GetUserId(User)" id="CreateNews">Nova Publicação</a>
+        <a class="btn btn-default" asp-area="" asp-controller="Editals" asp-action="Create" asp-route-userId="@UserManager.GetUserId(User)" id="CreateEdital">Novo Edital</a>
     </div>
 }
 

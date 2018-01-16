@@ -9,7 +9,8 @@
 
 <h1>@Html.DisplayFor(model => model.Title)</h1>
 <div>
-    <h3 class="description">@Html.DisplayFor(model => model.TextContent)</h3>
+    @Html.DisplayFor(model => model.TextContent)
+    <hr />
     <label>@Html.DisplayNameFor(model => model.OpenDate):&nbsp;</label>@Html.DisplayFor(model => model.OpenDate)
     <br />
     <label>@Html.DisplayNameFor(model => model.CloseDate):&nbsp;</label>@Html.DisplayFor(model => model.CloseDate)

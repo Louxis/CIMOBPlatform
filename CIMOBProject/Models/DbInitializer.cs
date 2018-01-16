@@ -58,18 +58,18 @@ namespace CIMOBProject.Models {
 
             if (!context.BilateralProtocols.Any())
             {
-                context.BilateralProtocols.Add(new BilateralProtocol { SubjectId = 1, Destination = "Lithuania", OpenSlots = 1 });
-                context.BilateralProtocols.Add(new BilateralProtocol { SubjectId = 2, Destination = "Spain", OpenSlots = 1 });
-                context.BilateralProtocols.Add(new BilateralProtocol { SubjectId = 3, Destination = "Testing1", OpenSlots = 1 });
-                context.BilateralProtocols.Add(new BilateralProtocol { SubjectId = 4, Destination = "Testing2", OpenSlots = 1 });
-                context.BilateralProtocols.Add(new BilateralProtocol { SubjectId = 1, Destination = "Lithuania", OpenSlots = 1 });
-                context.BilateralProtocols.Add(new BilateralProtocol { SubjectId = 2, Destination = "Testing4", OpenSlots = 1 });
-                context.BilateralProtocols.Add(new BilateralProtocol { SubjectId = 3, Destination = "Testing5", OpenSlots = 1 });
-                context.BilateralProtocols.Add(new BilateralProtocol { SubjectId = 4, Destination = "Testing6", OpenSlots = 1 });
-                context.BilateralProtocols.Add(new BilateralProtocol { SubjectId = 1, Destination = "Testing7", OpenSlots = 1 });
-                context.BilateralProtocols.Add(new BilateralProtocol { SubjectId = 2, Destination = "Testing8", OpenSlots = 1 });
-                context.BilateralProtocols.Add(new BilateralProtocol { SubjectId = 3, Destination = "Testing9", OpenSlots = 1 });
-                context.BilateralProtocols.Add(new BilateralProtocol { SubjectId = 4, Destination = "Testing10", OpenSlots = 1 });
+                context.BilateralProtocols.Add(new BilateralProtocol { SubjectId = 1, Destination = "França", OpenSlots = 1 });
+                context.BilateralProtocols.Add(new BilateralProtocol { SubjectId = 2, Destination = "Espanha", OpenSlots = 1 });
+                context.BilateralProtocols.Add(new BilateralProtocol { SubjectId = 3, Destination = "Italia", OpenSlots = 1 });
+                context.BilateralProtocols.Add(new BilateralProtocol { SubjectId = 4, Destination = "Romenia", OpenSlots = 1 });
+                context.BilateralProtocols.Add(new BilateralProtocol { SubjectId = 1, Destination = "Lituania", OpenSlots = 1 });
+                context.BilateralProtocols.Add(new BilateralProtocol { SubjectId = 2, Destination = "Polónia", OpenSlots = 1 });
+                context.BilateralProtocols.Add(new BilateralProtocol { SubjectId = 3, Destination = "Russia", OpenSlots = 1 });
+                context.BilateralProtocols.Add(new BilateralProtocol { SubjectId = 4, Destination = "Londres", OpenSlots = 1 });
+                context.BilateralProtocols.Add(new BilateralProtocol { SubjectId = 1, Destination = "Irlanda", OpenSlots = 1 });
+                context.BilateralProtocols.Add(new BilateralProtocol { SubjectId = 2, Destination = "Turquia", OpenSlots = 1 });
+                context.BilateralProtocols.Add(new BilateralProtocol { SubjectId = 3, Destination = "França", OpenSlots = 1 });
+                context.BilateralProtocols.Add(new BilateralProtocol { SubjectId = 4, Destination = "Alemanha", OpenSlots = 1 });
                 context.SaveChanges();
             }
 
@@ -265,21 +265,21 @@ namespace CIMOBProject.Models {
 
             if (!context.Applications.Any())
             {
-                context.Applications.Add(new Application
+                /*context.Applications.Add(new Application
                 {
                     StudentId = context.Students.Where(s => s.UserFullname.Equals("Teste User 4")).FirstOrDefault().Id,
                     ApplicationStatId = 3,
                     BilateralProtocol1Id = 2,
                     BilateralProtocol2Id = 6,
                     BilateralProtocol3Id = 10,
-                    EmployeeId = context.Employees.Where(s => s.UserFullname.Equals("Empregado Teste")).FirstOrDefault().Id,
+                    //EmployeeId = context.Employees.Where(s => s.UserFullname.Equals("Empregado Teste")).FirstOrDefault().Id,
                     CreationDate = new DateTime(2017, 11, 11),
                     ArithmeticMean = 7.0,
                     ECTS = 78,
                     MotivationLetter = 8.0,
                     Enterview = 9.0,
                     FinalGrade = 8.0
-                });
+                });*/
                 context.Applications.Add(new Application
                 {
                     StudentId = context.Students.Where(s => s.UserFullname.Equals("Teste User 2")).FirstOrDefault().Id,
@@ -314,7 +314,7 @@ namespace CIMOBProject.Models {
                 });
                 
 
-                context.Applications.Add(new Application
+                /*context.Applications.Add(new Application
                 {
                     StudentId = context.Students.Where(s => s.UserFullname.Equals("Teste User 1")).FirstOrDefault().Id,
                     ApplicationStatId = 3,
@@ -328,7 +328,7 @@ namespace CIMOBProject.Models {
                     MotivationLetter = 20.0,
                     Enterview = 20.0,
                     FinalGrade = 20.0
-                });
+                });*/
 
                 context.Applications.Add(new Application
                 {
@@ -382,28 +382,47 @@ namespace CIMOBProject.Models {
 
             if (!context.Editals.Any())
             {
-                context.Editals.Add(new Edital {Title = "Edital teste", TextContent = "Edital publicado", OpenDate = new DateTime(2017,11,10), CloseDate = new DateTime(2018,02,03) });
+                context.Editals.Add(new Edital {
+                    Title = "Edital teste",
+                    TextContent = "Edital publicado",
+                    OpenDate = new DateTime(2017,11,10),
+                    CloseDate = new DateTime(2018,02,03),
+                    IsPublished = true });
                 context.SaveChanges();
             }
 
 
             if (!context.Helps.Any())
             {
-                context.Helps.Add(new Help { HelpDescription = "O nome deve ser constituido por vários caracteres que não incluam digitos nem caracteres especiais (*,+,_,etc.). Exe: Fernando Pessoa" });
-                context.Helps.Add(new Help { HelpDescription = "O email seguir a estrutura valida dos emails. Exe: nomeExemplo@dominio.com." });
-                context.Helps.Add(new Help { HelpDescription = "A password tem de ter um minimo de 6 caracteres. Exe: 123456." });
-                context.Helps.Add(new Help { HelpDescription = "A password tem de ser identica à que foi introduzida anteriormente. Seguindo o exemplo anterior: 123456." });
-                context.Helps.Add(new Help { HelpDescription = "O numero de telemóvel tem de ter 9 digitos. Exe: 960000000" });
-                context.Helps.Add(new Help { HelpDescription = "Deve conter o nome da rua, o edificio e o andar. Exe: Avenida Dom Afonso Henriques nº 1" });
-                context.Helps.Add(new Help { HelpDescription = "Deve seguir a estrutura dos códigos postais. Exe: 2000-100" });
-                context.Helps.Add(new Help { HelpDescription = "A data de nascimento deve seguir a estrutura de mês, dia, ano. Exe: 1/13/1994" });
-                context.Helps.Add(new Help { HelpDescription = "O CC deve ser constituido por 8 digitos." });
-                context.Helps.Add(new Help { HelpDescription = "O número de estudante deve ser constituido por 9 digitos." });
-                context.Helps.Add(new Help { HelpDescription = "Deve selecionar um curso da lista. Exe: EI" });
-                context.Helps.Add(new Help { HelpDescription = "A Nota do Teste de línguas tem um valor de 0 a 20." });
-                context.Helps.Add(new Help { HelpDescription = "O número de funcionário deve ser constituido por 9 digitos." });
-                context.Helps.Add(new Help { HelpDescription = "A descrição deve descrever sumáriamente o documento." });
-                context.Helps.Add(new Help { HelpDescription = "Insira o URL de onde está hospedado o seu documento." });
+                context.Helps.Add(new Help { HelpName = "UserName", HelpDescription = "O nome deve ser constituido por vários caracteres que não incluam digitos nem caracteres especiais (*,+,_,etc.). Exe: Fernando Pessoa" });
+                context.Helps.Add(new Help { HelpName = "Email", HelpDescription = "O email seguir a estrutura valida dos emails. Exe: nomeExemplo@dominio.com." });
+                context.Helps.Add(new Help { HelpName = "Password", HelpDescription = "A password tem de ter um minimo de 6 caracteres. Exe: 123456." });
+                context.Helps.Add(new Help { HelpName = "ConfirmPassword", HelpDescription = "A password tem de ser identica à que foi introduzida anteriormente. Seguindo o exemplo anterior: 123456." });
+                context.Helps.Add(new Help { HelpName = "PhoneNumber", HelpDescription = "O numero de telemóvel tem de ter 9 digitos. Exe: 960000000" });
+                context.Helps.Add(new Help { HelpName = "UserAddress", HelpDescription = "Deve conter o nome da rua, o edificio e o andar. Exe: Avenida Dom Afonso Henriques nº 1" });
+                context.Helps.Add(new Help { HelpName = "PostalCode", HelpDescription = "Deve seguir a estrutura dos códigos postais. Exe: 2000-100" });
+                context.Helps.Add(new Help { HelpName = "BirthDate", HelpDescription = "A data de nascimento deve seguir a estrutura de mês, dia, ano. Exe: 1/13/1994" });
+                context.Helps.Add(new Help { HelpName = "UserCc", HelpDescription = "O CC deve ser constituido por 8 digitos." });
+                context.Helps.Add(new Help { HelpName = "StudentNumber", HelpDescription = "O número de estudante deve ser constituido por 9 digitos." });
+                context.Helps.Add(new Help { HelpName = "CollegeSubject", HelpDescription = "Deve selecionar um curso da lista. Exe: EI" });
+                context.Helps.Add(new Help { HelpName = "ALOGrade", HelpDescription = "A Nota do Teste de línguas tem um valor de 0 a 20." });
+                context.Helps.Add(new Help { HelpName = "EmployeeNumber", HelpDescription = "O número de funcionário deve ser constituido por 9 digitos." });
+                context.Helps.Add(new Help { HelpName = "Description", HelpDescription = "A descrição deve descrever sumáriamente o documento." });
+                context.Helps.Add(new Help { HelpName = "FileURL", HelpDescription = "Insira o URL de onde está hospedado o seu documento." });
+                context.Helps.Add(new Help { HelpName = "CurrentPassword", HelpDescription = "Insira a sua password atual" });
+                context.Helps.Add(new Help { HelpName = "Bilateral", HelpDescription = "Escolha o destino que deseja." });
+                context.Helps.Add(new Help { HelpName = "MotivationLetter", HelpDescription = "Escreva a razão pela qual deseja ingressar no programa Erasmus." });
+                context.Helps.Add(new Help { HelpName = "Grade", HelpDescription = "Insira a nota aritmética do estudante, no valor de 0 a 20." });
+                context.Helps.Add(new Help { HelpName = "MotivationGrade", HelpDescription = "Insira a nota da motivação do estudante, no valor de 0 a 20." });
+                context.Helps.Add(new Help { HelpName = "Interview", HelpDescription = "Insira a nota da entrevista do estudante, no valor de 0 a 20." });
+                context.Helps.Add(new Help { HelpName = "Title", HelpDescription = "Insira o título que deseja dar à sua publicação." });
+                context.Helps.Add(new Help { HelpName = "TextContent", HelpDescription = "Insira o conteúdo da publicação." });
+                context.Helps.Add(new Help { HelpName = "OpenDate", HelpDescription = "Insira a data de início da fase de candidaturas." });
+                context.Helps.Add(new Help { HelpName = "CloseDate", HelpDescription = "Insira a data de encerramento da fase de candidaturas." });
+                context.Helps.Add(new Help { HelpName = "Year", HelpDescription = "Insira o ano a que se refere o questionário." });
+                context.Helps.Add(new Help { HelpName = "Semester", HelpDescription = "Insira o semestre a que se refere o questionário." });
+                context.Helps.Add(new Help { HelpName = "QuizURL", HelpDescription = "Insira o URL de onde está hospedado o questionário." });
+                context.Helps.Add(new Help { HelpName = "InterviewDate", HelpDescription = "Insira a data na qual pretende efetuar a entrevista ao aluno." });
                 context.SaveChanges();
             }
         }
