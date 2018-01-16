@@ -7,6 +7,12 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
     <Grid>
-        <DataGrid Name="employeesGrd"></DataGrid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="50*"/>
+        </Grid.RowDefinitions>
+        <ContentControl x:Name="contentControl"></ContentControl>
+        <Button Grid.Row="1" Width="100" Height="100" Click="changeContent"></Button>
+         <DataGrid Grid.Row="0" Name="employeesGrd"></DataGrid>
     </Grid>
 </Window>

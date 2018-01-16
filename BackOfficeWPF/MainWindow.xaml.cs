@@ -1,4 +1,5 @@
-﻿using CIMOBProject.Models;
+﻿using BackOfficeWPF.Dialogs;
+using CIMOBProject.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System;
@@ -28,6 +29,7 @@ namespace BackOfficeWPF
         public MainWindow()
         {
             InitializeComponent();
+            contentControl.Content = new TestControl();
             //this.DataContext = _db.Users.Local;
             //UserManager<Employee> userManager = new UserManager<Employee>(new UserStore<Employee>(new ApplicationDbContext()));
             //var user = new Employee
@@ -47,7 +49,20 @@ namespace BackOfficeWPF
             //var role = _db.Roles.SingleOrDefault(m => m.Name == "Employee");
             //userManager.AddToRoleAsync(user.Id,role.Name).Wait();
             //_db.SaveChanges();
-            employeesGrd.ItemsSource = _db.Students.Select(s => new { s.UserFullname, s.StudentNumber, s.CollegeSubject.SubjectName, s.CollegeSubject.College.CollegeName }).ToList();
+            employeesGrd.ItemsSource = _db.BilateralProtocols.Select(s => new { s.Destination, s.OpenSlots, s.Subject.SubjectName }).ToList();
+            employeesGrd.IsSynchronizedWithCurrentItem = true;
+        }
+
+        private void changeContent(object sender, RoutedEventArgs e)
+        {
+            BilateralDialog dialog = new BilateralDialog();
+            if (dialog.ShowDialog() == true)
+            {
+                MessageBox.Show(dialog.BilateralProtocol.SubjectId + "");
+                _db.BilateralProtocols.Add(dialog.BilateralProtocol);
+                _db.SaveChanges();
+                employeesGrd.ItemsSource = _db.BilateralProtocols.Select(s => new { s.Destination, s.OpenSlots, s.Subject.SubjectName }).ToList();
+            }
         }
     }
 }
