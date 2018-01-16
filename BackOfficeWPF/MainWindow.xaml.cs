@@ -47,7 +47,7 @@ namespace BackOfficeWPF
             //var role = _db.Roles.SingleOrDefault(m => m.Name == "Employee");
             //userManager.AddToRoleAsync(user.Id,role.Name).Wait();
             //_db.SaveChanges();
-            employeesGrd.ItemsSource = _db.Students.ToList();
+            employeesGrd.ItemsSource = _db.Students.Select(s => new { s.UserFullname, s.StudentNumber, s.CollegeSubject.SubjectName, s.CollegeSubject.College.CollegeName }).ToList();
         }
     }
 }
