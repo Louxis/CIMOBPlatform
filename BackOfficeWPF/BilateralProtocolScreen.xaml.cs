@@ -1,7 +1,6 @@
 ﻿using CIMOBProject.Models;
 using System;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,23 +11,21 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace BackOfficeWPF
-{
+namespace BackOfficeWPF {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for BilateralProtocolScreen.xaml
     /// </summary>
-    public partial class MainWindow : Window
-    {
+    public partial class BilateralProtocolScreen : UserControl {
         ApplicationDbContext _db = new ApplicationDbContext();
-
-        public MainWindow()
+        public BilateralProtocol currentProtocol;
+        public BilateralProtocolScreen()
         {
             InitializeComponent();
-            //this.DataContext = _db.Users.Local;
-            this.contentControl.Content = new BilateralProtocolScreen(); 
+            bilateralGrd.ItemsSource = _db.BilateralProtocols.Select(e => new { e.Destination, e.Subject.SubjectName}).ToList();
+            bilateralGrd.IsSynchronizedWithCurrentItem = true;
+            currentProtocol = _db.BilateralProtocols.First();
         }
 
         private void AtualizarControlos()
@@ -47,12 +44,11 @@ namespace BackOfficeWPF
 
         private void ButtonFirst_Click(object sender, RoutedEventArgs e)
         {
-            //ListBoxEmpresas.Items.MoveCurrentToFirst();
-            //if (ListBoxEmpresas.Items.CurrentItem != null)
-            //{
-            //    empresaAtual = ListBoxEmpresas.Items.CurrentItem as Empresa;
-            //    AtualizarControlos();
-            //}
+            bilateralGrd.Items.MoveCurrentToFirst();
+            if (bilateralGrd.Items.CurrentItem != null)
+            {
+                currentProtocol = bilateralGrd.Items.CurrentItem as BilateralProtocol;
+            }
         }
 
         private void ButtonPrevious_Click(object sender, RoutedEventArgs e)
@@ -157,22 +153,7 @@ namespace BackOfficeWPF
 
         private void ButtonEmployee(object sender, RoutedEventArgs e)
         {
-            this.contentControl.Content = new EmployeeScreen();
+            this.Content = new EmployeeScreen();
         }
-
-        private void ButtonProtocol(object sender, RoutedEventArgs e)
-        {
-            this.contentControl.Content = new BilateralProtocolScreen();
-        }
-
-        private void ButtonStudent(object sender, RoutedEventArgs e)
-        {
-            this.contentControl.Content = new StudentScreen();
-        }
-        private void ButtonNews(object sender, RoutedEventArgs e)
-        {
-            this.contentControl.Content = new EmployeeScreen();
-        }
-
     }
 }

@@ -1,7 +1,5 @@
-﻿using CIMOBProject.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,24 +10,22 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace BackOfficeWPF
-{
+namespace BackOfficeWPF {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for EmployeeScreen.xaml
     /// </summary>
-    public partial class MainWindow : Window
-    {
-        ApplicationDbContext _db = new ApplicationDbContext();
+    public partial class EmployeeScreen : UserControl {
 
-        public MainWindow()
+        ApplicationDbContext _db = new ApplicationDbContext();
+        public EmployeeScreen()
         {
             InitializeComponent();
-            //this.DataContext = _db.Users.Local;
-            this.contentControl.Content = new BilateralProtocolScreen(); 
+            employeesGrd.ItemsSource = _db.Employees.Select(e => new { e.UserName, e.UserFullname, e.UserCc, e.Email }).ToList();
+            employeesGrd.IsSynchronizedWithCurrentItem = true;
         }
+
 
         private void AtualizarControlos()
         {
@@ -154,25 +150,5 @@ namespace BackOfficeWPF
             //    AtualizarControlos();
             //}
         }
-
-        private void ButtonEmployee(object sender, RoutedEventArgs e)
-        {
-            this.contentControl.Content = new EmployeeScreen();
-        }
-
-        private void ButtonProtocol(object sender, RoutedEventArgs e)
-        {
-            this.contentControl.Content = new BilateralProtocolScreen();
-        }
-
-        private void ButtonStudent(object sender, RoutedEventArgs e)
-        {
-            this.contentControl.Content = new StudentScreen();
-        }
-        private void ButtonNews(object sender, RoutedEventArgs e)
-        {
-            this.contentControl.Content = new EmployeeScreen();
-        }
-
     }
 }
