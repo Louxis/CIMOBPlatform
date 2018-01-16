@@ -14,8 +14,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WPF", "WPF\WPF.csproj", "{E
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BackOfficeWPF", "BackOfficeWPF\BackOfficeWPF.csproj", "{0D8CA2D2-32AD-4C94-9206-22E6EDE83343}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WPFDbTest", "WPFDbTest\WPFDbTest.csproj", "{32DF2FBC-E434-485D-8E53-85BB43D3BD42}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -38,10 +36,6 @@ Global
 		{0D8CA2D2-32AD-4C94-9206-22E6EDE83343}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0D8CA2D2-32AD-4C94-9206-22E6EDE83343}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0D8CA2D2-32AD-4C94-9206-22E6EDE83343}.Release|Any CPU.Build.0 = Release|Any CPU
-		{32DF2FBC-E434-485D-8E53-85BB43D3BD42}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{32DF2FBC-E434-485D-8E53-85BB43D3BD42}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{32DF2FBC-E434-485D-8E53-85BB43D3BD42}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{32DF2FBC-E434-485D-8E53-85BB43D3BD42}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

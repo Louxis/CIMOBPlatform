@@ -7,18 +7,6 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="90"/>
-            <ColumnDefinition Width="270"/>
-            <ColumnDefinition/>
-        </Grid.ColumnDefinitions>
-        <ListBox Name="ListBoxEmpresas" Grid.Row="0" Grid.Column="1" Grid.RowSpan="4" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontFamily="Courier New" FontWeight="Black" IsSynchronizedWithCurrentItem="True" Grid.ColumnSpan="2" Margin="190,0,0,-99" DisplayMemberPath=""/>
-
+        <DataGrid Name="employeesGrd"></DataGrid>
     </Grid>
 </Window>
