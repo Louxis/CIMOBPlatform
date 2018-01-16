@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{E7DC9B22-632C-41AD-9A2B-EAE5824325EA}</ProjectGuid>
+    <ProjectGuid>{32DF2FBC-E434-485D-8E53-85BB43D3BD42}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>WPF</RootNamespace>
-    <AssemblyName>WPF</AssemblyName>
+    <RootNamespace>WPFDbTest</RootNamespace>
+    <AssemblyName>WPFDbTest</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -35,10 +35,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -64,61 +64,60 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Application.cs">
-      <DependentUpon>CimobModels.tt</DependentUpon>
+      <DependentUpon>DatabaseModels.tt</DependentUpon>
     </Compile>
     <Compile Include="ApplicationStat.cs">
-      <DependentUpon>CimobModels.tt</DependentUpon>
+      <DependentUpon>DatabaseModels.tt</DependentUpon>
     </Compile>
     <Compile Include="ApplicationStatHistory.cs">
-      <DependentUpon>CimobModels.tt</DependentUpon>
+      <DependentUpon>DatabaseModels.tt</DependentUpon>
     </Compile>
-    <Compile Include="ApplicationUser.cs" />
     <Compile Include="AspNetRole.cs">
-      <DependentUpon>CimobModels.tt</DependentUpon>
+      <DependentUpon>DatabaseModels.tt</DependentUpon>
     </Compile>
     <Compile Include="AspNetRoleClaim.cs">
-      <DependentUpon>CimobModels.tt</DependentUpon>
+      <DependentUpon>DatabaseModels.tt</DependentUpon>
     </Compile>
     <Compile Include="AspNetUser.cs">
-      <DependentUpon>CimobModels.tt</DependentUpon>
+      <DependentUpon>DatabaseModels.tt</DependentUpon>
     </Compile>
     <Compile Include="AspNetUserClaim.cs">
-      <DependentUpon>CimobModels.tt</DependentUpon>
+      <DependentUpon>DatabaseModels.tt</DependentUpon>
     </Compile>
     <Compile Include="AspNetUserLogin.cs">
-      <DependentUpon>CimobModels.tt</DependentUpon>
+      <DependentUpon>DatabaseModels.tt</DependentUpon>
     </Compile>
     <Compile Include="AspNetUserToken.cs">
-      <DependentUpon>CimobModels.tt</DependentUpon>
+      <DependentUpon>DatabaseModels.tt</DependentUpon>
     </Compile>
     <Compile Include="BilateralProtocol.cs">
-      <DependentUpon>CimobModels.tt</DependentUpon>
-    </Compile>
-    <Compile Include="CimobModels.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>CimobModels.tt</DependentUpon>
+      <DependentUpon>DatabaseModels.tt</DependentUpon>
     </Compile>
     <Compile Include="College.cs">
-      <DependentUpon>CimobModels.tt</DependentUpon>
+      <DependentUpon>DatabaseModels.tt</DependentUpon>
     </Compile>
     <Compile Include="CollegeSubject.cs">
-      <DependentUpon>CimobModels.tt</DependentUpon>
+      <DependentUpon>DatabaseModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DatabaseModels.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DatabaseModels.tt</DependentUpon>
     </Compile>
     <Compile Include="Document.cs">
-      <DependentUpon>CimobModels.tt</DependentUpon>
+      <DependentUpon>DatabaseModels.tt</DependentUpon>
     </Compile>
     <Compile Include="Error.cs">
-      <DependentUpon>CimobModels.tt</DependentUpon>
+      <DependentUpon>DatabaseModels.tt</DependentUpon>
     </Compile>
     <Compile Include="Help.cs">
-      <DependentUpon>CimobModels.tt</DependentUpon>
+      <DependentUpon>DatabaseModels.tt</DependentUpon>
     </Compile>
     <Compile Include="News.cs">
-      <DependentUpon>CimobModels.tt</DependentUpon>
+      <DependentUpon>DatabaseModels.tt</DependentUpon>
     </Compile>
     <Compile Include="Quizz.cs">
-      <DependentUpon>CimobModels.tt</DependentUpon>
+      <DependentUpon>DatabaseModels.tt</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -128,16 +127,15 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="ApplicationDbContext.cs" />
-    <Compile Include="CimobModels.Context.cs">
+    <Compile Include="DatabaseModels.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>CimobModels.Context.tt</DependentUpon>
+      <DependentUpon>DatabaseModels.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="CimobModels.Designer.cs">
+    <Compile Include="DatabaseModels.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>CimobModels.edmx</DependentUpon>
+      <DependentUpon>DatabaseModels.edmx</DependentUpon>
     </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
@@ -145,24 +143,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Model\Application.cs" />
-    <Compile Include="Model\ApplicationStat.cs" />
-    <Compile Include="Model\ApplicationStatHistory.cs" />
-    <Compile Include="Model\ApplicationUser.cs" />
-    <Compile Include="Model\BilateralProtocol.cs" />
-    <Compile Include="Model\College.cs" />
-    <Compile Include="Model\CollegeSubject.cs" />
-    <Compile Include="Model\Document.cs" />
-    <Compile Include="Model\Edital.cs" />
-    <Compile Include="Model\Employee.cs" />
-    <Compile Include="Model\Error.cs" />
-    <Compile Include="Model\ErrorViewModel.cs" />
-    <Compile Include="Model\Help.cs" />
-    <Compile Include="Model\News.cs" />
-    <Compile Include="Model\OlderThan.cs" />
-    <Compile Include="Model\PresentDate.cs" />
-    <Compile Include="Model\Quizz.cs" />
-    <Compile Include="Model\Student.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -180,12 +160,12 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EntityDeploy Include="CimobModels.edmx">
+    <EntityDeploy Include="DatabaseModels.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>CimobModels.Designer.cs</LastGenOutput>
+      <LastGenOutput>DatabaseModels.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="CimobModels.edmx.diagram">
-      <DependentUpon>CimobModels.edmx</DependentUpon>
+    <None Include="DatabaseModels.edmx.diagram">
+      <DependentUpon>DatabaseModels.edmx</DependentUpon>
     </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -197,19 +177,19 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+    <Content Include="DatabaseModels.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>DatabaseModels.Context.cs</LastGenOutput>
+      <DependentUpon>DatabaseModels.edmx</DependentUpon>
+    </Content>
+    <Content Include="DatabaseModels.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>DatabaseModels.edmx</DependentUpon>
+      <LastGenOutput>DatabaseModels.cs</LastGenOutput>
+    </Content>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="CimobModels.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>CimobModels.edmx</DependentUpon>
-      <LastGenOutput>CimobModels.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="CimobModels.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>CimobModels.edmx</DependentUpon>
-      <LastGenOutput>CimobModels.cs</LastGenOutput>
-    </Content>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

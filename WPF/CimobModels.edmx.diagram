@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="0a015927166b442bb52999dddc87967a" Name="Diagram1" ZoomLevel="72">
+        <EntityTypeShape EntityType="CimobPlatformModel.Application" Width="1.5" PointX="8.25" PointY="5.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="CimobPlatformModel.ApplicationStatHistory" Width="1.5" PointX="10.5" PointY="7.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="CimobPlatformModel.ApplicationStat" Width="1.5" PointX="6" PointY="3.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="CimobPlatformModel.AspNetRoleClaim" Width="1.5" PointX="3" PointY="9.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="CimobPlatformModel.AspNetRole" Width="1.5" PointX="0.75" PointY="9" IsExpanded="true" />
+        <EntityTypeShape EntityType="CimobPlatformModel.AspNetUserClaim" Width="1.5" PointX="8.25" PointY="12.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="CimobPlatformModel.AspNetUserLogin" Width="1.5" PointX="8.25" PointY="15.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="CimobPlatformModel.AspNetUser" Width="1.5" PointX="6" PointY="6.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="CimobPlatformModel.AspNetUserToken" Width="1.5" PointX="8.25" PointY="17.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CimobPlatformModel.BilateralProtocol" Width="1.5" PointX="6" PointY="15" IsExpanded="true" />
+        <EntityTypeShape EntityType="CimobPlatformModel.College" Width="1.5" PointX="3.75" PointY="5.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="CimobPlatformModel.CollegeSubject" Width="1.5" PointX="3.75" PointY="12.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="CimobPlatformModel.Document" Width="1.5" PointX="10.5" PointY="10.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="CimobPlatformModel.Error" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CimobPlatformModel.Help" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CimobPlatformModel.News" Width="1.5" PointX="12.75" PointY="8.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="CimobPlatformModel.Quizz" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />
+        <AssociationConnector Association="CimobPlatformModel.FK_Applications_ApplicationStats_ApplicationStatId" ManuallyRouted="false" />
+        <AssociationConnector Association="CimobPlatformModel.FK_Applications_AspNetUsers_EmployeeId" ManuallyRouted="false" />
+        <AssociationConnector Association="CimobPlatformModel.FK_Applications_AspNetUsers_StudentId" ManuallyRouted="false" />
+        <AssociationConnector Association="CimobPlatformModel.FK_Applications_BilateralProtocols_BilateralProtocol1Id" ManuallyRouted="false" />
+        <AssociationConnector Association="CimobPlatformModel.FK_Applications_BilateralProtocols_BilateralProtocol2Id" ManuallyRouted="false" />
+        <AssociationConnector Association="CimobPlatformModel.FK_Applications_BilateralProtocols_BilateralProtocol3Id" ManuallyRouted="false" />
+        <AssociationConnector Association="CimobPlatformModel.FK_ApplicationStatHistory_Applications_ApplicationId" ManuallyRouted="false" />
+        <AssociationConnector Association="CimobPlatformModel.FK_Documents_Applications_ApplicationId" ManuallyRouted="false" />
+        <AssociationConnector Association="CimobPlatformModel.FK_AspNetRoleClaims_AspNetRoles_RoleId" ManuallyRouted="false" />
+        <AssociationConnector Association="CimobPlatformModel.FK_AspNetUserClaims_AspNetUsers_UserId" ManuallyRouted="false" />
+        <AssociationConnector Association="CimobPlatformModel.FK_AspNetUserLogins_AspNetUsers_UserId" ManuallyRouted="false" />
+        <AssociationConnector Association="CimobPlatformModel.FK_AspNetUsers_Colleges_CollegeId" ManuallyRouted="false" />
+        <AssociationConnector Association="CimobPlatformModel.FK_AspNetUsers_CollegeSubjects_CollegeSubjectId" ManuallyRouted="false" />
+        <AssociationConnector Association="CimobPlatformModel.FK_AspNetUserTokens_AspNetUsers_UserId" ManuallyRouted="false" />
+        <AssociationConnector Association="CimobPlatformModel.FK_Documents_AspNetUsers_EmployeeId" ManuallyRouted="false" />
+        <AssociationConnector Association="CimobPlatformModel.FK_News_AspNetUsers_EmployeeId" ManuallyRouted="false" />
+        <AssociationConnector Association="CimobPlatformModel.FK_BilateralProtocols_CollegeSubjects_SubjectId" ManuallyRouted="false" />
+        <AssociationConnector Association="CimobPlatformModel.FK_CollegeSubjects_Colleges_CollegeId" ManuallyRouted="false" />
+        <AssociationConnector Association="CimobPlatformModel.FK_News_Documents_DocumentId" ManuallyRouted="false" />
+        <AssociationConnector Association="CimobPlatformModel.AspNetUserRoles" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

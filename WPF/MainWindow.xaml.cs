@@ -24,38 +24,6 @@ namespace WPF {
         public MainWindow()
         {
             InitializeComponent();
-
-            //empresas = new ObservableCollection<Empresa>
-            //{
-            //    new Empresa(1, "Auto Europa", "AUTOE", 29),
-            //    new Empresa(2, "Hidro Sado", "HIDROSA", 2),
-            //    new Empresa(3, "Sapec", "SAPEC", 18),
-            //    new Empresa(4, "IPS", "IPS", 25)
-            //};
-
-            //if (!_db.Empresas.Any())
-            //{
-            //    _db.Empresas.Local.Add(new Empresa(1, "Auto Europa", "AUTOE", 29));
-            //    _db.Empresas.Local.Add(new Empresa(2, "Hidro Sado", "HIDROSA", 2));
-            //    _db.Empresas.Local.Add(new Empresa(3, "Sapec", "SAPEC", 18));
-            //    _db.Empresas.Local.Add(new Empresa(4, "IPS", "IPS", 25));
-            //    _db.SaveChanges();
-            //}
-
-            //empresas = new ObservableCollection<Empresa>(_db.Empresas.Local);
-
-            //empresaAtual = _db.Empresas.FirstOrDefault();
-
-
-            //foreach (Empresa empresa in empresas)
-            //{
-            //    ListBoxEmpresas.Items.Add(empresa);
-            //}
-
-            //ListBoxEmpresas.ItemsSource = empresas;
-            //ListBoxEmpresas.ItemsSource = _db.Empresas.Local;
-            //ListBoxEmpresas.DisplayMemberPath = "Nome";
-            //ListBoxEmpresas.IsSynchronizedWithCurrentItem = true;
             AtualizarControlos();
         }
 
