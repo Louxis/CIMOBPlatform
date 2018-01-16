@@ -3,7 +3,7 @@ namespace BackOfficeWPF.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class ctest : DbMigration
+    public partial class test12 : DbMigration
     {
         public override void Up()
         {
@@ -108,16 +108,16 @@ namespace BackOfficeWPF.Migrations
                         StudentNumber = c.String(),
                         ALOGrade = c.Int(),
                         CollegeSubjectId = c.Int(),
+                        CollegeId = c.Int(),
                         EmployeeNumber = c.Int(),
                         Discriminator = c.String(nullable: false, maxLength: 128),
-                        College_Id = c.Int(),
                     })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.CollegeSubjects", t => t.CollegeSubjectId, cascadeDelete: true)
-                .ForeignKey("dbo.Colleges", t => t.College_Id)
+                .ForeignKey("dbo.Colleges", t => t.CollegeId, cascadeDelete: true)
                 .Index(t => t.UserName, unique: true, name: "UserNameIndex")
                 .Index(t => t.CollegeSubjectId)
-                .Index(t => t.College_Id);
+                .Index(t => t.CollegeId);
             
             CreateTable(
                 "dbo.AspNetUserClaims",
@@ -268,7 +268,7 @@ namespace BackOfficeWPF.Migrations
             DropForeignKey("dbo.Applications", "BilateralProtocol1Id", "dbo.BilateralProtocols");
             DropForeignKey("dbo.BilateralProtocols", "SubjectId", "dbo.CollegeSubjects");
             DropForeignKey("dbo.CollegeSubjects", "CollegeId", "dbo.Colleges");
-            DropForeignKey("dbo.AspNetUsers", "College_Id", "dbo.Colleges");
+            DropForeignKey("dbo.AspNetUsers", "CollegeId", "dbo.Colleges");
             DropForeignKey("dbo.AspNetUsers", "CollegeSubjectId", "dbo.CollegeSubjects");
             DropForeignKey("dbo.Applications", "StudentId", "dbo.AspNetUsers");
             DropForeignKey("dbo.Applications", "ApplicationStatId", "dbo.ApplicationStats");
@@ -282,7 +282,7 @@ namespace BackOfficeWPF.Migrations
             DropIndex("dbo.AspNetUserRoles", new[] { "UserId" });
             DropIndex("dbo.AspNetUserLogins", new[] { "UserId" });
             DropIndex("dbo.AspNetUserClaims", new[] { "UserId" });
-            DropIndex("dbo.AspNetUsers", new[] { "College_Id" });
+            DropIndex("dbo.AspNetUsers", new[] { "CollegeId" });
             DropIndex("dbo.AspNetUsers", new[] { "CollegeSubjectId" });
             DropIndex("dbo.AspNetUsers", "UserNameIndex");
             DropIndex("dbo.CollegeSubjects", new[] { "CollegeId" });
