@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
-using CIMOBProject.Controllers;
-using CIMOBProject.Models;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WPF.Models;
 
 namespace WPF {
     class ApplicationDbContext : DbContext {
