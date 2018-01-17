@@ -28,7 +28,8 @@ namespace BackOfficeWPF
         {
             InitializeComponent();
             //this.DataContext = _db.Users.Local;
-            this.contentControl.Content = new BilateralProtocolScreen(); 
+            this.contentControl.Content = new Statistics();
+            ButtonRemove.Visibility = Visibility.Hidden;
         }
 
         private void AtualizarControlos()
@@ -47,45 +48,130 @@ namespace BackOfficeWPF
 
         private void ButtonFirst_Click(object sender, RoutedEventArgs e)
         {
-            //ListBoxEmpresas.Items.MoveCurrentToFirst();
-            //if (ListBoxEmpresas.Items.CurrentItem != null)
-            //{
-            //    empresaAtual = ListBoxEmpresas.Items.CurrentItem as Empresa;
-            //    AtualizarControlos();
-            //}
+            Type currentcontroller = contentControl.Content.GetType();
+
+            if(currentcontroller == typeof(EmployeeScreen))
+            {
+                ((EmployeeScreen)contentControl.Content).employeesGrd.Items.MoveCurrentToFirst();
+            }
+            if(currentcontroller == typeof(StudentScreen))
+            {
+                ((StudentScreen)contentControl.Content).studentGrd.Items.MoveCurrentToFirst();
+            }
+            if (currentcontroller == typeof(BilateralProtocolScreen))
+            {
+                ((BilateralProtocolScreen)contentControl.Content).bilateralGrd.Items.MoveCurrentToFirst();
+            }
+            if (currentcontroller == typeof(NewsScreen))
+            {
+                ((NewsScreen)contentControl.Content).newsGrd.Items.MoveCurrentToFirst();
+            }
+
         }
 
         private void ButtonPrevious_Click(object sender, RoutedEventArgs e)
         {
-            //if (!ListBoxEmpresas.Items.MoveCurrentToPrevious())
-            //    ListBoxEmpresas.Items.MoveCurrentToLast();
-            //if (ListBoxEmpresas.Items.CurrentItem != null)
-            //{
-            //    empresaAtual = ListBoxEmpresas.Items.CurrentItem as Empresa;
-            //    AtualizarControlos();
-            //}
+            Type currentcontroller = contentControl.Content.GetType();
+
+            if (currentcontroller == typeof(EmployeeScreen))
+            {
+                ItemCollection itemList = ((EmployeeScreen)contentControl.Content).employeesGrd.Items;
+                if(!itemList.MoveCurrentToPrevious())
+                {
+                    itemList.MoveCurrentToFirst();
+                }
+
+            }
+            if (currentcontroller == typeof(StudentScreen))
+            {
+                ItemCollection itemList = ((StudentScreen)contentControl.Content).studentGrd.Items;
+
+                if (!itemList.MoveCurrentToPrevious())
+                {
+                    itemList.MoveCurrentToFirst();
+                }
+            }
+            if (currentcontroller == typeof(BilateralProtocolScreen))
+            {
+                ItemCollection itemList = ((BilateralProtocolScreen)contentControl.Content).bilateralGrd.Items;
+
+                if (!itemList.MoveCurrentToPrevious())
+                {
+                    itemList.MoveCurrentToFirst();
+                }
+            }
+            if (currentcontroller == typeof(NewsScreen))
+            {
+                ItemCollection itemList = ((NewsScreen)contentControl.Content).newsGrd.Items;
+
+                if (!itemList.MoveCurrentToPrevious())
+                {
+                    itemList.MoveCurrentToFirst();
+                }
+            }
         }
 
         private void ButtonNext_Click(object sender, RoutedEventArgs e)
         {
-            //if (!ListBoxEmpresas.Items.MoveCurrentToNext())
-            //    ListBoxEmpresas.Items.MoveCurrentToFirst();
-            //if (ListBoxEmpresas.Items.CurrentItem != null)
-            //{
-            //    empresaAtual = ListBoxEmpresas.Items.CurrentItem as Empresa;
-            //    AtualizarControlos();
-            //}
+            Type currentcontroller = contentControl.Content.GetType();
 
+            if (currentcontroller == typeof(EmployeeScreen))
+            {
+                ItemCollection itemList = ((EmployeeScreen)contentControl.Content).employeesGrd.Items;
+                if (!itemList.MoveCurrentToNext())
+                {
+                    itemList.MoveCurrentToLast();
+                }
+
+            }
+            if (currentcontroller == typeof(StudentScreen))
+            {
+                ItemCollection itemList = ((StudentScreen)contentControl.Content).studentGrd.Items;
+                if (!itemList.MoveCurrentToNext())
+                {
+                    itemList.MoveCurrentToLast();
+                }
+            }
+            if (currentcontroller == typeof(BilateralProtocolScreen))
+            {
+                ItemCollection itemList = ((BilateralProtocolScreen)contentControl.Content).bilateralGrd.Items;
+
+                if (!itemList.MoveCurrentToNext())
+                {
+                    itemList.MoveCurrentToLast();
+                }
+            }
+            if (currentcontroller == typeof(NewsScreen))
+            {
+                ItemCollection itemList = ((NewsScreen)contentControl.Content).newsGrd.Items;
+
+                if (!itemList.MoveCurrentToNext())
+                {
+                    itemList.MoveCurrentToLast();
+                }
+            }
         }
 
         private void ButtonLast_Click(object sender, RoutedEventArgs e)
         {
-            //ListBoxEmpresas.Items.MoveCurrentToLast();
-            //if (ListBoxEmpresas.Items.CurrentItem != null)
-            //{
-            //    empresaAtual = ListBoxEmpresas.Items.CurrentItem as Empresa;
-            //    AtualizarControlos();
-            //}
+            Type currentcontroller = contentControl.Content.GetType();
+
+            if (currentcontroller == typeof(EmployeeScreen))
+            {
+                ((EmployeeScreen)contentControl.Content).employeesGrd.Items.MoveCurrentToLast();
+            }
+            if (currentcontroller == typeof(StudentScreen))
+            {
+                ((StudentScreen)contentControl.Content).studentGrd.Items.MoveCurrentToLast();
+            }
+            if (currentcontroller == typeof(BilateralProtocolScreen))
+            {
+                ((BilateralProtocolScreen)contentControl.Content).bilateralGrd.Items.MoveCurrentToLast();
+            }
+            if (currentcontroller == typeof(NewsScreen))
+            {
+                ((NewsScreen)contentControl.Content).newsGrd.Items.MoveCurrentToLast();
+            }
         }
 
         private void ButtonAdd_Click(object sender, RoutedEventArgs e)
@@ -125,25 +211,78 @@ namespace BackOfficeWPF
 
         private void ButtonRemove_Click(object sender, RoutedEventArgs e)
         {
-            //if (empresas.Count == 0 || ListBoxEmpresas.SelectedItem == null)
-            //    return;
+            
 
-            //empresaAtual = ListBoxEmpresas.SelectedItem as Empresa;
+            Type currentcontroller = contentControl.Content.GetType();
+            ItemCollection items = null;
+            if (currentcontroller == typeof(EmployeeScreen))
+            {
+                items = ((EmployeeScreen)contentControl.Content).employeesGrd.Items;
+            }
+            if (currentcontroller == typeof(StudentScreen))
+            {
+                items = ((StudentScreen)contentControl.Content).studentGrd.Items;
+            }
+            if (currentcontroller == typeof(BilateralProtocolScreen))
+            {
+                
+                items = ((BilateralProtocolScreen)contentControl.Content).bilateralGrd.Items;
+                
+            }
+            if (currentcontroller == typeof(NewsScreen))
+            {
+                items = ((NewsScreen)contentControl.Content).newsGrd.Items;
+            }
+            if (currentcontroller == typeof(Statistics))
+            {
+                return;
+            }
 
-            //if (MessageBox.Show("Deseseja mesmo apagar o empresa (Y/N)?", "Apagar Empresa?", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
-            //{
-            //    empresas.Remove(empresaAtual);
+            if (items.CurrentItem == null || items.Count == 0)
+                return;
 
-            //    ListBoxEmpresas.Items.Remove(empresaAtual);
-            //    ListBoxEmpresas.Items.MoveCurrentToFirst();
 
-            //    if (empresas.Count > 0)
-            //        empresaAtual = empresas[0];
-            //    else
-            //        empresaAtual = new Empresa();
+            if (MessageBox.Show("Deseseja mesmo campo selecionado (Y/N)?", "Apagar campo?", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+            {
+                if(currentcontroller == typeof(EmployeeScreen))
+                {
+                    var employee = items.CurrentItem;
+                    var employeeId = employee.GetType().GetProperty("UserName").GetValue(employee);
+                    _db.Employees.Where(a => a.UserName.Equals(((String)employeeId))).First().IsBanned = true;
+                    _db.SaveChanges();
+                    contentControl.Content = new EmployeeScreen();
+                }
+                if (currentcontroller == typeof(StudentScreen))
+                {
+                    var student = items.CurrentItem;
+                    var studentId = student.GetType().GetProperty("UserName").GetValue(student);
 
-            //    AtualizarControlos();
-            //}
+                    _db.Students.Where(a => a.StudentNumber.Equals(((String)studentId))).First().IsBanned = true;
+                    _db.SaveChanges();
+                    contentControl.Content = new StudentScreen();
+                }
+                if (currentcontroller == typeof(BilateralProtocolScreen))
+                {
+                    var bilateralProtocol = items.CurrentItem;
+                    var bilateralId = bilateralProtocol.GetType().GetProperty("Destination").GetValue(bilateralProtocol);
+                    var bilateralSubject = bilateralProtocol.GetType().GetProperty("SubjectName").GetValue(bilateralProtocol);
+                    //var bilateralId = bilateralProtocol.GetType().GetProperty("Id").GetValue(bilateralProtocol);
+                    //_db.BilateralProtocols.Where(a => a.Id == ((int)bilateralId)).First().OpenSlots = -1;
+                    _db.BilateralProtocols.Where(a => a.Destination.Equals((String)bilateralId) &&
+                                                a.Subject.SubjectName.Equals((String)bilateralSubject)).First().OpenSlots = 99;
+                    _db.SaveChanges();
+                    contentControl.Content = new BilateralProtocolScreen();
+                }
+                if (currentcontroller == typeof(NewsScreen))
+                {
+                    var news = items.CurrentItem;
+                    var newsTitle = news.GetType().GetProperty("Title").GetValue(news);
+                    var newsContent = news.GetType().GetProperty("TextContent").GetValue(news);
+                    News selectedNews = _db.News.SingleOrDefault(n => n.Title.Equals((String)newsTitle) && n.TextContent.Equals((String)newsContent));
+                    _db.News.Remove(selectedNews);
+                    contentControl.Content = new NewsScreen();
+                }
+            }
         }
 
         private void ListBoxEmpresas_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -158,21 +297,44 @@ namespace BackOfficeWPF
         private void ButtonEmployee(object sender, RoutedEventArgs e)
         {
             this.contentControl.Content = new EmployeeScreen();
+            if (ButtonRemove.Visibility == Visibility.Hidden)
+            {
+                ButtonRemove.Visibility = Visibility.Visible;
+            }
         }
 
         private void ButtonProtocol(object sender, RoutedEventArgs e)
         {
             this.contentControl.Content = new BilateralProtocolScreen();
+            if (ButtonRemove.Visibility == Visibility.Hidden)
+            {
+                ButtonRemove.Visibility = Visibility.Visible;
+            }
         }
 
         private void ButtonStudent(object sender, RoutedEventArgs e)
         {
             this.contentControl.Content = new StudentScreen();
+            if (ButtonRemove.Visibility == Visibility.Hidden)
+            {
+                ButtonRemove.Visibility = Visibility.Visible;
+            }
         }
         private void ButtonNews(object sender, RoutedEventArgs e)
         {
-            this.contentControl.Content = new EmployeeScreen();
+            this.contentControl.Content = new NewsScreen();
+            if(ButtonRemove.Visibility == Visibility.Hidden)
+            {
+                ButtonRemove.Visibility = Visibility.Visible;
+            }
         }
+
+        private void ButtonMainScreens(object sender, RoutedEventArgs e)
+        {
+            this.contentControl.Content = new Statistics();
+            ButtonRemove.Visibility = Visibility.Hidden;
+        }
+
 
     }
 }

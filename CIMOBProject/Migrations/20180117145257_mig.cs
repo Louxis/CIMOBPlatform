@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace CIMOBProject.Migrations
 {
-    public partial class test : Migration
+    public partial class mig : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -147,6 +147,7 @@ namespace CIMOBProject.Migrations
                     Discriminator = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     EmailConfirmed = table.Column<bool>(type: "bit", nullable: false),
+                    IsBanned = table.Column<bool>(type: "bit", nullable: false),
                     LockoutEnabled = table.Column<bool>(type: "bit", nullable: false),
                     LockoutEnd = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
                     NormalizedEmail = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -163,7 +164,7 @@ namespace CIMOBProject.Migrations
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     EmployeeNumber = table.Column<int>(type: "int", nullable: true),
                     ALOGrade = table.Column<int>(type: "int", nullable: true),
-                    College_Id = table.Column<int>(type: "int", nullable: true),
+                    CollegeId = table.Column<int>(type: "int", nullable: true),
                     CollegeSubjectId = table.Column<int>(type: "int", nullable: true),
                     StudentNumber = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
@@ -172,7 +173,7 @@ namespace CIMOBProject.Migrations
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
                     table.ForeignKey(
                         name: "FK_AspNetUsers_Colleges_CollegeId",
-                        column: x => x.College_Id,
+                        column: x => x.CollegeId,
                         principalTable: "Colleges",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);

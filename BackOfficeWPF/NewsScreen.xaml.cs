@@ -15,15 +15,15 @@ using System.Windows.Shapes;
 
 namespace BackOfficeWPF {
     /// <summary>
-    /// Interaction logic for StudentScreen.xaml
+    /// Interaction logic for NewsScreen.xaml
     /// </summary>
-    public partial class StudentScreen : UserControl {
+    public partial class NewsScreen : UserControl {
         ApplicationDbContext _db = new ApplicationDbContext();
-        public StudentScreen()
+        public NewsScreen()
         {
             InitializeComponent();
-            studentGrd.ItemsSource = _db.Students.Select(e => new { e.UserName, e.UserFullname, e.UserCc, e.StudentNumber, e.ALOGrade, e.CollegeSubject.SubjectName, e.Email, e.IsBanned}).ToList();
-            studentGrd.IsSynchronizedWithCurrentItem = true;
+            newsGrd.ItemsSource = _db.News.Select(n => new { n.Title, n.TextContent, n.IsPublished, n.Employee.UserFullname}).ToList();
+            newsGrd.IsSynchronizedWithCurrentItem = true;
         }
     }
 }
