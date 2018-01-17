@@ -12,6 +12,9 @@ using CIMOBProject.Data;
 using CIMOBProject.Models;
 using CIMOBProject.Services;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.Extensions.FileProviders;
+using System.IO;
+using Microsoft.AspNetCore.Http;
 
 namespace CIMOBProject
 {
@@ -37,7 +40,7 @@ namespace CIMOBProject
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(connection));
 
-
+            services.AddDirectoryBrowser();
             services.AddIdentity<ApplicationUser, IdentityRole>(config =>
             {
                 config.SignIn.RequireConfirmedEmail = true;
@@ -102,6 +105,16 @@ namespace CIMOBProject
             app.UseDatabaseErrorPage();
 
             app.UseStaticFiles();
+            app.UseStaticFiles(new StaticFileOptions {
+                ServeUnknownFileTypes = true, //allow unkown file types also to be served
+                DefaultContentType = "application/vnd.microsoft.portable-executable" //content type to returned if fileType is not known.
+            });
+
+            app.UseDirectoryBrowser(new DirectoryBrowserOptions() {
+                FileProvider = new PhysicalFileProvider(
+            Path.Combine(Directory.GetCurrentDirectory(), @"wwwroot", "install")),
+                RequestPath = new PathString("/MyInstall")
+            });
 
             app.UseAuthentication();
 
