@@ -22,7 +22,7 @@ namespace BackOfficeWPF {
         public StudentScreen()
         {
             InitializeComponent();
-            studentGrd.ItemsSource = _db.Students.Select(e => new { e.UserName, e.UserFullname, e.UserCc, e.StudentNumber, e.ALOGrade, e.CollegeSubject.SubjectName, e.Email, e.IsBanned}).ToList();
+            studentGrd.ItemsSource = _db.Students.Select(e => new { e.UserName, e.UserFullname, e.UserCc, e.StudentNumber, e.ALOGrade, e.CollegeSubject.SubjectName, e.Email, }).ToList();
             studentGrd.IsSynchronizedWithCurrentItem = true;
         }
     }

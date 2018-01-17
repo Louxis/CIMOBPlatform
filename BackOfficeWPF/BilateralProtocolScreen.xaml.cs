@@ -23,7 +23,7 @@ namespace BackOfficeWPF {
         public BilateralProtocolScreen()
         {
             InitializeComponent();
-            bilateralGrd.ItemsSource = _db.BilateralProtocols.Select(e => new { e.Destination, e.Subject.SubjectName, e.OpenSlots}).ToList();
+            bilateralGrd.ItemsSource = _db.BilateralProtocols.Select(e => new { e.Destination, e.Subject.SubjectName}).ToList();
             bilateralGrd.IsSynchronizedWithCurrentItem = true;
             currentProtocol = _db.BilateralProtocols.First();
         }

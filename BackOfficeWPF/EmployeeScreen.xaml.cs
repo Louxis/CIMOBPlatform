@@ -22,7 +22,7 @@ namespace BackOfficeWPF {
         public EmployeeScreen()
         {
             InitializeComponent();
-            employeesGrd.ItemsSource = _db.Employees.Select(e => new { e.UserName, e.UserFullname, e.UserCc, e.Email, e.IsBanned }).ToList();
+            employeesGrd.ItemsSource = _db.Employees.Select(e => new { e.UserName, e.UserFullname, e.UserCc, e.Email }).ToList();
             employeesGrd.IsSynchronizedWithCurrentItem = true;
         }
 

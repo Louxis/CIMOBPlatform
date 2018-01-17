@@ -30,12 +30,12 @@
                         <Image Width="20" Height="20" Source="icons/first.png" />
                     </MenuItem.Header>
                 </MenuItem>
-                <MenuItem Click="ButtonNews">
+                <MenuItem>
                     <MenuItem.Header>
                         <Image Width="20" Height="20" Source="icons/first.png" />
                     </MenuItem.Header>
                 </MenuItem>
-                <MenuItem Click="ButtonMainScreens">
+                <MenuItem>
                     <MenuItem.Header>
                         <Image Width="20" Height="20" Source="icons/first.png" />
                     </MenuItem.Header>

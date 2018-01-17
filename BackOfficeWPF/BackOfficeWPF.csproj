@@ -34,9 +34,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DevOne.Security.Cryptography.BCrypt, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\BCrypt.1.0.0.0\lib\DevOne.Security.Cryptography.BCrypt.dll</HintPath>
-    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
@@ -72,23 +69,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Dialogs\BilateralDialog.xaml.cs">
-      <DependentUpon>BilateralDialog.xaml</DependentUpon>
+    <Compile Include="StudentScreen.xaml.cs">
+      <DependentUpon>StudentScreen.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Dialogs\EmployeeDialog.xaml.cs">
-      <DependentUpon>EmployeeDialog.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="TestControl.xaml.cs">
-      <DependentUpon>TestControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="TestControl2.xaml.cs">
-      <DependentUpon>TestControl2.xaml</DependentUpon>
-    </Compile>
-    <Page Include="Dialogs\BilateralDialog.xaml">
+    <Page Include="BilateralProtocolScreen.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Dialogs\EmployeeDialog.xaml">
+    <Page Include="EmployeeScreen.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -101,25 +89,22 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="ApplicationDbContext.cs" />
+    <Compile Include="BilateralProtocolScreen.xaml.cs">
+      <DependentUpon>BilateralProtocolScreen.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="EmployeeScreen.xaml.cs">
+      <DependentUpon>EmployeeScreen.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="TestControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="TestControl2.xaml">
+    <Page Include="StudentScreen.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Migrations\201801161155330_test12.cs" />
-    <Compile Include="Migrations\201801161155330_test12.Designer.cs">
-      <DependentUpon>201801161155330_test12.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Application.cs" />
     <Compile Include="Models\ApplicationStat.cs" />
     <Compile Include="Models\ApplicationStatHistory.cs" />
@@ -150,9 +135,6 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <EmbeddedResource Include="Migrations\201801161155330_test12.resx">
-      <DependentUpon>201801161155330_test12.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -168,6 +150,16 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\Add.png" />
+    <Resource Include="Icons\Apply.png" />
+    <Resource Include="Icons\Edit.png" />
+    <Resource Include="Icons\First.png" />
+    <Resource Include="Icons\Last.png" />
+    <Resource Include="Icons\Next.png" />
+    <Resource Include="Icons\Previous.png" />
+    <Resource Include="Icons\Remove.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
