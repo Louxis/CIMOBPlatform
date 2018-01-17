@@ -7,13 +7,13 @@ namespace BackOfficeWPF.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class ctest : IMigrationMetadata
+    public sealed partial class test12 : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(ctest));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(test12));
         
         string IMigrationMetadata.Id
         {
-            get { return "201801151843594_ctest"; }
+            get { return "201801161155330_test12"; }
         }
         
         string IMigrationMetadata.Source

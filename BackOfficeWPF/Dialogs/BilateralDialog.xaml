@@ -1,0 +1,32 @@
+﻿<Window x:Class="BackOfficeWPF.Dialogs.BilateralDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BackOfficeWPF.Dialogs"
+        mc:Ignorable="d"
+        Title="Acordo Bilateral" Height="300" Width="500" Closing="Window_Closing">
+    <Grid Name="GridFormBilateral" DockPanel.Dock="Left"  Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="107.2" />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+        <Label Content="Destino" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left"   FontSize="12" Margin="10,10,0,10.4" />
+        <Label Content="Vagas" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left"  FontSize="12" Margin="10,9.6,0,10" Width="48"  />
+        <Label Content="Curso" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Left"  FontSize="12" Margin="10,10.2,0,10" Width="87"  />
+        <TextBox Grid.Row="0" Grid.Column="1" Name="bilateralDestination" Text="{Binding Path=Destination}" HorizontalAlignment="Left" FontSize="12" Margin="11.8,10,0,10.4" Width="200"></TextBox>
+        <TextBox Grid.Row="1" Grid.Column="1" Name="bilateralSlots" Text="{Binding Path=OpenSlots}" HorizontalAlignment="Left" FontSize="12" Margin="11.8,10,0,10.4" Width="200"></TextBox>
+        <ComboBox Grid.Row="2" Grid.Column="1" Name="subjectsCombo"  SelectedIndex="{Binding Path=SubjectId}" HorizontalAlignment="Left" FontSize="12" Margin="11.8,10,0,10.4" Width="200"></ComboBox>
+        <StackPanel Grid.Column="1" Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom" Height="20" Margin="0,0,0,-0.2" Width="142">
+            <Button x:Name="OkButton" Click="OkButton_Click" IsDefault="True" Width="60" Margin="1,0" Content="OK"/>
+            <Button x:Name="CancelButton" IsCancel="True" Width="60" Margin="10,0" Click="CancelButton_Click" Content="Cancel"/>
+        </StackPanel>
+    </Grid>
+    
+</Window>

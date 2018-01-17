@@ -9,7 +9,6 @@ namespace CIMOBProject.Models {
     {
         public static void Initialize(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
-
             context.Database.EnsureCreated();            
             // Seed the database.
             if (context.Roles.SingleOrDefault(r => r.Name == "Student") == null)
@@ -251,7 +250,7 @@ namespace CIMOBProject.Models {
                     UserAddress = "RuaTeste",
                     PostalCode = "2900-000",
                     BirthDate = new DateTime(1996, 1, 1),
-                    EmployeeNumber = 150221055
+                    EmployeeNumber = "150221055"
                 };
                 userManager.CreateAsync(user, "teste12").Wait();
                 var role = context.Roles.SingleOrDefault(m => m.Name == "Employee");
