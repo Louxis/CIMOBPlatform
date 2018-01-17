@@ -106,7 +106,7 @@ namespace CIMOBProject.Models {
                     UserAddress = "Avenida para teste",
                     PostalCode = "2912-123",
                     BirthDate = new DateTime(1995, 1, 1),
-                    StudentNumber = "123123123",
+                    StudentNumber = "123456789",
                     ALOGrade = 0,
                     CollegeSubjectId = 1
                 };
@@ -126,7 +126,7 @@ namespace CIMOBProject.Models {
                     UserAddress = "Avenida para teste",
                     PostalCode = "2912-123",
                     BirthDate = new DateTime(1995, 1, 1),
-                    StudentNumber = "123123123",
+                    StudentNumber = "123795884",
                     ALOGrade = 0,
                     CollegeSubjectId = 2
                 };
@@ -146,7 +146,7 @@ namespace CIMOBProject.Models {
                     UserAddress = "Avenida para teste",
                     PostalCode = "2912-123",
                     BirthDate = new DateTime(1995, 1, 1),
-                    StudentNumber = "123123123",
+                    StudentNumber = "123244144",
                     ALOGrade = 0,
                     CollegeSubjectId = 2
                 };
@@ -166,7 +166,7 @@ namespace CIMOBProject.Models {
                     UserAddress = "Avenida para teste",
                     PostalCode = "2912-123",
                     BirthDate = new DateTime(1995, 1, 1),
-                    StudentNumber = "123123123",
+                    StudentNumber = "123333333",
                     ALOGrade = 0,
                     CollegeSubjectId = 4
                 };
@@ -186,7 +186,7 @@ namespace CIMOBProject.Models {
                     UserAddress = "Avenida para teste",
                     PostalCode = "2912-123",
                     BirthDate = new DateTime(1995, 1, 1),
-                    StudentNumber = "123123123",
+                    StudentNumber = "123111111",
                     ALOGrade = 0,
                     CollegeSubjectId = 4
                 };
@@ -206,7 +206,7 @@ namespace CIMOBProject.Models {
                     UserAddress = "Avenida para teste",
                     PostalCode = "2912-123",
                     BirthDate = new DateTime(1995, 1, 1),
-                    StudentNumber = "123123123",
+                    StudentNumber = "123123133",
                     ALOGrade = 0,
                     CollegeSubjectId = 4
                 };
@@ -226,7 +226,7 @@ namespace CIMOBProject.Models {
                     UserAddress = "Avenida para teste",
                     PostalCode = "2912-123",
                     BirthDate = new DateTime(1995, 1, 1),
-                    StudentNumber = "123123123",
+                    StudentNumber = "123122222",
                     ALOGrade = 0,
                     CollegeSubjectId = 4
                 };

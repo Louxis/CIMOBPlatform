@@ -60,7 +60,10 @@
         {
             <a asp-action="Details" asp-controller="Applications" asp-route-id="@ViewData["applicationId"]" class="btn btn-default">Detalhes Candidatura</a>
         }
-
+        @if (SignInManager.IsSignedIn(User) && User.IsInRole("Employee"))
+        {
+            <a asp-action="Create" asp-controller="TroubleTickets" asp-route-userId=@UserManager.GetUserId(User) asp-route-studentNumber=@Model.StudentNumber class="btn btn-default">Criar Trouble Ticket</a>
+        }
 
 </div>
     <br />

@@ -32,6 +32,9 @@ namespace CIMOBProject.Data
         public DbSet<Edital> Editals { get; set; }
         public DbSet<BilateralProtocol> BilateralProtocols { get; set;}
         public DbSet<Quizz> Quizzs { get; set; }
+        public DbSet<TroubleTicket> TroubleTickets { get; set; }
+        public DbSet<TroubleTicketAnswer> TroubleTicketAnswers { get; set; }
+        public DbSet<Testemony> Testemonies { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -42,5 +45,7 @@ namespace CIMOBProject.Data
         }
 
         public DbSet<CIMOBProject.Models.ApplicationStatHistory> ApplicationStatHistory { get; set; }
+
+        public DbSet<CIMOBProject.Models.TroubleTicket> TroubleTicket { get; set; }
     }
 }
