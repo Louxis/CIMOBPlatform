@@ -250,7 +250,7 @@ namespace CIMOBProject.Models {
                     UserAddress = "RuaTeste",
                     PostalCode = "2900-000",
                     BirthDate = new DateTime(1996, 1, 1),
-                    EmployeeNumber = 150221055
+                    EmployeeNumber = "150221055"
                 };
                 userManager.CreateAsync(user, "teste12").Wait();
                 var role = context.Roles.SingleOrDefault(m => m.Name == "Employee");

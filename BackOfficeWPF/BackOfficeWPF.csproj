@@ -34,6 +34,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DevOne.Security.Cryptography.BCrypt, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\BCrypt.1.0.0.0\lib\DevOne.Security.Cryptography.BCrypt.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
@@ -72,6 +75,9 @@
     <Compile Include="Dialogs\BilateralDialog.xaml.cs">
       <DependentUpon>BilateralDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Dialogs\EmployeeDialog.xaml.cs">
+      <DependentUpon>EmployeeDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="TestControl.xaml.cs">
       <DependentUpon>TestControl.xaml</DependentUpon>
     </Compile>
@@ -79,6 +85,10 @@
       <DependentUpon>TestControl2.xaml</DependentUpon>
     </Compile>
     <Page Include="Dialogs\BilateralDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Dialogs\EmployeeDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -37,7 +37,7 @@ namespace CIMOBProject
 
 
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(connection));
+                options.UseSqlServer(connection1));
 
 
             services.AddIdentity<ApplicationUser, IdentityRole>(config =>
@@ -46,9 +46,6 @@ namespace CIMOBProject
             })            
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
-
-
-            
 
             services.Configure<IdentityOptions>(options =>
             {

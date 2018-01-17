@@ -15,9 +15,9 @@
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="107.2" />
-            <ColumnDefinition />
+            <ColumnDefinition Width="Auto" />
         </Grid.ColumnDefinitions>
-        <Label Content="Destino" HorizontalAlignment="Left"   FontSize="12" Margin="10,10,0,10.4" Width="43" />
+        <Label Content="Destino" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left"   FontSize="12" Margin="10,10,0,10.4" />
         <Label Content="Vagas" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left"  FontSize="12" Margin="10,9.6,0,10" Width="48"  />
         <Label Content="Curso" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Left"  FontSize="12" Margin="10,10.2,0,10" Width="87"  />
         <TextBox Grid.Row="0" Grid.Column="1" Name="bilateralDestination" Text="{Binding Path=Destination}" HorizontalAlignment="Left" FontSize="12" Margin="11.8,10,0,10.4" Width="200"></TextBox>
