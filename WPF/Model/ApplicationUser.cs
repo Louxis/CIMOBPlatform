@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 using System.ComponentModel.DataAnnotations;
-using Microsoft.AspNet.Identity.EntityFramework;
 
-namespace CIMOBProject.Models
+namespace WPF.Models
 {
     // Add profile data for application users by adding properties to the ApplicationUser class
     public class ApplicationUser : IdentityUser
@@ -38,8 +38,6 @@ namespace CIMOBProject.Models
         [Display(Name = "Número de Telemóvel")]
         [RegularExpression(@"^[2356789]{1}[0-9]{8}$", ErrorMessage = "Não é um número válido.")]
         public override string PhoneNumber { get => base.PhoneNumber; set => base.PhoneNumber = value; }
-        [Display(Name = "Banido")]
-        public bool IsBanned { get; set; }
 
     }
 }

@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace CIMOBProject.Models
+namespace WPF.Models
 {
     public class Employee : ApplicationUser
     {
