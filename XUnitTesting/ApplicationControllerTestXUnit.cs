@@ -134,7 +134,7 @@ namespace XUnitTesting
                     UserAddress = "RuaTeste",
                     PostalCode = "2900-000",
                     BirthDate = new DateTime(1996, 1, 1),
-                    EmployeeNumber = 150221055
+                    EmployeeNumber = "150221055"
                 });
 
                 _context.Employees.Add(new Employee
@@ -147,7 +147,7 @@ namespace XUnitTesting
                     UserAddress = "RuaTeste",
                     PostalCode = "2900-000",
                     BirthDate = new DateTime(1996, 1, 1),
-                    EmployeeNumber = 150221055
+                    EmployeeNumber = "150221055"
                 });
                 _context.SaveChanges();
             }
