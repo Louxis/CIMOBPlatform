@@ -255,9 +255,9 @@ namespace BackOfficeWPF
                 if (currentcontroller == typeof(StudentScreen))
                 {
                     var student = items.CurrentItem;
-                    var studentId = student.GetType().GetProperty("UserName").GetValue(student);
+                    var studentName = student.GetType().GetProperty("UserName").GetValue(student);
 
-                    _db.Students.Where(a => a.StudentNumber.Equals(((String)studentId))).First().IsBanned = true;
+                    _db.Students.Where(a => a.UserName.Equals(((String)studentName))).First().IsBanned = true;
                     _db.SaveChanges();
                     contentControl.Content = new StudentScreen();
                 }
