@@ -30,4 +30,44 @@
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\install\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\install\Application Files\BackOfficeWPF_1_0_0_8\BackOfficeWPF.application" />
+    <None Include="wwwroot\install\Application Files\BackOfficeWPF_1_0_0_8\BackOfficeWPF.exe.config.deploy" />
+    <None Include="wwwroot\install\Application Files\BackOfficeWPF_1_0_0_8\BackOfficeWPF.exe.deploy" />
+    <None Include="wwwroot\install\Application Files\BackOfficeWPF_1_0_0_8\BackOfficeWPF.exe.manifest" />
+    <None Include="wwwroot\install\Application Files\BackOfficeWPF_1_0_0_8\DevOne.Security.Cryptography.BCrypt.dll.deploy" />
+    <None Include="wwwroot\install\Application Files\BackOfficeWPF_1_0_0_8\EntityFramework.dll.deploy" />
+    <None Include="wwwroot\install\Application Files\BackOfficeWPF_1_0_0_8\EntityFramework.SqlServer.dll.deploy" />
+    <None Include="wwwroot\install\Application Files\BackOfficeWPF_1_0_0_8\Microsoft.AspNet.Identity.Core.dll.deploy" />
+    <None Include="wwwroot\install\Application Files\BackOfficeWPF_1_0_0_8\Microsoft.AspNet.Identity.EntityFramework.dll.deploy" />
+    <None Include="wwwroot\install\Application Files\BackOfficeWPF_1_0_0_9\BackOfficeWPF.application" />
+    <None Include="wwwroot\install\Application Files\BackOfficeWPF_1_0_0_9\BackOfficeWPF.exe.config.deploy" />
+    <None Include="wwwroot\install\Application Files\BackOfficeWPF_1_0_0_9\BackOfficeWPF.exe.deploy" />
+    <None Include="wwwroot\install\Application Files\BackOfficeWPF_1_0_0_9\BackOfficeWPF.exe.manifest" />
+    <None Include="wwwroot\install\Application Files\BackOfficeWPF_1_0_0_9\DevOne.Security.Cryptography.BCrypt.dll.deploy" />
+    <None Include="wwwroot\install\Application Files\BackOfficeWPF_1_0_0_9\EntityFramework.dll.deploy" />
+    <None Include="wwwroot\install\Application Files\BackOfficeWPF_1_0_0_9\EntityFramework.SqlServer.dll.deploy" />
+    <None Include="wwwroot\install\Application Files\BackOfficeWPF_1_0_0_9\Microsoft.AspNet.Identity.Core.dll.deploy" />
+    <None Include="wwwroot\install\Application Files\BackOfficeWPF_1_0_0_9\Microsoft.AspNet.Identity.EntityFramework.dll.deploy" />
+    <None Include="wwwroot\install\BackOfficeWPF.application">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="wwwroot\install\publish.htm">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="wwwroot\install\setup.exe">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="wwwroot\install\setup.exe">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
 </Project>

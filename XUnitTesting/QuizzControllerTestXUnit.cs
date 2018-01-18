@@ -53,7 +53,7 @@ namespace XUnitTesting
                 UserAddress = "RuaTeste",
                 PostalCode = "2900-000",
                 BirthDate = new DateTime(1996, 1, 1),
-                EmployeeNumber = "150221055"
+                EmployeeNumber = "12345678"
             });
             _context.SaveChanges();
         }

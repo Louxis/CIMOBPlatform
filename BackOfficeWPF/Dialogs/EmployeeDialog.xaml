@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BackOfficeWPF.Dialogs"
         mc:Ignorable="d"
-        Title="Empregado" Height="500" Width="465" Closing="Window_Closing">
+        Title="Empregado" Height="475" Width="465" Closing="Window_Closing">
     <Grid Name="GridFormEmployee" DockPanel.Dock="Left"  Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
