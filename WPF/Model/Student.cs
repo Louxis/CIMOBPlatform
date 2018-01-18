@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace CIMOBProject.Models
+namespace WPF.Models
 {
     ///<summary>
     ///In this class we define the atributes of the student that extends from the ApplicationUser.

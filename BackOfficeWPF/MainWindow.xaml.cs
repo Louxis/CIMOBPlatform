@@ -1,7 +1,4 @@
-﻿using BackOfficeWPF.Dialogs;
-using CIMOBProject.Models;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
+﻿using CIMOBProject.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -26,67 +23,318 @@ namespace BackOfficeWPF
     public partial class MainWindow : Window
     {
         ApplicationDbContext _db = new ApplicationDbContext();
+
         public MainWindow()
         {
             InitializeComponent();
-            contentControl.Content = new TestControl();
             //this.DataContext = _db.Users.Local;
-            /*UserManager<Employee> userManager = new UserManager<Employee>(new UserStore<Employee>(new ApplicationDbContext()));
-            var user = new Employee
-            {
-                UserName = "testemployee4@cimob.pt",
-                UserFullname = "Empregado Teste3",
-                Email = "testemployee4@cimob.pt",
-                UserCc = "00000000",
-                PhoneNumber = "936930000",
-                UserAddress = "RuaTeste2",
-                PostalCode = "2900-002",
-                BirthDate = new DateTime(1996, 1, 1),
-                EmployeeNumber = 150221059,
-                NormalizedEmail = "testemployee4@cimob.pt".ToUpper(),
-                NormalizedUserName = "testemployee4@cimob.pt".ToUpper()
-            };
-            userManager.CreateAsync(user, "teste12").Wait();
-            _db.SaveChanges();
-            var role = _db.Roles.SingleOrDefault(m => m.Name == "Employee");
-            userManager.AddToRoleAsync(user.Id, role.Name).Wait();
-            _db.SaveChanges();
-            _db.Employees
-                    .SingleOrDefault(e => e.UserName == user.Email)
-                    .EmailConfirmed = true;
-            _db.SaveChanges();*/
-            employeesGrd.ItemsSource = _db.Employees.Select(s => new { s.UserFullname, s.Email, s.PhoneNumber }).ToList();
-            employeesGrd.IsSynchronizedWithCurrentItem = true;
+            this.contentControl.Content = new Statistics();
+            ButtonRemove.Visibility = Visibility.Hidden;
         }
 
-        private void changeContent(object sender, RoutedEventArgs e)
+        private void AtualizarControlos()
         {
-            EmployeeDialog dialog = new EmployeeDialog();
-            if (dialog.ShowDialog() == true)
+            //TxtSigla.Text = empresaAtual.Sigla;
+            //TxtNome.Text = empresaAtual.Nome;
+            //TxtQuantidade.Text = empresaAtual.Quantidade.ToString();
+
+            //AtualizarEstado();
+        }
+
+        private void AtualizarEstado()
+        {
+            //LabelEmpresa.Content = string.Format("Ficha {0} de {1}", ListBoxEmpresas.Items.CurrentPosition + 1, ListBoxEmpresas.Items.Count);
+        }
+
+        private void ButtonFirst_Click(object sender, RoutedEventArgs e)
+        {
+            Type currentcontroller = contentControl.Content.GetType();
+
+            if(currentcontroller == typeof(EmployeeScreen))
             {
-                UserManager<Employee> userManager = new UserManager<Employee>(new UserStore<Employee>(new ApplicationDbContext()));
-                var user = new Employee
+                ((EmployeeScreen)contentControl.Content).employeesGrd.Items.MoveCurrentToFirst();
+            }
+            if(currentcontroller == typeof(StudentScreen))
+            {
+                ((StudentScreen)contentControl.Content).studentGrd.Items.MoveCurrentToFirst();
+            }
+            if (currentcontroller == typeof(BilateralProtocolScreen))
+            {
+                ((BilateralProtocolScreen)contentControl.Content).bilateralGrd.Items.MoveCurrentToFirst();
+            }
+            if (currentcontroller == typeof(NewsScreen))
+            {
+                ((NewsScreen)contentControl.Content).newsGrd.Items.MoveCurrentToFirst();
+            }
+
+        }
+
+        private void ButtonPrevious_Click(object sender, RoutedEventArgs e)
+        {
+            Type currentcontroller = contentControl.Content.GetType();
+
+            if (currentcontroller == typeof(EmployeeScreen))
+            {
+                ItemCollection itemList = ((EmployeeScreen)contentControl.Content).employeesGrd.Items;
+                if(!itemList.MoveCurrentToPrevious())
                 {
-                    UserName = dialog.Employee.Email,
-                    UserFullname = dialog.Employee.UserFullname,
-                    Email = dialog.Employee.Email,
-                    UserCc = dialog.Employee.UserCc,
-                    PhoneNumber = dialog.Employee.PhoneNumber,
-                    UserAddress = dialog.Employee.UserAddress,
-                    PostalCode = dialog.Employee.PostalCode,
-                    BirthDate = dialog.Employee.BirthDate,
-                    EmployeeNumber = dialog.Employee.EmployeeNumber,
-                    NormalizedEmail = dialog.Employee.Email.ToUpper(),
-                    NormalizedUserName = dialog.Employee.Email.ToUpper(),
-                    EmailConfirmed = true
-                };
-                userManager.CreateAsync(user, "teste12").Wait();
-                _db.SaveChanges();
-                var role = _db.Roles.SingleOrDefault(m => m.Name == "Employee");
-                userManager.AddToRoleAsync(user.Id, role.Name).Wait();
-                _db.SaveChanges();
-                employeesGrd.ItemsSource = _db.Employees.Select(s => new { s.UserFullname, s.Email, s.PhoneNumber, s.EmailConfirmed }).ToList();
+                    itemList.MoveCurrentToFirst();
+                }
+
+            }
+            if (currentcontroller == typeof(StudentScreen))
+            {
+                ItemCollection itemList = ((StudentScreen)contentControl.Content).studentGrd.Items;
+
+                if (!itemList.MoveCurrentToPrevious())
+                {
+                    itemList.MoveCurrentToFirst();
+                }
+            }
+            if (currentcontroller == typeof(BilateralProtocolScreen))
+            {
+                ItemCollection itemList = ((BilateralProtocolScreen)contentControl.Content).bilateralGrd.Items;
+
+                if (!itemList.MoveCurrentToPrevious())
+                {
+                    itemList.MoveCurrentToFirst();
+                }
+            }
+            if (currentcontroller == typeof(NewsScreen))
+            {
+                ItemCollection itemList = ((NewsScreen)contentControl.Content).newsGrd.Items;
+
+                if (!itemList.MoveCurrentToPrevious())
+                {
+                    itemList.MoveCurrentToFirst();
+                }
             }
         }
+
+        private void ButtonNext_Click(object sender, RoutedEventArgs e)
+        {
+            Type currentcontroller = contentControl.Content.GetType();
+
+            if (currentcontroller == typeof(EmployeeScreen))
+            {
+                ItemCollection itemList = ((EmployeeScreen)contentControl.Content).employeesGrd.Items;
+                if (!itemList.MoveCurrentToNext())
+                {
+                    itemList.MoveCurrentToLast();
+                }
+
+            }
+            if (currentcontroller == typeof(StudentScreen))
+            {
+                ItemCollection itemList = ((StudentScreen)contentControl.Content).studentGrd.Items;
+                if (!itemList.MoveCurrentToNext())
+                {
+                    itemList.MoveCurrentToLast();
+                }
+            }
+            if (currentcontroller == typeof(BilateralProtocolScreen))
+            {
+                ItemCollection itemList = ((BilateralProtocolScreen)contentControl.Content).bilateralGrd.Items;
+
+                if (!itemList.MoveCurrentToNext())
+                {
+                    itemList.MoveCurrentToLast();
+                }
+            }
+            if (currentcontroller == typeof(NewsScreen))
+            {
+                ItemCollection itemList = ((NewsScreen)contentControl.Content).newsGrd.Items;
+
+                if (!itemList.MoveCurrentToNext())
+                {
+                    itemList.MoveCurrentToLast();
+                }
+            }
+        }
+
+        private void ButtonLast_Click(object sender, RoutedEventArgs e)
+        {
+            Type currentcontroller = contentControl.Content.GetType();
+
+            if (currentcontroller == typeof(EmployeeScreen))
+            {
+                ((EmployeeScreen)contentControl.Content).employeesGrd.Items.MoveCurrentToLast();
+            }
+            if (currentcontroller == typeof(StudentScreen))
+            {
+                ((StudentScreen)contentControl.Content).studentGrd.Items.MoveCurrentToLast();
+            }
+            if (currentcontroller == typeof(BilateralProtocolScreen))
+            {
+                ((BilateralProtocolScreen)contentControl.Content).bilateralGrd.Items.MoveCurrentToLast();
+            }
+            if (currentcontroller == typeof(NewsScreen))
+            {
+                ((NewsScreen)contentControl.Content).newsGrd.Items.MoveCurrentToLast();
+            }
+        }
+
+        private void ButtonAdd_Click(object sender, RoutedEventArgs e)
+        {
+            //EditarEmpresaDialog empresaDlg = new EditarEmpresaDialog(empresas) { Title = "Nova Empresa" };
+
+            //if (empresaDlg.ShowDialog() == true)
+            //{
+            //    empresaAtual = empresaDlg.Empresa;
+
+            //    empresas.Add(empresaAtual);
+
+            //    ListBoxEmpresas.Items.Add(empresaAtual);
+            //    ListBoxEmpresas.Items.MoveCurrentToLast();
+
+            //    AtualizarControlos();
+            //}
+        }
+
+        private void ButtonEdit_Click(object sender, RoutedEventArgs e)
+        {
+            //if (empresaAtual == null)
+            //    return;
+
+            //EditarEmpresaDialog dlg = new EditarEmpresaDialog(empresas, new Empresa(empresaAtual)) { Title = "Editar Empresa" };
+
+            //if (dlg.ShowDialog() == true && dlg.Empresa != empresaAtual)
+            //{
+            //    empresaAtual.Nome = dlg.Empresa.Nome;
+            //    empresaAtual.Sigla = dlg.Empresa.Sigla;
+            //    empresaAtual.Quantidade = dlg.Empresa.Quantidade;
+
+            //    ListBoxEmpresas.Items.Refresh();
+            //    AtualizarControlos();
+            //}
+        }
+
+        private void ButtonRemove_Click(object sender, RoutedEventArgs e)
+        {
+            
+
+            Type currentcontroller = contentControl.Content.GetType();
+            ItemCollection items = null;
+            if (currentcontroller == typeof(EmployeeScreen))
+            {
+                items = ((EmployeeScreen)contentControl.Content).employeesGrd.Items;
+            }
+            if (currentcontroller == typeof(StudentScreen))
+            {
+                items = ((StudentScreen)contentControl.Content).studentGrd.Items;
+            }
+            if (currentcontroller == typeof(BilateralProtocolScreen))
+            {
+                
+                items = ((BilateralProtocolScreen)contentControl.Content).bilateralGrd.Items;
+                
+            }
+            if (currentcontroller == typeof(NewsScreen))
+            {
+                items = ((NewsScreen)contentControl.Content).newsGrd.Items;
+            }
+            if (currentcontroller == typeof(Statistics))
+            {
+                return;
+            }
+
+            if (items.CurrentItem == null || items.Count == 0)
+                return;
+
+
+            if (MessageBox.Show("Deseseja mesmo campo selecionado (Y/N)?", "Apagar campo?", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+            {
+                if(currentcontroller == typeof(EmployeeScreen))
+                {
+                    var employee = items.CurrentItem;
+                    var employeeId = employee.GetType().GetProperty("UserName").GetValue(employee);
+                    _db.Employees.Where(a => a.UserName.Equals(((String)employeeId))).First().IsBanned = true;
+                    _db.SaveChanges();
+                    contentControl.Content = new EmployeeScreen();
+                }
+                if (currentcontroller == typeof(StudentScreen))
+                {
+                    var student = items.CurrentItem;
+                    var studentId = student.GetType().GetProperty("UserName").GetValue(student);
+
+                    _db.Students.Where(a => a.StudentNumber.Equals(((String)studentId))).First().IsBanned = true;
+                    _db.SaveChanges();
+                    contentControl.Content = new StudentScreen();
+                }
+                if (currentcontroller == typeof(BilateralProtocolScreen))
+                {
+                    var bilateralProtocol = items.CurrentItem;
+                    var bilateralId = bilateralProtocol.GetType().GetProperty("Destination").GetValue(bilateralProtocol);
+                    var bilateralSubject = bilateralProtocol.GetType().GetProperty("SubjectName").GetValue(bilateralProtocol);
+                    //var bilateralId = bilateralProtocol.GetType().GetProperty("Id").GetValue(bilateralProtocol);
+                    //_db.BilateralProtocols.Where(a => a.Id == ((int)bilateralId)).First().OpenSlots = -1;
+                    _db.BilateralProtocols.Where(a => a.Destination.Equals((String)bilateralId) &&
+                                                a.Subject.SubjectName.Equals((String)bilateralSubject)).First().OpenSlots = 99;
+                    _db.SaveChanges();
+                    contentControl.Content = new BilateralProtocolScreen();
+                }
+                if (currentcontroller == typeof(NewsScreen))
+                {
+                    var news = items.CurrentItem;
+                    var newsTitle = news.GetType().GetProperty("Title").GetValue(news);
+                    var newsContent = news.GetType().GetProperty("TextContent").GetValue(news);
+                    News selectedNews = _db.News.SingleOrDefault(n => n.Title.Equals((String)newsTitle) && n.TextContent.Equals((String)newsContent));
+                    _db.News.Remove(selectedNews);
+                    contentControl.Content = new NewsScreen();
+                }
+            }
+        }
+
+        private void ListBoxEmpresas_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            //if (ListBoxEmpresas.Items.CurrentItem != null)
+            //{
+            //    empresaAtual = ListBoxEmpresas.Items.CurrentItem as Empresa;
+            //    AtualizarControlos();
+            //}
+        }
+
+        private void ButtonEmployee(object sender, RoutedEventArgs e)
+        {
+            this.contentControl.Content = new EmployeeScreen();
+            if (ButtonRemove.Visibility == Visibility.Hidden)
+            {
+                ButtonRemove.Visibility = Visibility.Visible;
+            }
+        }
+
+        private void ButtonProtocol(object sender, RoutedEventArgs e)
+        {
+            this.contentControl.Content = new BilateralProtocolScreen();
+            if (ButtonRemove.Visibility == Visibility.Hidden)
+            {
+                ButtonRemove.Visibility = Visibility.Visible;
+            }
+        }
+
+        private void ButtonStudent(object sender, RoutedEventArgs e)
+        {
+            this.contentControl.Content = new StudentScreen();
+            if (ButtonRemove.Visibility == Visibility.Hidden)
+            {
+                ButtonRemove.Visibility = Visibility.Visible;
+            }
+        }
+        private void ButtonNews(object sender, RoutedEventArgs e)
+        {
+            this.contentControl.Content = new NewsScreen();
+            if(ButtonRemove.Visibility == Visibility.Hidden)
+            {
+                ButtonRemove.Visibility = Visibility.Visible;
+            }
+        }
+
+        private void ButtonMainScreens(object sender, RoutedEventArgs e)
+        {
+            this.contentControl.Content = new Statistics();
+            ButtonRemove.Visibility = Visibility.Hidden;
+        }
+
+
     }
 }

@@ -1,0 +1,54 @@
+﻿<UserControl x:Class="BackOfficeWPF.Statistics"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:BackOfficeWPF"
+             mc:Ignorable="d" 
+             Height="720" Width="1280">
+    <DockPanel>
+
+        <Label Content="Gestão do Mercado Acionista de Setúbal" DockPanel.Dock="Top" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" FontSize="15" />
+        <Grid Name="Form" DockPanel.Dock="Top"  DataContext="{Binding ElementName=studentGrd, Path=SelectedItem, UpdateSourceTrigger=PropertyChanged}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="300"/>
+                <ColumnDefinition Width="270"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <Label Content="Total Employees" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center"  FontSize="12" Margin="2" />
+            <Label Content="" Name="TotalEmployees" Grid.Row="0" Grid.Column="1"  HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="12" Width="150" IsEnabled="False" Margin="0,6" />
+
+            <Label Content="Total Applications for current edital out of the total" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="12" Margin="2"  />
+            <Label Content="" Name="Applications" Grid.Row="1" Grid.Column="1"  HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="12" Width="150" IsEnabled="False"/>
+
+            <Label Content="Average of all applications" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center"  FontSize="12" Margin="2" />
+            <Label Content="" Name="AverageApplication" Grid.Row="2" Grid.Column="1"  HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="12" Width="150" IsEnabled="False" Margin="0,6" />
+
+            <Label Content="Total number of TTs and answered TT" Grid.Row="3" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="12" Margin="2"  />
+            <Label Content="Implemented soon..." Name="Soon1" Grid.Row="3" Grid.Column="1"  HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="12" Width="150" IsEnabled="False"/>
+
+            <Label Content="Employee with most TTs solved" Grid.Row="4" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="12" Margin="2"  />
+            <Label Content="Implemented soon..." Name="Soon2" Grid.Row="4" Grid.Column="1"  HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="12" Width="150" IsEnabled="False"/>
+
+            <Label Content="Employee with most applications evaluated" Grid.Row="5" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="12" Margin="2"  />
+            <Label Content="" Name="EvaluatedByEmployee" Grid.Row="5" Grid.Column="1"  HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="12" Width="150" IsEnabled="False"/>
+
+            
+            
+            <!--<Label Content="Email" Grid.Row="6" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="12" Margin="2"  />
+            <Label Name="EmailTxt" Content="" Grid.Row="6" Grid.Column="1"  HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="12" Width="150" IsEnabled="False"/>-->
+
+        </Grid>
+    </DockPanel>
+</UserControl>
