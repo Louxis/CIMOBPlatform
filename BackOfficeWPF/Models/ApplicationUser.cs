@@ -38,6 +38,7 @@ namespace CIMOBProject.Models
         [Display(Name = "Número de Telemóvel")]
         [RegularExpression(@"^[2356789]{1}[0-9]{8}$", ErrorMessage = "Não é um número válido.")]
         public override string PhoneNumber { get => base.PhoneNumber; set => base.PhoneNumber = value; }
+
         [Display(Name = "Banido")]
         public bool IsBanned { get; set; }
 

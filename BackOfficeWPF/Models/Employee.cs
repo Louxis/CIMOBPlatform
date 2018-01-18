@@ -14,6 +14,6 @@ namespace CIMOBProject.Models
         ///do not require any relevante information besides that one already included in the ApplicationUser
         /// </summary>
         [Display(Name = "Número de Funcionário")]
-        public String EmployeeNumber { get; set; }
+        public string EmployeeNumber { get; set; }
     }
 }
