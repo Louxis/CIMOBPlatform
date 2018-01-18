@@ -117,9 +117,6 @@ namespace CIMOBProject.Controllers {
             return View(student);
         }
 
-
-
-
         // GET: Students/Edit/5
         public async Task<IActionResult> Edit(string id) {
             if (id == null) {
@@ -194,6 +191,27 @@ namespace CIMOBProject.Controllers {
             _context.Students.Remove(student);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
+        }
+
+        public async Task<IActionResult> Dashboard(string id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var student = await _context.Students.SingleOrDefaultAsync(m => m.Id == id);
+            var studentApplication = _context.Applications.Where(s => s.StudentId == id).Last();
+            var studentDocuments = _context.Documents.Where(a => a.ApplicationId == studentApplication.ApplicationId);
+            if (student == null)
+            {
+                return NotFound();
+            }
+
+            ViewData["selectedId"] = student.Id;
+            ViewData["studentApplication"] = studentApplication;
+            ViewData["studentDocuments"] = studentDocuments;
+            return View(student);
         }
 
         private bool StudentExists(string id) {
