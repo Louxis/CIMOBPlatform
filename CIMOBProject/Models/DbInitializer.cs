@@ -58,18 +58,18 @@ namespace CIMOBProject.Models {
 
             if (!context.BilateralProtocols.Any())
             {
-                context.BilateralProtocols.Add(new BilateralProtocol { SubjectId = 1, Destination = "Lithuania", OpenSlots = 1 });
-                context.BilateralProtocols.Add(new BilateralProtocol { SubjectId = 2, Destination = "Spain", OpenSlots = 1 });
-                context.BilateralProtocols.Add(new BilateralProtocol { SubjectId = 3, Destination = "Testing1", OpenSlots = 1 });
-                context.BilateralProtocols.Add(new BilateralProtocol { SubjectId = 4, Destination = "Testing2", OpenSlots = 1 });
-                context.BilateralProtocols.Add(new BilateralProtocol { SubjectId = 1, Destination = "Lithuania", OpenSlots = 1 });
-                context.BilateralProtocols.Add(new BilateralProtocol { SubjectId = 2, Destination = "Testing4", OpenSlots = 1 });
-                context.BilateralProtocols.Add(new BilateralProtocol { SubjectId = 3, Destination = "Testing5", OpenSlots = 1 });
-                context.BilateralProtocols.Add(new BilateralProtocol { SubjectId = 4, Destination = "Testing6", OpenSlots = 1 });
-                context.BilateralProtocols.Add(new BilateralProtocol { SubjectId = 1, Destination = "Testing7", OpenSlots = 1 });
-                context.BilateralProtocols.Add(new BilateralProtocol { SubjectId = 2, Destination = "Testing8", OpenSlots = 1 });
-                context.BilateralProtocols.Add(new BilateralProtocol { SubjectId = 3, Destination = "Testing9", OpenSlots = 1 });
-                context.BilateralProtocols.Add(new BilateralProtocol { SubjectId = 4, Destination = "Testing10", OpenSlots = 1 });
+                context.BilateralProtocols.Add(new BilateralProtocol { SubjectId = 1, Destination = "França", OpenSlots = 1 });
+                context.BilateralProtocols.Add(new BilateralProtocol { SubjectId = 2, Destination = "Espanha", OpenSlots = 1 });
+                context.BilateralProtocols.Add(new BilateralProtocol { SubjectId = 3, Destination = "Italia", OpenSlots = 1 });
+                context.BilateralProtocols.Add(new BilateralProtocol { SubjectId = 4, Destination = "Romenia", OpenSlots = 1 });
+                context.BilateralProtocols.Add(new BilateralProtocol { SubjectId = 1, Destination = "Lituania", OpenSlots = 1 });
+                context.BilateralProtocols.Add(new BilateralProtocol { SubjectId = 2, Destination = "Polónia", OpenSlots = 1 });
+                context.BilateralProtocols.Add(new BilateralProtocol { SubjectId = 3, Destination = "Russia", OpenSlots = 1 });
+                context.BilateralProtocols.Add(new BilateralProtocol { SubjectId = 4, Destination = "Londres", OpenSlots = 1 });
+                context.BilateralProtocols.Add(new BilateralProtocol { SubjectId = 1, Destination = "Irlanda", OpenSlots = 1 });
+                context.BilateralProtocols.Add(new BilateralProtocol { SubjectId = 2, Destination = "Turquia", OpenSlots = 1 });
+                context.BilateralProtocols.Add(new BilateralProtocol { SubjectId = 3, Destination = "França", OpenSlots = 1 });
+                context.BilateralProtocols.Add(new BilateralProtocol { SubjectId = 4, Destination = "Alemanha", OpenSlots = 1 });
                 context.SaveChanges();
             }
 
@@ -106,7 +106,7 @@ namespace CIMOBProject.Models {
                     UserAddress = "Avenida para teste",
                     PostalCode = "2912-123",
                     BirthDate = new DateTime(1995, 1, 1),
-                    StudentNumber = "123123123",
+                    StudentNumber = "123456789",
                     ALOGrade = 0,
                     CollegeSubjectId = 1
                 };
@@ -126,7 +126,7 @@ namespace CIMOBProject.Models {
                     UserAddress = "Avenida para teste",
                     PostalCode = "2912-123",
                     BirthDate = new DateTime(1995, 1, 1),
-                    StudentNumber = "123123123",
+                    StudentNumber = "123795884",
                     ALOGrade = 0,
                     CollegeSubjectId = 2
                 };
@@ -146,7 +146,7 @@ namespace CIMOBProject.Models {
                     UserAddress = "Avenida para teste",
                     PostalCode = "2912-123",
                     BirthDate = new DateTime(1995, 1, 1),
-                    StudentNumber = "123123123",
+                    StudentNumber = "123244144",
                     ALOGrade = 0,
                     CollegeSubjectId = 2
                 };
@@ -166,7 +166,7 @@ namespace CIMOBProject.Models {
                     UserAddress = "Avenida para teste",
                     PostalCode = "2912-123",
                     BirthDate = new DateTime(1995, 1, 1),
-                    StudentNumber = "123123123",
+                    StudentNumber = "123333333",
                     ALOGrade = 0,
                     CollegeSubjectId = 4
                 };
@@ -186,7 +186,7 @@ namespace CIMOBProject.Models {
                     UserAddress = "Avenida para teste",
                     PostalCode = "2912-123",
                     BirthDate = new DateTime(1995, 1, 1),
-                    StudentNumber = "123123123",
+                    StudentNumber = "123111111",
                     ALOGrade = 0,
                     CollegeSubjectId = 4
                 };
@@ -206,7 +206,7 @@ namespace CIMOBProject.Models {
                     UserAddress = "Avenida para teste",
                     PostalCode = "2912-123",
                     BirthDate = new DateTime(1995, 1, 1),
-                    StudentNumber = "123123123",
+                    StudentNumber = "123123133",
                     ALOGrade = 0,
                     CollegeSubjectId = 4
                 };
@@ -226,7 +226,7 @@ namespace CIMOBProject.Models {
                     UserAddress = "Avenida para teste",
                     PostalCode = "2912-123",
                     BirthDate = new DateTime(1995, 1, 1),
-                    StudentNumber = "123123123",
+                    StudentNumber = "123122222",
                     ALOGrade = 0,
                     CollegeSubjectId = 4
                 };
@@ -382,7 +382,12 @@ namespace CIMOBProject.Models {
 
             if (!context.Editals.Any())
             {
-                context.Editals.Add(new Edital {Title = "Edital teste", TextContent = "Edital publicado", OpenDate = new DateTime(2017,11,10), CloseDate = new DateTime(2018,02,03) });
+                context.Editals.Add(new Edital {
+                    Title = "Edital teste",
+                    TextContent = "Edital publicado",
+                    OpenDate = new DateTime(2017,11,10),
+                    CloseDate = new DateTime(2018,02,03),
+                    IsPublished = true });
                 context.SaveChanges();
             }
 

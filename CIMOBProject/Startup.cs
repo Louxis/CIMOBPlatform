@@ -113,8 +113,12 @@ namespace CIMOBProject
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
-                    name: "seriations",
+                    name: "seriationsDetails",
                     template: "News/Details/Seriacoes",
+                    defaults: new { controller = "Applications", action = "DisplaySeriation" });
+                routes.MapRoute(
+                    name: "seriations",
+                    template: "News/Seriacoes",
                     defaults: new { controller = "Applications", action = "DisplaySeriation" });
                 routes.MapRoute(
                     name: "default",

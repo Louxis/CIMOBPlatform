@@ -14,7 +14,7 @@ using Xunit;
 
 namespace XUnitTesting
 {
-    public class NewsControllerTest
+    public class NewsControllerTestXunit
     {
         private IConfigurationRoot _configuration;
 
@@ -22,7 +22,7 @@ namespace XUnitTesting
         private DbContextOptions<ApplicationDbContext> _options;
         private ApplicationDbContext _context;
 
-        public NewsControllerTest()
+        public NewsControllerTestXunit()
         {
             var builder = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())

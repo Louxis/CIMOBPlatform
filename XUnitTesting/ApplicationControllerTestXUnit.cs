@@ -388,5 +388,44 @@ namespace XUnitTesting
             Assert.Equal(2, model.Count());
         }
 
+        [Fact]
+        public async Task TestingApplicationClosingSuccessfull()
+        {
+            ApplicationsController controller = new ApplicationsController(_context);
+            // Act
+            String studentId = _context.Students.Where(s => s.UserFullname.Equals("Teste User 1")).FirstOrDefault().Id;
+            var application = await _context.Applications.SingleOrDefaultAsync(a => a.ApplicationId == 1);
+            application.ApplicationStatId = 4;
+            _context.SaveChanges();
+            String currentEmployee = _context.Employees.Where(s => s.UserFullname.Equals("Empregado Teste")).FirstOrDefault().Id;
+            await controller.FinishApplication(application.ApplicationId, currentEmployee);
+
+            _context.Entry(application).State = EntityState.Detached;
+
+            application = await _context.Applications.SingleOrDefaultAsync(a => a.ApplicationId == 1);
+            // Assert
+
+            Assert.Equal(6, application.ApplicationStatId);
+        }
+
+        [Fact]
+        public async Task TestingApplicationClosingFailed()
+        {
+            ApplicationsController controller = new ApplicationsController(_context);
+            // Act
+            String studentId = _context.Students.Where(s => s.UserFullname.Equals("Teste User 1")).FirstOrDefault().Id;
+            var application = await _context.Applications.SingleOrDefaultAsync(a => a.ApplicationId == 1);
+            application.ApplicationStatId = 2;
+            _context.SaveChanges();
+            String currentEmployee = _context.Employees.Where(s => s.UserFullname.Equals("Empregado Teste")).FirstOrDefault().Id;
+            await controller.FinishApplication(application.ApplicationId, currentEmployee);
+
+            _context.Entry(application).State = EntityState.Detached;
+
+            application = await _context.Applications.SingleOrDefaultAsync(a => a.ApplicationId == 1);
+            // Assert
+            Assert.Equal(2, application.ApplicationStatId);
+        }
+
     }
 }

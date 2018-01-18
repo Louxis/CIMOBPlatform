@@ -32,8 +32,7 @@ namespace CIMOBProject.Controllers
             DateTime openDate = _context.Editals.Last().OpenDate;
             DateTime closeDate = _context.Editals.Last().CloseDate;
             var applicationDbContext = _context.Applications.Include(a => a.ApplicationStat)
-                .Include(a => a.Employee).Include(a => a.Student).Include(a => a.BilateralProtocol1).Include(a => a.BilateralProtocol2).Include(a => a.BilateralProtocol3).Where(a => a.CreationDate >= openDate && a.CreationDate <= closeDate)
-                .Where(a => a.EmployeeId.Equals(employeeId) || String.IsNullOrEmpty(a.EmployeeId));
+                .Include(a => a.Employee).Include(a => a.Student).Include(a => a.BilateralProtocol1).Include(a => a.BilateralProtocol2).Include(a => a.BilateralProtocol3).Where(a => a.CreationDate >= openDate && a.CreationDate <= closeDate);
             return View(await applicationDbContext.ToListAsync());
         }
 
@@ -69,6 +68,7 @@ namespace CIMOBProject.Controllers
                 .Include(a => a.ApplicationStat)
                 .Include(a => a.Employee)
                 .Include(a => a.Student)
+                .ThenInclude(s => s.CollegeSubject)
                 .Include(a => a.BilateralProtocol1)
                 .Include(a => a.BilateralProtocol2)
                 .Include(a => a.BilateralProtocol3)
@@ -124,7 +124,7 @@ namespace CIMOBProject.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ApplicationId,StudentId,ApplicationStatId,EmployeeId,BilateralProtocol1Id,BilateralProtocol2Id,BilateralProtocol3Id,CreationDate,ArithmeticMean,ECTS,MotivationLetter,Enterview,FinalGrade,Documents")] Application application)
+        public async Task<IActionResult> Create([Bind("ApplicationId,StudentId,ApplicationStatId,EmployeeId,BilateralProtocol1Id,BilateralProtocol2Id,BilateralProtocol3Id,CreationDate,ArithmeticMean,ECTS,MotivationLetter,Enterview,FinalGrade,Documents,Motivations")] Application application)
         {
             var student = _context.Students.Include(s => s.CollegeSubject).Where(s => s.Id == application.StudentId).SingleOrDefault();
             if (ModelState.IsValid)
@@ -135,7 +135,8 @@ namespace CIMOBProject.Controllers
                 await emailSender.Execute("Candidatura Submetida","Saudações, a sua candidatura foi submetida no sistema com sucesso, boa sorte!", newStudent.Email);
                 _context.ApplicationStatHistory.Add(new ApplicationStatHistory { ApplicationId = _context.Applications.Last().ApplicationId, ApplicationStat = "Pending Evaluation", DateOfUpdate = DateTime.Now });
                 _context.SaveChanges();
-                return RedirectToAction("Application", "Home", new { message = "Candidatura efetuada com sucesso!" });
+                //return RedirectToAction("Application", "Home", new { message = "Candidatura efetuada com sucesso!" });
+                return RedirectToAction("Details", "Applications", new { id = application.ApplicationId });
             }
 
             ViewData["BilateralProtocol1Id"] = new SelectList(_context.BilateralProtocols.Where(p => p.SubjectId == student.CollegeSubjectId), "Id", "Destination");
@@ -148,6 +149,7 @@ namespace CIMOBProject.Controllers
 
             loadHelp();
 
+
             return RedirectToAction("Create", new { userId = application.StudentId });
         }
         ///<summary>
@@ -157,8 +159,7 @@ namespace CIMOBProject.Controllers
         ///</summary>
         [Authorize(Roles = "Employee")]
         public async Task<IActionResult> Seriation()
-        {
-            
+        {            
             DateTime openDate = _context.Editals.Last().OpenDate;
             DateTime closeDate = _context.Editals.Last().CloseDate;
             
@@ -166,7 +167,7 @@ namespace CIMOBProject.Controllers
             var queryGetAllApplication = await _context.Applications.Where(a => a.CreationDate >= openDate && a.CreationDate <= closeDate).ToListAsync();
             if (queryGetApplication.Count() != queryGetAllApplication.Count())
             {
-                return RedirectToAction("Application", "Home", new { message = "Ainda existem candidaturas por avaliar" });
+                return RedirectToAction("Applications", "Home", new { message = "Ainda existem candidaturas por avaliar" });
             }
 
             foreach (var item in queryGetApplication)
@@ -223,12 +224,11 @@ namespace CIMOBProject.Controllers
                 }
                 emailSender.SendStateEmail(item.ApplicationStatId, studentEmail);                
             }
-            //move this   
             publishSeriationNews();
             return RedirectToAction("DisplaySeriation", "Applications");
         }
 
-        private async void publishSeriationNews() {
+        private void publishSeriationNews() {
             Edital latestEdital = _context.Editals.OrderByDescending(e => e.Id).FirstOrDefault();
             string title = "Seriação " + latestEdital.CloseDate.Year;
             string content = "Encontra-se disponivel a seriação dos alunos respetiva do ultimo edital";
@@ -247,12 +247,12 @@ namespace CIMOBProject.Controllers
             _context.Add(urlDoc);
             news.Document = urlDoc;
             _context.Add(news);
-            await _context.SaveChangesAsync();
+            _context.SaveChanges();
         }
 
         ///<summary>
         ///This method displays the results of the seriation.
-        ///All the stundentds will be displayed with theyr respective grade
+        ///All the stundentds will be displayed with their respective grade
         ///</summary>
         public async Task<IActionResult> DisplaySeriation()
         {
@@ -306,6 +306,32 @@ namespace CIMOBProject.Controllers
             return View(await allApplications.ToListAsync());
         }
 
+        public async Task<IActionResult> CloseApplication(String studentId)
+        {
+            var getCurrentApplication = await _context.Applications.Include(a => a.Student).LastOrDefaultAsync(a => a.StudentId.Equals(studentId));
+            
+            return View(getCurrentApplication);
+        }
+
+        public async Task<IActionResult> FinishApplication(int applicationId, String employeeId)
+        {
+            
+            var changedApplication = await _context.Applications.Include(a => a.Student).Include(a => a.ApplicationStat).SingleOrDefaultAsync(a => a.ApplicationId == applicationId);
+            if (changedApplication.ApplicationStatId != 4)
+            {
+                return RedirectToAction("Index", "Applications", new { employeeId = changedApplication.EmployeeId });
+            }
+            _context.ApplicationStatHistory.Add(new ApplicationStatHistory { ApplicationId = changedApplication.ApplicationId, ApplicationStat = changedApplication.ApplicationStat.Name, DateOfUpdate = DateTime.Now });
+            _context.SaveChanges();
+            _context.Entry(changedApplication).State = EntityState.Detached;
+            changedApplication = await _context.Applications.Include(a => a.Student).SingleOrDefaultAsync(a => a.ApplicationId == applicationId);
+            changedApplication.ApplicationStatId = 6;
+            _context.SaveChanges();
+
+            return RedirectToAction("Index", "Applications", new { employeeId = employeeId });
+        }
+
+
         // GET: Applications/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
@@ -332,6 +358,8 @@ namespace CIMOBProject.Controllers
 
             return View(application);
         }
+
+
 
         // POST: Applications/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 

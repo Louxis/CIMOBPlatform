@@ -1,0 +1,36 @@
+﻿@model IEnumerable<CIMOBProject.Models.TroubleTicket>
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+@if (Model == null)
+{
+    <h2>Erro</h2>
+    <br/>
+    <h3>Não tem acesso a esta área</h3>
+}
+else
+{
+<h2>Index</h2>
+<p>
+    <a asp-action="Create" asp-route-userId="@UserManager.GetUserId(User)">Novo Trouble Ticket</a>
+</p>
+
+
+<p>
+     <a asp-action="Index" asp-route-userId="@UserManager.GetUserId(User)" asp-route-ticketFilter="Sent" class="btn btn-default" >Tickets Enviados</a>
+     <a asp-action="Index" asp-route-userId="@UserManager.GetUserId(User)" asp-route-ticketFilter="Received" class="btn btn-default">Tickets Recebidos</a>
+     <a asp-action="Index" asp-route-userId="@UserManager.GetUserId(User)" asp-route-ticketFilter="Opened" class="btn btn-default">Tickets Abertos</a>
+     <a asp-action="Index" asp-route-userId="@UserManager.GetUserId(User)" asp-route-ticketFilter="Closed" class="btn btn-default">Tickets Fechados</a>
+     <a asp-action="Index" asp-route-userId="@UserManager.GetUserId(User)" asp-route-listOrder="OlderFirst" class="btn btn-default">Mostrar Mais Antigos Primeiro</a>
+     <a asp-action="Index" asp-route-userId="@UserManager.GetUserId(User)" class="btn btn-default">Sem Filtro</a>
+ </p>
+
+ @Html.Partial("_IndexPartial", Model)
+}

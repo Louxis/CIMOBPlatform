@@ -1,0 +1,72 @@
+﻿@model IEnumerable<CIMOBProject.Models.TroubleTicket>
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+@{
+    ViewData["Title"] = "_IndexPartial";
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CreationDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Solved)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StudentNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ApplicationUser)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CreationDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Solved)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StudentNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ApplicationUser.Id)
+                </td>
+                <td>
+                    @if (!item.Solved && User.IsInRole("Employee"))
+                {
+                        <a asp-action="CloseTicket" asp-route-troubleTicketId="@item.TroubleTicketId" asp-route-applicationUserId="@UserManager.GetUserId(User)">Fechar Ticket</a>
+                    }
+                    else
+                    {
+                        if (item.Solved)
+                        {
+                            <h6>Ticket Fechado</h6>
+                        }
+
+                    }
+                    <a asp-action="Details" asp-route-id="@item.TroubleTicketId">Visualizar Trouble Ticket</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
