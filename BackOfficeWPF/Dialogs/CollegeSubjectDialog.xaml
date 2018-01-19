@@ -1,0 +1,31 @@
+﻿<Window x:Class="BackOfficeWPF.Dialogs.CollegeSubjectDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BackOfficeWPF.Dialogs"
+        mc:Ignorable="d"
+        Title="Cursos" Height="250" Width="375" Closing="Window_Closing">
+    <Grid Name="GridFormCollege" DockPanel.Dock="Left"  Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="130" />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+        <Label Content="Designação" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left"   FontSize="12" Margin="10,10,0,10.4" />
+        <Label Content="Sigla" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left"   FontSize="12" Margin="10,10,0,10.4" />
+        <Label Content="Escola" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Left"   FontSize="12" Margin="10,10,0,10.4" />
+        <TextBox Grid.Row="0" Grid.Column="1" Name="subjectName" Text="{Binding Path=SubjectName}" HorizontalAlignment="Left" FontSize="12" Margin="11.8,10,0,10.4" Width="190"></TextBox>
+        <TextBox Grid.Row="1" Grid.Column="1" Name="subjectAlias" Text="{Binding Path=SubjectAlias}" HorizontalAlignment="Left" FontSize="12" Margin="11.8,10,0,10.4" Width="190"></TextBox>
+        <ComboBox Grid.Row="2" Grid.Column="1" Name="collegesCombo"  SelectedIndex="{Binding Path=SubjectId}" HorizontalAlignment="Left" FontSize="12" Margin="11.8,10,0,10.4" Width="190"></ComboBox>
+        <StackPanel Grid.Column="1" Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom" Height="20" Margin="0,0,0,-0.2" Width="142">
+            <Button x:Name="OkButton" Click="OkButton_Click" IsDefault="True" Width="60" Margin="1,0" Content="OK"/>
+            <Button x:Name="CancelButton" IsCancel="True" Width="60" Margin="10,0" Click="CancelButton_Click" Content="Cancel"/>
+        </StackPanel>
+    </Grid>
+</Window>

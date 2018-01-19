@@ -1,4 +1,5 @@
-﻿using CIMOBProject.Models;
+﻿using BackOfficeWPF.Dialogs;
+using CIMOBProject.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -49,7 +50,11 @@ namespace BackOfficeWPF
         private void ButtonFirst_Click(object sender, RoutedEventArgs e)
         {
             Type currentcontroller = contentControl.Content.GetType();
-
+            CollegeSubjectDialog collegeSubject = new CollegeSubjectDialog();
+            if (collegeSubject.ShowDialog() == true)
+            {
+                MessageBox.Show(collegeSubject.CollegeSubject.CollegeId + "");
+            }
             if(currentcontroller == typeof(EmployeeScreen))
             {
                 ((EmployeeScreen)contentControl.Content).employeesGrd.Items.MoveCurrentToFirst();

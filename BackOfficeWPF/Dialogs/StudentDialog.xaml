@@ -30,7 +30,7 @@
         <Label Content="Morada" Grid.Row="4" Grid.Column="0" HorizontalAlignment="Left"   FontSize="12" Margin="10,10,0,10.4" />
         <Label Content="Código Postal" Grid.Row="5" Grid.Column="0" HorizontalAlignment="Left"   FontSize="12" Margin="10,10,0,10.4" />
         <Label Content="Data Nascimento" Grid.Row="6" Grid.Column="0" HorizontalAlignment="Left"   FontSize="12" Margin="10,10,0,10.4" />
-        <Label Content="Número Empregado" Grid.Row="7" Grid.Column="0" HorizontalAlignment="Left"   FontSize="12" Margin="10,10,0,10.4" />
+        <Label Content="Número Estudante" Grid.Row="7" Grid.Column="0" HorizontalAlignment="Left"   FontSize="12" Margin="10,10,0,10.4" />
         <Label Content="Banido?" Grid.Row="8" Grid.Column="0" HorizontalAlignment="Left"   FontSize="12" Margin="10,10,0,10.4" />
         <TextBox Grid.Row="0" Grid.Column="1" Name="studentName" Text="{Binding Path=UserFullname}" HorizontalAlignment="Left" FontSize="12" Margin="11.8,10,0,10.4" Width="280"></TextBox>
         <TextBox Grid.Row="1" Grid.Column="1" Name="studentEmail" Text="{Binding Path=Email}" HorizontalAlignment="Left" FontSize="12" Margin="11.8,10,0,10.4" Width="300"></TextBox>

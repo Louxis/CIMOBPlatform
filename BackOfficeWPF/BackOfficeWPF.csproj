@@ -115,6 +115,12 @@
     <Compile Include="Dialogs\BilateralDialog.xaml.cs">
       <DependentUpon>BilateralDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Dialogs\CollegeDialog.xaml.cs">
+      <DependentUpon>CollegeDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\CollegeSubjectDialog.xaml.cs">
+      <DependentUpon>CollegeSubjectDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Dialogs\EmployeeDialog.xaml.cs">
       <DependentUpon>EmployeeDialog.xaml</DependentUpon>
     </Compile>
@@ -143,6 +149,14 @@
       <DependentUpon>TestControl2.xaml</DependentUpon>
     </Compile>
     <Page Include="Dialogs\BilateralDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Dialogs\CollegeDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Dialogs\CollegeSubjectDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

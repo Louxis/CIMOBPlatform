@@ -14,20 +14,23 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace BackOfficeWPF.Dialogs {
+namespace BackOfficeWPF.Dialogs
+{
     /// <summary>
     /// Interaction logic for StudentDialog.xaml
     /// </summary>
-    public partial class StudentDialog : Window {
+    public partial class StudentDialog : Window
+    {
 
         private readonly ApplicationDbContext _db = new ApplicationDbContext();
         private bool mayClose;
         public Student Student { get; set; }
 
 
-        public StudentDialog() {
+        public StudentDialog(Student student)
+        {
             InitializeComponent();
-            this.Student = new Student();
+            this.Student = student ?? new Student();
             Student.BirthDate = new DateTime(2000, 1, 1);
             GridFormStudent.DataContext = Student;
             mayClose = false;
@@ -86,7 +89,6 @@ namespace BackOfficeWPF.Dialogs {
                 MessageBox.Show("A morada é obrigatória.", "Erro - Morada obrigatória!");
                 return false;
             }
-
             return true;
         }
 
