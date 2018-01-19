@@ -112,6 +112,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Dialogs\ApplicationDialog.xaml.cs">
+      <DependentUpon>ApplicationDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Dialogs\BilateralDialog.xaml.cs">
       <DependentUpon>BilateralDialog.xaml</DependentUpon>
     </Compile>
@@ -148,6 +151,10 @@
     <Compile Include="TestControl2.xaml.cs">
       <DependentUpon>TestControl2.xaml</DependentUpon>
     </Compile>
+    <Page Include="Dialogs\ApplicationDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Dialogs\BilateralDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -279,6 +286,9 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Auth\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
