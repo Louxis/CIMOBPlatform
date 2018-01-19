@@ -24,7 +24,7 @@ namespace CIMOBProject.Models
         [Display(Name = "Curso")]
         public int CollegeSubjectId { get; set; }
 
-        public int CollegeId { get; set; }
+        public int? CollegeId { get; set; }
 
         public virtual CollegeSubject CollegeSubject { get; set; }
 

@@ -8,7 +8,7 @@
              Height="720" Width="1280">
     <DockPanel>
 
-        <Label Content="Gestão do Mercado Acionista de Setúbal" DockPanel.Dock="Top" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" FontSize="15" />
+        <Label Content="News Control Screen" DockPanel.Dock="Top" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" FontSize="15" />
         <Grid Name="Form" DockPanel.Dock="Top"  DataContext="{Binding ElementName=newsGrd, Path=SelectedItem, UpdateSourceTrigger=PropertyChanged}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
@@ -39,7 +39,14 @@
             <TextBox Name="EmployeeName" Text="{Binding ElementName=Form, Path=DataContext.UserFullname, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" Grid.Row="3" Grid.Column="1"  HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="12" Width="150" IsEnabled="False"/>
 
             <Grid Grid.Row="0" Grid.Column="1" Grid.RowSpan="4" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.ColumnSpan="2" Margin="190,0,0,-99">
-                <DataGrid Name="newsGrd"  IsSynchronizedWithCurrentItem="True"></DataGrid>
+                <DataGrid Name="newsGrd" AutoGenerateColumns="False"  IsSynchronizedWithCurrentItem="True" VerticalScrollBarVisibility="Visible" Height="300" Width="auto">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Title" Binding="{Binding Title, Mode=OneWay}" Width="*"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Text Content" Binding="{Binding TextContent, Mode=OneWay}" Width="*"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Published" Binding="{Binding IsPublished, Mode=OneWay}" Width="*"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Emplyee Name" Binding="{Binding UserFullname, Mode=OneWay}" Width="*"></DataGridTextColumn>
+                </DataGrid.Columns>
+                </DataGrid>
             </Grid>
         </Grid>
     </DockPanel>

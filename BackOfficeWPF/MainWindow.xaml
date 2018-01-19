@@ -15,12 +15,12 @@
 
         <DockPanel>
             <Menu DockPanel.Dock="Top">
-                <MenuItem Click="ButtonEmployee">
-                    <MenuItem.Header>
+                <MenuItem  Click="ButtonMainScreen">
+                    <MenuItem.Header >
                         <Image Width="20" Height="20" Source="icons/first.png"  />
                     </MenuItem.Header>
                 </MenuItem>
-                <MenuItem Click="ButtonProtocol">
+                <MenuItem Click="ButtonEmployee">
                     <MenuItem.Header>
                         <Image Width="20" Height="20" Source="icons/first.png" />
                     </MenuItem.Header>
@@ -30,24 +30,34 @@
                         <Image Width="20" Height="20" Source="icons/first.png" />
                     </MenuItem.Header>
                 </MenuItem>
+                <MenuItem Click="ButtonApplicationScreen">
+                    <MenuItem.Header>
+                        <Image Width="20" Height="20" Source="icons/first.png" />
+                    </MenuItem.Header>
+                </MenuItem>
                 <MenuItem Click="ButtonNews">
                     <MenuItem.Header>
                         <Image Width="20" Height="20" Source="icons/first.png" />
                     </MenuItem.Header>
                 </MenuItem>
-                <MenuItem Click="ButtonMainScreens">
+                <MenuItem Click="ButtonProtocol">
                     <MenuItem.Header>
                         <Image Width="20" Height="20" Source="icons/first.png" />
                     </MenuItem.Header>
                 </MenuItem>
-                <MenuItem>
+                <MenuItem Click="ButtonCollegeScreen">
+                    <MenuItem.Header>
+                        <Image Width="20" Height="20" Source="icons/first.png" />
+                    </MenuItem.Header>
+                </MenuItem>
+                <MenuItem Click="ButtonSubjectScreen">
                     <MenuItem.Header>
                         <Image Width="20" Height="20" Source="icons/first.png" />
                     </MenuItem.Header>
                 </MenuItem>
             </Menu>
 
-            <ToolBarTray DockPanel.Dock="Top">
+            <ToolBarTray Name="ToolBar" DockPanel.Dock="Top">
                 <ToolBar >
                     <Button Name="ButtonFirst" Click="ButtonFirst_Click">
                         <Image Height="17" Source="icons/first.png" Margin="5,0"/>
@@ -74,29 +84,4 @@
             </ToolBarTray>
         </DockPanel>
     </Grid>
-    <!--<Label Content="Gestão do Mercado Acionista de Setúbal" DockPanel.Dock="Top" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" FontSize="15" />
-        <Grid Name="Form" DockPanel.Dock="Top"  DataContext="{Binding ElementName=employeesGrd, Path=SelectedItem, UpdateSourceTrigger=PropertyChanged}">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="90"/>
-                <ColumnDefinition Width="270"/>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
-
-            <Label Content="Destination" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center"  FontSize="12" Margin="2" />
-            <TextBox Name="DestinationTxt" Text="{Binding ElementName=Form, Path=DataContext.Destination, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" Grid.Row="0" Grid.Column="1"  HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="12" Width="150" IsEnabled="False" Margin="0,6" />
-
-            <Label Content="Subject" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="12" Margin="2"  />
-            <TextBox Name="SubjectTxt" Text="{Binding ElementName=Form, Path=DataContext.SubjectName, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" Grid.Row="1" Grid.Column="1"  HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="12" Width="150" IsEnabled="False"/>
-
-            <Grid Grid.Row="0" Grid.Column="1" Grid.RowSpan="4" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.ColumnSpan="2" Margin="190,0,0,-99">
-                <DataGrid Name="employeesGrd"  IsSynchronizedWithCurrentItem="True"></DataGrid>
-            </Grid>
-        </Grid>
-    </DockPanel>-->
 </Window>

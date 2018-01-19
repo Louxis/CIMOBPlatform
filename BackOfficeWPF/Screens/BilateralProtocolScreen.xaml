@@ -7,9 +7,9 @@
         mc:Ignorable="d"
         Height="720" Width="1280">
     <DockPanel>
-        
-        <Label Content="Gestão do Mercado Acionista de Setúbal" DockPanel.Dock="Top" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" FontSize="15" />
-        <Grid Name="Form" DockPanel.Dock="Top"  DataContext="{Binding ElementName=bilateralGrd, Path=SelectedItem, UpdateSourceTrigger=PropertyChanged}">
+
+        <Label Content="Bilateral Protocols Control Screen" DockPanel.Dock="Top" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" FontSize="15" />
+        <Grid Name="Form" DockPanel.Dock="Top"  DataContext="{Binding ElementName=bilateralGrd, Path=SelectedItem, UpdateSourceTrigger=PropertyChanged}" >
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
@@ -32,8 +32,15 @@
             <TextBox Name="OpenSlots" Text="{Binding ElementName=Form, Path=DataContext.OpenSlots, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" Grid.Row="2" Grid.Column="1"  HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="12" Width="150" IsEnabled="False"/>
 
 
-            <Grid Grid.Row="0" Grid.Column="1" Grid.RowSpan="4" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.ColumnSpan="2" Margin="190,0,0,-99">
-                <DataGrid Name="bilateralGrd"  IsSynchronizedWithCurrentItem="True"></DataGrid>
+
+            <Grid Grid.Row="0" Grid.Column="1" Grid.RowSpan="4" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.ColumnSpan="2"  Margin="190,0,0,-99">
+                <DataGrid Name="bilateralGrd" AutoGenerateColumns="False" IsSynchronizedWithCurrentItem="True"  VerticalScrollBarVisibility="Visible" Height="300" Width="auto">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Destination" Binding="{Binding Destination, Mode=OneWay}" Width="*"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Subject Name" Binding="{Binding SubjectName, Mode=OneWay}" Width="*"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Open Slots" Binding="{Binding OpenSlots, Mode=OneWay}" Width="*"></DataGridTextColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
             </Grid>
         </Grid>
     </DockPanel>
