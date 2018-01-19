@@ -1,8 +1,12 @@
-﻿using CIMOBProject.Models;
+﻿using BackOfficeWPF.Dialogs;
+using BackOfficeWPF.Screens;
+using CIMOBProject.Models;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Data.Entity;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -30,20 +34,6 @@ namespace BackOfficeWPF
             //this.DataContext = _db.Users.Local;
             this.contentControl.Content = new Statistics();
             ButtonRemove.Visibility = Visibility.Hidden;
-        }
-
-        private void AtualizarControlos()
-        {
-            //TxtSigla.Text = empresaAtual.Sigla;
-            //TxtNome.Text = empresaAtual.Nome;
-            //TxtQuantidade.Text = empresaAtual.Quantidade.ToString();
-
-            //AtualizarEstado();
-        }
-
-        private void AtualizarEstado()
-        {
-            //LabelEmpresa.Content = string.Format("Ficha {0} de {1}", ListBoxEmpresas.Items.CurrentPosition + 1, ListBoxEmpresas.Items.Count);
         }
 
         private void ButtonFirst_Click(object sender, RoutedEventArgs e)
@@ -176,37 +166,80 @@ namespace BackOfficeWPF
 
         private void ButtonAdd_Click(object sender, RoutedEventArgs e)
         {
-            //EditarEmpresaDialog empresaDlg = new EditarEmpresaDialog(empresas) { Title = "Nova Empresa" };
-
-            //if (empresaDlg.ShowDialog() == true)
-            //{
-            //    empresaAtual = empresaDlg.Empresa;
-
-            //    empresas.Add(empresaAtual);
-
-            //    ListBoxEmpresas.Items.Add(empresaAtual);
-            //    ListBoxEmpresas.Items.MoveCurrentToLast();
-
-            //    AtualizarControlos();
-            //}
+            Type currentcontroller = contentControl.Content.GetType();
+            if (currentcontroller == typeof(EmployeeScreen))
+            {
+                //Adicionar dialog para criar um employee
+                _db.SaveChanges();
+            }
+            if (currentcontroller == typeof(BilateralProtocolScreen))
+            {
+                //Adicionar dialog para criar BilateralProtocl
+                _db.SaveChanges();
+            }
+            if (currentcontroller == typeof(NewsScreen))
+            {
+                //Adicionar dialog para criar News
+                _db.SaveChanges();
+            }
+            if (currentcontroller == typeof(CollegeScreen))
+            {
+                //Adicionar dialog para criar College
+                _db.SaveChanges();
+            }
+            if (currentcontroller == typeof(SubjectScreen))
+            {
+                //Adicionar dialog para criar Subjects
+                _db.SaveChanges();
+            }
+            if (currentcontroller == typeof(Statistics))
+            {
+                return;
+            }
         }
 
         private void ButtonEdit_Click(object sender, RoutedEventArgs e)
         {
-            //if (empresaAtual == null)
-            //    return;
-
-            //EditarEmpresaDialog dlg = new EditarEmpresaDialog(empresas, new Empresa(empresaAtual)) { Title = "Editar Empresa" };
-
-            //if (dlg.ShowDialog() == true && dlg.Empresa != empresaAtual)
-            //{
-            //    empresaAtual.Nome = dlg.Empresa.Nome;
-            //    empresaAtual.Sigla = dlg.Empresa.Sigla;
-            //    empresaAtual.Quantidade = dlg.Empresa.Quantidade;
-
-            //    ListBoxEmpresas.Items.Refresh();
-            //    AtualizarControlos();
-            //}
+            Type currentcontroller = contentControl.Content.GetType();
+            if (currentcontroller == typeof(EmployeeScreen))
+            {
+                //Adicionar dialog para editar um employee
+                _db.SaveChanges();
+            }
+            if (currentcontroller == typeof(StudentScreen))
+            {
+                //Adicionar dialog para editar um estudante
+                _db.SaveChanges();
+            }
+            if (currentcontroller == typeof(ApplicationScreen))
+            {
+                //Adicionar dialog para editar uma candidatura
+                _db.SaveChanges();
+            }
+            if (currentcontroller == typeof(BilateralProtocolScreen))
+            {
+                //Adicionar dialog para editar BilateralProtocl
+                _db.SaveChanges();
+            }
+            if (currentcontroller == typeof(NewsScreen))
+            {
+                //Adicionar dialog para editar News
+                _db.SaveChanges();
+            }
+            if (currentcontroller == typeof(CollegeScreen))
+            {
+                //Adicionar dialog para editar College
+                _db.SaveChanges();
+            }
+            if (currentcontroller == typeof(SubjectScreen))
+            {
+                //Adicionar dialog para editar Subjects
+                _db.SaveChanges();
+            }
+            if (currentcontroller == typeof(Statistics))
+            {
+                return;
+            }
         }
 
         private void ButtonRemove_Click(object sender, RoutedEventArgs e)
@@ -215,23 +248,31 @@ namespace BackOfficeWPF
 
             Type currentcontroller = contentControl.Content.GetType();
             ItemCollection items = null;
+            String message = "";
+            String finalVerification = "";
             if (currentcontroller == typeof(EmployeeScreen))
             {
                 items = ((EmployeeScreen)contentControl.Content).employeesGrd.Items;
+                message = "Do you wish to ban this employee? (Y/N)";
+                finalVerification = "Ban Employee?";
             }
             if (currentcontroller == typeof(StudentScreen))
             {
                 items = ((StudentScreen)contentControl.Content).studentGrd.Items;
+                message = "Do you wish to ban this student? (Y/N)";
+                finalVerification = "Ban Student?";
             }
             if (currentcontroller == typeof(BilateralProtocolScreen))
             {
-                
                 items = ((BilateralProtocolScreen)contentControl.Content).bilateralGrd.Items;
-                
+                message = "Do you wish to remove this Bilateral Protocol from the selection pool? (Y/N)";
+                finalVerification = "Remove Bilateral Protocol?";
             }
             if (currentcontroller == typeof(NewsScreen))
             {
                 items = ((NewsScreen)contentControl.Content).newsGrd.Items;
+                message = "Do you wish to remove this News? (Y/N)";
+                finalVerification = "Remove this News?";
             }
             if (currentcontroller == typeof(Statistics))
             {
@@ -240,9 +281,9 @@ namespace BackOfficeWPF
 
             if (items.CurrentItem == null || items.Count == 0)
                 return;
+            
 
-
-            if (MessageBox.Show("Deseseja mesmo campo selecionado (Y/N)?", "Apagar campo?", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+            if (MessageBox.Show(message, finalVerification, MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
             {
                 if(currentcontroller == typeof(EmployeeScreen))
                 {
@@ -285,15 +326,6 @@ namespace BackOfficeWPF
             }
         }
 
-        private void ListBoxEmpresas_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            //if (ListBoxEmpresas.Items.CurrentItem != null)
-            //{
-            //    empresaAtual = ListBoxEmpresas.Items.CurrentItem as Empresa;
-            //    AtualizarControlos();
-            //}
-        }
-
         private void ButtonEmployee(object sender, RoutedEventArgs e)
         {
             this.contentControl.Content = new EmployeeScreen();
@@ -329,12 +361,30 @@ namespace BackOfficeWPF
             }
         }
 
-        private void ButtonMainScreens(object sender, RoutedEventArgs e)
+        private void ButtonApplicationScreen(object sender, RoutedEventArgs e)
         {
-            this.contentControl.Content = new Statistics();
+            this.contentControl.Content = new ApplicationScreen();
+            ButtonRemove.Visibility = Visibility.Visible;
+        }
+
+        private void ButtonCollegeScreen(object sender, RoutedEventArgs e)
+        {
+            this.contentControl.Content = new CollegeScreen();
             ButtonRemove.Visibility = Visibility.Hidden;
         }
 
+        private void ButtonSubjectScreen(object sender, RoutedEventArgs e)
+        {
+            this.contentControl.Content = new SubjectScreen();
+            ButtonRemove.Visibility = Visibility.Hidden;
+            
+        }
 
+        private void ButtonMainScreen(object sender, RoutedEventArgs e)
+        {
+            this.contentControl.Content = new Statistics();
+            ButtonRemove.Visibility = Visibility.Hidden;
+            
+        }
     }
 }

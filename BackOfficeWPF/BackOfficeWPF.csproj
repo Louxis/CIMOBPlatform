@@ -115,6 +115,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="DataGridFormatter.cs" />
     <Compile Include="Dialogs\BilateralDialog.xaml.cs">
       <DependentUpon>BilateralDialog.xaml</DependentUpon>
     </Compile>
@@ -130,6 +131,9 @@
     <Compile Include="Screens\BilateralProtocolScreen.xaml.cs">
       <DependentUpon>BilateralProtocolScreen.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Screens\CollegeScreen.xaml.cs">
+      <DependentUpon>CollegeScreen.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Screens\EmployeeScreen.xaml.cs">
       <DependentUpon>EmployeeScreen.xaml</DependentUpon>
     </Compile>
@@ -141,6 +145,9 @@
     </Compile>
     <Compile Include="Screens\StudentScreen.xaml.cs">
       <DependentUpon>StudentScreen.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Screens\SubjectScreen.xaml.cs">
+      <DependentUpon>SubjectScreen.xaml</DependentUpon>
     </Compile>
     <Compile Include="TestControl.xaml.cs">
       <DependentUpon>TestControl.xaml</DependentUpon>
@@ -181,6 +188,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Screens\CollegeScreen.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Screens\EmployeeScreen.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -196,6 +207,10 @@
     <Page Include="Screens\StudentScreen.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Screens\SubjectScreen.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="TestControl.xaml">
       <SubType>Designer</SubType>

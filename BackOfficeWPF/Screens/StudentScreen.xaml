@@ -8,9 +8,11 @@
              Height="720" Width="1280">
     <DockPanel>
 
-        <Label Content="Gestão do Mercado Acionista de Setúbal" DockPanel.Dock="Top" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" FontSize="15" />
+        <Label Content="Students Control Screen" DockPanel.Dock="Top" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" FontSize="15" />
         <Grid Name="Form" DockPanel.Dock="Top"  DataContext="{Binding ElementName=studentGrd, Path=SelectedItem, UpdateSourceTrigger=PropertyChanged}">
             <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
@@ -51,7 +53,24 @@
             <CheckBox x:Name="myCheckBox" IsChecked="{Binding ElementName=Form, Path=DataContext.IsBanned, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" Grid.Row="7" Grid.Column="1"  HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="12" Width="150" IsEnabled="False"/>
             
             <Grid Grid.Row="0" Grid.Column="1" Grid.RowSpan="4" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.ColumnSpan="2" Margin="190,0,0,-99">
-                <DataGrid Name="studentGrd"  IsSynchronizedWithCurrentItem="True"></DataGrid>
+                <DataGrid Name="studentGrd" AutoGenerateColumns="False"  IsSynchronizedWithCurrentItem="True" VerticalScrollBarVisibility="Visible" Height="300" Width="auto">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="User Name" Binding="{Binding UserName, Mode=OneWay}" Width="*"></DataGridTextColumn>
+                        <DataGridTextColumn Header="User Full Name" Binding="{Binding UserFullname, Mode=OneWay}" Width="*"></DataGridTextColumn>
+                        <DataGridTextColumn Header="User CC" Binding="{Binding UserCc, Mode=OneWay}" Width="*"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Student Number" Binding="{Binding StudentNumber, Mode=OneWay}" Width="*"></DataGridTextColumn>
+                        <DataGridTextColumn Header="ALO Grade" Binding="{Binding ALOGrade, Mode=OneWay}" Width="*"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Subject Name" Binding="{Binding SubjectName, Mode=OneWay}" Width="*"></DataGridTextColumn>
+                        <DataGridTextColumn Header="User e-mail" Binding="{Binding Email, Mode=OneWay}" Width="*"></DataGridTextColumn>
+                        <DataGridTemplateColumn Header="Is Banned">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <CheckBox IsChecked="{Binding IsBanned, Mode=OneWay}" HorizontalAlignment="Center"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
             </Grid>
         </Grid>
     </DockPanel>

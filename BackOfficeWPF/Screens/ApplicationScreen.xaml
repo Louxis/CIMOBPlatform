@@ -8,7 +8,7 @@
              Height="720" Width="1280">
     <DockPanel>
 
-        <Label Content="Gestão do Mercado Acionista de Setúbal" DockPanel.Dock="Top" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" FontSize="15" />
+        <Label Content="Applications Control Screen" DockPanel.Dock="Top" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" FontSize="15" />
         <Grid Name="Form" DockPanel.Dock="Top"  DataContext="{Binding ElementName=applicationGrd, Path=SelectedItem, UpdateSourceTrigger=PropertyChanged}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
@@ -39,7 +39,15 @@
             <TextBox Name="FinalGrade" Text="{Binding ElementName=Form, Path=DataContext.FinalGrade, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" Grid.Row="3" Grid.Column="1"  HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="12" Width="150" IsEnabled="False"/>
 
             <Grid Grid.Row="0" Grid.Column="1" Grid.RowSpan="4" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.ColumnSpan="2" Margin="190,0,0,-99">
-                <DataGrid Name="applicationGrd"  IsSynchronizedWithCurrentItem="True"></DataGrid>
+                <DataGrid Name="applicationGrd" AutoGenerateColumns="False"  IsSynchronizedWithCurrentItem="True" VerticalScrollBarVisibility="Visible" Height="300" Width="auto">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Student Full Name" Binding="{Binding UserFullname, Mode=OneWay}" Width="*"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Application Status" Binding="{Binding Name, Mode=OneWay}" Width="*"></DataGridTextColumn>
+                        <DataGridTextColumn Header="First Destination" Binding="{Binding Destination, Mode=OneWay}" Width="*"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Creation Date" Binding="{Binding CreationDate, Mode=OneWay}" Width="*"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Final Grade" Binding="{Binding FinalGrade, Mode=OneWay}" Width="*"></DataGridTextColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
             </Grid>
         </Grid>
     </DockPanel>
