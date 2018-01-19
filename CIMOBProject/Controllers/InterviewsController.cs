@@ -11,6 +11,9 @@ using CIMOBProject.Services;
 
 namespace CIMOBProject.Controllers
 {
+    /// <summary>
+    /// This controller is responsible for all the actions that involve directly Interview class.
+    /// </summary>
     public class InterviewsController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -48,7 +51,13 @@ namespace CIMOBProject.Controllers
 
             return View(interview);
         }
-
+        /// <summary>
+        /// Action that leads to Interview creation view.
+        /// Receives employee's ID and application's ID so it can create an Interview.
+        /// </summary>
+        /// <param name="employeeId">Employee's ID in the system</param>
+        /// <param name="applicationId">Application's ID in the system</param>
+        /// <returns>The view that will lead to the creation of an Interview</returns>
         // GET: Interviews/Create
         public IActionResult Create(string employeeId, int applicationId)
         {
@@ -57,9 +66,12 @@ namespace CIMOBProject.Controllers
             return View();
         }
 
+        /// <summary>
+        /// This method will create an object of type Interview.
+        /// </summary>
+        /// <param name="interview">The object to add to database</param>
+        /// <returns>Index View if creation is valid, otherwise returns the same where this method was called.</returns>
         // POST: Interviews/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("InterviewId,EmployeeId,ApplicationId,InterviewDate")] Interview interview)
@@ -131,40 +143,9 @@ namespace CIMOBProject.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ApplicationId"] = new SelectList(_context.Applications, "ApplicationId", "ApplicationId", interview.ApplicationId);
-            ViewData["EmployeeId"] = new SelectList(_context.Employees, "Id", "Id", interview.EmployeeId);
+            ViewData["ApplicationId"] = interview.ApplicationId;
+            ViewData["EmployeeId"] =  interview.EmployeeId;
             return View(interview);
-        }
-
-        // GET: Interviews/Delete/5
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var interview = await _context.Interviews
-                .Include(i => i.Application)
-                .Include(i => i.Employee)
-                .SingleOrDefaultAsync(m => m.InterviewId == id);
-            if (interview == null)
-            {
-                return NotFound();
-            }
-
-            return View(interview);
-        }
-
-        // POST: Interviews/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var interview = await _context.Interviews.SingleOrDefaultAsync(m => m.InterviewId == id);
-            _context.Interviews.Remove(interview);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
         }
 
         private bool InterviewExists(int id)

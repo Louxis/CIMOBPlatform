@@ -5,6 +5,10 @@ using System.Threading.Tasks;
 
 namespace CIMOBProject.Models
 {
+    /// <summary>
+    /// This class represents a testemony publication that a student can do about his mobility.
+    /// It has title, content, and creation date. An employee validates the text and if the text is good, it will be published.
+    /// </summary>
     public class Testemony
     {
         public int TestemonyId { get; set; }

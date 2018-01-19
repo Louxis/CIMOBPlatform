@@ -6,6 +6,10 @@ using System.Threading.Tasks;
 
 namespace CIMOBProject.Models
 {
+    /// <summary>
+    /// This class represents the validation of a date for an interview, so the user cannot create an interview with 
+    /// a date that is before the current date.
+    /// </summary>
     public class ValidateDay : ValidationAttribute {
 
         public ValidateDay() {

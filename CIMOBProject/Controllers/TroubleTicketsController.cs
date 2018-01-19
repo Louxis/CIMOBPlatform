@@ -10,6 +10,9 @@ using CIMOBProject.Models;
 
 namespace CIMOBProject.Controllers
 {
+    /// <summary>
+    /// This controller is responsible for all the actions that involve directly TroubleTicket class.
+    /// </summary>
     public class TroubleTicketsController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -19,7 +22,14 @@ namespace CIMOBProject.Controllers
             _context = context;
         }
 
-
+        /// <summary>
+        /// This Method filters TroubleTicket's table depending on who is accessing it and what kind of filter
+        /// user chooses.
+        /// </summary>
+        /// <param name="userId">User's ID</param>
+        /// <param name="ticketFilter">Filter that is being used. If null, no filter is applied</param>
+        /// <param name="listOrder">Order in which the table is presented. If null, the order is from latest entry to earliest entry</param>
+        /// <returns>Index View Filtered</returns>
         // GET: TroubleTickets
         public async Task<IActionResult> Index(string userId, string ticketFilter, string listOrder)
         {
@@ -107,6 +117,12 @@ namespace CIMOBProject.Controllers
             }
         }
 
+        /// <summary>
+        /// This method changes a TroubleTicket's Solved attribute to true.
+        /// </summary>
+        /// <param name="applicationUserId">ID of the user that is logged in. Used to redirect to the right Index View.</param>
+        /// <param name="troubleTicketId">ID of the trouble ticket to change.</param>
+        /// <returns>Index View</returns>
         public async Task<IActionResult> CloseTicket(string applicationUserId, int troubleTicketId)
         {
             var getTroubleTicket = _context.TroubleTickets.SingleOrDefault(a => a.TroubleTicketId == troubleTicketId);
@@ -147,8 +163,6 @@ namespace CIMOBProject.Controllers
         }
 
         // POST: TroubleTickets/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("TroubleTicketId,Title,Description,CreationDate,Solved,ApplicationUserId,StudentNumber")] TroubleTicket troubleTicket)
@@ -173,90 +187,6 @@ namespace CIMOBProject.Controllers
             ViewData["ErrorMessage"] = "";
             ViewData["ApplicationUserId"] = _context.ApplicationUsers.Where(a => a.Id == troubleTicket.ApplicationUserId).SingleOrDefault();
             return View(troubleTicket);
-        }
-
-        
-        // GET: TroubleTickets/Edit/5
-        public async Task<IActionResult> Edit(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var troubleTicket = await _context.TroubleTicket.SingleOrDefaultAsync(m => m.TroubleTicketId == id);
-            if (troubleTicket == null)
-            {
-                return NotFound();
-            }
-            ViewData["ApplicationUserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", troubleTicket.ApplicationUserId);
-            return View(troubleTicket);
-        }
-
-        // POST: TroubleTickets/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("TroubleTicketId,Title,Description,CreationDate,Solved,ApplicationUserId,StudentNumber")] TroubleTicket troubleTicket)
-        {
-            if (id != troubleTicket.TroubleTicketId)
-            {
-                return NotFound();
-            }
-
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(troubleTicket);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!TroubleTicketExists(troubleTicket.TroubleTicketId))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["ApplicationUserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", troubleTicket.ApplicationUserId);
-            return View(troubleTicket);
-        }
-
-        // GET: TroubleTickets/Delete/5
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var troubleTicket = await _context.TroubleTicket
-                .Include(t => t.ApplicationUser)
-                .SingleOrDefaultAsync(m => m.TroubleTicketId == id);
-            if (troubleTicket == null)
-            {
-                return NotFound();
-            }
-
-            return View(troubleTicket);
-        }
-
-        // POST: TroubleTickets/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var troubleTicket = await _context.TroubleTicket.SingleOrDefaultAsync(m => m.TroubleTicketId == id);
-            _context.TroubleTicket.Remove(troubleTicket);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
         }
 
         private bool TroubleTicketExists(int id)
