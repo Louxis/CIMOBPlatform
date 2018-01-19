@@ -17,20 +17,21 @@
 }
 else
 {
-<h2>Index</h2>
-<p>
-    <a asp-action="Create" asp-route-userId="@UserManager.GetUserId(User)">Novo Trouble Ticket</a>
-</p>
 
-
+<h1>Trouble Tickets</h1>
+<h3 class="description">Aqui poderá encontrar todos os seu Trouble Tickets.</h3>
 <p>
      <a asp-action="Index" asp-route-userId="@UserManager.GetUserId(User)" asp-route-ticketFilter="Sent" class="btn btn-default" >Tickets Enviados</a>
      <a asp-action="Index" asp-route-userId="@UserManager.GetUserId(User)" asp-route-ticketFilter="Received" class="btn btn-default">Tickets Recebidos</a>
-     <a asp-action="Index" asp-route-userId="@UserManager.GetUserId(User)" asp-route-ticketFilter="Opened" class="btn btn-default">Tickets Abertos</a>
-     <a asp-action="Index" asp-route-userId="@UserManager.GetUserId(User)" asp-route-ticketFilter="Closed" class="btn btn-default">Tickets Fechados</a>
      <a asp-action="Index" asp-route-userId="@UserManager.GetUserId(User)" asp-route-listOrder="OlderFirst" class="btn btn-default">Mostrar Mais Antigos Primeiro</a>
      <a asp-action="Index" asp-route-userId="@UserManager.GetUserId(User)" class="btn btn-default">Sem Filtro</a>
  </p>
-
+ <br />
  @Html.Partial("_IndexPartial", Model)
+
+    <hr />
+    <div>
+        <a class="btn btn-default" asp-action="Create" asp-route-userId="@UserManager.GetUserId(User)">Novo Trouble Ticket</a>
+    </div>
 }
+

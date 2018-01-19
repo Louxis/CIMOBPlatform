@@ -5,39 +5,13 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Details</h2>
-
+<h1>@Html.DisplayFor(model => model.Title)</h1>
 <div>
-    <h4>Testemony</h4>
+    @Html.DisplayFor(model => model.Content)
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Title)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Title)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Content)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Content)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Valid)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Valid)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.ApplicationUser)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.ApplicationUser.Id)
-        </dd>
-    </dl>
+    <label>-&nbsp;</label>@Html.DisplayFor(model => model.ApplicationUser.UserFullname)
 </div>
+<br />
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.TestemonyId">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index" class="btn btn-default">Voltar Atrás</a>
 </div>

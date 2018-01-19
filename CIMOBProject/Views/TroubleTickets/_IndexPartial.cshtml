@@ -5,6 +5,11 @@
     ViewData["Title"] = "_IndexPartial";
 }
 
+<h4>Trouble Tickets Abertos</h4>
+@{ 
+    ViewData["OpenTTs"] = Model.Where(t => t.Solved == false);
+    ViewData["ClosedTTs"] = Model.Where(t => t.Solved == true);
+}
 <table class="table">
     <thead>
         <tr>
@@ -12,7 +17,7 @@
                 @Html.DisplayNameFor(model => model.Title)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Description)
+                Origem
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.CreationDate)
@@ -20,24 +25,18 @@
             <th>
                 @Html.DisplayNameFor(model => model.Solved)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.StudentNumber)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ApplicationUser)
-            </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model)
+        @foreach (TroubleTicket item in ViewBag.OpenTTs)
         {
             <tr>
                 <td>
                     @Html.DisplayFor(modelItem => item.Title)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Description)
+                    @Html.DisplayFor(modelItem => item.ApplicationUser.Id)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.CreationDate)
@@ -46,25 +45,60 @@
                     @Html.DisplayFor(modelItem => item.Solved)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.StudentNumber)
+                    @if (!item.Solved && User.IsInRole("Employee"))
+                    {
+                        <a class="btn btn-default" asp-action="CloseTicket" asp-route-troubleTicketId="@item.TroubleTicketId" asp-route-applicationUserId="@UserManager.GetUserId(User)">Fechar Ticket</a>
+                    }
+                    <a class="btn btn-default" asp-action="Details" asp-route-id="@item.TroubleTicketId">Visualizar Trouble Ticket</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<hr />
+<hr />
+<hr />
+<h4>Trouble Tickets Fechados</h4>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>
+                Origem
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CreationDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Solved)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (TroubleTicket item in ViewBag.ClosedTTs)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.ApplicationUser.Id)
                 </td>
                 <td>
+                    @Html.DisplayFor(modelItem => item.CreationDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Solved)
+                </td>
+                <td>
                     @if (!item.Solved && User.IsInRole("Employee"))
-                {
-                        <a asp-action="CloseTicket" asp-route-troubleTicketId="@item.TroubleTicketId" asp-route-applicationUserId="@UserManager.GetUserId(User)">Fechar Ticket</a>
-                    }
-                    else
                     {
-                        if (item.Solved)
-                        {
-                            <h6>Ticket Fechado</h6>
-                        }
-
+                        <a class="btn btn-default" asp-action="CloseTicket" asp-route-troubleTicketId="@item.TroubleTicketId" asp-route-applicationUserId="@UserManager.GetUserId(User)">Fechar Ticket</a>
                     }
-                    <a asp-action="Details" asp-route-id="@item.TroubleTicketId">Visualizar Trouble Ticket</a>
+                    <a class="btn btn-default" asp-action="Details" asp-route-id="@item.TroubleTicketId">Visualizar Trouble Ticket</a>
                 </td>
             </tr>
         }

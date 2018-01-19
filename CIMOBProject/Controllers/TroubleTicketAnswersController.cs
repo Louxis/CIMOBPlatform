@@ -50,6 +50,7 @@ namespace CIMOBProject.Controllers
         public IActionResult Create(string applicationUserId, int troubleTicketId)
         {
             ViewData["TroubleTicketId"] = troubleTicketId;
+            ViewData["TroubleTicket"] = _context.TroubleTickets.Include(t => t.ApplicationUser).Where(t => t.TroubleTicketId == troubleTicketId).SingleOrDefault();
             ViewData["ApplicationUserId"] = applicationUserId;
             ViewData["CreationDate"] = DateTime.Now;
             return View();

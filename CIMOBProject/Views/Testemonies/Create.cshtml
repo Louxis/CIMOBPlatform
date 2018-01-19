@@ -5,34 +5,29 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Create</h2>
-
-<h4>Testemony</h4>
-<hr />
+<h1>Novo Testemunho</h1>
+<h3 class="description">Dê a sua opinião sobre o programa Erasmus. Partilhe a sua experiência com futuros estudantes.</h3>
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="Title" class="control-label"></label>
+                <label asp-for="Title" class="control-label"></label>  <div class="tooltip">(?)<span class="tooltiptext">@ViewData["TitleTip"]</span></div>
                 <input asp-for="Title" class="form-control" />
                 <span asp-validation-for="Title" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Content" class="control-label"></label>
-                <input asp-for="Content" class="form-control" />
+                <label asp-for="Content" class="control-label"></label>  <div class="tooltip">(?)<span class="tooltiptext">@ViewData["TextContentTip"]</span></div>
+                <textarea asp-for="Content" class="form-control"> </textarea>
                 <span asp-validation-for="Content" class="text-danger"></span>
             </div>
             @Html.Hidden("ApplicationUserId")
             @Html.Hidden("CreationDate")
+            <br />
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <input type="submit" value="Criar" class="btn btn-default" />
+                <a asp-action="Index" class="btn btn-default">Voltar Atrás</a>
             </div>
         </form>
     </div>
 </div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-

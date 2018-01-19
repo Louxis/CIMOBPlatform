@@ -1,34 +1,42 @@
 ﻿@model CIMOBProject.Models.TroubleTicketAnswer
 
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
 @{
     ViewData["Title"] = "Create";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    TroubleTicket tt = ViewData["TroubleTicket"] as TroubleTicket;
 }
 
-<h2>Create</h2>
-
-<h4>TroubleTicketAnswer</h4>
-<hr />
+<h1>Responder a @tt.Title</h1>
+<h3 class="description">Responda a este Trouble Ticket.</h3>
+<div class="trouble-ticket-answer-origin">
+    @tt.Description
+    <br />
+    <br />
+    <label>Enviado por:&nbsp;</label>@tt.ApplicationUser.UserFullname
+    <br />
+    <label>Data de Envio:&nbsp;</label>@tt.CreationDate
+</div>
+<br />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Content" class="control-label"></label>
-                <input asp-for="Content" class="form-control" />
+                <textarea asp-for="Content" class="form-control"> </textarea>
                 <span asp-validation-for="Content" class="text-danger"></span>
             </div>
             @Html.Hidden("TroubleTicketId")
             @Html.Hidden("ApplicationUserId")
             @Html.Hidden("CreationDate")
+            <br />
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-default" />
+                <a class="btn btn-default" asp-area="" asp-controller="TroubleTickets" asp-action="Details" asp-route-id="@tt.TroubleTicketId">Voltar Atrás</a>
             </div>
         </form>
     </div>
 </div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-

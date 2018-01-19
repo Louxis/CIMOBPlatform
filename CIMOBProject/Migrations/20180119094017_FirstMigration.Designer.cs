@@ -12,7 +12,7 @@ using System;
 namespace CIMOBProject.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20180115164741_FirstMigration")]
+    [Migration("20180119094017_FirstMigration")]
     partial class FirstMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -340,6 +340,74 @@ namespace CIMOBProject.Migrations
                     b.ToTable("Quizzs");
                 });
 
+            modelBuilder.Entity("CIMOBProject.Models.Testemony", b =>
+                {
+                    b.Property<int>("TestemonyId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("ApplicationUserId");
+
+                    b.Property<string>("Content");
+
+                    b.Property<DateTime>("CreationDate");
+
+                    b.Property<string>("Title");
+
+                    b.Property<bool>("Valid");
+
+                    b.HasKey("TestemonyId");
+
+                    b.HasIndex("ApplicationUserId");
+
+                    b.ToTable("Testemonies");
+                });
+
+            modelBuilder.Entity("CIMOBProject.Models.TroubleTicket", b =>
+                {
+                    b.Property<int>("TroubleTicketId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("ApplicationUserId");
+
+                    b.Property<DateTime>("CreationDate");
+
+                    b.Property<string>("Description");
+
+                    b.Property<bool>("Solved");
+
+                    b.Property<string>("StudentNumber");
+
+                    b.Property<string>("Title");
+
+                    b.HasKey("TroubleTicketId");
+
+                    b.HasIndex("ApplicationUserId");
+
+                    b.ToTable("TroubleTicket");
+                });
+
+            modelBuilder.Entity("CIMOBProject.Models.TroubleTicketAnswer", b =>
+                {
+                    b.Property<int>("TroubleTicketAnswerId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("ApplicationUserId");
+
+                    b.Property<string>("Content");
+
+                    b.Property<DateTime>("CreationDate");
+
+                    b.Property<int>("TroubleTicketId");
+
+                    b.HasKey("TroubleTicketAnswerId");
+
+                    b.HasIndex("ApplicationUserId");
+
+                    b.HasIndex("TroubleTicketId");
+
+                    b.ToTable("TroubleTicketAnswers");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
                     b.Property<string>("Id")
@@ -566,6 +634,32 @@ namespace CIMOBProject.Migrations
                     b.HasOne("CIMOBProject.Models.Employee", "Employee")
                         .WithMany()
                         .HasForeignKey("EmployeeId");
+                });
+
+            modelBuilder.Entity("CIMOBProject.Models.Testemony", b =>
+                {
+                    b.HasOne("CIMOBProject.Models.ApplicationUser", "ApplicationUser")
+                        .WithMany()
+                        .HasForeignKey("ApplicationUserId");
+                });
+
+            modelBuilder.Entity("CIMOBProject.Models.TroubleTicket", b =>
+                {
+                    b.HasOne("CIMOBProject.Models.ApplicationUser", "ApplicationUser")
+                        .WithMany()
+                        .HasForeignKey("ApplicationUserId");
+                });
+
+            modelBuilder.Entity("CIMOBProject.Models.TroubleTicketAnswer", b =>
+                {
+                    b.HasOne("CIMOBProject.Models.ApplicationUser", "ApplicationUser")
+                        .WithMany()
+                        .HasForeignKey("ApplicationUserId");
+
+                    b.HasOne("CIMOBProject.Models.TroubleTicket", "TroubleTicket")
+                        .WithMany("Answers")
+                        .HasForeignKey("TroubleTicketId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

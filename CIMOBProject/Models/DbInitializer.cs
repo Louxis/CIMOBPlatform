@@ -423,6 +423,9 @@ namespace CIMOBProject.Models {
                 context.Helps.Add(new Help { HelpName = "Semester", HelpDescription = "Insira o semestre a que se refere o questionário." });
                 context.Helps.Add(new Help { HelpName = "QuizURL", HelpDescription = "Insira o URL de onde está hospedado o questionário." });
                 context.Helps.Add(new Help { HelpName = "InterviewDate", HelpDescription = "Insira a data na qual pretende efetuar a entrevista ao aluno." });
+                context.Helps.Add(new Help { HelpName = "TTDescription", HelpDescription = "Descreva detalhadamente o seu problema." });
+                context.Helps.Add(new Help { HelpName = "TTTitle", HelpDescription = "Insira o título que deseja dar ao seu Trouble Ticket." });
+                context.Helps.Add(new Help { HelpName = "TTStudentNumber", HelpDescription = "Insira número de aluno que pretende contactar." });
                 context.SaveChanges();
             }
         }

@@ -143,6 +143,9 @@ namespace CIMOBProject.Controllers
             ViewData["StudentNumber"] = studentNumber;
             ViewData["ApplicationUserId"] = userId;
             ViewData["CreationDate"] = DateTime.Now;
+
+            loadHelp();
+
             return View();
         }
 
@@ -257,6 +260,13 @@ namespace CIMOBProject.Controllers
             _context.TroubleTicket.Remove(troubleTicket);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
+        }
+
+        private void loadHelp()
+        {
+            ViewData["TitleTip"] = (_context.Helps.FirstOrDefault(h => h.HelpName == "TTTitle") as Help).HelpDescription;
+            ViewData["DescriptionTip"] = (_context.Helps.FirstOrDefault(h => h.HelpName == "TTDescription") as Help).HelpDescription;
+            ViewData["StudentNumberTip"] = (_context.Helps.FirstOrDefault(h => h.HelpName == "TTStudentNumber") as Help).HelpDescription;
         }
 
         private bool TroubleTicketExists(int id)

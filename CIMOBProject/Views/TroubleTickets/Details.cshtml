@@ -7,75 +7,50 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Details</h2>
+<h1>@Html.DisplayFor(model => model.Title)</h1>
 
-<div>
-    <h4>TroubleTicket</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Title)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Title)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.CreationDate)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.CreationDate)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Solved)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Solved)
-        </dd>
-        <dt>
-            Enviado por:
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.ApplicationUser.UserFullname)
-        </dd>
-    </dl>
+<div class="trouble-ticket-answer-origin">
+    @Html.DisplayFor(model => model.Description)
+    <br />
+    <br />
+    <label>Enviado por:&nbsp;</label>@Html.DisplayFor(model => model.ApplicationUser.UserFullname)
+    <br />
+    <label>@Html.DisplayNameFor(model => model.CreationDate):&nbsp;</label>@Html.DisplayFor(model => model.CreationDate)
 </div>
+<br />
 @if (ViewBag.AnswersList != null)
 {
+    <h4>Respostas</h4>
     @foreach (TroubleTicketAnswer item in ViewBag.AnswersList)
     {
-        <h5>Resposta</h5>
-        <p>Repondido por:</p>
-        @Html.DisplayFor(modelItem => item.ApplicationUser.UserFullname)
-        <p>Data de Resposta:</p>
-        @Html.DisplayFor(modelItem => item.CreationDate)
-        <p>Conteúdo</p>
-        @Html.DisplayFor(modelItem => item.Content)
+        <div class="@("trouble-ticket-answer-" + (item.ApplicationUserId == Model.ApplicationUserId ? "origin" : "response"))">
+            @Html.DisplayFor(modelItem => item.Content)
+            <br />
+            <br />
+            <label>Repondido por:&nbsp;</label>@Html.DisplayFor(modelItem => item.ApplicationUser.UserFullname)
+            <br />
+            <label>@Html.DisplayNameFor(model => model.CreationDate):&nbsp;</label>@Html.DisplayFor(modelItem => item.CreationDate)
+        </div>
+        <br />
     }
-
 }
-
+<br />
 <div>
     @if (!Model.Solved && User.IsInRole("Employee"))
     {
-        <a asp-action="CloseTicket" asp-route-troubleTicketId="@Model.TroubleTicketId" asp-route-applicationUserId="@UserManager.GetUserId(User)">Fechar Ticket</a>
+        <a class="btn btn-default" asp-action="CloseTicket" asp-route-troubleTicketId="@Model.TroubleTicketId" asp-route-applicationUserId="@UserManager.GetUserId(User)">Fechar Ticket</a>
     }
     else
     {
         if (Model.Solved)
         {
-            <h6>Ticket Fechado</h6>
+            <h4>Ticket Fechado</h4>
         }
     }
     @if (!Model.Solved)
     {
-        <a asp-action="Create" asp-controller="TroubleTicketAnswers" asp-route-troubleTicketId="@Model.TroubleTicketId" asp-route-applicationUserId="@UserManager.GetUserId(User)">Nova Resposta</a>
+        <a class="btn btn-default" asp-action="Create" asp-controller="TroubleTicketAnswers" asp-route-troubleTicketId="@Model.TroubleTicketId" asp-route-applicationUserId="@UserManager.GetUserId(User)">Nova Resposta</a>
     }
 
-    <a asp-action="Index">Back to List</a>
+    <a class="btn btn-default" asp-action="Index">Voltar Atrás</a>
 </div>

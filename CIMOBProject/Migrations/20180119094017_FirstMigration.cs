@@ -291,6 +291,53 @@ namespace CIMOBProject.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Testemonies",
+                columns: table => new
+                {
+                    TestemonyId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    ApplicationUserId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    Content = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreationDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Title = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Valid = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Testemonies", x => x.TestemonyId);
+                    table.ForeignKey(
+                        name: "FK_Testemonies_AspNetUsers_ApplicationUserId",
+                        column: x => x.ApplicationUserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "TroubleTicket",
+                columns: table => new
+                {
+                    TroubleTicketId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    ApplicationUserId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    CreationDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Solved = table.Column<bool>(type: "bit", nullable: false),
+                    StudentNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Title = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TroubleTicket", x => x.TroubleTicketId);
+                    table.ForeignKey(
+                        name: "FK_TroubleTicket_AspNetUsers_ApplicationUserId",
+                        column: x => x.ApplicationUserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Applications",
                 columns: table => new
                 {
@@ -349,6 +396,34 @@ namespace CIMOBProject.Migrations
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "TroubleTicketAnswers",
+                columns: table => new
+                {
+                    TroubleTicketAnswerId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    ApplicationUserId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    Content = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreationDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    TroubleTicketId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TroubleTicketAnswers", x => x.TroubleTicketAnswerId);
+                    table.ForeignKey(
+                        name: "FK_TroubleTicketAnswers_AspNetUsers_ApplicationUserId",
+                        column: x => x.ApplicationUserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_TroubleTicketAnswers_TroubleTicket_TroubleTicketId",
+                        column: x => x.TroubleTicketId,
+                        principalTable: "TroubleTicket",
+                        principalColumn: "TroubleTicketId",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -546,6 +621,26 @@ namespace CIMOBProject.Migrations
                 name: "IX_News_EmployeeId",
                 table: "News",
                 column: "EmployeeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Testemonies_ApplicationUserId",
+                table: "Testemonies",
+                column: "ApplicationUserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TroubleTicket_ApplicationUserId",
+                table: "TroubleTicket",
+                column: "ApplicationUserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TroubleTicketAnswers_ApplicationUserId",
+                table: "TroubleTicketAnswers",
+                column: "ApplicationUserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TroubleTicketAnswers_TroubleTicketId",
+                table: "TroubleTicketAnswers",
+                column: "TroubleTicketId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -581,10 +676,19 @@ namespace CIMOBProject.Migrations
                 name: "Quizzs");
 
             migrationBuilder.DropTable(
+                name: "Testemonies");
+
+            migrationBuilder.DropTable(
+                name: "TroubleTicketAnswers");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "Documents");
+
+            migrationBuilder.DropTable(
+                name: "TroubleTicket");
 
             migrationBuilder.DropTable(
                 name: "Applications");

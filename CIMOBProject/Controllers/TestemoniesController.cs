@@ -59,6 +59,9 @@ namespace CIMOBProject.Controllers
         {
             ViewData["ApplicationUserId"] = userId;
             ViewData["CreationDate"] = DateTime.Now;
+
+            loadHelp();
+
             return View();
         }
 
@@ -160,6 +163,12 @@ namespace CIMOBProject.Controllers
             _context.Testemonies.Remove(testemony);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
+        }
+
+        private void loadHelp()
+        {
+            ViewData["TitleTip"] = (_context.Helps.FirstOrDefault(h => h.HelpName == "Title") as Help).HelpDescription;
+            ViewData["TextContentTip"] = (_context.Helps.FirstOrDefault(h => h.HelpName == "TextContent") as Help).HelpDescription;
         }
 
         private bool TestemonyExists(int id)
