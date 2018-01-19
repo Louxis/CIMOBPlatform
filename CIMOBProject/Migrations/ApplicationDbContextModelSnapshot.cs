@@ -287,6 +287,26 @@ namespace CIMOBProject.Migrations
                     b.ToTable("Helps");
                 });
 
+            modelBuilder.Entity("CIMOBProject.Models.Interview", b =>
+                {
+                    b.Property<int>("InterviewId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("ApplicationId");
+
+                    b.Property<string>("EmployeeId");
+
+                    b.Property<DateTime>("InterviewDate");
+
+                    b.HasKey("InterviewId");
+
+                    b.HasIndex("ApplicationId");
+
+                    b.HasIndex("EmployeeId");
+
+                    b.ToTable("Interviews");
+                });
+
             modelBuilder.Entity("CIMOBProject.Models.News", b =>
                 {
                     b.Property<int>("Id")
@@ -618,6 +638,18 @@ namespace CIMOBProject.Migrations
                     b.HasOne("CIMOBProject.Models.Application", "Application")
                         .WithMany("Documents")
                         .HasForeignKey("ApplicationId");
+
+                    b.HasOne("CIMOBProject.Models.Employee", "Employee")
+                        .WithMany()
+                        .HasForeignKey("EmployeeId");
+                });
+
+            modelBuilder.Entity("CIMOBProject.Models.Interview", b =>
+                {
+                    b.HasOne("CIMOBProject.Models.Application", "Application")
+                        .WithMany()
+                        .HasForeignKey("ApplicationId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("CIMOBProject.Models.Employee", "Employee")
                         .WithMany()

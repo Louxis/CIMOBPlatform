@@ -54,16 +54,19 @@
             <span id="CurrentState">@Html.DisplayFor(model => model.Applications.OrderBy(a => a.ApplicationId).Last().ApplicationStat.Name)</span>
             <br />
             <br />
-            <a asp-action="ApplicationHistory" asp-controller="Applications" asp-route-studentId="@Model.Id" class="btn btn-default" id="ApplicationHistory">Hístorico da candidatura</a>
+            <a asp-action="ApplicationHistory" asp-controller="Applications" asp-route-studentId="@Model.Id" class="btn btn-default" id="ApplicationHistory">Histórico da candidatura</a>
         }
         @if (!ViewData["applicationId"].Equals("N/A"))
         {
             <a asp-action="Details" asp-controller="Applications" asp-route-id="@ViewData["applicationId"]" class="btn btn-default">Detalhes Candidatura</a>
+
         }
         @if (SignInManager.IsSignedIn(User) && User.IsInRole("Employee"))
         {
             <a asp-action="Create" asp-controller="TroubleTickets" asp-route-userId=@UserManager.GetUserId(User) asp-route-studentNumber=@Model.StudentNumber class="btn btn-default">Criar Trouble Ticket</a>
         }
+        <label>Estado da entrevista: </label> @ViewData["interview"]
+
 
 </div>
     <br />

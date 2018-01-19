@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace CIMOBProject.Migrations
 {
-    public partial class TestemoniesMig : Migration
+    public partial class BuggyMig : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -477,6 +477,33 @@ namespace CIMOBProject.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Interviews",
+                columns: table => new
+                {
+                    InterviewId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    ApplicationId = table.Column<int>(type: "int", nullable: false),
+                    EmployeeId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    InterviewDate = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Interviews", x => x.InterviewId);
+                    table.ForeignKey(
+                        name: "FK_Interviews_Applications_ApplicationId",
+                        column: x => x.ApplicationId,
+                        principalTable: "Applications",
+                        principalColumn: "ApplicationId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Interviews_AspNetUsers_EmployeeId",
+                        column: x => x.EmployeeId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "News",
                 columns: table => new
                 {
@@ -613,6 +640,16 @@ namespace CIMOBProject.Migrations
                 column: "EmployeeId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Interviews_ApplicationId",
+                table: "Interviews",
+                column: "ApplicationId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Interviews_EmployeeId",
+                table: "Interviews",
+                column: "EmployeeId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_News_DocumentId",
                 table: "News",
                 column: "DocumentId");
@@ -668,6 +705,9 @@ namespace CIMOBProject.Migrations
 
             migrationBuilder.DropTable(
                 name: "Helps");
+
+            migrationBuilder.DropTable(
+                name: "Interviews");
 
             migrationBuilder.DropTable(
                 name: "News");

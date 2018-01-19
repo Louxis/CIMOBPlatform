@@ -1,0 +1,41 @@
+﻿@model IEnumerable<CIMOBProject.Models.Interview>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.InterviewDate)
+                </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Application.Student)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Employee)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.InterviewDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Application.Student.UserFullname)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Employee.UserFullname)
+            </td>
+            <td><a class="btn btn-default" asp-controller="Interviews" asp-action="Edit" asp-route-id=@item.InterviewId>Editar</a></td>
+        </tr>
+}
+    </tbody>
+</table>

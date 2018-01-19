@@ -35,6 +35,7 @@ namespace CIMOBProject.Data
         public DbSet<TroubleTicket> TroubleTickets { get; set; }
         public DbSet<TroubleTicketAnswer> TroubleTicketAnswers { get; set; }
         public DbSet<Testemony> Testemonies { get; set; }
+        public DbSet<Interview> Interviews { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
