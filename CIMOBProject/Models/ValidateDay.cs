@@ -6,21 +6,23 @@ using System.Threading.Tasks;
 
 namespace CIMOBProject.Models
 {
-    public class OlderThan : ValidationAttribute {
+    /// <summary>
+    /// This class represents the validation of a date for an interview, so the user cannot create an interview with 
+    /// a date that is before the current date.
+    /// </summary>
+    public class ValidateDay : ValidationAttribute {
 
-        public OlderThan() {
+        public ValidateDay() {
 
         }
 
         protected override ValidationResult
                 IsValid(object value, ValidationContext validationContext) {
-            var model = (Edital)validationContext.ObjectInstance;
-            DateTime EndDate = Convert.ToDateTime(value);
-            DateTime StartDate = Convert.ToDateTime(model.OpenDate);
+            DateTime Date = Convert.ToDateTime(value);
 
-            if (StartDate >= EndDate) {
+            if (Date < DateTime.Now) {
                 return new ValidationResult
-                    ("A data de fim tem de ser maior que a data de abertura.");
+                    ("Não pode marcar entrevistas antes da data de hoje.");
             }
             else {
                 return ValidationResult.Success;

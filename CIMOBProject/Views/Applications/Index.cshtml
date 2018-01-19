@@ -13,10 +13,11 @@
         <option value="NoFilter">Sem filtro</option>
     </select>
 
-    <input class="search-box" hidden="hidden" type="text" name="employeeId"  value="@UserManager.GetUserId(User)" />
+    <input class="search-box" hidden="hidden" type="text" name="employeeId" value="@UserManager.GetUserId(User)" />
 
     <input type="submit" class="btn btn-default" value="Filter">
 </form>
+<a class="btn btn-default" asp-controller="Interviews" asp-action="Index">Entrevistas marcadas</a>
 <br />
 <table class="table" id="table">
     <thead>
@@ -34,6 +35,9 @@
         </tr>
     </thead>
     <tbody>
+        @{
+            IEnumerable<Interview> interviews = ViewData["Interviews"] as IEnumerable<Interview>;
+        }
 @foreach (var item in Model) {
         <tr>
             <td id="UserFullName">
@@ -50,10 +54,13 @@
                     if (item.EmployeeId == @UserManager.GetUserId(User)) {
                         if (item.ApplicationStatId < 3) {
                             <a class="btn btn-default" asp-action="Edit" asp-route-id="@item.ApplicationId" id="Edit">Editar</a>
-                            <a class="btn btn-default" asp-action="ScheduleInterview" asp-route-id="@item.ApplicationId">Marcar Entrevista</a>
+
+                            if (interviews.Where(i => i.ApplicationId == item.ApplicationId).FirstOrDefault() == null)
+                            {
+                                <a class="btn btn-default" asp-action="Create" asp-controller="Interviews" asp-route-applicationId="@item.ApplicationId" asp-route-employeeId="@UserManager.GetUserId(User)">Marcar Entrevista</a>
+                            }
                         }
                     }
-
                 }
                 <a class="btn btn-default" asp-action="Details" asp-route-id="@item.ApplicationId">Detalhes</a>
                 @if (item.EmployeeId == null && User.IsInRole("Employee"))

@@ -66,7 +66,8 @@ namespace CIMOBProject.Controllers {
             if (id == null) {
                 return NotFound();
             }
-            var latestEdital = _context.Editals.OrderByDescending(e => e.Id).FirstOrDefault(); 
+            var latestEdital = _context.Editals.OrderByDescending(e => e.Id).FirstOrDefault();
+            ViewData["interview"] = "N/A";
             var student = await _context.Students
                     .Include(s => s.CollegeSubject)
                         .ThenInclude(c => c.College)
@@ -89,7 +90,17 @@ namespace CIMOBProject.Controllers {
             }
             else {
                 var latestApplication = student.Applications.OrderBy(a => a.ApplicationId).Last();
+                var interview = _context.Interviews.Include(a => a.Application).Where(i => i.ApplicationId == latestApplication.ApplicationId).SingleOrDefault();
                 ViewData["applicationId"] = latestApplication.ApplicationId;
+                if(interview == null)
+                {
+                    ViewData["interview"] = "N/A";
+                }
+                else
+                {
+                    ViewData["interview"] = interview.InterviewDate;
+                }
+                
             }                        
             ViewData["selectedId"] = student.Id;
             return View(student);

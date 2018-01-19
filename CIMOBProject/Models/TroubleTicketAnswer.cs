@@ -5,6 +5,11 @@ using System.Threading.Tasks;
 
 namespace CIMOBProject.Models
 {
+    /// <summary>
+    /// This class represents a trouble ticket answer that is used to create a dialog between the student and the employee
+    /// about the trouble ticket's problem.
+    /// It has the content of the message, the sender and the creation date.
+    /// </summary>
     public class TroubleTicketAnswer
     {
         public int TroubleTicketAnswerId { get; set;}

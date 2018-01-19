@@ -10,6 +10,9 @@ using CIMOBProject.Models;
 
 namespace CIMOBProject.Controllers
 {
+    /// <summary>
+    /// This controller is responsible for all the actions that involve directly TroubleTicketAnswer class.
+    /// </summary>
     public class TroubleTicketAnswersController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -26,26 +29,6 @@ namespace CIMOBProject.Controllers
             return View(await applicationDbContext.ToListAsync());
         }
 
-        // GET: TroubleTicketAnswers/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var troubleTicketAnswer = await _context.TroubleTicketAnswers
-                .Include(t => t.ApplicationUser)
-                .Include(t => t.TroubleTicket)
-                .SingleOrDefaultAsync(m => m.TroubleTicketAnswerId == id);
-            if (troubleTicketAnswer == null)
-            {
-                return NotFound();
-            }
-
-            return View(troubleTicketAnswer);
-        }
-
         // GET: TroubleTicketAnswers/Create
         public IActionResult Create(string applicationUserId, int troubleTicketId)
         {
@@ -57,8 +40,6 @@ namespace CIMOBProject.Controllers
         }
 
         // POST: TroubleTicketAnswers/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("TroubleTicketAnswerId,Content,TroubleTicketId,ApplicationUserId,CreationDate")] TroubleTicketAnswer troubleTicketAnswer)
@@ -69,95 +50,10 @@ namespace CIMOBProject.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index", "TroubleTickets", new { userId = troubleTicketAnswer.ApplicationUserId });
             }
-            ViewData["ApplicationUserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", troubleTicketAnswer.ApplicationUserId);
-            ViewData["TroubleTicketId"] = new SelectList(_context.TroubleTickets, "TroubleTicketId", "TroubleTicketId", troubleTicketAnswer.TroubleTicketId);
+            ViewData["ApplicationUserId"] = troubleTicketAnswer.ApplicationUserId;
+            ViewData["TroubleTicketId"] = troubleTicketAnswer.TroubleTicketId;
+            ViewData["CreationDate"] = troubleTicketAnswer.CreationDate;
             return View(troubleTicketAnswer);
-        }
-
-        // GET: TroubleTicketAnswers/Edit/5
-        public async Task<IActionResult> Edit(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var troubleTicketAnswer = await _context.TroubleTicketAnswers.SingleOrDefaultAsync(m => m.TroubleTicketAnswerId == id);
-            if (troubleTicketAnswer == null)
-            {
-                return NotFound();
-            }
-            ViewData["ApplicationUserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", troubleTicketAnswer.ApplicationUserId);
-            ViewData["TroubleTicketId"] = new SelectList(_context.TroubleTickets, "TroubleTicketId", "TroubleTicketId", troubleTicketAnswer.TroubleTicketId);
-            return View(troubleTicketAnswer);
-        }
-
-        // POST: TroubleTicketAnswers/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("TroubleTicketAnswerId,Content,TroubleTicketId,ApplicationUserId,CreationDate")] TroubleTicketAnswer troubleTicketAnswer)
-        {
-            if (id != troubleTicketAnswer.TroubleTicketAnswerId)
-            {
-                return NotFound();
-            }
-
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(troubleTicketAnswer);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!TroubleTicketAnswerExists(troubleTicketAnswer.TroubleTicketAnswerId))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["ApplicationUserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", troubleTicketAnswer.ApplicationUserId);
-            ViewData["TroubleTicketId"] = new SelectList(_context.TroubleTickets, "TroubleTicketId", "TroubleTicketId", troubleTicketAnswer.TroubleTicketId);
-            return View(troubleTicketAnswer);
-        }
-
-        // GET: TroubleTicketAnswers/Delete/5
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var troubleTicketAnswer = await _context.TroubleTicketAnswers
-                .Include(t => t.ApplicationUser)
-                .Include(t => t.TroubleTicket)
-                .SingleOrDefaultAsync(m => m.TroubleTicketAnswerId == id);
-            if (troubleTicketAnswer == null)
-            {
-                return NotFound();
-            }
-
-            return View(troubleTicketAnswer);
-        }
-
-        // POST: TroubleTicketAnswers/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var troubleTicketAnswer = await _context.TroubleTicketAnswers.SingleOrDefaultAsync(m => m.TroubleTicketAnswerId == id);
-            _context.TroubleTicketAnswers.Remove(troubleTicketAnswer);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
         }
 
         private bool TroubleTicketAnswerExists(int id)
