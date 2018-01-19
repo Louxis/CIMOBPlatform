@@ -1,26 +1,11 @@
-﻿using BackOfficeWPF.Dialogs;
-using BackOfficeWPF.Screens;
+﻿using BackOfficeWPF.Screens;
 using CIMOBProject.Models;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data.Entity;
 using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
-namespace BackOfficeWPF
-{
+namespace BackOfficeWPF {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
@@ -33,28 +18,55 @@ namespace BackOfficeWPF
             InitializeComponent();
             //this.DataContext = _db.Users.Local;
             this.contentControl.Content = new Statistics();
-            ButtonRemove.Visibility = Visibility.Hidden;
+            ToolBar.Visibility = Visibility.Collapsed;
         }
 
         private void ButtonFirst_Click(object sender, RoutedEventArgs e)
         {
             Type currentcontroller = contentControl.Content.GetType();
-
-            if(currentcontroller == typeof(EmployeeScreen))
+            DataGrid grid = null;
+            ItemCollection itemList = null;
+            if (currentcontroller == typeof(EmployeeScreen))
             {
                 ((EmployeeScreen)contentControl.Content).employeesGrd.Items.MoveCurrentToFirst();
+                itemList = ((EmployeeScreen)contentControl.Content).employeesGrd.Items;
+                grid = ((EmployeeScreen)contentControl.Content).employeesGrd;
+                grid.ScrollIntoView(itemList.CurrentItem);
             }
-            if(currentcontroller == typeof(StudentScreen))
+            if (currentcontroller == typeof(StudentScreen))
             {
                 ((StudentScreen)contentControl.Content).studentGrd.Items.MoveCurrentToFirst();
+                itemList = ((StudentScreen)contentControl.Content).studentGrd.Items;
+                grid = ((StudentScreen)contentControl.Content).studentGrd;
+                grid.ScrollIntoView(itemList.CurrentItem);
             }
             if (currentcontroller == typeof(BilateralProtocolScreen))
             {
                 ((BilateralProtocolScreen)contentControl.Content).bilateralGrd.Items.MoveCurrentToFirst();
+                itemList = ((BilateralProtocolScreen)contentControl.Content).bilateralGrd.Items;
+                grid = ((BilateralProtocolScreen)contentControl.Content).bilateralGrd;
+                grid.ScrollIntoView(itemList.CurrentItem);
             }
             if (currentcontroller == typeof(NewsScreen))
             {
                 ((NewsScreen)contentControl.Content).newsGrd.Items.MoveCurrentToFirst();
+                itemList = ((NewsScreen)contentControl.Content).newsGrd.Items;
+                grid = ((NewsScreen)contentControl.Content).newsGrd;
+                grid.ScrollIntoView(itemList.CurrentItem);
+            }
+            if (currentcontroller == typeof(CollegeScreen))
+            {
+                ((CollegeScreen)contentControl.Content).collegeGrd.Items.MoveCurrentToFirst();
+                itemList = ((CollegeScreen)contentControl.Content).collegeGrd.Items;
+                grid = ((CollegeScreen)contentControl.Content).collegeGrd;
+                grid.ScrollIntoView(itemList.CurrentItem);
+            }
+            if (currentcontroller == typeof(SubjectScreen))
+            {
+                ((SubjectScreen)contentControl.Content).subjectGrd.Items.MoveCurrentToFirst();
+                itemList = ((SubjectScreen)contentControl.Content).subjectGrd.Items;
+                grid = ((SubjectScreen)contentControl.Content).subjectGrd;
+                grid.ScrollIntoView(itemList.CurrentItem);
             }
 
         }
@@ -62,105 +74,193 @@ namespace BackOfficeWPF
         private void ButtonPrevious_Click(object sender, RoutedEventArgs e)
         {
             Type currentcontroller = contentControl.Content.GetType();
-
+            DataGrid grid = null;
+            ItemCollection itemList = null;
             if (currentcontroller == typeof(EmployeeScreen))
             {
-                ItemCollection itemList = ((EmployeeScreen)contentControl.Content).employeesGrd.Items;
-                if(!itemList.MoveCurrentToPrevious())
+                itemList = ((EmployeeScreen)contentControl.Content).employeesGrd.Items;
+                if (!itemList.MoveCurrentToPrevious())
                 {
-                    itemList.MoveCurrentToFirst();
+                    itemList.MoveCurrentToLast();
                 }
+                grid = ((EmployeeScreen)contentControl.Content).employeesGrd;
+                grid.ScrollIntoView(itemList.CurrentItem);
 
             }
             if (currentcontroller == typeof(StudentScreen))
             {
-                ItemCollection itemList = ((StudentScreen)contentControl.Content).studentGrd.Items;
-
+                itemList = ((StudentScreen)contentControl.Content).studentGrd.Items;
                 if (!itemList.MoveCurrentToPrevious())
                 {
-                    itemList.MoveCurrentToFirst();
+                    itemList.MoveCurrentToLast();
                 }
+                grid = ((StudentScreen)contentControl.Content).studentGrd;
+                grid.ScrollIntoView(itemList.CurrentItem);
             }
             if (currentcontroller == typeof(BilateralProtocolScreen))
             {
-                ItemCollection itemList = ((BilateralProtocolScreen)contentControl.Content).bilateralGrd.Items;
+                itemList = ((BilateralProtocolScreen)contentControl.Content).bilateralGrd.Items;
 
                 if (!itemList.MoveCurrentToPrevious())
                 {
-                    itemList.MoveCurrentToFirst();
+                    itemList.MoveCurrentToLast();
                 }
+                grid = ((BilateralProtocolScreen)contentControl.Content).bilateralGrd;
+                grid.ScrollIntoView(itemList.CurrentItem);
             }
             if (currentcontroller == typeof(NewsScreen))
             {
-                ItemCollection itemList = ((NewsScreen)contentControl.Content).newsGrd.Items;
+                itemList = ((NewsScreen)contentControl.Content).newsGrd.Items;
 
                 if (!itemList.MoveCurrentToPrevious())
                 {
-                    itemList.MoveCurrentToFirst();
+                    itemList.MoveCurrentToLast();
                 }
+                grid = ((NewsScreen)contentControl.Content).newsGrd;
+                grid.ScrollIntoView(itemList.CurrentItem);
+            }
+            if (currentcontroller == typeof(CollegeScreen))
+            {
+                itemList = ((CollegeScreen)contentControl.Content).collegeGrd.Items;
+
+                if (!itemList.MoveCurrentToPrevious())
+                {
+                    itemList.MoveCurrentToLast();
+                }
+                grid = ((CollegeScreen)contentControl.Content).collegeGrd;
+                grid.ScrollIntoView(itemList.CurrentItem);
+            }
+            if (currentcontroller == typeof(SubjectScreen))
+            {
+                itemList = ((SubjectScreen)contentControl.Content).subjectGrd.Items;
+
+                if (!itemList.MoveCurrentToPrevious())
+                {
+                    itemList.MoveCurrentToLast();
+                }
+                grid = ((SubjectScreen)contentControl.Content).subjectGrd;
+                grid.ScrollIntoView(itemList.CurrentItem);
             }
         }
 
         private void ButtonNext_Click(object sender, RoutedEventArgs e)
         {
             Type currentcontroller = contentControl.Content.GetType();
-
+            DataGrid grid = null;
+            ItemCollection itemList = null;
             if (currentcontroller == typeof(EmployeeScreen))
             {
-                ItemCollection itemList = ((EmployeeScreen)contentControl.Content).employeesGrd.Items;
+                itemList = ((EmployeeScreen)contentControl.Content).employeesGrd.Items;
                 if (!itemList.MoveCurrentToNext())
                 {
                     itemList.MoveCurrentToLast();
                 }
+                grid = ((EmployeeScreen)contentControl.Content).employeesGrd;
+                grid.ScrollIntoView(itemList.CurrentItem);
 
             }
             if (currentcontroller == typeof(StudentScreen))
             {
-                ItemCollection itemList = ((StudentScreen)contentControl.Content).studentGrd.Items;
+                itemList = ((StudentScreen)contentControl.Content).studentGrd.Items;
                 if (!itemList.MoveCurrentToNext())
                 {
                     itemList.MoveCurrentToLast();
                 }
+                grid = ((StudentScreen)contentControl.Content).studentGrd;
+                grid.ScrollIntoView(itemList.CurrentItem);
             }
             if (currentcontroller == typeof(BilateralProtocolScreen))
             {
-                ItemCollection itemList = ((BilateralProtocolScreen)contentControl.Content).bilateralGrd.Items;
+                itemList = ((BilateralProtocolScreen)contentControl.Content).bilateralGrd.Items;
 
                 if (!itemList.MoveCurrentToNext())
                 {
                     itemList.MoveCurrentToLast();
                 }
+                grid = ((BilateralProtocolScreen)contentControl.Content).bilateralGrd;
+                grid.ScrollIntoView(itemList.CurrentItem);
             }
             if (currentcontroller == typeof(NewsScreen))
             {
-                ItemCollection itemList = ((NewsScreen)contentControl.Content).newsGrd.Items;
+                itemList = ((NewsScreen)contentControl.Content).newsGrd.Items;
 
                 if (!itemList.MoveCurrentToNext())
                 {
                     itemList.MoveCurrentToLast();
                 }
+                grid = ((NewsScreen)contentControl.Content).newsGrd;
+                grid.ScrollIntoView(itemList.CurrentItem);
+            }
+            if (currentcontroller == typeof(CollegeScreen))
+            {
+                itemList = ((CollegeScreen)contentControl.Content).collegeGrd.Items;
+
+                if (!itemList.MoveCurrentToNext())
+                {
+                    itemList.MoveCurrentToLast();
+                }
+                grid = ((CollegeScreen)contentControl.Content).collegeGrd;
+                grid.ScrollIntoView(itemList.CurrentItem);
+            }
+            if (currentcontroller == typeof(SubjectScreen))
+            {
+                itemList = ((SubjectScreen)contentControl.Content).subjectGrd.Items;
+
+                if (!itemList.MoveCurrentToNext())
+                {
+                    itemList.MoveCurrentToLast();
+                }
+                grid = ((SubjectScreen)contentControl.Content).subjectGrd;
+                grid.ScrollIntoView(itemList.CurrentItem);
             }
         }
 
         private void ButtonLast_Click(object sender, RoutedEventArgs e)
         {
             Type currentcontroller = contentControl.Content.GetType();
-
+            DataGrid grid = null;
+            ItemCollection itemList = null;
             if (currentcontroller == typeof(EmployeeScreen))
             {
                 ((EmployeeScreen)contentControl.Content).employeesGrd.Items.MoveCurrentToLast();
+                itemList = ((EmployeeScreen)contentControl.Content).employeesGrd.Items;
+                grid = ((EmployeeScreen)contentControl.Content).employeesGrd;
+                grid.ScrollIntoView(itemList.CurrentItem);
             }
             if (currentcontroller == typeof(StudentScreen))
             {
                 ((StudentScreen)contentControl.Content).studentGrd.Items.MoveCurrentToLast();
+                itemList = ((StudentScreen)contentControl.Content).studentGrd.Items;
+                grid = ((StudentScreen)contentControl.Content).studentGrd;
+                grid.ScrollIntoView(itemList.CurrentItem);
             }
             if (currentcontroller == typeof(BilateralProtocolScreen))
             {
                 ((BilateralProtocolScreen)contentControl.Content).bilateralGrd.Items.MoveCurrentToLast();
+                itemList = ((BilateralProtocolScreen)contentControl.Content).bilateralGrd.Items;
+                grid = ((BilateralProtocolScreen)contentControl.Content).bilateralGrd;
+                grid.ScrollIntoView(itemList.CurrentItem);
             }
             if (currentcontroller == typeof(NewsScreen))
             {
                 ((NewsScreen)contentControl.Content).newsGrd.Items.MoveCurrentToLast();
+                itemList = ((NewsScreen)contentControl.Content).newsGrd.Items;
+                grid = ((NewsScreen)contentControl.Content).newsGrd;
+                grid.ScrollIntoView(itemList.CurrentItem);
+            }
+            if (currentcontroller == typeof(CollegeScreen))
+            {
+                ((CollegeScreen)contentControl.Content).collegeGrd.Items.MoveCurrentToLast();
+                itemList = ((CollegeScreen)contentControl.Content).collegeGrd.Items;
+                grid = ((CollegeScreen)contentControl.Content).collegeGrd;
+                grid.ScrollIntoView(itemList.CurrentItem);
+            }
+            if (currentcontroller == typeof(SubjectScreen))
+            {
+                ((SubjectScreen)contentControl.Content).subjectGrd.Items.MoveCurrentToLast();
+                itemList = ((SubjectScreen)contentControl.Content).subjectGrd.Items;
+                grid = ((SubjectScreen)contentControl.Content).subjectGrd;
+                grid.ScrollIntoView(itemList.CurrentItem);
             }
         }
 
@@ -329,62 +429,86 @@ namespace BackOfficeWPF
         private void ButtonEmployee(object sender, RoutedEventArgs e)
         {
             this.contentControl.Content = new EmployeeScreen();
-            if (ButtonRemove.Visibility == Visibility.Hidden)
-            {
-                ButtonRemove.Visibility = Visibility.Visible;
-            }
+
+            ToolBar.Visibility = Visibility.Visible;
+
+            ButtonRemove.Visibility = Visibility.Visible;
+            ButtonAdd.Visibility = Visibility.Visible;
+            ButtonEdit.Visibility = Visibility.Visible;
         }
 
         private void ButtonProtocol(object sender, RoutedEventArgs e)
         {
             this.contentControl.Content = new BilateralProtocolScreen();
-            if (ButtonRemove.Visibility == Visibility.Hidden)
-            {
-                ButtonRemove.Visibility = Visibility.Visible;
-            }
+
+            ToolBar.Visibility = Visibility.Visible;
+
+            ButtonRemove.Visibility = Visibility.Visible;
+            ButtonAdd.Visibility = Visibility.Visible;
+            ButtonEdit.Visibility = Visibility.Visible;
         }
 
         private void ButtonStudent(object sender, RoutedEventArgs e)
         {
             this.contentControl.Content = new StudentScreen();
-            if (ButtonRemove.Visibility == Visibility.Hidden)
-            {
-                ButtonRemove.Visibility = Visibility.Visible;
-            }
+
+            ToolBar.Visibility = Visibility.Visible;
+
+            ButtonRemove.Visibility = Visibility.Visible;
+            ButtonAdd.Visibility = Visibility.Collapsed;
+            ButtonEdit.Visibility = Visibility.Visible;
         }
         private void ButtonNews(object sender, RoutedEventArgs e)
         {
             this.contentControl.Content = new NewsScreen();
-            if(ButtonRemove.Visibility == Visibility.Hidden)
-            {
-                ButtonRemove.Visibility = Visibility.Visible;
-            }
+
+            ToolBar.Visibility = Visibility.Visible;
+
+            ButtonRemove.Visibility = Visibility.Visible;
+            ButtonAdd.Visibility = Visibility.Collapsed;
+            ButtonEdit.Visibility = Visibility.Visible;
         }
 
         private void ButtonApplicationScreen(object sender, RoutedEventArgs e)
         {
             this.contentControl.Content = new ApplicationScreen();
-            ButtonRemove.Visibility = Visibility.Visible;
+
+            ToolBar.Visibility = Visibility.Visible;
+
+            ButtonRemove.Visibility = Visibility.Collapsed;
+            ButtonAdd.Visibility = Visibility.Collapsed;
+            ButtonEdit.Visibility = Visibility.Visible;
         }
 
         private void ButtonCollegeScreen(object sender, RoutedEventArgs e)
         {
             this.contentControl.Content = new CollegeScreen();
-            ButtonRemove.Visibility = Visibility.Hidden;
+
+            ToolBar.Visibility = Visibility.Visible;
+
+            ButtonRemove.Visibility = Visibility.Collapsed;
+            ButtonAdd.Visibility = Visibility.Visible;
+            ButtonEdit.Visibility = Visibility.Visible;
+
         }
 
         private void ButtonSubjectScreen(object sender, RoutedEventArgs e)
         {
             this.contentControl.Content = new SubjectScreen();
-            ButtonRemove.Visibility = Visibility.Hidden;
-            
+
+            ToolBar.Visibility = Visibility.Visible;
+
+            ButtonRemove.Visibility = Visibility.Collapsed;
+            ButtonAdd.Visibility = Visibility.Visible;
+            ButtonEdit.Visibility = Visibility.Visible;
+
         }
 
         private void ButtonMainScreen(object sender, RoutedEventArgs e)
         {
             this.contentControl.Content = new Statistics();
-            ButtonRemove.Visibility = Visibility.Hidden;
-            
+            ToolBar.Visibility = Visibility.Collapsed;
+
         }
     }
 }

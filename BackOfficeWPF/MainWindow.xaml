@@ -15,12 +15,12 @@
 
         <DockPanel>
             <Menu DockPanel.Dock="Top">
-                <MenuItem Click="ButtonEmployee">
-                    <MenuItem.Header>
+                <MenuItem  Click="ButtonMainScreen">
+                    <MenuItem.Header >
                         <Image Width="20" Height="20" Source="icons/first.png"  />
                     </MenuItem.Header>
                 </MenuItem>
-                <MenuItem Click="ButtonProtocol">
+                <MenuItem Click="ButtonEmployee">
                     <MenuItem.Header>
                         <Image Width="20" Height="20" Source="icons/first.png" />
                     </MenuItem.Header>
@@ -30,17 +30,17 @@
                         <Image Width="20" Height="20" Source="icons/first.png" />
                     </MenuItem.Header>
                 </MenuItem>
+                <MenuItem Click="ButtonApplicationScreen">
+                    <MenuItem.Header>
+                        <Image Width="20" Height="20" Source="icons/first.png" />
+                    </MenuItem.Header>
+                </MenuItem>
                 <MenuItem Click="ButtonNews">
                     <MenuItem.Header>
                         <Image Width="20" Height="20" Source="icons/first.png" />
                     </MenuItem.Header>
                 </MenuItem>
-                <MenuItem Click="ButtonMainScreen">
-                    <MenuItem.Header>
-                        <Image Width="20" Height="20" Source="icons/first.png" />
-                    </MenuItem.Header>
-                </MenuItem>
-                <MenuItem Click="ButtonApplicationScreen">
+                <MenuItem Click="ButtonProtocol">
                     <MenuItem.Header>
                         <Image Width="20" Height="20" Source="icons/first.png" />
                     </MenuItem.Header>
@@ -57,7 +57,7 @@
                 </MenuItem>
             </Menu>
 
-            <ToolBarTray DockPanel.Dock="Top">
+            <ToolBarTray Name="ToolBar" DockPanel.Dock="Top">
                 <ToolBar >
                     <Button Name="ButtonFirst" Click="ButtonFirst_Click">
                         <Image Height="17" Source="icons/first.png" Margin="5,0"/>
