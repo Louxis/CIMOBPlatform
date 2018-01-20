@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -13,11 +14,17 @@ namespace CIMOBProject.Models
     public class TroubleTicketAnswer
     {
         public int TroubleTicketAnswerId { get; set;}
+
+        [Required]
+        [Display(Name = "Resposta")]
         public String Content { get; set; }
+
         public int TroubleTicketId { get; set; }
         public virtual TroubleTicket TroubleTicket { get; set; }
         public String ApplicationUserId { get; set; }
         public virtual ApplicationUser ApplicationUser { get; set; }
+
+        [Display(Name = "Data de Envio")]
         public DateTime CreationDate { get; set; }
     }
 }

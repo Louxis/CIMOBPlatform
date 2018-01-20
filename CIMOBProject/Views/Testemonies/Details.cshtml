@@ -5,11 +5,12 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>@Html.DisplayFor(model => model.Title)</h1>
-<div>
+<br />
+<div class="recent-news">
+    <h1>@Html.DisplayFor(model => model.Title)</h1>
     @Html.DisplayFor(model => model.Content)
     <hr />
-    <label>-&nbsp;</label>@Html.DisplayFor(model => model.ApplicationUser.UserFullname)
+    <label>-&nbsp;</label>@Html.DisplayFor(model => model.Student.UserFullname)
 </div>
 <br />
 <div>

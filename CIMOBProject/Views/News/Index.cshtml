@@ -9,8 +9,6 @@
 
 <h1>Publicações</h1>
 <h3 class="description">Aqui encontra todas as notícias referentes aos processos de mobilidade.</h3>
-<a class="btn btn-default" asp-controller="News" asp-action="Index">Publicações</a>
-<a class="btn btn-default" asp-controller="Testemonies" asp-action="Index">Testemunhos de Mobilidade</a>
 <table class="table">
     <thead>
         <tr>
@@ -72,12 +70,14 @@
 }
     </tbody>
 </table>
-
-@if (SignInManager.IsSignedIn(User) && User.IsInRole("Employee"))
-{
-    <div>
+<br />
+<div>
+    @if (SignInManager.IsSignedIn(User) && User.IsInRole("Employee"))
+    {
         <a class="btn btn-default" asp-area="" asp-controller="News" asp-action="Create" asp-route-userId="@UserManager.GetUserId(User)" id="CreateNews">Nova Publicação</a>
         <a class="btn btn-default" asp-area="" asp-controller="Editals" asp-action="Create" asp-route-userId="@UserManager.GetUserId(User)" id="CreateEdital">Novo Edital</a>
-    </div>
-}
+    }
+    <a class="btn btn-default" asp-controller="Testemonies" asp-action="Index">Testemunhos de Mobilidade</a>
+</div>
+
 

@@ -14,9 +14,11 @@ namespace CIMOBProject.Models
     {
         public int TroubleTicketId { get; set; }
 
+        [Required]
         [Display(Name = "Título")]
         public String Title { get; set; }
 
+        [Required]
         [Display(Name = "Descrição")]
         public String Description { get; set; }
 
@@ -25,7 +27,9 @@ namespace CIMOBProject.Models
 
         [Display(Name = "Resolvido")]
         public bool Solved { get; set; }
+
         public String ApplicationUserId { get; set; }
+
         public virtual ApplicationUser ApplicationUser { get; set; }
 
         [Display(Name = "Respostas")]

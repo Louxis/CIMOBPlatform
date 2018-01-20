@@ -23,9 +23,12 @@ namespace CIMOBProject.Controllers
         }
 
         // GET: Testemonies
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string userId)
         {
-            var applicationDbContext = _context.Testemonies.Include(t => t.ApplicationUser).OrderByDescending(t => t.CreationDate);
+            var currentUser = _context.ApplicationUsers.Where(m => m.Id.Equals(userId)).SingleOrDefault();
+            var applicationDbContext = _context.Testemonies.Include(t => t.Student).OrderByDescending(t => t.CreationDate);
+            var currentStudentApplication = _context.Applications.Include(s => s.ApplicationStatId).Where(a => a.StudentId == currentUser.Id);
+            ViewData["currentStudentApplication"] = currentStudentApplication;
             return View(await applicationDbContext.ToListAsync());
         }
 
@@ -52,7 +55,7 @@ namespace CIMOBProject.Controllers
             }
 
             var testemony = await _context.Testemonies
-                .Include(t => t.ApplicationUser)
+                .Include(t => t.Student)
                 .SingleOrDefaultAsync(m => m.TestemonyId == id);
             if (testemony == null)
             {
@@ -66,7 +69,7 @@ namespace CIMOBProject.Controllers
         // GET: Testemonies/Create
         public IActionResult Create(string userId)
         {
-            ViewData["ApplicationUserId"] = userId;
+            ViewData["StudentId"] = userId;
             ViewData["CreationDate"] = DateTime.Now;
 
             loadHelp();
@@ -77,7 +80,7 @@ namespace CIMOBProject.Controllers
         // POST: Testemonies/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("TestemonyId,Title,Content,ApplicationUserId,Valid,CreationDate")] Testemony testemony)
+        public async Task<IActionResult> Create([Bind("TestemonyId,Title,Content,StudentId,Valid,CreationDate")] Testemony testemony)
         {
             if (ModelState.IsValid)
             {
@@ -85,7 +88,7 @@ namespace CIMOBProject.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ApplicationUserId"] = testemony.ApplicationUserId;
+            ViewData["StudentId"] = testemony.StudentId;
             ViewData["CreationDate"] = testemony.CreationDate;
             return View(testemony);
         }
@@ -99,7 +102,7 @@ namespace CIMOBProject.Controllers
             }
 
             var testemony = await _context.Testemonies
-                .Include(t => t.ApplicationUser)
+                .Include(t => t.Student)
                 .SingleOrDefaultAsync(m => m.TestemonyId == id);
             if (testemony == null)
             {

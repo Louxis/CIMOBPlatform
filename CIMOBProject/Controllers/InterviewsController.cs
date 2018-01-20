@@ -63,6 +63,9 @@ namespace CIMOBProject.Controllers
         {
             ViewData["ApplicationId"] = applicationId;
             ViewData["EmployeeId"] = employeeId;
+
+            loadHelp();
+
             return View();
         }
 
@@ -108,6 +111,9 @@ namespace CIMOBProject.Controllers
             }
             ViewData["ApplicationId"] = interview.ApplicationId;
             ViewData["EmployeeId"] = interview.EmployeeId;
+
+            loadHelp();
+
             return View(interview);
         }
 
@@ -146,6 +152,12 @@ namespace CIMOBProject.Controllers
             ViewData["ApplicationId"] = interview.ApplicationId;
             ViewData["EmployeeId"] =  interview.EmployeeId;
             return View(interview);
+        }
+
+        //Loads help tips
+        private void loadHelp()
+        {
+            ViewData["InterviewDateTip"] = (_context.Helps.FirstOrDefault(h => h.HelpName == "InterviewDate") as Help).HelpDescription;
         }
 
         private bool InterviewExists(int id)

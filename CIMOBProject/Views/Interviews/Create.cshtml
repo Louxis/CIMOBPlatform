@@ -5,10 +5,8 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Create</h2>
-
-<h4>Interview</h4>
-<hr />
+<h1>Marcar Entrevista</h1>
+<h3 class="description">Preencha os campos em baixo para marcar a entrevista.</h3>
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create">
@@ -16,18 +14,15 @@
             @Html.Hidden("EmployeeId")
             @Html.Hidden("ApplicationId")
             <div class="form-group">
-                <label asp-for="InterviewDate" class="control-label"></label>
+                <label asp-for="InterviewDate" class="control-label"></label>  <div class="tooltip">(?)<span class="tooltiptext">@ViewData["InterviewDateTip"]</span></div>
                 <input asp-for="InterviewDate" class="form-control" />
                 <span asp-validation-for="InterviewDate" class="text-danger"></span>
             </div>
+            <br />
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <input type="submit" value="Marcar Entrevista" class="btn btn-default" />
+                <a class="btn btn-default" asp-action="Index">Voltar Atrás</a>
             </div>
         </form>
     </div>
 </div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-

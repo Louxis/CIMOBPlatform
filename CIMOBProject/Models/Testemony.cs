@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -12,11 +13,24 @@ namespace CIMOBProject.Models
     public class Testemony
     {
         public int TestemonyId { get; set; }
+
+        [Required]
+        [StringLength(500)]
+        [Display(Name = "Título")]
         public String Title { get; set; }
+
+        [Required]
+        [StringLength(1000)]
+        [Display(Name = "Conteúdo")]
         public String Content { get; set; }
-        public String ApplicationUserId { get; set; }
-        public ApplicationUser ApplicationUser { get; set; }
+
+        public String StudentId { get; set; }
+        public virtual Student Student { get; set; }
+
+        [Required]
+        [Display(Name = "Data Criação")]
         public DateTime CreationDate { get; set; }
+
         public bool Valid { get; set; }
     }
 }

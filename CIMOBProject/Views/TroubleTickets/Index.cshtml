@@ -20,12 +20,21 @@ else
 
 <h1>Trouble Tickets</h1>
 <h3 class="description">Aqui poderá encontrar todos os seu Trouble Tickets.</h3>
-<p>
-     <a asp-action="Index" asp-route-userId="@UserManager.GetUserId(User)" asp-route-ticketFilter="Sent" class="btn btn-default" >Tickets Enviados</a>
-     <a asp-action="Index" asp-route-userId="@UserManager.GetUserId(User)" asp-route-ticketFilter="Received" class="btn btn-default">Tickets Recebidos</a>
-     <a asp-action="Index" asp-route-userId="@UserManager.GetUserId(User)" asp-route-listOrder="OlderFirst" class="btn btn-default">Mostrar Mais Antigos Primeiro</a>
-     <a asp-action="Index" asp-route-userId="@UserManager.GetUserId(User)" class="btn btn-default">Sem Filtro</a>
- </p>
+
+<form asp-controller="TroubleTickets" asp-action="Index" method="get">
+    <select class="search-options" for="ticketFilter" name="ticketFilter">
+        <option value="NoFilter">Sem filtro</option>
+        <option value="Sent">Tickets Enviados</option>
+        <option value="Received">Tickets Recebidos</option>
+    </select>
+
+    <input class="search-box" hidden="hidden" type="text" name="userId" value="@UserManager.GetUserId(User)" />
+
+    <input type="submit" class="btn btn-default" value="Filtrar"> &nbsp;
+    <a asp-action="Index" asp-route-userId="@UserManager.GetUserId(User)" asp-route-listOrder="OlderFirst" class="btn btn-default">Mostrar Mais Antigos Primeiro</a>
+</form>
+
+     
  <br />
  @Html.Partial("_IndexPartial", Model)
 

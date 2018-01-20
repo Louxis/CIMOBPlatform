@@ -7,13 +7,12 @@
 
 <h1>Eliminar Testemunho</h1>
 <h3 class="description">Tem a certeza que pretende eliminar este testemunho?</h3>
-<div>
-    <h4>Informação de Publicação</h4>
-    <label>@Html.DisplayNameFor(model => model.Title):&nbsp;</label>@Html.DisplayFor(model => model.Title)
-    <br />
-    <label>@Html.DisplayNameFor(model => model.Content):&nbsp;</label>@Html.DisplayFor(model => model.Content)
-    <br />
-    <label>@Html.DisplayNameFor(model => model.ApplicationUser.UserFullname):&nbsp;</label>@Html.DisplayFor(model => model.ApplicationUser.UserFullname)
+<br />
+<div class="recent-news">
+    <h1>@Html.DisplayFor(model => model.Title)</h1>
+    @Html.DisplayFor(model => model.Content)
+    <hr />
+    <label>-&nbsp;</label>@Html.DisplayFor(model => model.Student.UserFullname)
 </div>
 <br />
 <div>

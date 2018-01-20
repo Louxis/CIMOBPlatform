@@ -51,6 +51,5 @@
     {
         <a class="btn btn-default" asp-action="Create" asp-controller="TroubleTicketAnswers" asp-route-troubleTicketId="@Model.TroubleTicketId" asp-route-applicationUserId="@UserManager.GetUserId(User)">Nova Resposta</a>
     }
-
-    <a class="btn btn-default" asp-action="Index">Voltar Atrás</a>
+    <a asp-action="Index" asp-route-userId="@UserManager.GetUserId(User)" class="btn btn-default">Voltar Atrás</a>
 </div>
