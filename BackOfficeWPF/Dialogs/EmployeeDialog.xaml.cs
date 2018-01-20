@@ -25,10 +25,10 @@ namespace BackOfficeWPF.Dialogs
         private bool mayClose;
         public Employee Employee { get; set; }
 
-        public EmployeeDialog()
+        public EmployeeDialog(Employee employee = null)
         {
             InitializeComponent();
-            this.Employee = new Employee();
+            this.Employee = employee ?? new Employee();
             Employee.BirthDate = new DateTime(2000, 1, 1);
             GridFormEmployee.DataContext = Employee;
             mayClose = false;

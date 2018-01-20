@@ -12,8 +12,8 @@ using System;
 namespace CIMOBProject.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20180118152000_mig")]
-    partial class mig
+    [Migration("20180119220533_WPFFinaltesting")]
+    partial class WPFFinaltesting
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

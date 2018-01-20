@@ -29,7 +29,7 @@ namespace BackOfficeWPF.Dialogs
             InitializeComponent();
             this.BilateralProtocol = bilateralProtocol ?? new BilateralProtocol();
             subjectsCombo.ItemsSource = _db.CollegeSubjects.ToList();
-            subjectsCombo.DisplayMemberPath = "Name";
+            subjectsCombo.DisplayMemberPath = "SubjectName";
             subjectsCombo.SelectedValuePath = "Id";
             GridFormBilateral.DataContext = BilateralProtocol;            
             mayClose = false;
@@ -37,11 +37,13 @@ namespace BackOfficeWPF.Dialogs
 
         private void OkButton_Click(object sender, RoutedEventArgs e)
         {
-            mayClose = true;
-            this.BilateralProtocol.SubjectId = (int)subjectsCombo.SelectedValue;
+            mayClose = true;            
             if (!UpdateBilateralProtocol())
             {
                 mayClose = false;
+            }
+            else {
+                this.BilateralProtocol.SubjectId = (int)subjectsCombo.SelectedValue;
             }
             this.DialogResult = true;
         }
@@ -63,6 +65,10 @@ namespace BackOfficeWPF.Dialogs
             if((!int.TryParse(bilateralSlots.Text, out result)) || BilateralProtocol.OpenSlots < 0)
             {
                 MessageBox.Show("O campo vagas é obrigatório e precisa de ser um número positivo.");
+                return false;
+            }
+            if (subjectsCombo.SelectedValue == null) {
+                MessageBox.Show("Curso é inválido.", "Erro - Curso inválido");
                 return false;
             }
             return true;

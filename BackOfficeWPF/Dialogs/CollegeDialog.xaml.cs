@@ -24,7 +24,7 @@ namespace BackOfficeWPF.Dialogs
         private bool mayClose;
         public College College { get; set; }
 
-        public CollegeDialog(College college)
+        public CollegeDialog(College college = null)
         {
             InitializeComponent();
             this.College = college ?? new College();

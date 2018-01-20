@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace CIMOBProject.Migrations
 {
-    public partial class mig : Migration
+    public partial class WPFFinaltesting : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

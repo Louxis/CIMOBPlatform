@@ -25,5 +25,9 @@ namespace BackOfficeWPF.Screens {
             applicationGrd.ItemsSource = _db.Applications.Select(a => new { a.Student.UserFullname, a.ApplicationStat.Name, a.BilateralProtocol1.Destination, a.CreationDate, a.FinalGrade}).ToList();
             applicationGrd.IsSynchronizedWithCurrentItem = true;
         }
+
+        public void Refresh() {
+            applicationGrd.ItemsSource = _db.Applications.Select(a => new { a.Student.UserFullname, a.ApplicationStat.Name, a.BilateralProtocol1.Destination, a.CreationDate, a.FinalGrade }).ToList();
+        }
     }
 }

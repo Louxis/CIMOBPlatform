@@ -25,5 +25,9 @@ namespace BackOfficeWPF {
             studentGrd.ItemsSource = _db.Students.Select(e => new { e.UserName, e.UserFullname, e.UserCc, e.StudentNumber, e.ALOGrade, e.CollegeSubject.SubjectName, e.Email, e.IsBanned}).ToList();
             studentGrd.IsSynchronizedWithCurrentItem = true;
         }
+
+        public void Refresh() {
+            studentGrd.ItemsSource = _db.Students.Select(e => new { e.UserName, e.UserFullname, e.UserCc, e.StudentNumber, e.ALOGrade, e.CollegeSubject.SubjectName, e.Email, e.IsBanned }).ToList();
+        }
     }
 }

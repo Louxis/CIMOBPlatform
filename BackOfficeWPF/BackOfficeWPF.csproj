@@ -112,6 +112,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="DataGridFormatter.cs" />
+    <Compile Include="DbContextHelper.cs" />
     <Compile Include="Dialogs\ApplicationDialog.xaml.cs">
       <DependentUpon>ApplicationDialog.xaml</DependentUpon>
     </Compile>
@@ -130,8 +132,14 @@
     <Compile Include="Dialogs\StudentDialog.xaml.cs">
       <DependentUpon>StudentDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Screens\ApplicationScreen.xaml.cs">
+      <DependentUpon>ApplicationScreen.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Screens\BilateralProtocolScreen.xaml.cs">
       <DependentUpon>BilateralProtocolScreen.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Screens\CollegeScreen.xaml.cs">
+      <DependentUpon>CollegeScreen.xaml</DependentUpon>
     </Compile>
     <Compile Include="Screens\EmployeeScreen.xaml.cs">
       <DependentUpon>EmployeeScreen.xaml</DependentUpon>
@@ -144,6 +152,9 @@
     </Compile>
     <Compile Include="Screens\StudentScreen.xaml.cs">
       <DependentUpon>StudentScreen.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Screens\SubjectScreen.xaml.cs">
+      <DependentUpon>SubjectScreen.xaml</DependentUpon>
     </Compile>
     <Compile Include="TestControl.xaml.cs">
       <DependentUpon>TestControl.xaml</DependentUpon>
@@ -188,7 +199,15 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Screens\ApplicationScreen.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Screens\BilateralProtocolScreen.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Screens\CollegeScreen.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -205,6 +224,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Screens\StudentScreen.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Screens\SubjectScreen.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -289,6 +312,16 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Auth\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\Add.png" />
+    <Resource Include="Icons\Apply.png" />
+    <Resource Include="Icons\Edit.png" />
+    <Resource Include="Icons\First.png" />
+    <Resource Include="Icons\Last.png" />
+    <Resource Include="Icons\Next.png" />
+    <Resource Include="Icons\Previous.png" />
+    <Resource Include="Icons\Remove.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

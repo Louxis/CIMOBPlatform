@@ -26,6 +26,9 @@ namespace BackOfficeWPF {
             employeesGrd.IsSynchronizedWithCurrentItem = true;
         }
 
+        public void Refresh() {
+            employeesGrd.ItemsSource = _db.Employees.Select(e => new { e.UserName, e.UserFullname, e.UserCc, e.Email, e.IsBanned }).ToList();
+        }
 
         private void AtualizarControlos()
         {

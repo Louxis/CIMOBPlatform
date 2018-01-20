@@ -20,12 +20,17 @@ namespace BackOfficeWPF {
     public partial class BilateralProtocolScreen : UserControl {
         ApplicationDbContext _db = new ApplicationDbContext();
         public BilateralProtocol currentProtocol;
+
         public BilateralProtocolScreen()
         {
             InitializeComponent();
             bilateralGrd.ItemsSource = _db.BilateralProtocols.Select(e => new { e.Destination, e.Subject.SubjectName, e.OpenSlots }).ToList();
             bilateralGrd.IsSynchronizedWithCurrentItem = true;
             currentProtocol = _db.BilateralProtocols.First();
+        }
+
+        public void Refresh() {
+            bilateralGrd.ItemsSource = _db.BilateralProtocols.Select(e => new { e.Destination, e.Subject.SubjectName, e.OpenSlots }).ToList();
         }
     }
 }

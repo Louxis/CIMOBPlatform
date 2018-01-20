@@ -1,4 +1,5 @@
-﻿using BackOfficeWPF.Screens;
+﻿using BackOfficeWPF.Dialogs;
+using BackOfficeWPF.Screens;
 using CIMOBProject.Models;
 using System;
 using System.Linq;
@@ -269,28 +270,35 @@ namespace BackOfficeWPF {
             Type currentcontroller = contentControl.Content.GetType();
             if (currentcontroller == typeof(EmployeeScreen))
             {
-                //Adicionar dialog para criar um employee
-                _db.SaveChanges();
+                EmployeeDialog employeeDialog = new EmployeeDialog();
+                if(employeeDialog.ShowDialog() == true) {
+                    DbContextHelper.AddEmployee(_db, employeeDialog.Employee);
+                    ((EmployeeScreen)contentControl.Content).Refresh();
+                }
             }
             if (currentcontroller == typeof(BilateralProtocolScreen))
             {
-                //Adicionar dialog para criar BilateralProtocl
-                _db.SaveChanges();
-            }
-            if (currentcontroller == typeof(NewsScreen))
-            {
-                //Adicionar dialog para criar News
-                _db.SaveChanges();
+                BilateralDialog bilateralDialog = new BilateralDialog();
+                if(bilateralDialog.ShowDialog() == true) {
+                    DbContextHelper.AddBilateral(_db, bilateralDialog.BilateralProtocol);
+                    ((BilateralProtocolScreen)contentControl.Content).Refresh();
+                }                
             }
             if (currentcontroller == typeof(CollegeScreen))
             {
-                //Adicionar dialog para criar College
-                _db.SaveChanges();
+                CollegeDialog collegeDialog = new CollegeDialog();
+                if (collegeDialog.ShowDialog() == true) {
+                    DbContextHelper.AddCollege(_db, collegeDialog.College);
+                    ((CollegeScreen)contentControl.Content).Refresh();
+                }
             }
             if (currentcontroller == typeof(SubjectScreen))
             {
-                //Adicionar dialog para criar Subjects
-                _db.SaveChanges();
+                CollegeSubjectDialog collegeSubjectDialog = new CollegeSubjectDialog();
+                if (collegeSubjectDialog.ShowDialog() == true) {
+                    DbContextHelper.AddCollegeSubject(_db, collegeSubjectDialog.CollegeSubject);
+                    ((SubjectScreen)contentControl.Content).Refresh();
+                }
             }
             if (currentcontroller == typeof(Statistics))
             {
@@ -301,29 +309,51 @@ namespace BackOfficeWPF {
         private void ButtonEdit_Click(object sender, RoutedEventArgs e)
         {
             Type currentcontroller = contentControl.Content.GetType();
+            ItemCollection items = null;
             if (currentcontroller == typeof(EmployeeScreen))
             {
                 //Adicionar dialog para editar um employee
-                _db.SaveChanges();
+                items = ((EmployeeScreen)contentControl.Content).employeesGrd.Items;
+                int selectedIndex = ((EmployeeScreen)contentControl.Content).employeesGrd.SelectedIndex;
+                var employee = items.CurrentItem;
+                var employeeUserName = employee.GetType().GetProperty("UserName").GetValue(employee);
+                EmployeeDialog employeeDialog = new EmployeeDialog(_db.Employees.Where(a => a.UserName.Equals(((String)employeeUserName))).FirstOrDefault());
+                if(employeeDialog.ShowDialog() == true) {
+                    DbContextHelper.EditEmployee(_db, employeeDialog.Employee);
+                    ((EmployeeScreen)contentControl.Content).Refresh();
+                    ((EmployeeScreen)contentControl.Content).employeesGrd.SelectedIndex = selectedIndex;
+                }              
             }
             if (currentcontroller == typeof(StudentScreen))
             {
-                //Adicionar dialog para editar um estudante
-                _db.SaveChanges();
+                items = ((StudentScreen)contentControl.Content).studentGrd.Items;
+                int selectedIndex = ((StudentScreen)contentControl.Content).studentGrd.SelectedIndex;
+                var student = items.CurrentItem;
+                var studentUserName = student.GetType().GetProperty("UserName").GetValue(student);
+                StudentDialog studentDialog = new StudentDialog(_db.Students.Where(a => a.UserName.Equals(((String)studentUserName))).FirstOrDefault());
+                if (studentDialog.ShowDialog() == true) {
+                    DbContextHelper.EditStudent(_db, studentDialog.Student);
+                    ((StudentScreen)contentControl.Content).Refresh();
+                    ((StudentScreen)contentControl.Content).studentGrd.SelectedIndex = selectedIndex;
+                }
             }
             if (currentcontroller == typeof(ApplicationScreen))
             {
-                //Adicionar dialog para editar uma candidatura
+                items = ((ApplicationScreen)contentControl.Content).applicationGrd.Items;
+                int selectedIndex = ((ApplicationScreen)contentControl.Content).applicationGrd.SelectedIndex;
+                var application = items.CurrentItem;
+                var applicationKey = application.GetType().GetProperty("UserName").GetValue(application);
+                StudentDialog studentDialog = new StudentDialog(_db.Students.Where(a => a.UserName.Equals(((String)studentUserName))).FirstOrDefault());
+                if (studentDialog.ShowDialog() == true) {
+                    DbContextHelper.EditStudent(_db, studentDialog.Student);
+                    ((ApplicationScreen)contentControl.Content).Refresh();
+                    ((ApplicationScreen)contentControl.Content).applicationGrd.SelectedIndex = selectedIndex;
+                }
                 _db.SaveChanges();
             }
             if (currentcontroller == typeof(BilateralProtocolScreen))
             {
                 //Adicionar dialog para editar BilateralProtocl
-                _db.SaveChanges();
-            }
-            if (currentcontroller == typeof(NewsScreen))
-            {
-                //Adicionar dialog para editar News
                 _db.SaveChanges();
             }
             if (currentcontroller == typeof(CollegeScreen))
@@ -343,9 +373,7 @@ namespace BackOfficeWPF {
         }
 
         private void ButtonRemove_Click(object sender, RoutedEventArgs e)
-        {
-            
-
+        {   
             Type currentcontroller = contentControl.Content.GetType();
             ItemCollection items = null;
             String message = "";
@@ -400,7 +428,7 @@ namespace BackOfficeWPF {
 
                     _db.Students.Where(a => a.UserName.Equals(((String)studentName))).First().IsBanned = true;
                     _db.SaveChanges();
-                    contentControl.Content = new StudentScreen();
+                    ((StudentScreen)contentControl.Content).Refresh();
                 }
                 if (currentcontroller == typeof(BilateralProtocolScreen))
                 {
