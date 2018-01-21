@@ -28,9 +28,10 @@ namespace BackOfficeWPF.Dialogs
             InitializeComponent();
             this.Application = application ?? new CIMOBProject.Models.Application();
             stateCombo.ItemsSource = _db.ApplicationStats.ToList();
-            stateCombo.DisplayMemberPath = "SubjectName";
+            stateCombo.DisplayMemberPath = "Name";
             stateCombo.SelectedValuePath = "Id";
             GridFormApplication.DataContext = Application;
+            //NEED HELP
             mayClose = false;
         }
 

@@ -41,6 +41,7 @@
             <Grid Grid.Row="0" Grid.Column="1" Grid.RowSpan="4" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.ColumnSpan="2" Margin="190,0,0,-99">
                 <DataGrid Name="applicationGrd" AutoGenerateColumns="False"  IsSynchronizedWithCurrentItem="True" VerticalScrollBarVisibility="Visible" Height="300" Width="auto">
                     <DataGrid.Columns>
+                        <DataGridTextColumn Header="Id" Binding="{Binding ApplicationId, Mode=OneWay}" Width="*"></DataGridTextColumn>
                         <DataGridTextColumn Header="Student Full Name" Binding="{Binding UserFullname, Mode=OneWay}" Width="*"></DataGridTextColumn>
                         <DataGridTextColumn Header="Application Status" Binding="{Binding Name, Mode=OneWay}" Width="*"></DataGridTextColumn>
                         <DataGridTextColumn Header="First Destination" Binding="{Binding Destination, Mode=OneWay}" Width="*"></DataGridTextColumn>
