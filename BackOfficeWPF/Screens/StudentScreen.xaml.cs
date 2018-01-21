@@ -15,7 +15,8 @@ using System.Windows.Shapes;
 
 namespace BackOfficeWPF {
     /// <summary>
-    /// Interaction logic for StudentScreen.xaml
+    /// This class represents the functionalitys of the screen related to the students.
+    /// This class contains an instance of applicationDbContext in order to access the data base.
     /// </summary>
     public partial class StudentScreen : UserControl {
         ApplicationDbContext _db = new ApplicationDbContext();

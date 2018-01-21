@@ -4,7 +4,8 @@ using System.Windows.Controls;
 
 namespace BackOfficeWPF {
     /// <summary>
-    /// Interaction logic for Statistics.xaml
+    /// This class represents the all the statistics that are relevant to the admin.
+    /// This class contains an instance of applicationDbContext in order to access the data base.
     /// </summary>
     public partial class Statistics : UserControl
     {

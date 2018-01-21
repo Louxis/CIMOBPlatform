@@ -15,14 +15,15 @@ using System.Windows.Shapes;
 
 namespace BackOfficeWPF.Screens {
     /// <summary>
-    /// Interaction logic for SubjectScreen.xaml
+    /// This class represents the functionalitys of the screen related to the subjects.
+    /// This class contains an instance of applicationDbContext in order to access the data base.
     /// </summary>
     public partial class SubjectScreen : UserControl {
         ApplicationDbContext _db = new ApplicationDbContext();
         public SubjectScreen()
         {
             InitializeComponent();
-            subjectGrd.ItemsSource = _db.CollegeSubjects.Select(c => new { c.SubjectName, c.SubjectAlias, c.College.CollegeName}).ToList();
+            subjectGrd.ItemsSource = _db.CollegeSubjects.Select(c => new { c.Id, c.SubjectName, c.SubjectAlias, c.College.CollegeName}).ToList();
             subjectGrd.IsSynchronizedWithCurrentItem = true;
         }
     }

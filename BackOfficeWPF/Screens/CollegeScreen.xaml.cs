@@ -15,14 +15,15 @@ using System.Windows.Shapes;
 
 namespace BackOfficeWPF.Screens {
     /// <summary>
-    /// Interaction logic for CollegeScreen.xaml
+    /// This class represents the functionalitys of the screen related to the colleges.
+    /// This class contains an instance of applicationDbContext in order to access the data base.
     /// </summary>
     public partial class CollegeScreen : UserControl {
         ApplicationDbContext _db = new ApplicationDbContext();
         public CollegeScreen()
         {
             InitializeComponent();
-            collegeGrd.ItemsSource = _db.Colleges.Select(c => new { c.CollegeName, c.CollegeAlias, }).ToList();
+            collegeGrd.ItemsSource = _db.Colleges.Select(c => new { c.Id, c.CollegeName, c.CollegeAlias, }).ToList();
             collegeGrd.IsSynchronizedWithCurrentItem = true;
         }
     }

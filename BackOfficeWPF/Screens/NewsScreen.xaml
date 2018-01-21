@@ -5,10 +5,10 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:BackOfficeWPF"
              mc:Ignorable="d" 
-             Height="720" Width="1280">
+             Height="720" Width="1290">
     <DockPanel>
 
-        <Label Content="News Control Screen" DockPanel.Dock="Top" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" FontSize="15" />
+        <Label Content="Painel de controlo das noticias" DockPanel.Dock="Top" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" FontSize="15" />
         <Grid Name="Form" DockPanel.Dock="Top"  DataContext="{Binding ElementName=newsGrd, Path=SelectedItem, UpdateSourceTrigger=PropertyChanged}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
@@ -21,30 +21,30 @@
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="120"/>
+                <ColumnDefinition Width="200"/>
                 <ColumnDefinition Width="270"/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
 
-            <Label Content="Title" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center"  FontSize="12" Margin="2" />
+            <Label Content="Titulo da noticia" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center"  FontSize="12" Margin="2" />
             <TextBox Name="TitleTxt" Text="{Binding ElementName=Form, Path=DataContext.Title, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" Grid.Row="0" Grid.Column="1"  HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="12" Width="150" IsEnabled="False" Margin="0,6" />
 
-            <Label Content="TextContent" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="12" Margin="2"  />
+            <Label Content="Conteudo da noticia" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="12" Margin="2"  />
             <TextBox Name="TextContent" Text="{Binding ElementName=Form, Path=DataContext.TextContent, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" Grid.Row="1" Grid.Column="1"  HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="12" Width="150" IsEnabled="False"/>
 
-            <Label Content="Published" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center"  FontSize="12" Margin="2" />
+            <Label Content="Publicado?" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center"  FontSize="12" Margin="2" />
             <CheckBox x:Name="myCheckBox" IsChecked="{Binding ElementName=Form, Path=DataContext.IsPublished, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" Grid.Row="2" Grid.Column="1"  HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="12" Width="150" IsEnabled="False"/>
-            
-            <Label Content="Employee Name" Grid.Row="3" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="12" Margin="2"  />
+
+            <Label Content="Nome do funcionário" Grid.Row="3" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="12" Margin="2"  />
             <TextBox Name="EmployeeName" Text="{Binding ElementName=Form, Path=DataContext.UserFullname, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" Grid.Row="3" Grid.Column="1"  HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="12" Width="150" IsEnabled="False"/>
 
             <Grid Grid.Row="0" Grid.Column="1" Grid.RowSpan="4" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.ColumnSpan="2" Margin="190,0,0,-99">
                 <DataGrid Name="newsGrd" AutoGenerateColumns="False"  IsSynchronizedWithCurrentItem="True" VerticalScrollBarVisibility="Visible" Height="300" Width="auto">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Title" Binding="{Binding Title, Mode=OneWay}" Width="*"></DataGridTextColumn>
-                        <DataGridTextColumn Header="Text Content" Binding="{Binding TextContent, Mode=OneWay}" Width="*"></DataGridTextColumn>
-                        <DataGridTextColumn Header="Published" Binding="{Binding IsPublished, Mode=OneWay}" Width="*"></DataGridTextColumn>
-                        <DataGridTextColumn Header="Emplyee Name" Binding="{Binding UserFullname, Mode=OneWay}" Width="*"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Conteudo da noticia" Binding="{Binding TextContent, Mode=OneWay}" Width="*"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Publicado?" Binding="{Binding IsPublished, Mode=OneWay}" Width="*"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Nome do funcionário" Binding="{Binding UserFullname, Mode=OneWay}" Width="*"></DataGridTextColumn>
                 </DataGrid.Columns>
                 </DataGrid>
             </Grid>

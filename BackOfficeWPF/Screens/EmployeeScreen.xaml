@@ -5,10 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BackOfficeWPF"
         mc:Ignorable="d"
-        Height="720" Width="1280">
+        Height="720" Width="1290">
     <DockPanel>
 
-        <Label Content="Employees Control Screen" DockPanel.Dock="Top" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" FontSize="15" />
+        <Label Content="Painel de controlo dos funcionários" DockPanel.Dock="Top" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" FontSize="15" />
         <Grid Name="Form" DockPanel.Dock="Top"  DataContext="{Binding ElementName=employeesGrd, Path=SelectedItem, UpdateSourceTrigger=PropertyChanged}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
@@ -18,7 +18,7 @@
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="90"/>
+                <ColumnDefinition Width="200"/>
                 <ColumnDefinition Width="270"/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
@@ -26,26 +26,26 @@
             <Label Content="User Name" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center"  FontSize="12" Margin="2" />
             <TextBox Name="UserNameTxt" Text="{Binding ElementName=Form, Path=DataContext.UserName, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" Grid.Row="0" Grid.Column="1"  HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="12" Width="150" IsEnabled="False" Margin="0,6" />
 
-            <Label Content="User Full Name" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="12" Margin="2"  />
+            <Label Content="Nome do funcionário" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="12" Margin="2"  />
             <TextBox Name="UserFullname" Text="{Binding ElementName=Form, Path=DataContext.UserFullname, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" Grid.Row="1" Grid.Column="1"  HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="12" Width="150" IsEnabled="False"/>
 
-            <Label Content="User CC" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center"  FontSize="12" Margin="2" />
+            <Label Content="CC" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center"  FontSize="12" Margin="2" />
             <TextBox Name="UserCc" Text="{Binding ElementName=Form, Path=DataContext.UserCc, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" Grid.Row="2" Grid.Column="1"  HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="12" Width="150" IsEnabled="False" Margin="0,6" />
 
             <Label Content="Email" Grid.Row="3" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="12" Margin="2"  />
             <TextBox Name="EmailTxt" Text="{Binding ElementName=Form, Path=DataContext.Email, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" Grid.Row="3" Grid.Column="1"  HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="12" Width="150" IsEnabled="False"/>
 
-            <Label Content="Banned" Grid.Row="4" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center"  FontSize="12" Margin="2" />
+            <Label Content="Banido?" Grid.Row="4" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center"  FontSize="12" Margin="2" />
             <CheckBox x:Name="myCheckBox" IsChecked="{Binding ElementName=Form, Path=DataContext.IsBanned, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" Grid.Row="4" Grid.Column="1"  HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="12" Width="150" IsEnabled="False"/>
 
             <Grid Grid.Row="0" Grid.Column="1" Grid.RowSpan="4" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.ColumnSpan="2" Margin="190,0,0,-99">
                 <DataGrid Name="employeesGrd" AutoGenerateColumns="False"  IsSynchronizedWithCurrentItem="True" VerticalScrollBarVisibility="Visible" Height="300" Width="auto">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="User Name" Binding="{Binding UserName, Mode=OneWay}" Width="*"></DataGridTextColumn>
-                        <DataGridTextColumn Header="User Full Name" Binding="{Binding UserFullname, Mode=OneWay}" Width="*"></DataGridTextColumn>
-                        <DataGridTextColumn Header="User CC" Binding="{Binding UserCc, Mode=OneWay}" Width="*"></DataGridTextColumn>
-                        <DataGridTextColumn Header="User e-mail" Binding="{Binding Email, Mode=OneWay}" Width="*"></DataGridTextColumn>
-                        <DataGridTemplateColumn Header="Is Banned">
+                        <DataGridTextColumn Header="Nome do funcionario" Binding="{Binding UserFullname, Mode=OneWay}" Width="*"></DataGridTextColumn>
+                        <DataGridTextColumn Header="CC" Binding="{Binding UserCc, Mode=OneWay}" Width="*"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Email" Binding="{Binding Email, Mode=OneWay}" Width="*"></DataGridTextColumn>
+                        <DataGridTemplateColumn Header="Banido?">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <CheckBox IsChecked="{Binding IsBanned, Mode=OneWay}" HorizontalAlignment="Center"/>
