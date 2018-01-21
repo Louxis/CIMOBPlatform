@@ -5,10 +5,10 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:BackOfficeWPF.Screens"
              mc:Ignorable="d" 
-             Height="720" Width="1280">
+             Height="720" Width="1290">
     <DockPanel>
 
-        <Label Content="Applications Control Screen" DockPanel.Dock="Top" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" FontSize="15" />
+        <Label Content="Painel de controlo das candidaturas" DockPanel.Dock="Top" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" FontSize="15" />
         <Grid Name="Form" DockPanel.Dock="Top"  DataContext="{Binding ElementName=applicationGrd, Path=SelectedItem, UpdateSourceTrigger=PropertyChanged}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
@@ -21,32 +21,34 @@
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="90"/>
+                <ColumnDefinition Width="200"/>
                 <ColumnDefinition Width="270"/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
 
-            <Label Content="Student Name" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center"  FontSize="12" Margin="2" />
+            <Label Content="Nome do estudante" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center"  FontSize="12" Margin="2" />
             <TextBox Name="UserFullName" Text="{Binding ElementName=Form, Path=DataContext.UserFullName, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" Grid.Row="0" Grid.Column="1"  HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="12" Width="150" IsEnabled="False" Margin="0,6" />
 
-            <Label Content="Application Status" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="12" Margin="2"  />
+            <Label Content="Estado da candidatura" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="12" Margin="2"  />
             <TextBox Name="ApplicationStatus" Text="{Binding ElementName=Form, Path=DataContext.Name, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" Grid.Row="1" Grid.Column="1"  HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="12" Width="150" IsEnabled="False"/>
 
-            <Label Content="Bilateral Protocol" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center"  FontSize="12" Margin="2" />
+            <Label Content="Acordo bilateral" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center"  FontSize="12" Margin="2" />
             <TextBox Name="BilateralProtocol" Text="{Binding ElementName=Form, Path=DataContext.CreationDate, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" Grid.Row="2" Grid.Column="1"  HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="12" Width="150" IsEnabled="False" Margin="0,6" />
 
-            <Label Content="Final Grade" Grid.Row="3" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="12" Margin="2"  />
-            <TextBox Name="FinalGrade" Text="{Binding ElementName=Form, Path=DataContext.FinalGrade, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" Grid.Row="3" Grid.Column="1"  HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="12" Width="150" IsEnabled="False"/>
+            <Label Content="Data de criação" Grid.Row="3" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="12" Margin="2"  />
+            <TextBox Name="CreationDate" Text="{Binding ElementName=Form, Path=DataContext.CreationDate, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" Grid.Row="3" Grid.Column="1"  HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="12" Width="150" IsEnabled="False"/>
+            
+            <Label Content="Nota final" Grid.Row="4" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="12" Margin="2"  />
+            <TextBox Name="FinalGrade" Text="{Binding ElementName=Form, Path=DataContext.FinalGrade, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" Grid.Row="4" Grid.Column="1"  HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="12" Width="150" IsEnabled="False"/>
 
             <Grid Grid.Row="0" Grid.Column="1" Grid.RowSpan="4" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.ColumnSpan="2" Margin="190,0,0,-99">
                 <DataGrid Name="applicationGrd" AutoGenerateColumns="False"  IsSynchronizedWithCurrentItem="True" VerticalScrollBarVisibility="Visible" Height="300" Width="auto">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="Id" Binding="{Binding ApplicationId, Mode=OneWay}" Width="*"></DataGridTextColumn>
-                        <DataGridTextColumn Header="Student Full Name" Binding="{Binding UserFullname, Mode=OneWay}" Width="*"></DataGridTextColumn>
-                        <DataGridTextColumn Header="Application Status" Binding="{Binding Name, Mode=OneWay}" Width="*"></DataGridTextColumn>
-                        <DataGridTextColumn Header="First Destination" Binding="{Binding Destination, Mode=OneWay}" Width="*"></DataGridTextColumn>
-                        <DataGridTextColumn Header="Creation Date" Binding="{Binding CreationDate, Mode=OneWay}" Width="*"></DataGridTextColumn>
-                        <DataGridTextColumn Header="Final Grade" Binding="{Binding FinalGrade, Mode=OneWay}" Width="*"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Nome do estudante" Binding="{Binding UserFullname, Mode=OneWay}" Width="*"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Estado da candidatura" Binding="{Binding Name, Mode=OneWay}" Width="*"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Primeira escolha " Binding="{Binding Destination, Mode=OneWay}" Width="*"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Data de criação" Binding="{Binding CreationDate, Mode=OneWay}" Width="*"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Nota final" Binding="{Binding FinalGrade, Mode=OneWay}" Width="*"></DataGridTextColumn>
                     </DataGrid.Columns>
                 </DataGrid>
             </Grid>

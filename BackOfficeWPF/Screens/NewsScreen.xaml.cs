@@ -17,7 +17,8 @@ using System.Windows.Shapes;
 
 namespace BackOfficeWPF {
     /// <summary>
-    /// Interaction logic for NewsScreen.xaml
+    /// This class represents the functionalitys of the screen related to the news.
+    /// This class contains an instance of applicationDbContext in order to access the data base.
     /// </summary>
     public partial class NewsScreen : UserControl {
         ApplicationDbContext _db = new ApplicationDbContext();

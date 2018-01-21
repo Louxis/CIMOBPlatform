@@ -5,10 +5,10 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:BackOfficeWPF.Screens"
              mc:Ignorable="d" 
-            Height="720" Width="1280">
+            Height="720" Width="1290">
     <DockPanel>
 
-        <Label Content="Colleges Control Screen" DockPanel.Dock="Top" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" FontSize="15" />
+        <Label Content="Painel de controlo das candidaturas" DockPanel.Dock="Top" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" FontSize="15" />
         <Grid Name="Form" DockPanel.Dock="Top"  DataContext="{Binding ElementName=collegeGrd, Path=SelectedItem, UpdateSourceTrigger=PropertyChanged}" >
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
@@ -16,21 +16,26 @@
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="90"/>
+                <ColumnDefinition Width="200"/>
                 <ColumnDefinition Width="270"/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
 
-            <Label Content="College Name" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center"  FontSize="12" Margin="2" />
-            <TextBox Name="CollegeName" Text="{Binding ElementName=Form, Path=DataContext.CollegeName, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" Grid.Row="0" Grid.Column="1"  HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="12" Width="150" IsEnabled="False" Margin="0,6" />
+            <Label Content="Id" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center"  FontSize="12" Margin="2" />
+            <TextBox Name="Id" Text="{Binding ElementName=Form, Path=DataContext.Id, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" Grid.Row="0" Grid.Column="1"  HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="12" Width="150" IsEnabled="False" Margin="0,6" />
 
-            <Label Content="College Alias" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="12" Margin="2"  />
-            <TextBox Name="CollegeAlias" Text="{Binding ElementName=Form, Path=DataContext.Name, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" Grid.Row="1" Grid.Column="1"  HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="12" Width="150" IsEnabled="False"/>
+            <Label Content="Designação" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center"  FontSize="12" Margin="2" />
+            <TextBox Name="CollegeName" Text="{Binding ElementName=Form, Path=DataContext.CollegeName, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" Grid.Row="1" Grid.Column="1"  HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="12" Width="150" IsEnabled="False" Margin="0,6" />
+
+            <Label Content="Sigla" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="12" Margin="2"  />
+            <TextBox Name="CollegeAlias" Text="{Binding ElementName=Form, Path=DataContext.CollegeAlias, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" Grid.Row="2" Grid.Column="1"  HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="12" Width="150" IsEnabled="False"/>
+            
             <Grid Grid.Row="0" Grid.Column="1" Grid.RowSpan="4" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.ColumnSpan="2" Margin="190,0,0,-99">
                 <DataGrid Name="collegeGrd"  IsSynchronizedWithCurrentItem="True" CanUserAddRows="False" AutoGenerateColumns="False" VerticalScrollBarVisibility="Visible" Height="300" Width="auto">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="College Name" Binding="{Binding CollegeName, Mode=OneWay}" Width="*"></DataGridTextColumn>
-                        <DataGridTextColumn Header="College Alias" Binding="{Binding CollegeAlias, Mode=OneWay}" Width="*"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Id" Binding="{Binding Id, Mode=OneWay}" Width="*"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Designação" Binding="{Binding CollegeName, Mode=OneWay}" Width="*"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Sigla" Binding="{Binding CollegeAlias, Mode=OneWay}" Width="*"></DataGridTextColumn>
                     </DataGrid.Columns>
                 </DataGrid>
             </Grid>

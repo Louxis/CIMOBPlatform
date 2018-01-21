@@ -14,7 +14,8 @@ using System.Windows.Shapes;
 
 namespace BackOfficeWPF {
     /// <summary>
-    /// Interaction logic for EmployeeScreen.xaml
+    /// This class represents the functionalitys of the screen related to the employees.
+    /// This class contains an instance of applicationDbContext in order to access the data base.
     /// </summary>
     public partial class EmployeeScreen : UserControl {
 
