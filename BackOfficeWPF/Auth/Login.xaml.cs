@@ -29,7 +29,7 @@ namespace BackOfficeWPF.Auth {
         }
 
         private void OkButton_Click(object sender, RoutedEventArgs e) {
-            var user = userManager.Find(Email.Text, Password.Password);
+            var user = userManager.Find(Email.Text, Password2.Password);
             if(user == null) {
                 MessageBox.Show("Dados incorretos.");
             }

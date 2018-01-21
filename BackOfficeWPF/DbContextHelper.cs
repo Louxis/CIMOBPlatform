@@ -77,6 +77,29 @@ namespace BackOfficeWPF {
             context.SaveChanges();
         }
 
+        public static void EditBilateral(ApplicationDbContext context, BilateralProtocol bilateralProtocol) {
+            var bilateralToUpdate = context.BilateralProtocols.Where(b=> b.Id == bilateralProtocol.Id).FirstOrDefault();
+            bilateralToUpdate.Destination = bilateralProtocol.Destination;
+            bilateralToUpdate.OpenSlots = bilateralProtocol.OpenSlots;
+            bilateralToUpdate.SubjectId = bilateralProtocol.SubjectId;
+            context.SaveChanges();
+        }
+
+        public static void EditCollege(ApplicationDbContext context, College college) {
+            var collegeToUpdate = context.Colleges.Where(c => c.Id == college.Id).FirstOrDefault();
+            collegeToUpdate.CollegeName = college.CollegeName;
+            collegeToUpdate.CollegeAlias = college.CollegeAlias;
+            context.SaveChanges();
+        }
+
+        internal static void EditSubject(ApplicationDbContext context, CollegeSubject collegeSubject) {
+            var collegeSubjectToUpdate = context.CollegeSubjects.Where(c => c.Id == collegeSubject.Id).FirstOrDefault();
+            collegeSubjectToUpdate.SubjectName = collegeSubject.SubjectName;
+            collegeSubjectToUpdate.SubjectAlias = collegeSubject.SubjectAlias;
+            collegeSubjectToUpdate.CollegeId = collegeSubject.CollegeId;
+            context.SaveChanges();
+        }
+
         public static void AddBilateral(ApplicationDbContext context, BilateralProtocol bilateral) {
             try {
                 context.BilateralProtocols.Add(bilateral);
@@ -108,6 +131,6 @@ namespace BackOfficeWPF {
                 MessageBox.Show("Curso não criado.", "Erro");
             }
             MessageBox.Show("Curso criado com sucesso.", "Sucesso");
-        }
+        }       
     }
 }

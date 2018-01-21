@@ -356,8 +356,8 @@ namespace BackOfficeWPF {
                 items = ((BilateralProtocolScreen)contentControl.Content).bilateralGrd.Items;
                 int selectedIndex = ((BilateralProtocolScreen)contentControl.Content).bilateralGrd.SelectedIndex;
                 var protocol = items.CurrentItem;
-                var protocol?? = protocol.GetType().GetProperty("??").GetValue(protocol);
-                BilateralDialog protocolDialog = new BilateralDialog(_db.BilateralProtocols.Where(??).FirstOrDefault());
+                var protocolId = protocol.GetType().GetProperty("Id").GetValue(protocol);
+                BilateralDialog protocolDialog = new BilateralDialog(_db.BilateralProtocols.Where(b => b.Id == (int)protocolId).FirstOrDefault());
                 if (protocolDialog.ShowDialog() == true) {
                     DbContextHelper.EditBilateral(_db, protocolDialog.BilateralProtocol);
                     ((BilateralProtocolScreen)contentControl.Content).Refresh();
@@ -369,8 +369,8 @@ namespace BackOfficeWPF {
                 items = ((CollegeScreen)contentControl.Content).collegeGrd.Items;
                 int selectedIndex = ((CollegeScreen)contentControl.Content).collegeGrd.SelectedIndex;
                 var college = items.CurrentItem;
-                var college?? = college.GetType().GetProperty("??").GetValue(college);
-                CollegeDialog collegeDialog = new CollegeDialog(_db.BilateralProtocols.Where(??).FirstOrDefault());
+                var collegeId = college.GetType().GetProperty("Id").GetValue(college);
+                CollegeDialog collegeDialog = new CollegeDialog(_db.Colleges.Where(c => c.Id == (int)collegeId).FirstOrDefault());
                 if (collegeDialog.ShowDialog() == true) {
                     DbContextHelper.EditCollege(_db, collegeDialog.College);
                     ((CollegeScreen)contentControl.Content).Refresh();
@@ -382,8 +382,8 @@ namespace BackOfficeWPF {
                 items = ((SubjectScreen)contentControl.Content).subjectGrd.Items;
                 int selectedIndex = ((SubjectScreen)contentControl.Content).subjectGrd.SelectedIndex;
                 var subject = items.CurrentItem;
-                var subject?? = subject.GetType().GetProperty("??").GetValue(subject);
-                CollegeSubjectDialog collegeSubjectDialog = new CollegeSubjectDialog(_db.BilateralProtocols.Where(??).FirstOrDefault());
+                var subjectId = subject.GetType().GetProperty("Id").GetValue(subject);
+                CollegeSubjectDialog collegeSubjectDialog = new CollegeSubjectDialog(_db.CollegeSubjects.Where(c => c.Id == (int)subjectId).FirstOrDefault());
                 if (collegeSubjectDialog.ShowDialog() == true) {
                     DbContextHelper.EditSubject(_db, collegeSubjectDialog.CollegeSubject);
                     ((SubjectScreen)contentControl.Content).Refresh();

@@ -39,7 +39,7 @@
             <Grid Grid.Row="0" Grid.Column="1" Grid.RowSpan="4" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.ColumnSpan="2"  Margin="190,0,0,-99">
                 <DataGrid Name="bilateralGrd" AutoGenerateColumns="False" IsSynchronizedWithCurrentItem="True"  VerticalScrollBarVisibility="Visible" Height="300" Width="auto">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="Id" Binding="{Binding Destination, Mode=OneWay}" Width="*"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Id" Binding="{Binding Id, Mode=OneWay}" Width="*"></DataGridTextColumn>
                         <DataGridTextColumn Header="Destino" Binding="{Binding Destination, Mode=OneWay}" Width="*"></DataGridTextColumn>
                         <DataGridTextColumn Header="Curso" Binding="{Binding SubjectName, Mode=OneWay}" Width="*"></DataGridTextColumn>
                         <DataGridTextColumn Header="Vagas" Binding="{Binding OpenSlots, Mode=OneWay}" Width="*"></DataGridTextColumn>

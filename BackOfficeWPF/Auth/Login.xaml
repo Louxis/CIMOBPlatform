@@ -19,9 +19,9 @@
         <Label Content="Email" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left"  FontSize="12" Margin="10,9.6,0,10" Width="48"  />
         <Label Content="Password" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left"  FontSize="12" Margin="10,9.6,0,10" Width="70"  />
         <TextBox Name="Email"  Grid.Row="0" Grid.Column="1" HorizontalAlignment="Left"  FontSize="12" Margin="10,9.6,0,10" Width="165"  />
-        <PasswordBox Name="Password" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left"  FontSize="12" Margin="10,9.6,0,10" Width="165"  />
+        <PasswordBox Name="Password2" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left"  FontSize="12" Margin="10,9.6,0,10" Width="165"  />
         <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,0,-0.2">
-            <Button x:Name="Login" Click="OkButton_Click" IsDefault="True" Width="60" Margin="1,0" Content="Login"/>
+            <Button Name="LoginBtn" Click="OkButton_Click" IsDefault="True" Width="60" Margin="1,0" Content="Login"/>
         </StackPanel>
     </Grid>
 </Window>
