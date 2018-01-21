@@ -109,6 +109,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Auth\Login.xaml.cs">
+      <DependentUpon>Login.xaml</DependentUpon>
+    </Compile>
     <Compile Include="DataGridFormatter.cs" />
     <Compile Include="DbContextHelper.cs" />
     <Compile Include="Dialogs\ApplicationDialog.xaml.cs">
@@ -159,6 +162,10 @@
     <Compile Include="TestControl2.xaml.cs">
       <DependentUpon>TestControl2.xaml</DependentUpon>
     </Compile>
+    <Page Include="Auth\Login.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Dialogs\ApplicationDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -307,9 +314,7 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Auth\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Resource Include="Icons\Add.png" />
     <Resource Include="Icons\Apply.png" />
