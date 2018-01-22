@@ -35,6 +35,9 @@ namespace BackOfficeWPF.Auth {
             }
             else {
                 //go to main window
+                MainWindow mainWindow = new MainWindow();
+                mainWindow.Show();
+                this.Close();
             }
         }
     }

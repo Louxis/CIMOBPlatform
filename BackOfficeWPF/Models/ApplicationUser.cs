@@ -42,6 +42,8 @@ namespace CIMOBProject.Models
         [Display(Name = "Banido")]
         public bool IsBanned { get; set; }
 
+        public bool IsNotified { get; set; }
+
         public string NormalizedEmail { get; set; }
         public string NormalizedUserName { get; set; }
 

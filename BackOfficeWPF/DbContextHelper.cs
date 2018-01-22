@@ -2,6 +2,7 @@
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System;
+using System.Data.Entity.Validation;
 using System.Linq;
 using System.Windows;
 
@@ -10,31 +11,34 @@ namespace BackOfficeWPF {
 
         public static void AddEmployee(ApplicationDbContext context, Employee employee) {
             UserManager<Employee> userManager = new UserManager<Employee>(new UserStore<Employee>(new ApplicationDbContext()));
-            var user = new Employee {
-                UserName = employee.Email,
-                UserFullname = employee.UserAddress,
-                Email = employee.Email,
-                UserCc = employee.UserCc,
-                PhoneNumber = employee.PhoneNumber,
-                UserAddress = employee.UserAddress,
-                PostalCode = employee.PostalCode,
-                BirthDate = employee.BirthDate,
-                EmployeeNumber = employee.EmployeeNumber,
-                NormalizedEmail = employee.Email.ToUpper(),
-                NormalizedUserName = employee.Email.ToUpper(),
-                EmailConfirmed = true
-            };
             try {
+                var user = new Employee {
+                    UserName = employee.Email,
+                    UserFullname = employee.UserAddress,
+                    Email = employee.Email,
+                    UserCc = employee.UserCc,
+                    PhoneNumber = employee.PhoneNumber,
+                    UserAddress = employee.UserAddress,
+                    PostalCode = employee.PostalCode,
+                    BirthDate = employee.BirthDate,
+                    EmployeeNumber = employee.EmployeeNumber,
+                    NormalizedEmail = employee.Email.ToUpper(),
+                    NormalizedUserName = employee.Email.ToUpper(),
+                    EmailConfirmed = true
+                };
                 userManager.CreateAsync(user, "teste12").Wait();
                 context.SaveChanges();
                 var role = context.Roles.SingleOrDefault(m => m.Name == "Employee");
                 userManager.AddToRoleAsync(user.Id, role.Name).Wait();
                 context.SaveChanges();
+                MessageBox.Show("Funcionário Criado com sucesso.", "Sucesso");
+            } catch(Exception ex) {
+                MessageBox.Show("Funcionário não criado, contactar suporte.", "Sucesso");
             }
-            catch (Exception ex) {
-                MessageBox.Show("Funcionário não criado.", "Erro");
-            }
-            MessageBox.Show("Funcionário Criado com sucesso.", "Sucesso");
+
+            
+
+            
         }
 
         public static void EditEmployee(ApplicationDbContext context, Employee employee) {
