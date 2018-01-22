@@ -1,0 +1,46 @@
+﻿@model IEnumerable<CIMOBProject.Models.TroubleTicket>
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+@if (Model == null)
+{
+    <h2>Erro</h2>
+    <br/>
+    <h3>Não tem acesso a esta área</h3>
+}
+else
+{
+
+<h1>Trouble Tickets</h1>
+<h3 class="description">Aqui poderá encontrar todos os seu Trouble Tickets.</h3>
+
+<form asp-controller="TroubleTickets" asp-action="Index" method="get">
+    <select class="search-options" for="ticketFilter" name="ticketFilter">
+        <option value="NoFilter">Sem filtro</option>
+        <option value="Sent">Tickets Enviados</option>
+        <option value="Received">Tickets Recebidos</option>
+    </select>
+
+    <input class="search-box" hidden="hidden" type="text" name="userId" value="@UserManager.GetUserId(User)" />
+
+    <input type="submit" class="btn btn-default" value="Filtrar"> &nbsp;
+    <a asp-action="Index" asp-route-userId="@UserManager.GetUserId(User)" asp-route-listOrder="OlderFirst" class="btn btn-default">Mostrar Mais Antigos Primeiro</a>
+</form>
+
+     
+ <br />
+ @Html.Partial("_IndexPartial", Model)
+
+    <hr />
+    <div>
+        <a class="btn btn-default" asp-action="Create" asp-route-userId="@UserManager.GetUserId(User)">Novo Trouble Ticket</a>
+    </div>
+}
+

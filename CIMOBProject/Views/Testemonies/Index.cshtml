@@ -1,0 +1,93 @@
+﻿@model IEnumerable<CIMOBProject.Models.Testemony>
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    Application currentStudentApplication = ViewData["currentStudentApplication"] as Application;
+}
+
+<h1>Testemunhos</h1>
+<h3 class="description">Aqui encontra os testemunhos das diversas mobilidades.</h3>
+@if (User.IsInRole("Employee"))
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Title)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Student.StudentNumber)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CreationDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Valid)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Title)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Student.StudentNumber)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CreationDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Valid)
+                    </td>
+                    <td>
+                        @if (!item.Valid)
+                        {
+                            <a class="btn btn-default" asp-controller="Testemonies" asp-action="ValidateTestemony" asp-route-testemonyId="@item.TestemonyId">Validar Publicação</a>
+                            <a class="btn btn-default" asp-controller="Testemonies" asp-action="Delete" asp-route-id="@item.TestemonyId">Eliminar Testemunho</a>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    @foreach (var item in Model)
+    {
+        if (item.Valid)
+        {
+            <br />
+            <div class="recent-news">
+                <h1>@Html.DisplayFor(modelItem => item.Title)</h1>
+                <div>
+                    @Html.DisplayFor(modelItem => item.Content)
+                    <hr />
+                    <label>Criado por:&nbsp;</label>@Html.DisplayFor(modelItem => item.Student.UserFullname)
+                    <br />
+                    <label>Data:&nbsp;</label>@Html.DisplayFor(modelItem => item.CreationDate)
+                </div>
+            </div>
+            <br />
+        }
+    }
+}
+<br />
+<div>
+    @if (User.IsInRole("Student") && currentStudentApplication != null)
+    {
+        if(currentStudentApplication.ApplicationStatId == 6)
+        {
+            <a class="btn btn-default" asp-action="Create" asp-route-userId="@UserManager.GetUserId(User)">Novo Testemunho</a>
+        }
+    }
+    <a class="btn btn-default" asp-controller="News" asp-action="Index">Publicações</a>
+</div>
+

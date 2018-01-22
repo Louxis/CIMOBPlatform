@@ -1,0 +1,31 @@
+﻿@model CIMOBProject.Models.Interview
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Remarcar Entrevista</h1>
+<h3 class="description">Altere a data da entrevista para aquela que deseja.</h3>
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="InterviewId" />
+            @Html.Hidden("ApplicationId")
+            @Html.Hidden("EmployeeId")
+            <div class="form-group">
+                <label asp-for="InterviewDate" class="control-label"></label>  <div class="tooltip">(?)<span class="tooltiptext">@ViewData["InterviewDateTip"]</span></div>
+                <input asp-for="InterviewDate" class="form-control" />
+                <span asp-validation-for="InterviewDate" class="text-danger"></span>
+            </div>
+            <br />
+            <div class="form-group">
+                <input type="submit" value="Guardar Alterações" class="btn btn-default" />
+                <a class="btn btn-default" asp-action="Index">Voltar Atrás</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+

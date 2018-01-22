@@ -1,0 +1,42 @@
+﻿@model CIMOBProject.Models.Student
+
+@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<h1>Dashboard</h1>
+<h3 class="description">Bem-vindo à sua dashboard.</h3>
+<div>
+    <div class="dashboard-left-container">
+        <div class="dashboard-calendar"> <!--TODO--> </div>
+        <div class="dashboard-student-documents">
+            <h4>Documentos</h4>
+            @if (Enumerable.Count(ViewBag.studentDocuments) == 0)
+            {
+                <h3 class="description">Não dispõe de documentos para mostrar.</h3>
+            }
+            else
+            {
+                <table class="table">
+                    <tbody>
+                    @foreach (Document item in ViewBag.studentDocuments)
+                    {
+                        <tr>
+                            <td>
+                                <a href="@Html.DisplayFor(modelItem => item.FileUrl)"> @Html.DisplayFor(modelItem => item.Description)</a>
+                            </td>
+                        </tr>
+                    }
+                    </tbody>
+                </table>
+            }
+        </div>
+    </div>
+    <div class="dashboard-right-container">
+        <div class="dashboard-student-application">
+
+        </div>
+        <div class="dashboard-student-troubletickets"></div>
+    </div>
+</div>
+

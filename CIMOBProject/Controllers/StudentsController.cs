@@ -66,7 +66,8 @@ namespace CIMOBProject.Controllers {
             if (id == null) {
                 return NotFound();
             }
-            var latestEdital = _context.Editals.OrderByDescending(e => e.Id).FirstOrDefault(); 
+            var latestEdital = _context.Editals.OrderByDescending(e => e.Id).FirstOrDefault();
+            ViewData["interview"] = "N/A";
             var student = await _context.Students
                     .Include(s => s.CollegeSubject)
                         .ThenInclude(c => c.College)
@@ -89,7 +90,17 @@ namespace CIMOBProject.Controllers {
             }
             else {
                 var latestApplication = student.Applications.OrderBy(a => a.ApplicationId).Last();
+                var interview = _context.Interviews.Include(a => a.Application).Where(i => i.ApplicationId == latestApplication.ApplicationId).SingleOrDefault();
                 ViewData["applicationId"] = latestApplication.ApplicationId;
+                if(interview == null)
+                {
+                    ViewData["interview"] = "N/A";
+                }
+                else
+                {
+                    ViewData["interview"] = interview.InterviewDate;
+                }
+                
             }                        
             ViewData["selectedId"] = student.Id;
             return View(student);
@@ -116,9 +127,6 @@ namespace CIMOBProject.Controllers {
             ViewData["CollegeSubjectId"] = new SelectList(_context.CollegeSubjects, "Id", "SubjectName", student.CollegeSubjectId);
             return View(student);
         }
-
-
-
 
         // GET: Students/Edit/5
         public async Task<IActionResult> Edit(string id) {
@@ -194,6 +202,27 @@ namespace CIMOBProject.Controllers {
             _context.Students.Remove(student);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
+        }
+
+        public async Task<IActionResult> Dashboard(string id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var student = await _context.Students.SingleOrDefaultAsync(m => m.Id == id);
+            var studentApplication = _context.Applications.Where(s => s.StudentId == id).Last();
+            var studentDocuments = _context.Documents.Where(a => a.ApplicationId == studentApplication.ApplicationId);
+            if (student == null)
+            {
+                return NotFound();
+            }
+
+            ViewData["selectedId"] = student.Id;
+            ViewData["studentApplication"] = studentApplication;
+            ViewData["studentDocuments"] = studentDocuments;
+            return View(student);
         }
 
         private bool StudentExists(string id) {

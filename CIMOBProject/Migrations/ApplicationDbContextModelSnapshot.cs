@@ -120,7 +120,7 @@ namespace CIMOBProject.Migrations
 
                     b.Property<bool>("EmailConfirmed");
 
-                    b.Property<bool>("IsBanned");
+                    b.Property<bool>("IsNotified");
 
                     b.Property<bool>("LockoutEnabled");
 
@@ -289,6 +289,26 @@ namespace CIMOBProject.Migrations
                     b.ToTable("Helps");
                 });
 
+            modelBuilder.Entity("CIMOBProject.Models.Interview", b =>
+                {
+                    b.Property<int>("InterviewId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("ApplicationId");
+
+                    b.Property<string>("EmployeeId");
+
+                    b.Property<DateTime>("InterviewDate");
+
+                    b.HasKey("InterviewId");
+
+                    b.HasIndex("ApplicationId");
+
+                    b.HasIndex("EmployeeId");
+
+                    b.ToTable("Interviews");
+                });
+
             modelBuilder.Entity("CIMOBProject.Models.News", b =>
                 {
                     b.Property<int>("Id")
@@ -339,6 +359,81 @@ namespace CIMOBProject.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Quizzs");
+                });
+
+            modelBuilder.Entity("CIMOBProject.Models.Testemony", b =>
+                {
+                    b.Property<int>("TestemonyId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Content")
+                        .IsRequired()
+                        .HasMaxLength(1000);
+
+                    b.Property<DateTime>("CreationDate");
+
+                    b.Property<string>("StudentId");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(500);
+
+                    b.Property<bool>("Valid");
+
+                    b.HasKey("TestemonyId");
+
+                    b.HasIndex("StudentId");
+
+                    b.ToTable("Testemonies");
+                });
+
+            modelBuilder.Entity("CIMOBProject.Models.TroubleTicket", b =>
+                {
+                    b.Property<int>("TroubleTicketId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("ApplicationUserId");
+
+                    b.Property<DateTime>("CreationDate");
+
+                    b.Property<string>("Description")
+                        .IsRequired();
+
+                    b.Property<bool>("Solved");
+
+                    b.Property<string>("StudentNumber");
+
+                    b.Property<string>("Title")
+                        .IsRequired();
+
+                    b.HasKey("TroubleTicketId");
+
+                    b.HasIndex("ApplicationUserId");
+
+                    b.ToTable("TroubleTicket");
+                });
+
+            modelBuilder.Entity("CIMOBProject.Models.TroubleTicketAnswer", b =>
+                {
+                    b.Property<int>("TroubleTicketAnswerId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("ApplicationUserId");
+
+                    b.Property<string>("Content")
+                        .IsRequired();
+
+                    b.Property<DateTime>("CreationDate");
+
+                    b.Property<int>("TroubleTicketId");
+
+                    b.HasKey("TroubleTicketAnswerId");
+
+                    b.HasIndex("ApplicationUserId");
+
+                    b.HasIndex("TroubleTicketId");
+
+                    b.ToTable("TroubleTicketAnswers");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -453,7 +548,7 @@ namespace CIMOBProject.Migrations
                 {
                     b.HasBaseType("CIMOBProject.Models.ApplicationUser");
 
-                    b.Property<string>("EmployeeNumber");
+                    b.Property<int>("EmployeeNumber");
 
                     b.ToTable("Employee");
 
@@ -558,6 +653,18 @@ namespace CIMOBProject.Migrations
                         .HasForeignKey("EmployeeId");
                 });
 
+            modelBuilder.Entity("CIMOBProject.Models.Interview", b =>
+                {
+                    b.HasOne("CIMOBProject.Models.Application", "Application")
+                        .WithMany()
+                        .HasForeignKey("ApplicationId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("CIMOBProject.Models.Employee", "Employee")
+                        .WithMany()
+                        .HasForeignKey("EmployeeId");
+                });
+
             modelBuilder.Entity("CIMOBProject.Models.News", b =>
                 {
                     b.HasOne("CIMOBProject.Models.Document", "Document")
@@ -567,6 +674,32 @@ namespace CIMOBProject.Migrations
                     b.HasOne("CIMOBProject.Models.Employee", "Employee")
                         .WithMany()
                         .HasForeignKey("EmployeeId");
+                });
+
+            modelBuilder.Entity("CIMOBProject.Models.Testemony", b =>
+                {
+                    b.HasOne("CIMOBProject.Models.Student", "Student")
+                        .WithMany()
+                        .HasForeignKey("StudentId");
+                });
+
+            modelBuilder.Entity("CIMOBProject.Models.TroubleTicket", b =>
+                {
+                    b.HasOne("CIMOBProject.Models.ApplicationUser", "ApplicationUser")
+                        .WithMany()
+                        .HasForeignKey("ApplicationUserId");
+                });
+
+            modelBuilder.Entity("CIMOBProject.Models.TroubleTicketAnswer", b =>
+                {
+                    b.HasOne("CIMOBProject.Models.ApplicationUser", "ApplicationUser")
+                        .WithMany()
+                        .HasForeignKey("ApplicationUserId");
+
+                    b.HasOne("CIMOBProject.Models.TroubleTicket", "TroubleTicket")
+                        .WithMany("Answers")
+                        .HasForeignKey("TroubleTicketId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

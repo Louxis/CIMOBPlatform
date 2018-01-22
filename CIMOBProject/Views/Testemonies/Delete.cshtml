@@ -1,0 +1,24 @@
+﻿@model CIMOBProject.Models.Testemony
+
+@{
+    ViewData["Title"] = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Eliminar Testemunho</h1>
+<h3 class="description">Tem a certeza que pretende eliminar este testemunho?</h3>
+<br />
+<div class="recent-news">
+    <h1>@Html.DisplayFor(model => model.Title)</h1>
+    @Html.DisplayFor(model => model.Content)
+    <hr />
+    <label>-&nbsp;</label>@Html.DisplayFor(model => model.Student.UserFullname)
+</div>
+<br />
+<div>
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="TestemonyId" />
+        <input type="submit" value="Delete" class="btn btn-default" />
+        <a asp-action="Index" class="btn btn-default">Voltar Atrás</a>
+    </form>
+</div>

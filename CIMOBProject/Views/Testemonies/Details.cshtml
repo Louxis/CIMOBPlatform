@@ -1,0 +1,18 @@
+﻿@model CIMOBProject.Models.Testemony
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<br />
+<div class="recent-news">
+    <h1>@Html.DisplayFor(model => model.Title)</h1>
+    @Html.DisplayFor(model => model.Content)
+    <hr />
+    <label>-&nbsp;</label>@Html.DisplayFor(model => model.Student.UserFullname)
+</div>
+<br />
+<div>
+    <a asp-action="Index" class="btn btn-default">Voltar Atrás</a>
+</div>

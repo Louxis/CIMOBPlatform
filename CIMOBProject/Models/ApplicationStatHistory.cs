@@ -15,12 +15,14 @@ namespace CIMOBProject.Models
         public int Id { get; set; }
 
         public int ApplicationId { get; set; }
+
         [Display(Name = "Estado da candidatura")]
         public String ApplicationStat { get; set; }
+
         [Display(Name = "Data da modificação")]
         public DateTime DateOfUpdate { get; set; }
 
-        public Application Application { get; set; }
+        public virtual Application Application { get; set; }
 
     }
 }

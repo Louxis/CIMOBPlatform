@@ -112,7 +112,7 @@ namespace XUnitTesting
             var news4 = new News
                 {
                     EmployeeId = _context.Employees.Where(s => s.UserFullname.Equals("Teste User 2")).FirstOrDefault().Id,
-                    IsPublished = false,
+                    IsPublished = true,
                     TextContent = "teste4",
                     Title = "teste4"
                 };
