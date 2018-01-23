@@ -1,11 +1,11 @@
 ﻿<Window x:Class="BackOfficeWPF.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"    
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BackOfficeWPF"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="1290">
+        Title="BackOffice" Height="450" Width="1290">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -17,42 +17,42 @@
             <Menu DockPanel.Dock="Top">
                 <MenuItem  Click="ButtonMainScreen">
                     <MenuItem.Header >
-                        <Image Width="20" Height="20" Source="icons/first.png"  />
+                        <Image Width="20" Height="20" Source="icons/statistic.png"  />
                     </MenuItem.Header>
                 </MenuItem>
                 <MenuItem Click="ButtonEmployee">
                     <MenuItem.Header>
-                        <Image Width="20" Height="20" Source="icons/first.png" />
+                        <Image Width="20" Height="20" Source="icons/Employee.png" />
                     </MenuItem.Header>
                 </MenuItem>
                 <MenuItem Click="ButtonStudent">
                     <MenuItem.Header>
-                        <Image Width="20" Height="20" Source="icons/first.png" />
+                        <Image Width="20" Height="20" Source="icons/Student.png" />
                     </MenuItem.Header>
                 </MenuItem>
                 <MenuItem Click="ButtonApplicationScreen">
                     <MenuItem.Header>
-                        <Image Width="20" Height="20" Source="icons/first.png" />
+                        <Image Width="20" Height="20" Source="icons/Applications.png" />
                     </MenuItem.Header>
                 </MenuItem>
                 <MenuItem Click="ButtonNews">
                     <MenuItem.Header>
-                        <Image Width="20" Height="20" Source="icons/first.png" />
+                        <Image Width="20" Height="20" Source="icons/News.png" />
                     </MenuItem.Header>
                 </MenuItem>
                 <MenuItem Click="ButtonProtocol">
                     <MenuItem.Header>
-                        <Image Width="20" Height="20" Source="icons/first.png" />
+                        <Image Width="20" Height="20" Source="icons/Bilateral.png" />
                     </MenuItem.Header>
                 </MenuItem>
                 <MenuItem Click="ButtonCollegeScreen">
                     <MenuItem.Header>
-                        <Image Width="20" Height="20" Source="icons/first.png" />
+                        <Image Width="20" Height="20" Source="icons/College.png" />
                     </MenuItem.Header>
                 </MenuItem>
                 <MenuItem Click="ButtonSubjectScreen">
                     <MenuItem.Header>
-                        <Image Width="20" Height="20" Source="icons/first.png" />
+                        <Image Width="20" Height="20" Source="icons/subject.png" />
                     </MenuItem.Header>
                 </MenuItem>
             </Menu>
