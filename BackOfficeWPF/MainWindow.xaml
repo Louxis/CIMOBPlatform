@@ -15,45 +15,45 @@
 
         <DockPanel>
             <Menu DockPanel.Dock="Top">
-                <MenuItem  Click="ButtonMainScreen">
-                    <MenuItem.Header >
+                <MenuItem  Click="ButtonMainScreen" Header="Home">
+                    <!--<MenuItem.Header >
                         <Image Width="20" Height="20" Source="icons/first.png"  />
-                    </MenuItem.Header>
+                    </MenuItem.Header>-->
                 </MenuItem>
-                <MenuItem Click="ButtonEmployee">
-                    <MenuItem.Header>
+                <MenuItem Click="ButtonEmployee" Header="Funcionários">
+                    <!--<MenuItem.Header>
                         <Image Width="20" Height="20" Source="icons/first.png" />
-                    </MenuItem.Header>
+                    </MenuItem.Header>-->
                 </MenuItem>
-                <MenuItem Click="ButtonStudent">
-                    <MenuItem.Header>
+                <MenuItem Click="ButtonStudent" Header="Estudantes">
+                    <!--<MenuItem.Header>
                         <Image Width="20" Height="20" Source="icons/first.png" />
-                    </MenuItem.Header>
+                    </MenuItem.Header>-->
                 </MenuItem>
-                <MenuItem Click="ButtonApplicationScreen">
-                    <MenuItem.Header>
+                <MenuItem Click="ButtonApplicationScreen" Header="Candidaturas">
+                    <!--<MenuItem.Header>
                         <Image Width="20" Height="20" Source="icons/first.png" />
-                    </MenuItem.Header>
+                    </MenuItem.Header>-->
                 </MenuItem>
-                <MenuItem Click="ButtonNews">
-                    <MenuItem.Header>
+                <MenuItem Click="ButtonNews" Header="Noticias">
+                    <!--<MenuItem.Header>
                         <Image Width="20" Height="20" Source="icons/first.png" />
-                    </MenuItem.Header>
+                    </MenuItem.Header>-->
                 </MenuItem>
-                <MenuItem Click="ButtonProtocol">
-                    <MenuItem.Header>
+                <MenuItem Click="ButtonProtocol" Header="Acordos Bilaterais">
+                    <!--<MenuItem.Header>
                         <Image Width="20" Height="20" Source="icons/first.png" />
-                    </MenuItem.Header>
+                    </MenuItem.Header>-->
                 </MenuItem>
-                <MenuItem Click="ButtonCollegeScreen">
-                    <MenuItem.Header>
+                <MenuItem Click="ButtonCollegeScreen" Header="Estabelecimento de ensino">
+                    <!--<MenuItem.Header>
                         <Image Width="20" Height="20" Source="icons/first.png" />
-                    </MenuItem.Header>
+                    </MenuItem.Header>-->
                 </MenuItem>
-                <MenuItem Click="ButtonSubjectScreen">
-                    <MenuItem.Header>
+                <MenuItem Click="ButtonSubjectScreen" Header="Cursos">
+                    <!--<MenuItem.Header>
                         <Image Width="20" Height="20" Source="icons/first.png" />
-                    </MenuItem.Header>
+                    </MenuItem.Header>-->
                 </MenuItem>
             </Menu>
 
