@@ -28,7 +28,7 @@ namespace BackOfficeWPF.Screens {
         }
 
         public void Refresh() {
-            collegeGrd.ItemsSource = _db.Colleges.Select(c => new { c.CollegeName, c.CollegeAlias }).ToList();
+            collegeGrd.ItemsSource = _db.Colleges.Select(c => new { c.Id, c.CollegeName, c.CollegeAlias }).ToList();
         }
     }
 }

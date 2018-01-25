@@ -405,26 +405,26 @@ namespace BackOfficeWPF {
             if (currentcontroller == typeof(EmployeeScreen))
             {
                 items = ((EmployeeScreen)contentControl.Content).employeesGrd.Items;
-                message = "Do you wish to ban this employee? (Y/N)";
-                finalVerification = "Ban Employee?";
+                message = "Deseja banir o empregado? (S/N)";
+                finalVerification = "Banir empregado?";
             }
             if (currentcontroller == typeof(StudentScreen))
             {
                 items = ((StudentScreen)contentControl.Content).studentGrd.Items;
-                message = "Do you wish to ban this student? (Y/N)";
-                finalVerification = "Ban Student?";
+                message = "Deseja banir o aluno? (S/N)";
+                finalVerification = "Banir aluno?";
             }
             if (currentcontroller == typeof(BilateralProtocolScreen))
             {
                 items = ((BilateralProtocolScreen)contentControl.Content).bilateralGrd.Items;
-                message = "Do you wish to remove this Bilateral Protocol from the selection pool? (Y/N)";
-                finalVerification = "Remove Bilateral Protocol?";
+                message = "Deseja remover este acordo da lista de escolhas? (S/N)";
+                finalVerification = "Remover acordo bilateral?";
             }
             if (currentcontroller == typeof(NewsScreen))
             {
                 items = ((NewsScreen)contentControl.Content).newsGrd.Items;
-                message = "Do you wish to remove this News? (Y/N)";
-                finalVerification = "Remove this News?";
+                message = "Deseja remover esta Noticia? (S/N)";
+                finalVerification = "Remover esta Noticia?";
             }
             if (currentcontroller == typeof(Statistics))
             {
@@ -442,7 +442,6 @@ namespace BackOfficeWPF {
                     var employee = items.CurrentItem;
                     var employeeId = employee.GetType().GetProperty("UserName").GetValue(employee);
                     _db.Employees.Where(a => a.UserName.Equals(((String)employeeId))).First().IsBanned = true;
-                    _db.SaveChanges();
                     contentControl.Content = new EmployeeScreen();
                 }
                 if (currentcontroller == typeof(StudentScreen))
@@ -451,7 +450,6 @@ namespace BackOfficeWPF {
                     var studentName = student.GetType().GetProperty("UserName").GetValue(student);
 
                     _db.Students.Where(a => a.UserName.Equals(((String)studentName))).First().IsBanned = true;
-                    _db.SaveChanges();
                     ((StudentScreen)contentControl.Content).Refresh();
                 }
                 if (currentcontroller == typeof(BilateralProtocolScreen))
@@ -463,7 +461,6 @@ namespace BackOfficeWPF {
                     //_db.BilateralProtocols.Where(a => a.Id == ((int)bilateralId)).First().OpenSlots = -1;
                     _db.BilateralProtocols.Where(a => a.Destination.Equals((String)bilateralId) &&
                                                 a.Subject.SubjectName.Equals((String)bilateralSubject)).First().OpenSlots = 99;
-                    _db.SaveChanges();
                     contentControl.Content = new BilateralProtocolScreen();
                 }
                 if (currentcontroller == typeof(NewsScreen))
@@ -475,6 +472,7 @@ namespace BackOfficeWPF {
                     _db.News.Remove(selectedNews);
                     contentControl.Content = new NewsScreen();
                 }
+                _db.SaveChanges();
             }
         }
 
