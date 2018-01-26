@@ -12,8 +12,8 @@ using System;
 namespace CIMOBProject.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20180122223804_finalsprint")]
-    partial class finalsprint
+    [Migration("20180125220312_Migrationtest")]
+    partial class Migrationtest
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
