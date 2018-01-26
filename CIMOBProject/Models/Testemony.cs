@@ -31,6 +31,7 @@ namespace CIMOBProject.Models
         [Display(Name = "Data Criação")]
         public DateTime CreationDate { get; set; }
 
+        [Display(Name = "Publicada")]
         public bool Valid { get; set; }
     }
 }
