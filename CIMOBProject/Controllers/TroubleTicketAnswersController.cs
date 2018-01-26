@@ -48,7 +48,7 @@ namespace CIMOBProject.Controllers
             {
                 _context.Add(troubleTicketAnswer);
                 await _context.SaveChangesAsync();
-                return RedirectToAction("Index", "TroubleTickets", new { userId = troubleTicketAnswer.ApplicationUserId });
+                return RedirectToAction("Details", "TroubleTickets", new { id = troubleTicketAnswer.TroubleTicketId });
             }
             ViewData["ApplicationUserId"] = troubleTicketAnswer.ApplicationUserId;
             ViewData["TroubleTicketId"] = troubleTicketAnswer.TroubleTicketId;

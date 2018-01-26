@@ -263,8 +263,8 @@ namespace XUnitTesting
             InitializeDatabaseWithDataTest();
             TestemoniesController controller = new TestemoniesController(_context);
             // Act
-
-            await controller.ValidateTestemony(1);
+            string studentId = _context.Students.Where(s => s.UserFullname.Equals("Teste User 1")).FirstOrDefault().Id;
+            await controller.ValidateTestemony(studentId, 1);
             var currentInterviewNumber = _context.Testemonies.First();
 
             Assert.True(currentInterviewNumber.Valid);
@@ -276,8 +276,8 @@ namespace XUnitTesting
             InitializeDatabaseWithDataTest();
             TestemoniesController controller = new TestemoniesController(_context);
             // Act
-
-            await controller.Delete(1);
+            string studentId = _context.Students.Where(s => s.UserFullname.Equals("Teste User 1")).FirstOrDefault().Id;
+            await controller.Delete(1, studentId);
             int currentInterviewNumber = _context.Testemonies.Count();
 
             Assert.Equal(1, currentInterviewNumber);

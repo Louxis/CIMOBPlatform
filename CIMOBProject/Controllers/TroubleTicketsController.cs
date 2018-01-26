@@ -145,7 +145,6 @@ namespace CIMOBProject.Controllers
             ViewData["CreationDate"] = DateTime.Now;
 
             loadHelp();
-
             return View();
         }
 
@@ -171,7 +170,7 @@ namespace CIMOBProject.Controllers
                 troubleTicket.Answers = new List<TroubleTicketAnswer>();
                 _context.Add(troubleTicket);
                 await _context.SaveChangesAsync();
-                return RedirectToAction("Index", "TroubleTickets", new { userId = troubleTicket.ApplicationUserId });
+                return RedirectToAction("Details", "TroubleTickets", new { id = troubleTicket.TroubleTicketId });
             }
             ViewData["ErrorMessage"] = "";
             ViewData["ApplicationUserId"] = _context.ApplicationUsers.Where(a => a.Id == troubleTicket.ApplicationUserId).SingleOrDefault();
