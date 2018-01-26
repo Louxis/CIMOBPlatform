@@ -77,7 +77,7 @@
         <a class="btn btn-default" asp-area="" asp-controller="News" asp-action="Create" asp-route-userId="@UserManager.GetUserId(User)" id="CreateNews">Nova Publicação</a>
         <a class="btn btn-default" asp-area="" asp-controller="Editals" asp-action="Create" asp-route-userId="@UserManager.GetUserId(User)" id="CreateEdital">Novo Edital</a>
     }
-    <a class="btn btn-default" asp-controller="Testemonies" asp-action="Index">Testemunhos de Mobilidade</a>
+    <a class="btn btn-default" asp-controller="Testemonies" asp-action="Index" asp-route-userId=@UserManager.GetUserId(User)>Testemunhos de Mobilidade</a>
 </div>
 
 
