@@ -18,6 +18,7 @@
 <div>
     <form asp-action="Delete">
         <input type="hidden" asp-for="TestemonyId" />
+        @Html.Hidden("userId");
         <input type="submit" value="Delete" class="btn btn-default" />
         <a asp-action="Index" class="btn btn-default">Voltar Atrás</a>
     </form>

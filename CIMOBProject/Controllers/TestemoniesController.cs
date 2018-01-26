@@ -27,7 +27,7 @@ namespace CIMOBProject.Controllers
         {
             var currentUser = _context.ApplicationUsers.Where(m => m.Id.Equals(userId)).SingleOrDefault();
             var applicationDbContext = _context.Testemonies.Include(t => t.Student).OrderByDescending(t => t.CreationDate);
-            var currentStudentApplication = _context.Applications.Include(s => s.ApplicationStatId).Where(a => a.StudentId == currentUser.Id);
+            var currentStudentApplication = _context.Applications.Include(s => s.ApplicationStat).Where(a => a.StudentId.Equals(currentUser.Id)).OrderBy(a => a.ApplicationId).LastOrDefault();
             ViewData["currentStudentApplication"] = currentStudentApplication;
             return View(await applicationDbContext.ToListAsync());
         }
@@ -37,13 +37,13 @@ namespace CIMOBProject.Controllers
         /// </summary>
         /// <param name="testemonyId">ID of the testemony to change Valid attibute</param>
         /// <returns>The View Index</returns>
-        public async Task<IActionResult> ValidateTestemony(int testemonyId)
+        public async Task<IActionResult> ValidateTestemony(string userId, int testemonyId)
         {
             var testemony = _context.Testemonies.Where(t => t.TestemonyId == testemonyId).SingleOrDefault();
             testemony.Valid = true;
             _context.Update(testemony);
             await _context.SaveChangesAsync();
-            return RedirectToAction("Index", "Testemonies");
+            return RedirectToAction("Index", "Testemonies", new { userId =  userId});
         }
 
         // GET: Testemonies/Details/5
@@ -86,7 +86,7 @@ namespace CIMOBProject.Controllers
             {
                 _context.Add(testemony);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index", "Testemonies", new { userId = testemony.StudentId });
             }
             ViewData["StudentId"] = testemony.StudentId;
             ViewData["CreationDate"] = testemony.CreationDate;
@@ -94,7 +94,7 @@ namespace CIMOBProject.Controllers
         }
 
         // GET: Testemonies/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Delete(int? id, string userId)
         {
             if (id == null)
             {
@@ -108,19 +108,20 @@ namespace CIMOBProject.Controllers
             {
                 return NotFound();
             }
-
+            ViewData["userId"] = userId;
             return View(testemony);
         }
 
         // POST: Testemonies/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(int id, string userId)
         {
             var testemony = await _context.Testemonies.SingleOrDefaultAsync(m => m.TestemonyId == id);
+            
             _context.Testemonies.Remove(testemony);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("Index", "Testemonies", new { userId = userId });
         }
 
         private void loadHelp()

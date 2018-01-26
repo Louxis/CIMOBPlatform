@@ -49,8 +49,8 @@
                     <td>
                         @if (!item.Valid)
                         {
-                            <a class="btn btn-default" asp-controller="Testemonies" asp-action="ValidateTestemony" asp-route-testemonyId="@item.TestemonyId">Validar Publicação</a>
-                            <a class="btn btn-default" asp-controller="Testemonies" asp-action="Delete" asp-route-id="@item.TestemonyId">Eliminar Testemunho</a>
+                            <a class="btn btn-default" asp-controller="Testemonies" asp-action="ValidateTestemony" asp-route-testemonyId="@item.TestemonyId" asp-route-userId=@UserManager.GetUserId(User)>Validar Publicação</a>
+                            <a class="btn btn-default" asp-controller="Testemonies" asp-action="Delete" asp-route-id="@item.TestemonyId" asp-route-userId=@UserManager.GetUserId(User)>Eliminar Testemunho</a>
                         }
                     </td>
                 </tr>

@@ -246,11 +246,6 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Migrations\201801161155330_test12.cs" />
-    <Compile Include="Migrations\201801161155330_test12.Designer.cs">
-      <DependentUpon>201801161155330_test12.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Application.cs" />
     <Compile Include="Models\ApplicationStat.cs" />
     <Compile Include="Models\ApplicationStatHistory.cs" />
@@ -281,9 +276,6 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <EmbeddedResource Include="Migrations\201801161155330_test12.resx">
-      <DependentUpon>201801161155330_test12.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
