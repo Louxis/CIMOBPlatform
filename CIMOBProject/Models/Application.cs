@@ -53,6 +53,7 @@ namespace CIMOBProject.Models
         [Display(Name = "O que te motivou a ir de Erasmus?")]
         public string Motivations { get; set; }
 
+        [Display(Name = "Aluno")]
         public virtual Student Student { get; set; }
 
         [Display(Name = "Avaliador")]

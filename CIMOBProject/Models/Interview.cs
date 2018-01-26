@@ -15,6 +15,8 @@ namespace CIMOBProject.Models
     {
         public int InterviewId { get; set; }
         public string EmployeeId { get; set; }
+
+        [Display(Name = "Funcionário")]
         public virtual Employee Employee {get; set;}
         public int ApplicationId { get; set; }
         public virtual Application Application { get; set; }
