@@ -32,6 +32,7 @@
                 </Button>
             </ToolBar>
         </ToolBarTray>
+        
         <Label Content="Painel de controlo dos funcionários" DockPanel.Dock="Top" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" FontSize="15" />
         <Grid Name="Form" DockPanel.Dock="Top"  DataContext="{Binding ElementName=employeesGrd, Path=SelectedItem, UpdateSourceTrigger=PropertyChanged}">
             <Grid.RowDefinitions>
@@ -68,7 +69,6 @@
                         <DataGridTextColumn Header="Email" Binding="{Binding UserName, Mode=OneWay}" Width="*"></DataGridTextColumn>
                         <DataGridTextColumn Header="Nome" Binding="{Binding UserFullname, Mode=OneWay}" Width="*"></DataGridTextColumn>
                         <DataGridTextColumn Header="CC" Binding="{Binding UserCc, Mode=OneWay}" Width="*"></DataGridTextColumn>
-                        <DataGridTextColumn Header="Email" Binding="{Binding Email, Mode=OneWay}" Width="*"></DataGridTextColumn>
                         <DataGridTemplateColumn Header="Banido?">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>

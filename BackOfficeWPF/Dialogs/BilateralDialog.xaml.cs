@@ -28,10 +28,10 @@ namespace BackOfficeWPF.Dialogs
         {
             InitializeComponent();
             this.BilateralProtocol = bilateralProtocol ?? new BilateralProtocol();
+            GridFormBilateral.DataContext = BilateralProtocol;
             subjectsCombo.ItemsSource = _db.CollegeSubjects.ToList();
             subjectsCombo.DisplayMemberPath = "SubjectName";
-            subjectsCombo.SelectedValuePath = "Id";
-            GridFormBilateral.DataContext = BilateralProtocol;            
+            subjectsCombo.SelectedValuePath = "Id";                     
             mayClose = false;
         }
 

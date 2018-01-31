@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
@@ -11,13 +12,30 @@ namespace CIMOBProject.Models
     ///It has a relationship with the student to who it bellongs, with the employee who will evaluate it, with a applicationStat that defines the current state,
     ///it has a relationship with various BilateralProtocols which represent the multiple destinations a student might want to go and finally it has a list of documents that are related with it.
     ///</summary> 
-    public class Application
+    public class Application : INotifyPropertyChanged
     {
+        public Application() {
+
+        }
+
+        public Application(Application application) {
+            ApplicationId = application.ApplicationId;
+            ApplicationStatId = application.ApplicationStatId;
+        }
+
         public int ApplicationId { get; set; }
        
         public string StudentId { get; set; }
-        [Display(Name = "Estado da candidatura")]
-        public int ApplicationStatId { get; set; }
+
+        private int applicationStatId;
+        public int ApplicationStatId {
+            get { return applicationStatId; }
+            set {
+                applicationStatId = value;
+                OnPropertyChanged(new PropertyChangedEventArgs("ApplicationStatId"));
+                OnPropertyChanged(new PropertyChangedEventArgs("ApplicationStat"));
+            }
+        }
 
         public string EmployeeId { get; set; }
 
@@ -69,6 +87,9 @@ namespace CIMOBProject.Models
 
         public virtual BilateralProtocol BilateralProtocol3 { get; set; }
 
-
+        public event PropertyChangedEventHandler PropertyChanged;
+        public void OnPropertyChanged(PropertyChangedEventArgs e) {
+            PropertyChanged?.Invoke(this, e);
+        }
     }
 }

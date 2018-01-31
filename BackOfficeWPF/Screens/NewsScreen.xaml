@@ -5,9 +5,28 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:BackOfficeWPF"
              mc:Ignorable="d" 
-             Height="720" Width="1290">
+             Height="720" Width="1290" Loaded="UserControl_Loaded">
     <DockPanel>
-
+        <ToolBarTray Name="ToolBar" DockPanel.Dock="Top">
+            <ToolBar >
+                <Button Name="ButtonFirst" Click="ButtonFirst_Click">
+                    <Image Height="17" Source="../icons/first.png" Margin="5,0"/>
+                </Button>
+                <Button Name="ButtonPrevious" Click="ButtonPrevious_Click">
+                    <Image Height="20" Source="../icons/previous.png" Margin="5,0"/>
+                </Button>
+                <Button Name="ButtonNext" Click="ButtonNext_Click">
+                    <Image Height="20" Source="../icons/next.png" Margin="5,0"/>
+                </Button>
+                <Button Name="ButtonLast" Click="ButtonLast_Click">
+                    <Image Height="20" Source="../icons/Last.png" Margin="5,0"/>
+                </Button>
+                <Button Name="ButtonRemove" Click="ButtonRemove_Click">
+                    <Image Height="20" Source="../icons/remove.png" Margin="5,0"/>
+                </Button>
+            </ToolBar>
+        </ToolBarTray>
+        
         <Label Content="Painel de controlo das noticias" DockPanel.Dock="Top" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" FontSize="15" />
         <Grid Name="Form" DockPanel.Dock="Top"  DataContext="{Binding ElementName=newsGrd, Path=SelectedItem, UpdateSourceTrigger=PropertyChanged}">
             <Grid.RowDefinitions>
@@ -39,7 +58,7 @@
             <TextBox Name="EmployeeName" Text="{Binding ElementName=Form, Path=DataContext.UserFullname, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" Grid.Row="3" Grid.Column="1"  HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="12" Width="150" IsEnabled="False"/>
 
             <Grid Grid.Row="0" Grid.Column="1" Grid.RowSpan="4" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.ColumnSpan="2" Margin="190,0,0,-99">
-                <DataGrid Name="newsGrd" AutoGenerateColumns="False"  IsSynchronizedWithCurrentItem="True" VerticalScrollBarVisibility="Visible" Height="300" Width="auto">
+                <DataGrid Name="newsGrd" CanUserAddRows="false" AutoGenerateColumns="False" IsSynchronizedWithCurrentItem="True" VerticalScrollBarVisibility="Visible" Height="300" Width="auto">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Title" Binding="{Binding Title, Mode=OneWay}" Width="*"></DataGridTextColumn>
                         <DataGridTextColumn Header="Conteudo da noticia" Binding="{Binding TextContent, Mode=OneWay}" Width="*"></DataGridTextColumn>

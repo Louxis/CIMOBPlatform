@@ -5,9 +5,28 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:BackOfficeWPF.Screens"
              mc:Ignorable="d" 
-             Height="720" Width="1290">
+             Height="720" Width="1290" Loaded="UserControl_Loaded">
     <DockPanel>
-
+        <ToolBarTray Name="ToolBar" DockPanel.Dock="Top">
+            <ToolBar >
+                <Button Name="ButtonFirst" Click="ButtonFirst_Click">
+                    <Image Height="17" Source="../icons/first.png" Margin="5,0"/>
+                </Button>
+                <Button Name="ButtonPrevious" Click="ButtonPrevious_Click">
+                    <Image Height="20" Source="../icons/previous.png" Margin="5,0"/>
+                </Button>
+                <Button Name="ButtonNext" Click="ButtonNext_Click">
+                    <Image Height="20" Source="../icons/next.png" Margin="5,0"/>
+                </Button>
+                <Button Name="ButtonLast" Click="ButtonLast_Click">
+                    <Image Height="20" Source="../icons/Last.png" Margin="5,0"/>
+                </Button>
+                <Button Name="ButtonEdit" Click="ButtonEdit_Click">
+                    <Image Height="20" Source="../icons/edit.png" Margin="5,0"/>
+                </Button>
+            </ToolBar>
+        </ToolBarTray>
+        
         <Label Content="Painel de controlo das candidaturas" DockPanel.Dock="Top" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" FontSize="15" />
         <Grid Name="Form" DockPanel.Dock="Top"  DataContext="{Binding ElementName=applicationGrd, Path=SelectedItem, UpdateSourceTrigger=PropertyChanged}">
             <Grid.RowDefinitions>
@@ -26,29 +45,29 @@
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
 
-            <Label Content="Nome do estudante" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center"  FontSize="12" Margin="2" />
-            <TextBox Name="UserFullName" Text="{Binding ElementName=Form, Path=DataContext.UserFullName, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" Grid.Row="0" Grid.Column="1"  HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="12" Width="150" IsEnabled="False" Margin="0,6" />
+            <Label Content="Estudante" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center"  FontSize="12" Margin="2" />
+            <TextBox Name="UserFullName" Text="{Binding ElementName=applicationGrd, Path=SelectedItem.Student.UserFullname, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" Grid.Row="0" Grid.Column="1"  HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="12" Width="150" IsEnabled="False" Margin="0,6" />
 
-            <Label Content="Estado da candidatura" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="12" Margin="2"  />
-            <TextBox Name="ApplicationStatus" Text="{Binding ElementName=Form, Path=DataContext.Name, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" Grid.Row="1" Grid.Column="1"  HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="12" Width="150" IsEnabled="False"/>
+            <Label Content="Estado" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="12" Margin="2"  />
+            <TextBox Name="ApplicationStatus" Text="{Binding ElementName=Form, Path=DataContext.ApplicationStat.Name, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" Grid.Row="1" Grid.Column="1"  HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="12" Width="150" IsEnabled="False"/>
 
-            <Label Content="Acordo bilateral" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center"  FontSize="12" Margin="2" />
-            <TextBox Name="BilateralProtocol" Text="{Binding ElementName=Form, Path=DataContext.CreationDate, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" Grid.Row="2" Grid.Column="1"  HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="12" Width="150" IsEnabled="False" Margin="0,6" />
+            <Label Content="Acordo Bilateral" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center"  FontSize="12" Margin="2" />
+            <TextBox Name="BilateralProtocol" Text="{Binding ElementName=Form, Path=DataContext.BilateralProtocol1.Destination, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" Grid.Row="2" Grid.Column="1"  HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="12" Width="150" IsEnabled="False" Margin="0,6" />
 
-            <Label Content="Data de criação" Grid.Row="3" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="12" Margin="2"  />
+            <Label Content="Criação" Grid.Row="3" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="12" Margin="2"  />
             <TextBox Name="CreationDate" Text="{Binding ElementName=Form, Path=DataContext.CreationDate, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" Grid.Row="3" Grid.Column="1"  HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="12" Width="150" IsEnabled="False"/>
             
-            <Label Content="Nota final" Grid.Row="4" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="12" Margin="2"  />
+            <Label Content="Avaliação" Grid.Row="4" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="12" Margin="2"  />
             <TextBox Name="FinalGrade" Text="{Binding ElementName=Form, Path=DataContext.FinalGrade, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" Grid.Row="4" Grid.Column="1"  HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="12" Width="150" IsEnabled="False"/>
 
             <Grid Grid.Row="0" Grid.Column="1" Grid.RowSpan="4" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.ColumnSpan="2" Margin="190,0,0,-99">
-                <DataGrid Name="applicationGrd" AutoGenerateColumns="False"  IsSynchronizedWithCurrentItem="True" VerticalScrollBarVisibility="Visible" Height="300" Width="auto">
+                <DataGrid Name="applicationGrd" CanUserAddRows="false" AutoGenerateColumns="False"  IsSynchronizedWithCurrentItem="True" VerticalScrollBarVisibility="Visible" Height="300" Width="auto">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="Nome do estudante" Binding="{Binding UserFullname, Mode=OneWay}" Width="*"></DataGridTextColumn>
-                        <DataGridTextColumn Header="Estado da candidatura" Binding="{Binding Name, Mode=OneWay}" Width="*"></DataGridTextColumn>
-                        <DataGridTextColumn Header="Primeira escolha " Binding="{Binding Destination, Mode=OneWay}" Width="*"></DataGridTextColumn>
-                        <DataGridTextColumn Header="Data de criação" Binding="{Binding CreationDate, Mode=OneWay}" Width="*"></DataGridTextColumn>
-                        <DataGridTextColumn Header="Nota final" Binding="{Binding FinalGrade, Mode=OneWay}" Width="*"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Estudante" Binding="{Binding Student.UserFullname, Mode=OneWay}" Width="*"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Estado" Binding="{Binding ApplicationStat.Name, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Width="*"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Acordo Bilateral" Binding="{Binding BilateralProtocol1.Destination, Mode=OneWay}" Width="*"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Criação" Binding="{Binding CreationDate, Mode=OneWay}" Width="*"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Avaliação" Binding="{Binding FinalGrade, Mode=OneWay}" Width="*"></DataGridTextColumn>
                     </DataGrid.Columns>
                 </DataGrid>
             </Grid>

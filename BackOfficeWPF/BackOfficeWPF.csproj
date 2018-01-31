@@ -132,7 +132,6 @@
     <Compile Include="Dialogs\StudentDialog.xaml.cs">
       <DependentUpon>StudentDialog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="IGetGrid.cs" />
     <Compile Include="Screens\ApplicationScreen.xaml.cs">
       <DependentUpon>ApplicationScreen.xaml</DependentUpon>
     </Compile>
@@ -251,7 +250,6 @@
     <Compile Include="Models\ApplicationStatHistory.cs" />
     <Compile Include="Models\ApplicationUser.cs" />
     <Compile Include="Models\BilateralProtocol.cs" />
-    <Compile Include="Models\BilateralProtocolViewModel.cs" />
     <Compile Include="Models\College.cs" />
     <Compile Include="Models\CollegeSubject.cs" />
     <Compile Include="Models\Document.cs" />

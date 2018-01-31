@@ -56,32 +56,6 @@
                     </MenuItem.Header>
                 </MenuItem>
             </Menu>
-
-            <ToolBarTray Name="ToolBar" DockPanel.Dock="Top">
-                <ToolBar >
-                    <Button Name="ButtonFirst" Click="ButtonFirst_Click">
-                        <Image Height="17" Source="icons/first.png" Margin="5,0"/>
-                    </Button>
-                    <Button Name="ButtonPrevious" Click="ButtonPrevious_Click">
-                        <Image Height="20" Source="icons/previous.png" Margin="5,0"/>
-                    </Button>
-                    <Button Name="ButtonNext" Click="ButtonNext_Click">
-                        <Image Height="20" Source="icons/next.png" Margin="5,0"/>
-                    </Button>
-                    <Button Name="ButtonLast" Click="ButtonLast_Click">
-                        <Image Height="20" Source="icons/Last.png" Margin="5,0"/>
-                    </Button>
-                    <Button Name="ButtonAdd" Click="ButtonAdd_Click">
-                        <Image Height="20" Source="icons/add.png" Margin="5,0"/>
-                    </Button>
-                    <Button Name="ButtonEdit" Click="ButtonEdit_Click">
-                        <Image Height="20" Source="icons/edit.png" Margin="5,0"/>
-                    </Button>
-                    <Button Name="ButtonRemove" Click="ButtonRemove_Click">
-                        <Image Height="20" Source="icons/remove.png" Margin="5,0"/>
-                    </Button>
-                </ToolBar>
-            </ToolBarTray>
         </DockPanel>
     </Grid>
 </Window>

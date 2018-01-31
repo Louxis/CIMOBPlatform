@@ -13,17 +13,17 @@ namespace BackOfficeWPF {
             Employee user = null;
             try {
                 user = new Employee {
-                    UserName = employee.Email,
+                    UserName = employee.UserName,
                     UserFullname = employee.UserFullname,
-                    Email = employee.Email,
+                    Email = employee.UserName,
                     UserCc = employee.UserCc,
                     PhoneNumber = employee.PhoneNumber,
                     UserAddress = employee.UserAddress,
                     PostalCode = employee.PostalCode,
                     BirthDate = employee.BirthDate,
                     EmployeeNumber = employee.EmployeeNumber,
-                    NormalizedEmail = employee.Email.ToUpper(),
-                    NormalizedUserName = employee.Email.ToUpper(),
+                    NormalizedEmail = employee.UserName.ToUpper(),
+                    NormalizedUserName = employee.UserName.ToUpper(),
                     EmailConfirmed = true
                 };
                 userManager.CreateAsync(user, "teste12").Wait();
@@ -76,6 +76,7 @@ namespace BackOfficeWPF {
         public static void EditApplication(ApplicationDbContext context, CIMOBProject.Models.Application application) {
             var applicationToUpdate = context.Applications.Where(a => a.ApplicationId == application.ApplicationId).FirstOrDefault();
             applicationToUpdate.ApplicationStatId = application.ApplicationStatId;
+            applicationToUpdate.ApplicationStat = application.ApplicationStat;
             context.SaveChanges();
         }
 
@@ -102,7 +103,7 @@ namespace BackOfficeWPF {
             context.SaveChanges();
         }
 
-        public static void AddBilateral(ApplicationDbContext context, BilateralProtocol bilateral) {
+        public static BilateralProtocol AddBilateral(ApplicationDbContext context, BilateralProtocol bilateral) {
             try {
                 context.BilateralProtocols.Add(bilateral);
                 context.SaveChanges();
@@ -111,9 +112,10 @@ namespace BackOfficeWPF {
                 MessageBox.Show("Acordo não criado.", "Erro");
             }
             MessageBox.Show("Acordo bilateral criado com sucesso.", "Sucesso");
+            return bilateral;
         }
 
-        public static void AddCollege(ApplicationDbContext context, College college) {
+        public static College AddCollege(ApplicationDbContext context, College college) {
             try {
                 context.Colleges.Add(college);
                 context.SaveChanges();
@@ -122,9 +124,10 @@ namespace BackOfficeWPF {
                 MessageBox.Show("Escola não criada.", "Erro");
             }
             MessageBox.Show("Escola criada com sucesso.", "Sucesso");
+            return college;
         }
 
-        public static void AddCollegeSubject(ApplicationDbContext context, CollegeSubject subject) {
+        public static CollegeSubject AddCollegeSubject(ApplicationDbContext context, CollegeSubject subject) {
             try {
                 context.CollegeSubjects.Add(subject);
                 context.SaveChanges();
@@ -133,6 +136,7 @@ namespace BackOfficeWPF {
                 MessageBox.Show("Curso não criado.", "Erro");
             }
             MessageBox.Show("Curso criado com sucesso.", "Sucesso");
+            return subject;
         }
     }
 }

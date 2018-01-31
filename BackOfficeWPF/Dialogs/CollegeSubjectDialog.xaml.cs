@@ -28,10 +28,10 @@ namespace BackOfficeWPF.Dialogs
         {
             InitializeComponent();
             this.CollegeSubject = collegeSubject ?? new CollegeSubject();
+            GridFormCollegeSubject.DataContext = CollegeSubject;
             collegesCombo.ItemsSource = _db.Colleges.ToList();
             collegesCombo.DisplayMemberPath = "CollegeName";
             collegesCombo.SelectedValuePath = "Id";
-            GridFormCollege.DataContext = CollegeSubject;
             mayClose = false;
         }
 

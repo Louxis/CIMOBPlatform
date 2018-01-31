@@ -14,11 +14,17 @@ namespace BackOfficeWPF {
         {
             var recentEdital = _db.Editals.ToList();
             InitializeComponent();
-            DateTime startingDate = recentEdital.Last().OpenDate;
-            DateTime closingDate = recentEdital.Last().CloseDate;
-            TotalEmployees.Content = _db.Employees.Select(e => e.EmployeeNumber).Count();
-            Applications.Content = "" + _db.Applications.Where(a => a.CreationDate >= startingDate && a.CreationDate <= closingDate).Count() + "/" + _db.Applications.Select(a => a.ApplicationId).Count();
-            AverageApplication.Content = _db.Applications.Sum(a => a.FinalGrade) / _db.Applications.Select(a => a.FinalGrade).Count();
+            if(recentEdital.Count > 0) {
+                DateTime startingDate = recentEdital.Last().OpenDate;
+                DateTime closingDate = recentEdital.Last().CloseDate;
+                Applications.Content = "" + _db.Applications.Where(a => a.CreationDate >= startingDate && a.CreationDate <= closingDate).Count() + "/" + _db.Applications.Select(a => a.ApplicationId).Count();
+            }
+            else {
+                Applications.Content = "0";
+            }
+
+            TotalEmployees.Content = _db.Employees.Count();
+            AverageApplication.Content = Math.Round((_db.Applications.Sum(a => a.FinalGrade) / _db.Applications.Select(a => a.FinalGrade).Count()).Value);
         }
     }
 }
