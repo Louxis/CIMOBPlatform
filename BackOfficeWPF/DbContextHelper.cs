@@ -2,19 +2,19 @@
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System;
-using System.Data.Entity.Validation;
 using System.Linq;
 using System.Windows;
 
 namespace BackOfficeWPF {
     class DbContextHelper {
 
-        public static void AddEmployee(ApplicationDbContext context, Employee employee) {
+        public static Employee AddEmployee(ApplicationDbContext context, Employee employee) {
             UserManager<Employee> userManager = new UserManager<Employee>(new UserStore<Employee>(new ApplicationDbContext()));
+            Employee user = null;
             try {
-                var user = new Employee {
+                user = new Employee {
                     UserName = employee.Email,
-                    UserFullname = employee.UserAddress,
+                    UserFullname = employee.UserFullname,
                     Email = employee.Email,
                     UserCc = employee.UserCc,
                     PhoneNumber = employee.PhoneNumber,
@@ -32,45 +32,43 @@ namespace BackOfficeWPF {
                 userManager.AddToRoleAsync(user.Id, role.Name).Wait();
                 context.SaveChanges();
                 MessageBox.Show("Funcionário Criado com sucesso.", "Sucesso");
-            } catch(Exception ex) {
+            }
+            catch (Exception ex) {
                 MessageBox.Show("Funcionário não criado, contactar suporte.", "Sucesso");
             }
-
-            
-
-            
+            return user;
         }
 
         public static void EditEmployee(ApplicationDbContext context, Employee employee) {
             var EmployeeToUpdate = context.Employees.Where(e => e.Id.Equals(employee.Id)).FirstOrDefault();
-            EmployeeToUpdate.UserName = employee.Email;
+            EmployeeToUpdate.UserName = employee.UserName;
             EmployeeToUpdate.UserFullname = employee.UserFullname;
-            EmployeeToUpdate.Email = employee.Email;
+            EmployeeToUpdate.Email = employee.UserName;
             EmployeeToUpdate.UserCc = employee.UserCc;
             EmployeeToUpdate.PhoneNumber = employee.PhoneNumber;
             EmployeeToUpdate.UserAddress = employee.UserAddress;
             EmployeeToUpdate.PostalCode = employee.PostalCode;
             EmployeeToUpdate.BirthDate = employee.BirthDate;
             EmployeeToUpdate.EmployeeNumber = employee.EmployeeNumber;
-            EmployeeToUpdate.NormalizedEmail = employee.Email.ToUpper();
-            EmployeeToUpdate.NormalizedUserName = employee.Email.ToUpper();
+            EmployeeToUpdate.NormalizedEmail = employee.UserName.ToUpper();
+            EmployeeToUpdate.NormalizedUserName = employee.UserName.ToUpper();
             EmployeeToUpdate.IsBanned = employee.IsBanned;
             context.SaveChanges();
         }
 
         public static void EditStudent(ApplicationDbContext context, Student student) {
             var StudentToUpdate = context.Students.Where(e => e.Id.Equals(student.Id)).FirstOrDefault();
-            StudentToUpdate.UserName = student.Email;
+            StudentToUpdate.UserName = student.UserName;
             StudentToUpdate.UserFullname = student.UserFullname;
-            StudentToUpdate.Email = student.Email;
+            StudentToUpdate.Email = student.UserName;
             StudentToUpdate.UserCc = student.UserCc;
             StudentToUpdate.PhoneNumber = student.PhoneNumber;
             StudentToUpdate.UserAddress = student.UserAddress;
             StudentToUpdate.PostalCode = student.PostalCode;
             StudentToUpdate.BirthDate = student.BirthDate;
             StudentToUpdate.StudentNumber = student.StudentNumber;
-            StudentToUpdate.NormalizedEmail = student.Email.ToUpper();
-            StudentToUpdate.NormalizedUserName = student.Email.ToUpper();
+            StudentToUpdate.NormalizedEmail = student.UserName.ToUpper();
+            StudentToUpdate.NormalizedUserName = student.UserName.ToUpper();
             StudentToUpdate.IsBanned = student.IsBanned;
             context.SaveChanges();
         }
@@ -82,7 +80,7 @@ namespace BackOfficeWPF {
         }
 
         public static void EditBilateral(ApplicationDbContext context, BilateralProtocol bilateralProtocol) {
-            var bilateralToUpdate = context.BilateralProtocols.Where(b=> b.Id == bilateralProtocol.Id).FirstOrDefault();
+            var bilateralToUpdate = context.BilateralProtocols.Where(b => b.Id == bilateralProtocol.Id).FirstOrDefault();
             bilateralToUpdate.Destination = bilateralProtocol.Destination;
             bilateralToUpdate.OpenSlots = bilateralProtocol.OpenSlots;
             bilateralToUpdate.SubjectId = bilateralProtocol.SubjectId;
@@ -135,6 +133,6 @@ namespace BackOfficeWPF {
                 MessageBox.Show("Curso não criado.", "Erro");
             }
             MessageBox.Show("Curso criado com sucesso.", "Sucesso");
-        }       
+        }
     }
 }

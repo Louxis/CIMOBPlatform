@@ -27,13 +27,6 @@ namespace BackOfficeWPF {
             Type currentcontroller = contentControl.Content.GetType();
             DataGrid grid = null;
             ItemCollection itemList = null;
-            if (currentcontroller == typeof(EmployeeScreen))
-            {
-                ((EmployeeScreen)contentControl.Content).employeesGrd.Items.MoveCurrentToFirst();
-                itemList = ((EmployeeScreen)contentControl.Content).employeesGrd.Items;
-                grid = ((EmployeeScreen)contentControl.Content).employeesGrd;
-                grid.ScrollIntoView(itemList.CurrentItem);
-            }
             if (currentcontroller == typeof(StudentScreen))
             {
                 ((StudentScreen)contentControl.Content).studentGrd.Items.MoveCurrentToFirst();
@@ -77,17 +70,6 @@ namespace BackOfficeWPF {
             Type currentcontroller = contentControl.Content.GetType();
             DataGrid grid = null;
             ItemCollection itemList = null;
-            if (currentcontroller == typeof(EmployeeScreen))
-            {
-                itemList = ((EmployeeScreen)contentControl.Content).employeesGrd.Items;
-                if (!itemList.MoveCurrentToPrevious())
-                {
-                    itemList.MoveCurrentToLast();
-                }
-                grid = ((EmployeeScreen)contentControl.Content).employeesGrd;
-                grid.ScrollIntoView(itemList.CurrentItem);
-
-            }
             if (currentcontroller == typeof(StudentScreen))
             {
                 itemList = ((StudentScreen)contentControl.Content).studentGrd.Items;
@@ -268,14 +250,6 @@ namespace BackOfficeWPF {
         private void ButtonAdd_Click(object sender, RoutedEventArgs e)
         {
             Type currentcontroller = contentControl.Content.GetType();
-            if (currentcontroller == typeof(EmployeeScreen))
-            {
-                EmployeeDialog employeeDialog = new EmployeeDialog();
-                if(employeeDialog.ShowDialog() == true) {
-                    DbContextHelper.AddEmployee(_db, employeeDialog.Employee);
-                    ((EmployeeScreen)contentControl.Content).Refresh();
-                }
-            }
             if (currentcontroller == typeof(BilateralProtocolScreen))
             {
                 BilateralDialog bilateralDialog = new BilateralDialog();
@@ -310,33 +284,6 @@ namespace BackOfficeWPF {
         {
             Type currentcontroller = contentControl.Content.GetType();
             ItemCollection items = null;
-            if (currentcontroller == typeof(EmployeeScreen))
-            {
-                //Adicionar dialog para editar um employee
-                items = ((EmployeeScreen)contentControl.Content).employeesGrd.Items;
-                int selectedIndex = ((EmployeeScreen)contentControl.Content).employeesGrd.SelectedIndex;
-                var employee = items.CurrentItem;
-                var employeeUserName = employee.GetType().GetProperty("UserName").GetValue(employee);
-                EmployeeDialog employeeDialog = new EmployeeDialog(_db.Employees.Where(a => a.UserName.Equals(((String)employeeUserName))).FirstOrDefault());
-                if(employeeDialog.ShowDialog() == true) {
-                    DbContextHelper.EditEmployee(_db, employeeDialog.Employee);
-                    ((EmployeeScreen)contentControl.Content).Refresh();
-                    ((EmployeeScreen)contentControl.Content).employeesGrd.SelectedIndex = selectedIndex;
-                }              
-            }
-            if (currentcontroller == typeof(StudentScreen))
-            {
-                items = ((StudentScreen)contentControl.Content).studentGrd.Items;
-                int selectedIndex = ((StudentScreen)contentControl.Content).studentGrd.SelectedIndex;
-                var student = items.CurrentItem;
-                var studentUserName = student.GetType().GetProperty("UserName").GetValue(student);
-                StudentDialog studentDialog = new StudentDialog(_db.Students.Where(a => a.UserName.Equals(((String)studentUserName))).FirstOrDefault());
-                if (studentDialog.ShowDialog() == true) {
-                    DbContextHelper.EditStudent(_db, studentDialog.Student);
-                    ((StudentScreen)contentControl.Content).Refresh();
-                    ((StudentScreen)contentControl.Content).studentGrd.SelectedIndex = selectedIndex;
-                }
-            }
             if (currentcontroller == typeof(ApplicationScreen))
             {
                 items = ((ApplicationScreen)contentControl.Content).applicationGrd.Items;
@@ -402,12 +349,6 @@ namespace BackOfficeWPF {
             ItemCollection items = null;
             String message = "";
             String finalVerification = "";
-            if (currentcontroller == typeof(EmployeeScreen))
-            {
-                items = ((EmployeeScreen)contentControl.Content).employeesGrd.Items;
-                message = "Deseja banir o empregado? (S/N)";
-                finalVerification = "Banir empregado?";
-            }
             if (currentcontroller == typeof(StudentScreen))
             {
                 items = ((StudentScreen)contentControl.Content).studentGrd.Items;
@@ -437,21 +378,6 @@ namespace BackOfficeWPF {
 
             if (MessageBox.Show(message, finalVerification, MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
             {
-                if(currentcontroller == typeof(EmployeeScreen))
-                {
-                    var employee = items.CurrentItem;
-                    var employeeId = employee.GetType().GetProperty("UserName").GetValue(employee);
-                    _db.Employees.Where(a => a.UserName.Equals(((String)employeeId))).First().IsBanned = true;
-                    contentControl.Content = new EmployeeScreen();
-                }
-                if (currentcontroller == typeof(StudentScreen))
-                {
-                    var student = items.CurrentItem;
-                    var studentName = student.GetType().GetProperty("UserName").GetValue(student);
-
-                    _db.Students.Where(a => a.UserName.Equals(((String)studentName))).First().IsBanned = true;
-                    ((StudentScreen)contentControl.Content).Refresh();
-                }
                 if (currentcontroller == typeof(BilateralProtocolScreen))
                 {
                     var bilateralProtocol = items.CurrentItem;
@@ -485,6 +411,7 @@ namespace BackOfficeWPF {
             ButtonRemove.Visibility = Visibility.Visible;
             ButtonAdd.Visibility = Visibility.Visible;
             ButtonEdit.Visibility = Visibility.Visible;
+
         }
 
         private void ButtonProtocol(object sender, RoutedEventArgs e)

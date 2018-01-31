@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
@@ -13,13 +14,34 @@ namespace CIMOBProject.Models
     ///</summary>  
     public class Student : ApplicationUser {
 
-        [Required(ErrorMessage = "Número de estudante é obrigatório.")]
-        [RegularExpression(@"^[0-9]{9}$", ErrorMessage = "O número de estudante não é válido.")]
-        [Display(Name = "Número de Estudante")]
-        public string StudentNumber { get; set; }
+        public Student() {
 
-        [Display(Name = "Nota do teste de Línguas")]
-        public int ALOGrade { get; set; }
+        }
+
+        public Student (Student user) : base(user) {
+            StudentNumber = user.StudentNumber;
+            ALOGrade = user.ALOGrade;
+            CollegeSubjectId = user.CollegeSubjectId;
+            CollegeId = user.CollegeId;
+        }
+
+        private string studentNumber;
+        public string StudentNumber {
+            get { return studentNumber; }
+            set {
+                studentNumber = value;
+                OnPropertyChanged(new PropertyChangedEventArgs("StudentNumber"));
+            }
+        }
+
+        private int aloGrade;
+        public int ALOGrade {
+            get { return aloGrade; }
+            set {
+                aloGrade = value;
+                OnPropertyChanged(new PropertyChangedEventArgs("ALOGrade"));
+            }
+        }
 
         [Display(Name = "Curso")]
         public int CollegeSubjectId { get; set; }

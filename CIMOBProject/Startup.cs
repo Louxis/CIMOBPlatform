@@ -39,7 +39,7 @@ namespace CIMOBProject
             var connection2 = @"Data Source=SQL6003.site4now.net;Initial Catalog=DB_A3312B_cimob;User Id=DB_A3312B_cimob_admin;Password=cimob123;";
 
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(connection));
+                options.UseSqlServer(connection2));
 
             services.AddDirectoryBrowser();
             services.AddIdentity<ApplicationUser, IdentityRole>(config =>

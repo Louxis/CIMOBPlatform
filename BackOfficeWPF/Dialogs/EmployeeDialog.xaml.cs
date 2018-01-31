@@ -72,7 +72,7 @@ namespace BackOfficeWPF.Dialogs
                 MessageBox.Show("O nome é obrigatório.", "Erro - Nome obrigatório!");
                 return false;
             }
-            if (Employee.Email == null || Employee.Email.Equals(""))
+            if (Employee.UserName == null || Employee.UserName.Equals(""))
             {
                 MessageBox.Show("O email é obrigatório.", "Erro - Email obrigatório!");
                 return false;
