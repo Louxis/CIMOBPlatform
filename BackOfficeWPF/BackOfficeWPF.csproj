@@ -247,7 +247,6 @@
   <ItemGroup>
     <Compile Include="Models\Application.cs" />
     <Compile Include="Models\ApplicationStat.cs" />
-    <Compile Include="Models\ApplicationStatHistory.cs" />
     <Compile Include="Models\ApplicationUser.cs" />
     <Compile Include="Models\BilateralProtocol.cs" />
     <Compile Include="Models\College.cs" />
@@ -255,11 +254,7 @@
     <Compile Include="Models\Document.cs" />
     <Compile Include="Models\Edital.cs" />
     <Compile Include="Models\Employee.cs" />
-    <Compile Include="Models\Error.cs" />
-    <Compile Include="Models\ErrorViewModel.cs" />
-    <Compile Include="Models\Help.cs" />
     <Compile Include="Models\News.cs" />
-    <Compile Include="Models\Quizz.cs" />
     <Compile Include="Models\Student.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>

@@ -49,6 +49,9 @@ namespace BackOfficeWPF {
 
         private void ButtonRemove_Click(object sender, RoutedEventArgs e) {
             News newsDelete = newsGrd.SelectedItem as News;
+            if (newsDelete == null)
+                return;
+
             if (MessageBox.Show("Deseja remover esta Noticia? (S/N)", "Remover esta Noticia?", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes) {
                 _db.News.Remove(_db.News.Where(n => n.Id == newsDelete.Id).First());
                 _db.SaveChanges();

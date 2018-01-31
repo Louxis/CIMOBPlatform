@@ -66,6 +66,8 @@ namespace BackOfficeWPF {
 
         private void ButtonRemove_Click(object sender, RoutedEventArgs e) {
             Employee employeeBan = employeesGrd.SelectedItem as Employee;
+            if (employeeBan == null)
+                return;
             if (MessageBox.Show("Deseja banir o empregado? (S/N)", "Banir empregado?", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes) {
                 _db.Employees.Where(emp => emp.UserName.Equals(employeeBan.UserName)).First().IsBanned = true;
                 _db.SaveChanges();

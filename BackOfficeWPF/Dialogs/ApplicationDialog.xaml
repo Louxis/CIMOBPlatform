@@ -16,7 +16,7 @@
             <ColumnDefinition Width="Auto" />
         </Grid.ColumnDefinitions>
         <Label Content="Estado" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left"  FontSize="12" Margin="10,9.6,0,10" Width="48"  />
-        <ComboBox Grid.Row="0" Grid.Column="1" Name="stateCombo"  SelectedIndex="{Binding Path=ApplicationStatId}" HorizontalAlignment="Left" FontSize="12" Margin="11.8,10,0,10.4" Width="200"></ComboBox>
+        <ComboBox Grid.Row="0" Grid.Column="1" Name="stateCombo"  SelectedValue="{Binding Path=ApplicationStatId}" HorizontalAlignment="Left" FontSize="12" Margin="11.8,10,0,10.4" Width="200"></ComboBox>
         <StackPanel Grid.Column="1" Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom" Height="20" Margin="0,0,0,-0.2" Width="142">
             <Button x:Name="OkButton" Click="OkButton_Click" IsDefault="True" Width="60" Margin="1,0" Content="OK"/>
             <Button x:Name="CancelButton" IsCancel="True" Width="60" Margin="10,0" Click="CancelButton_Click" Content="Cancel"/>

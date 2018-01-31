@@ -61,6 +61,8 @@ namespace BackOfficeWPF {
 
         private void ButtonRemove_Click(object sender, RoutedEventArgs e) {
             Student studentBan = studentGrd.SelectedItem as Student;
+            if (studentBan == null)
+                return;
             if (MessageBox.Show("Deseja banir o estudante? (S/N)", "Banir estudante?", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes) {
                 _db.Students.Where(s => s.UserName.Equals(studentBan.UserName)).First().IsBanned = true;
                 _db.SaveChanges();
