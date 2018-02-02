@@ -1,16 +1,9 @@
 ﻿using CIMOBProject.Models;
 using Microsoft.AspNet.Identity.EntityFramework;
-using System;
-using System.Collections.Generic;
 using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace BackOfficeWPF
-{
-    class ApplicationDbContext : IdentityDbContext<ApplicationUser>
+namespace BackOfficeWPF {
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
 
         public ApplicationDbContext() : base(@"Server=(localdb)\mssqllocaldb;Database=CimobPlatform;Trusted_Connection=True;")

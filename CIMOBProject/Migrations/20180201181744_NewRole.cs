@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace CIMOBProject.Migrations
 {
-    public partial class DbTest : Migration
+    public partial class NewRole : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

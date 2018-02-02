@@ -1,20 +1,10 @@
 ﻿using BackOfficeWPF.Dialogs;
 using CIMOBProject.Models;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data.Entity;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace BackOfficeWPF {
     /// <summary>
@@ -44,6 +34,16 @@ namespace BackOfficeWPF {
 
         private void ButtonLast_Click(object sender, RoutedEventArgs e) {
             employeesGrd.Items.MoveCurrentToLast();
+        }
+
+        private void ButtonEmail_Click(object sender, RoutedEventArgs e) {
+            Employee employeeEmail = employeesGrd.SelectedItem as Employee;
+            if (employeeEmail == null)
+                return;
+            EmailDialog emailDialog = new EmailDialog(_db, employeeEmail);
+            if (emailDialog.ShowDialog() == true) {
+                MessageBox.Show("Notificação enviado com sucesso", "Sucesso!");
+            }
         }
 
         private void ButtonAdd_Click(object sender, RoutedEventArgs e) {

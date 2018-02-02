@@ -12,8 +12,8 @@ using System;
 namespace CIMOBProject.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20180126113140_DbTest")]
-    partial class DbTest
+    [Migration("20180201181744_NewRole")]
+    partial class NewRole
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

@@ -1,10 +1,5 @@
-﻿using BackOfficeWPF.Dialogs;
-using BackOfficeWPF.Screens;
-using CIMOBProject.Models;
-using System;
-using System.Linq;
+﻿using BackOfficeWPF.Screens;
 using System.Windows;
-using System.Windows.Controls;
 
 namespace BackOfficeWPF {
     /// <summary>

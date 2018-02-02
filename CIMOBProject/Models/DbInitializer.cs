@@ -13,7 +13,6 @@ namespace CIMOBProject.Models {
             // Seed the database.
             if (context.Roles.SingleOrDefault(r => r.Name == "Student") == null)
             {
-
                 context.Roles.Add(new IdentityRole { Name = "Student", NormalizedName = "Student" });
                 context.SaveChanges();
             }
@@ -23,6 +22,12 @@ namespace CIMOBProject.Models {
                 context.Roles.Add(new IdentityRole { Name = "Employee", NormalizedName = "Employee" });
                 context.SaveChanges();
             }
+
+            if (context.Roles.SingleOrDefault(r => r.Name == "Admin") == null) {
+                context.Roles.Add(new IdentityRole { Name = "Admin", NormalizedName = "Admin" });
+                context.SaveChanges();
+            }
+
 
             if (!context.Colleges.Any())
             {

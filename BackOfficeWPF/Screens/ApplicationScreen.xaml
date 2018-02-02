@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:BackOfficeWPF.Screens"
              mc:Ignorable="d" 
-             Height="720" Width="1290" Loaded="UserControl_Loaded">
+             Loaded="UserControl_Loaded">
     <DockPanel>
         <ToolBarTray Name="ToolBar" DockPanel.Dock="Top">
             <ToolBar >

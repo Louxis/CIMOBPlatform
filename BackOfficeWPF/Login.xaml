@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BackOfficeWPF.Auth"
         mc:Ignorable="d"
-        Title="Login" Height="300" Width="300">
+        Title="Login" Height="208.58" Width="300">
     <Grid DockPanel.Dock="Left" Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>

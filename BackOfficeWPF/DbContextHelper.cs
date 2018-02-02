@@ -8,6 +8,31 @@ using System.Windows;
 namespace BackOfficeWPF {
     class DbContextHelper {
 
+        public static void AddAdmin(ApplicationDbContext context, Employee applicationUser, string password) {
+            UserManager<Employee> userManager = new UserManager<Employee>(new UserStore<Employee>(new ApplicationDbContext()));
+            Employee user = null;
+            user = new Employee {
+                UserName = applicationUser.UserName,
+                UserFullname = applicationUser.UserFullname,
+                Email = applicationUser.Email,
+                UserCc = applicationUser.UserCc,
+                PhoneNumber = applicationUser.PhoneNumber,
+                UserAddress = applicationUser.UserAddress,
+                PostalCode = applicationUser.PostalCode,
+                BirthDate = applicationUser.BirthDate,
+                EmployeeNumber = applicationUser.EmployeeNumber,
+                NormalizedEmail = applicationUser.UserName.ToUpper(),
+                NormalizedUserName = applicationUser.UserName.ToUpper(),
+                EmailConfirmed = true
+            };
+            userManager.CreateAsync(user, password).Wait();
+            context.SaveChanges();
+            var role = context.Roles.SingleOrDefault(m => m.Name == "Admin");
+            userManager.AddToRoleAsync(user.Id, role.Name).Wait();
+            context.SaveChanges();
+            MessageBox.Show("Admin Criado com sucesso.", "Sucesso");
+        }
+
         public static Employee AddEmployee(ApplicationDbContext context, Employee employee) {
             UserManager<Employee> userManager = new UserManager<Employee>(new UserStore<Employee>(new ApplicationDbContext()));
             Employee user = null;
@@ -26,15 +51,15 @@ namespace BackOfficeWPF {
                     NormalizedUserName = employee.UserName.ToUpper(),
                     EmailConfirmed = true
                 };
-                userManager.CreateAsync(user, "teste12").Wait();
+                userManager.CreateAsync(user, "admin12").Wait();
                 context.SaveChanges();
-                var role = context.Roles.SingleOrDefault(m => m.Name == "Employee");
+                var role = context.Roles.SingleOrDefault(m => m.Name == "Admin");
                 userManager.AddToRoleAsync(user.Id, role.Name).Wait();
                 context.SaveChanges();
                 MessageBox.Show("Funcionário Criado com sucesso.", "Sucesso");
             }
             catch (Exception ex) {
-                MessageBox.Show("Funcionário não criado, contactar suporte.", "Sucesso");
+                MessageBox.Show("Funcionário não criado, contactar suporte.", "Erro");
             }
             return user;
         }

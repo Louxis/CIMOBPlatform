@@ -1,21 +1,10 @@
 ﻿using BackOfficeWPF.Dialogs;
 using CIMOBProject.Models;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data.Entity;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace BackOfficeWPF {
     /// <summary>
@@ -56,6 +45,16 @@ namespace BackOfficeWPF {
             StudentDialog studentDialog = new StudentDialog(new Student(studentEdit)) { Title = "Editar Funcionário" };
             if (studentDialog.ShowDialog() == true) {
                 DbContextHelper.EditStudent(_db, studentDialog.Student);
+            }
+        }
+
+        private void ButtonEmail_Click(object sender, RoutedEventArgs e) {
+            Student studentMail = studentGrd.SelectedItem as Student;
+            if (studentMail == null)
+                return;
+            EmailDialog emailDialog = new EmailDialog(_db, studentMail);
+            if(emailDialog.ShowDialog() == true) {
+                MessageBox.Show("Notificação enviado com sucesso", "Sucesso!");
             }
         }
 

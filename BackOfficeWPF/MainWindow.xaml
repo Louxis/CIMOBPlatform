@@ -6,15 +6,23 @@
         xmlns:local="clr-namespace:BackOfficeWPF"
         mc:Ignorable="d"
         Title="BackOffice" Height="450" Width="1290">
+    <Window.Resources>
+        <Style TargetType="{x:Type DataGridCell}">
+            <Style.Triggers>
+                <Trigger Property="DataGridCell.IsSelected" Value="True">
+                    <Setter Property="Background" Value="Orange" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <ContentControl x:Name="contentControl" Grid.Row="1"/>
-
         <DockPanel>
-            <Menu DockPanel.Dock="Top">
+            <Menu DockPanel.Dock="Top" Background="LightGray">
                 <MenuItem  Click="ButtonMainScreen">
                     <MenuItem.Header >
                         <Image Width="20" Height="20" Source="icons/statistic.png"  />

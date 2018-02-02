@@ -22,22 +22,47 @@ namespace BackOfficeWPF.Auth {
     public partial class Login : Window {
         //change to admin
         private UserManager<Employee> userManager;
+        private ApplicationDbContext applicationDbContext = new ApplicationDbContext();
+
+        //Concept test: remove on production
+        private const string emailAdmin = "admincimob@cimob.admin";
+        private const string pwAdmin = "admin12!";
 
         public Login() {
             userManager = new UserManager<Employee>(new UserStore<Employee>(new ApplicationDbContext()));
+            //Conecept test:
+            if (applicationDbContext.Users.Where(a => a.UserName.Equals(emailAdmin)).FirstOrDefault() == null) {
+                Employee user = new Employee {
+                    UserName = emailAdmin,
+                    Email = emailAdmin,
+                    PhoneNumber = "912123456",
+                    UserAddress = "Admin Road",
+                    PostalCode = "2900-000",
+                    EmployeeNumber = "999999999",
+                    UserFullname = "Admin Full Name",
+                    UserCc = "12345678"
+                };
+                DbContextHelper.AddAdmin(applicationDbContext, user, pwAdmin);
+            }
+
             InitializeComponent();
         }
 
         private void OkButton_Click(object sender, RoutedEventArgs e) {
-            var user = userManager.Find(Email.Text, Password2.Password);
-            if(user == null) {
+            IdentityUser user = userManager.Find(Email.Text, Password2.Password);
+            if (user == null) {
                 MessageBox.Show("Dados incorretos.");
             }
             else {
                 //go to main window
-                MainWindow mainWindow = new MainWindow();
-                mainWindow.Show();
-                this.Close();
+                if (!userManager.IsInRole(user.Id, "Admin")) {
+                    MessageBox.Show("Não tem permissão.");
+                }
+                else {
+                    MainWindow mainWindow = new MainWindow();
+                    mainWindow.Show();
+                    this.Close();
+                }
             }
         }
     }

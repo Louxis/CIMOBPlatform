@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BackOfficeWPF"
         mc:Ignorable="d"
-        Height="720" Width="1290" Loaded="UserControl_Loaded">
+        Loaded="UserControl_Loaded">
     <DockPanel>
         <ToolBarTray Name="ToolBar" DockPanel.Dock="Top">
             <ToolBar >
@@ -20,6 +20,9 @@
                 </Button>
                 <Button Name="ButtonLast" Click="ButtonLast_Click">
                     <Image Height="20" Source="../icons/Last.png" Margin="5,0"/>
+                </Button>
+                <Button Click="ButtonEmail_Click">
+                    <Image Height="20" Source="../icons/Email.png" Margin="5,0"/>
                 </Button>
                 <Button Name="ButtonAdd" Click="ButtonAdd_Click">
                     <Image Height="20" Source="../icons/add.png" Margin="5,0"/>
