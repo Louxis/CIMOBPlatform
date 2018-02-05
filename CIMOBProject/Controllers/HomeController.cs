@@ -1,15 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using CIMOBProject.Models;
-using System.Globalization;
 using CIMOBProject.Data;
 
 namespace CIMOBProject.Controllers
 {
+    /// <summary>
+    /// Controller with the actions for navigating between the main pages of the website.
+    /// </summary>
     public class HomeController : Controller
     {
 
@@ -35,13 +35,19 @@ namespace CIMOBProject.Controllers
             return View();
         }
 
+        /// <summary>
+        /// Returns the application views.
+        /// </summary>
+        /// <param name="message">If there's an error, it needs to be indicated with a message.</param>
+        /// <param name="userId">User accessing the view or target user by employee.</param>
+        /// <returns>Application view or view with error.</returns>
         public IActionResult Application(String message, String userId)
         {
             DateTime openDate = _context.Editals.OrderByDescending(e => e.Id).First().OpenDate;
             DateTime closeDate = _context.Editals.OrderByDescending(e => e.Id).First().CloseDate;
 
             if (DateTime.Now < openDate)
-            { 
+            {
                 message = "As candidaturas serão disponibilizadas no dia " + _context.Editals.OrderByDescending(e => e.Id).First().OpenDate.ToString("MM/dd/yyyy") + ".";
                 return View((object)message);
             }

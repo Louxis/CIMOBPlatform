@@ -1,34 +1,38 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CIMOBProject.Data;
 using CIMOBProject.Models;
 using System.Security.Claims;
 using CIMOBProject.Services;
+using System;
 
 namespace CIMOBProject.Controllers
 {
+    /// <summary>
+    /// This controller is responsible for all the actions related to Editals (related to news).
+    /// </summary>
     public class EditalsController : Controller
     {
         private readonly ApplicationDbContext _context;
 
+        /// <summary>
+        /// Initializes controller with the pretended context
+        /// </summary>
+        /// <param name="context"></param>
         public EditalsController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        // GET: Editals
         public async Task<IActionResult> Index()
         {
             var applicationDbContext = _context.Editals.Include(e => e.Document).Include(e => e.Employee);
             return View(await applicationDbContext.ToListAsync());
         }
 
-        // GET: Editals/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -47,19 +51,20 @@ namespace CIMOBProject.Controllers
             return View(edital);
         }
 
-        // GET: Editals/Create
+        /// <summary>
+        /// Action that leads to Edital creation views. 
+        /// This view will also contain an input for an optional document the employee can upload.
+        /// It's up to the employee to validate such url.
+        /// </summary>
+        /// <param name="userId">Logged in employee id.</param>
+        /// <returns>Edital creation view.</returns>
         public IActionResult Create(string userId)
         {
             ViewData["EmployeeId"] = userId;
-
             loadHelp();
-
             return View();
         }
 
-        // POST: Editals/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("OpenDate,CloseDate,Id,EmployeeId,Title,TextContent,IsPublished,DocumentId")] Edital edital, string link)
@@ -83,6 +88,13 @@ namespace CIMOBProject.Controllers
             return View(edital);
         }
 
+        /// <summary>
+        /// Validates if a document with a link already exists in the database, if it exists will obtain that document and return it.
+        /// Otherwise it will create a new document and return the new one.
+        /// </summary>
+        /// <param name="edital">Current edital.</param>
+        /// <param name="link">Link to validate.</param>
+        /// <returns>Valid document.</returns>
         private Document CreateAndValidateDocument(Edital edital, string link)
         {
             Document urlDoc = _context.Documents.Where(d => d.FileUrl.Equals(link)).FirstOrDefault();
@@ -100,8 +112,6 @@ namespace CIMOBProject.Controllers
             return urlDoc;
         }
 
-
-        // GET: Editals/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -120,9 +130,6 @@ namespace CIMOBProject.Controllers
             return View(edital);
         }
 
-        // POST: Editals/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("OpenDate,CloseDate,Id,EmployeeId,Title,TextContent,IsPublished,DocumentId")] Edital edital, string link)
@@ -163,12 +170,6 @@ namespace CIMOBProject.Controllers
             return View(editalToUpdate);
         }
 
-        private bool EditalExists(int id)
-        {
-            return _context.News.Any(e => e.Id == id);
-        }
-
-        // GET: Editals/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -188,7 +189,6 @@ namespace CIMOBProject.Controllers
             return View(edital);
         }
 
-        // POST: Editals/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
@@ -208,5 +208,9 @@ namespace CIMOBProject.Controllers
             ViewData["DocumentTip"] = (_context.Helps.FirstOrDefault(h => h.HelpName == "FileURL") as Help).HelpDescription;
         }
 
+        private bool EditalExists(int id)
+        {
+            return _context.News.Any(e => e.Id == id);
+        }
     }
 }

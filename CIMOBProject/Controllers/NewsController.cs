@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CIMOBProject.Data;
 using CIMOBProject.Models;
@@ -29,7 +27,7 @@ namespace CIMOBProject.Controllers
                 return View(await news.ToListAsync());
             }
             var publishedNews = news.Where(n => n.IsPublished == true);
-            return View(await publishedNews.ToListAsync());            
+            return View(await publishedNews.ToListAsync());
         }
 
         public async Task<IActionResult> RecentNews()
@@ -69,7 +67,7 @@ namespace CIMOBProject.Controllers
                         throw;
                     }
                 }
-                
+
             }
             return RedirectToAction("Index", "News");
         }
@@ -82,7 +80,7 @@ namespace CIMOBProject.Controllers
                 return NotFound();
             }
 
-            var news = await _context.News.Include(e => e.Employee).Include(d =>d.Document)
+            var news = await _context.News.Include(e => e.Employee).Include(d => d.Document)
                 .SingleOrDefaultAsync(m => m.Id == id);
             if (news == null)
             {
@@ -111,22 +109,23 @@ namespace CIMOBProject.Controllers
             {
                 if (!String.IsNullOrEmpty(link))
                 {
-                    news.Document = CreateAndValidateDocument(news,link);
+                    news.Document = CreateAndValidateDocument(news, link);
                 }
-                    //news.DocumentId = doc.DocumentId;
-                    _context.Add(news);
-                    await _context.SaveChangesAsync();
-                    return RedirectToAction(nameof(Index));
+                //news.DocumentId = doc.DocumentId;
+                _context.Add(news);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
             }
             return View(news);
         }
 
-        private Document CreateAndValidateDocument (News news, string link) 
+        private Document CreateAndValidateDocument(News news, string link)
         {
             Document urlDoc = _context.Documents.Where(d => d.FileUrl.Equals(link)).FirstOrDefault();
-            if(urlDoc == null) 
+            if (urlDoc == null)
             {
-                urlDoc = new Document {
+                urlDoc = new Document
+                {
                     EmployeeId = news.EmployeeId,
                     Description = "Documento de " + news.Title,
                     FileUrl = link,
