@@ -22,7 +22,7 @@ namespace CIMOBProject.Controllers
         private const int ASSIGNED_ID = 2;
 
         /// <summary>
-        /// Initializes controller with the pretended context
+        /// Initializes controller with the pretended context.
         /// </summary>
         /// <param name="context"></param>
         public ApplicationsController(ApplicationDbContext context)
