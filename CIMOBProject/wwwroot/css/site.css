@@ -1,12 +1,16 @@
 ﻿body {
     padding-top: 40px;
-    background-color: #EEEEEE;
+    background-color: #F1F1F1;
 }
 
 h1 {
     font-size: 2em;
     color: #FF9D00;
     padding-bottom: 10px;
+}
+
+.navbar-fixed-top {
+    border-radius: 0px 0px 10px 10px;
 }
 
 h4 {
@@ -57,7 +61,7 @@ nav {
 
 /* Header properties*/
 header {
-    background-color: #EEEEEE;
+    background-color: #FFFFFF;
     width: 100%;
 }
 
