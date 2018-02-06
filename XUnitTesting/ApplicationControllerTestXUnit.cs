@@ -167,7 +167,7 @@ namespace XUnitTesting
                     ArithmeticMean = 20.0,
                     ECTS = 120,
                     MotivationLetter = 20.0,
-                    Enterview = 20.0,
+                    Interview = 20.0,
                     FinalGrade = 20.0
                 });
 
@@ -183,7 +183,7 @@ namespace XUnitTesting
                     ArithmeticMean = 10.0,
                     ECTS = 120,
                     MotivationLetter = 10.0,
-                    Enterview = 10.0,
+                    Interview = 10.0,
                     FinalGrade = 10.0
                 });
 
@@ -227,7 +227,7 @@ namespace XUnitTesting
                 ArithmeticMean = 15.0,
                 ECTS = 66,
                 MotivationLetter = 15.0,
-                Enterview = 15.0,
+                Interview = 15.0,
                 FinalGrade = 15.0
             };
             var result = await controller.Edit(appTest.ApplicationId, appModelTest);

@@ -188,7 +188,7 @@ namespace CIMOBProject.Controllers
 
             foreach (var item in queryGetApplication)
             {
-                item.FinalGrade = (item.MotivationLetter + item.Enterview + item.ArithmeticMean) / 3;
+                item.FinalGrade = (item.MotivationLetter + item.Interview + item.ArithmeticMean) / 3;
                 await _context.SaveChangesAsync();
             }
 

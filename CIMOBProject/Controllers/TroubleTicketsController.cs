@@ -10,17 +10,22 @@ using CIMOBProject.Models;
 
 namespace CIMOBProject.Controllers
 {
+    /// <summary>
+    /// This controller is responsible for all the actions that involve directly TroubleTicket class.
+    /// </summary>
     public class TroubleTicketsController : Controller
     {
         private readonly ApplicationDbContext _context;
 
+        /// <summary>
+        /// Initializes controller with the pretended context.
+        /// </summary>
+        /// <param name="context"></param>
         public TroubleTicketsController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-
-        // GET: TroubleTickets
         public async Task<IActionResult> Index(string userId, string ticketFilter, string listOrder)
         {
             

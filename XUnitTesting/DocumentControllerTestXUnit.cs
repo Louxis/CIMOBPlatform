@@ -166,7 +166,7 @@ namespace XUnitTesting
                     ArithmeticMean = 20.0,
                     ECTS = 120,
                     MotivationLetter = 20.0,
-                    Enterview = 20.0,
+                    Interview = 20.0,
                     FinalGrade = 20.0
                 });
 
@@ -182,7 +182,7 @@ namespace XUnitTesting
                     ArithmeticMean = 10.0,
                     ECTS = 120,
                     MotivationLetter = 10.0,
-                    Enterview = 10.0,
+                    Interview = 10.0,
                     FinalGrade = 10.0
                 });
 
