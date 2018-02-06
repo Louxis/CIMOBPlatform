@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace CIMOBProject.Models
 {
@@ -10,7 +7,6 @@ namespace CIMOBProject.Models
     ///This class represents an interview that is done with a student about the mobility.
     ///It has the application to which the interview is done, it's date and time and the employee that created it.
     ///</summary>
-
     public class Interview
     {
         public int InterviewId { get; set; }

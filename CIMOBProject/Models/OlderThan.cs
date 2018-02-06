@@ -6,23 +6,31 @@ using System.Threading.Tasks;
 
 namespace CIMOBProject.Models
 {
-    public class OlderThan : ValidationAttribute {
+    /// <summary>
+    /// Validation to check if the close date (input field) is after the open date (another input field).
+    /// </summary>
+    public class OlderThan : ValidationAttribute
+    {
 
-        public OlderThan() {
+        public OlderThan()
+        {
 
         }
 
         protected override ValidationResult
-                IsValid(object value, ValidationContext validationContext) {
+                IsValid(object value, ValidationContext validationContext)
+        {
             var model = (Edital)validationContext.ObjectInstance;
             DateTime EndDate = Convert.ToDateTime(value);
             DateTime StartDate = Convert.ToDateTime(model.OpenDate);
 
-            if (StartDate >= EndDate) {
+            if (StartDate >= EndDate)
+            {
                 return new ValidationResult
                     ("A data de fim tem de ser maior que a data de abertura.");
             }
-            else {
+            else
+            {
                 return ValidationResult.Success;
             }
         }
