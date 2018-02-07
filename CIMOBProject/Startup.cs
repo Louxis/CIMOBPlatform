@@ -12,6 +12,9 @@ using CIMOBProject.Data;
 using CIMOBProject.Models;
 using CIMOBProject.Services;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.Extensions.FileProviders;
+using System.IO;
+using Microsoft.AspNetCore.Http;
 
 namespace CIMOBProject
 {
@@ -28,27 +31,23 @@ namespace CIMOBProject
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            var connection=@"Server=(localdb)\mssqllocaldb;Database=CimobPlatform;Trusted_Connection=True;";
-
-            
+            var connection=@"Server=(localdb)\mssqllocaldb;Database=CimobPlatform;Trusted_Connection=True;";          
 
 
             var connection1 = @"Data Source=SQL6002.site4now.net;Initial Catalog=DB_A2E98B_cimobgroup6;User Id=DB_A2E98B_cimobgroup6_admin;Password=esw4grupo6;";
 
+            var connection2 = @"Data Source=SQL6003.site4now.net;Initial Catalog=DB_A3312B_cimob;User Id=DB_A3312B_cimob_admin;Password=cimob123;";
 
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(connection));
 
-
+            services.AddDirectoryBrowser();
             services.AddIdentity<ApplicationUser, IdentityRole>(config =>
             {
                 config.SignIn.RequireConfirmedEmail = true;
             })            
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
-
-
-            
 
             services.Configure<IdentityOptions>(options =>
             {
@@ -107,6 +106,16 @@ namespace CIMOBProject
             app.UseDatabaseErrorPage();
 
             app.UseStaticFiles();
+            app.UseStaticFiles(new StaticFileOptions {
+                ServeUnknownFileTypes = true, //allow unkown file types also to be served
+                DefaultContentType = "application/vnd.microsoft.portable-executable" //content type to returned if fileType is not known.
+            });
+
+            app.UseDirectoryBrowser(new DirectoryBrowserOptions() {
+                FileProvider = new PhysicalFileProvider(
+            Path.Combine(Directory.GetCurrentDirectory(), @"wwwroot", "install")),
+                RequestPath = new PathString("/MyInstall")
+            });
 
             app.UseAuthentication();
 

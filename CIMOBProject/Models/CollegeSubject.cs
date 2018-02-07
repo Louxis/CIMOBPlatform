@@ -1,16 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace CIMOBProject.Models
 {
-    public class CollegeSubject {
-        ///<summary>
-        ///This class represents the courses that students belong to.
-        ///Mostly used to indicate the college of a student since the courses are specific to each college.
-        /// </summary>
+    ///<summary>
+    ///This class represents the courses that students belong to.
+    ///Mostly used to indicate the college of a student since the courses are specific to each college.
+    /// </summary>
+    public class CollegeSubject
+    {
         public int Id { get; set; }
 
         [Required]
@@ -20,7 +17,7 @@ namespace CIMOBProject.Models
 
         [Required]
         [StringLength(10)]
-        [Display (Name = "Sigla do curso")]
+        [Display(Name = "Sigla do curso")]
         public string SubjectAlias { get; set; }
 
         [Required]

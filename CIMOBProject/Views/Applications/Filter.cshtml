@@ -59,10 +59,14 @@
                             {
                                 <a class="btn btn-default" asp-action="Edit" asp-route-id="@item.ApplicationId" id="Edit">Editar</a>
 
-                                if (interviews.Where(i => i.ApplicationId == item.ApplicationId).FirstOrDefault() == null)
+                                if (interviews != null)
                                 {
-                                    <a class="btn btn-default" asp-action="Create" asp-controller="Interviews" asp-route-applicationId="@item.ApplicationId" asp-route-employeeId="@UserManager.GetUserId(User)">Marcar Entrevista</a>
+                                    if (interviews.Where(i => i.ApplicationId == item.ApplicationId).FirstOrDefault() == null)
+                                    {
+                                        <a class="btn btn-default" asp-action="Create" asp-controller="Interviews" asp-route-applicationId="@item.ApplicationId" asp-route-employeeId="@UserManager.GetUserId(User)">Marcar Entrevista</a>
+                                    }
                                 }
+
                             }
                         }
                     }

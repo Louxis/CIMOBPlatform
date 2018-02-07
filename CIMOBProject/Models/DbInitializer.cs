@@ -2,19 +2,17 @@
 using System.Linq;
 using Microsoft.AspNetCore.Identity;
 using CIMOBProject.Data;
-using Microsoft.AspNetCore.Builder;
 
-namespace CIMOBProject.Models {
+namespace CIMOBProject.Models
+{
     public class DbInitializer
     {
         public static void Initialize(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
-
-            context.Database.EnsureCreated();            
+            context.Database.EnsureCreated();
             // Seed the database.
             if (context.Roles.SingleOrDefault(r => r.Name == "Student") == null)
             {
-
                 context.Roles.Add(new IdentityRole { Name = "Student", NormalizedName = "Student" });
                 context.SaveChanges();
             }
@@ -24,6 +22,13 @@ namespace CIMOBProject.Models {
                 context.Roles.Add(new IdentityRole { Name = "Employee", NormalizedName = "Employee" });
                 context.SaveChanges();
             }
+
+            if (context.Roles.SingleOrDefault(r => r.Name == "Admin") == null)
+            {
+                context.Roles.Add(new IdentityRole { Name = "Admin", NormalizedName = "Admin" });
+                context.SaveChanges();
+            }
+
 
             if (!context.Colleges.Any())
             {
@@ -58,6 +63,18 @@ namespace CIMOBProject.Models {
 
             if (!context.BilateralProtocols.Any())
             {
+                context.BilateralProtocols.Add(new BilateralProtocol { SubjectId = 1, Destination = "França", OpenSlots = 1 });
+                context.BilateralProtocols.Add(new BilateralProtocol { SubjectId = 2, Destination = "Espanha", OpenSlots = 1 });
+                context.BilateralProtocols.Add(new BilateralProtocol { SubjectId = 3, Destination = "Italia", OpenSlots = 1 });
+                context.BilateralProtocols.Add(new BilateralProtocol { SubjectId = 4, Destination = "Romenia", OpenSlots = 1 });
+                context.BilateralProtocols.Add(new BilateralProtocol { SubjectId = 1, Destination = "Lituania", OpenSlots = 1 });
+                context.BilateralProtocols.Add(new BilateralProtocol { SubjectId = 2, Destination = "Polónia", OpenSlots = 1 });
+                context.BilateralProtocols.Add(new BilateralProtocol { SubjectId = 3, Destination = "Russia", OpenSlots = 1 });
+                context.BilateralProtocols.Add(new BilateralProtocol { SubjectId = 4, Destination = "Londres", OpenSlots = 1 });
+                context.BilateralProtocols.Add(new BilateralProtocol { SubjectId = 1, Destination = "Irlanda", OpenSlots = 1 });
+                context.BilateralProtocols.Add(new BilateralProtocol { SubjectId = 2, Destination = "Turquia", OpenSlots = 1 });
+                context.BilateralProtocols.Add(new BilateralProtocol { SubjectId = 3, Destination = "França", OpenSlots = 1 });
+                context.BilateralProtocols.Add(new BilateralProtocol { SubjectId = 4, Destination = "Alemanha", OpenSlots = 1 });
                 context.BilateralProtocols.Add(new BilateralProtocol { SubjectId = 1, Destination = "França", OpenSlots = 1 });
                 context.BilateralProtocols.Add(new BilateralProtocol { SubjectId = 2, Destination = "Espanha", OpenSlots = 1 });
                 context.BilateralProtocols.Add(new BilateralProtocol { SubjectId = 3, Destination = "Italia", OpenSlots = 1 });
@@ -251,7 +268,7 @@ namespace CIMOBProject.Models {
                     UserAddress = "RuaTeste",
                     PostalCode = "2900-000",
                     BirthDate = new DateTime(1996, 1, 1),
-                    EmployeeNumber = 150221055
+                    EmployeeNumber = "150221055"
                 };
                 userManager.CreateAsync(user, "teste12").Wait();
                 var role = context.Roles.SingleOrDefault(m => m.Name == "Employee");
@@ -277,7 +294,7 @@ namespace CIMOBProject.Models {
                     ArithmeticMean = 7.0,
                     ECTS = 78,
                     MotivationLetter = 8.0,
-                    Enterview = 9.0,
+                    Interview = 9.0,
                     FinalGrade = 8.0
                 });*/
                 context.Applications.Add(new Application
@@ -292,11 +309,11 @@ namespace CIMOBProject.Models {
                     ArithmeticMean = 10.0,
                     ECTS = 90,
                     MotivationLetter = 10.0,
-                    Enterview = 10.0,
+                    Interview = 10.0,
                     FinalGrade = 10.0
                 });
-               
-                
+
+
                 context.Applications.Add(new Application
                 {
                     StudentId = context.Students.Where(s => s.UserFullname.Equals("Teste User 3")).FirstOrDefault().Id,
@@ -309,10 +326,10 @@ namespace CIMOBProject.Models {
                     ArithmeticMean = 8.0,
                     ECTS = 66,
                     MotivationLetter = 9.0,
-                    Enterview = 7.0,
+                    Interview = 7.0,
                     FinalGrade = 7.0
                 });
-                
+
 
                 /*context.Applications.Add(new Application
                 {
@@ -326,7 +343,7 @@ namespace CIMOBProject.Models {
                     ArithmeticMean = 20.0,
                     ECTS = 120,
                     MotivationLetter = 20.0,
-                    Enterview = 20.0,
+                    Interview = 20.0,
                     FinalGrade = 20.0
                 });*/
 
@@ -342,7 +359,7 @@ namespace CIMOBProject.Models {
                     ArithmeticMean = 12.0,
                     ECTS = 120,
                     MotivationLetter = 15.0,
-                    Enterview = 9.0,
+                    Interview = 9.0,
                     FinalGrade = 11.0
                 });
 
@@ -358,7 +375,7 @@ namespace CIMOBProject.Models {
                     ArithmeticMean = 13.0,
                     ECTS = 120,
                     MotivationLetter = 8.0,
-                    Enterview = 8.0,
+                    Interview = 8.0,
                     FinalGrade = 9.0
                 });
 
@@ -374,7 +391,7 @@ namespace CIMOBProject.Models {
                     ArithmeticMean = 8.0,
                     ECTS = 120,
                     MotivationLetter = 9.0,
-                    Enterview = 6.0,
+                    Interview = 6.0,
                     FinalGrade = 7.0
                 });
                 context.SaveChanges();
@@ -382,12 +399,14 @@ namespace CIMOBProject.Models {
 
             if (!context.Editals.Any())
             {
-                context.Editals.Add(new Edital {
+                context.Editals.Add(new Edital
+                {
                     Title = "Edital teste",
                     TextContent = "Edital publicado",
-                    OpenDate = new DateTime(2017,11,10),
-                    CloseDate = new DateTime(2018,02,03),
-                    IsPublished = true });
+                    OpenDate = new DateTime(2017, 11, 10),
+                    CloseDate = new DateTime(2018, 02, 03),
+                    IsPublished = true
+                });
                 context.SaveChanges();
             }
 
@@ -429,5 +448,5 @@ namespace CIMOBProject.Models {
                 context.SaveChanges();
             }
         }
-    }    
+    }
 }

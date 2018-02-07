@@ -5,7 +5,9 @@ VisualStudioVersion = 15.0.27004.2009
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CIMOBProject", "CIMOBProject\CIMOBProject.csproj", "{D4E903CD-023D-4843-8D64-F69729351D19}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XUnitTesting", "XUnitTesting\XUnitTesting.csproj", "{D62054C8-BFF6-4533-AD9C-29AC5A92DE96}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XUnitTesting", "XUnitTesting\XUnitTesting.csproj", "{D62054C8-BFF6-4533-AD9C-29AC5A92DE96}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BackOfficeWPF", "BackOfficeWPF\BackOfficeWPF.csproj", "{0D8CA2D2-32AD-4C94-9206-22E6EDE83343}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{D62054C8-BFF6-4533-AD9C-29AC5A92DE96}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D62054C8-BFF6-4533-AD9C-29AC5A92DE96}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D62054C8-BFF6-4533-AD9C-29AC5A92DE96}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0D8CA2D2-32AD-4C94-9206-22E6EDE83343}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0D8CA2D2-32AD-4C94-9206-22E6EDE83343}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0D8CA2D2-32AD-4C94-9206-22E6EDE83343}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0D8CA2D2-32AD-4C94-9206-22E6EDE83343}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

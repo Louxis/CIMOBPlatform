@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CIMOBProject.Data;
 using CIMOBProject.Models;
@@ -12,13 +10,17 @@ using CIMOBProject.Services;
 namespace CIMOBProject.Controllers
 {
     /// <summary>
-    /// This controller is responsible for all the actions that involve directly Interview class.
+    /// This controller is responsible for all the actions related to interviews
     /// </summary>
     public class InterviewsController : Controller
     {
         private readonly ApplicationDbContext _context;
         private EmailSender emailSender;
 
+        /// <summary>
+        /// Initialize controller with the pretended context
+        /// </summary>
+        /// <param name="context"></param>
         public InterviewsController(ApplicationDbContext context)
         {
             _context = context;
@@ -58,12 +60,10 @@ namespace CIMOBProject.Controllers
         /// <param name="employeeId">Employee's ID in the system</param>
         /// <param name="applicationId">Application's ID in the system</param>
         /// <returns>The view that will lead to the creation of an Interview</returns>
-        // GET: Interviews/Create
         public IActionResult Create(string employeeId, int applicationId)
         {
             ViewData["ApplicationId"] = applicationId;
             ViewData["EmployeeId"] = employeeId;
-
             loadHelp();
 
             return View();
@@ -72,9 +72,8 @@ namespace CIMOBProject.Controllers
         /// <summary>
         /// This method will create an object of type Interview.
         /// </summary>
-        /// <param name="interview">The object to add to database</param>
+        /// <param name="interview">Interview to add to database</param>
         /// <returns>Index View if creation is valid, otherwise returns the same where this method was called.</returns>
-        // POST: Interviews/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("InterviewId,EmployeeId,ApplicationId,InterviewDate")] Interview interview)

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -9,30 +8,44 @@ using CIMOBProject.Data;
 using CIMOBProject.Models;
 using System.Security.Claims;
 
-namespace CIMOBProject.Controllers {
-    public class DocumentsController : Controller {
+namespace CIMOBProject.Controllers
+{
+    /// <summary>
+    /// This controller is responsible for all the actions related to documents.
+    /// </summary>
+    public class DocumentsController : Controller
+    {
         private readonly ApplicationDbContext _context;
-
         private const int MINIMUM_STAT_ID = 3;
-
         private const int REJECTED_STAT_ID = 5;
 
+        /// <summary>
+        /// Initializes controller with the pretended context
+        /// </summary>
+        /// <param name="context"></param>
         public DocumentsController(ApplicationDbContext context)
         {
             _context = context;
         }
 
         // GET: Documents
+        /// <summary>
+        /// Indexes all the documents present in a specific application. 
+        /// Documents are contained in a url to be hosted by the user.
+        /// </summary>
+        /// <param name="applicationId">Specified Application.</param>
+        /// <returns>View with document list.</returns>
         public async Task<IActionResult> Index(int applicationId)
         {
             var latestEdital = _context.Editals.OrderByDescending(e => e.Id).FirstOrDefault();
-            
-            var application = _context.Applications.Include(a => a.Student).Where(s => s.ApplicationId == applicationId).FirstOrDefault();
+            var application = _context.Applications.Include(a => a.Student)
+                .Where(s => s.ApplicationId == applicationId).FirstOrDefault();
             ViewData["StudentName"] = application.Student.UserFullname;
             ViewData["ApplicationId"] = applicationId;
-            if(User.IsInRole("Employee") && 
+
+            if (User.IsInRole("Employee") &&
                 (application.ApplicationStatId < MINIMUM_STAT_ID ||
-                application.ApplicationStatId == REJECTED_STAT_ID)) 
+                application.ApplicationStatId == REJECTED_STAT_ID))
             {
                 ViewData["EvaluationApp"] = "true";
             }
@@ -40,16 +53,17 @@ namespace CIMOBProject.Controllers {
             {
                 ViewData["EvaluationApp"] = "false";
             }
-            var applicationDbContext = _context.Documents.Include(d => d.Application).Where(s => s.ApplicationId == applicationId && ( latestEdital.OpenDate <= s.Application.CreationDate) && (s.Application.CreationDate <= latestEdital.CloseDate));
-            if (applicationDbContext == null)
+            var applications = _context.Documents.Include(d => d.Application)
+                .Where(s => s.ApplicationId == applicationId && (latestEdital.OpenDate <= s.Application.CreationDate)
+                    && (s.Application.CreationDate <= latestEdital.CloseDate));
+            if (applications == null)
             {
                 return NotFound();
             }
-            
-            return View(await applicationDbContext.ToListAsync());
+
+            return View(await applications.ToListAsync());
         }
 
-        // GET: Documents/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -67,27 +81,29 @@ namespace CIMOBProject.Controllers {
             return View(document);
         }
 
-        // GET: Documents/Create
+        /// <summary>
+        /// Action that leads to Document creation view.
+        /// Employees can also access this view if the student is in mobility, otherwise only the student can.
+        /// </summary>
+        /// <param name="applicationId"></param>
+        /// <returns>Document creation view</returns>
         public IActionResult Create(int applicationId)
         {
-            //var latestEdital = _context.Editals.OrderByDescending(a => a.Id).FirstOrDefault();
             ViewData["ApplicationId"] = applicationId;
             Application application = _context.Applications.Where(a => a.ApplicationId == applicationId).FirstOrDefault();
-            if (application != null) {
+            if (application != null)
+            {
                 if (User.IsInRole("Employee") &&
                 (application.ApplicationStatId < MINIMUM_STAT_ID ||
-                application.ApplicationStatId == REJECTED_STAT_ID)) {
+                application.ApplicationStatId == REJECTED_STAT_ID))
+                {
                     return RedirectToAction("Application", "Home", new { message = "Não pode carregar documentos se o aluno se encontra em avaliação." });
                 }
-            }            
-            //ViewData["Date"] = DateTime.Now;
+            }
             loadHelp();
             return View();
-        }      
+        }
 
-        // POST: Documents/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("DocumentId,Description,FileUrl,UploadDate,ApplicationId")] Document document)
@@ -95,7 +111,7 @@ namespace CIMOBProject.Controllers {
             if (ModelState.IsValid)
             {
                 document.UploadDate = DateTime.Now;
-                if (User.IsInRole("Employee")) 
+                if (User.IsInRole("Employee"))
                 {
                     document.EmployeeId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
                 }
@@ -105,7 +121,6 @@ namespace CIMOBProject.Controllers {
             return RedirectToAction("Index", "Documents", new { applicationId = document.ApplicationId.GetValueOrDefault() });
         }
 
-        // GET: Documents/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -122,9 +137,6 @@ namespace CIMOBProject.Controllers {
             return View(document);
         }
 
-        // POST: Documents/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("DocumentId,Description,FileUrl,UploadDate,Id")] Document document)
@@ -158,10 +170,9 @@ namespace CIMOBProject.Controllers {
             return View(document);
         }
 
-        // GET: Documents/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            
+
             if (id == null)
             {
                 return NotFound();
@@ -181,7 +192,6 @@ namespace CIMOBProject.Controllers {
             return View(document);
         }
 
-        // POST: Documents/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
@@ -190,8 +200,7 @@ namespace CIMOBProject.Controllers {
             var applicationId = document.ApplicationId;
             _context.Documents.Remove(document);
             await _context.SaveChangesAsync();
-            return RedirectToAction( "Index", "Documents", new { applicationId = applicationId });
-
+            return RedirectToAction("Index", "Documents", new { applicationId = applicationId });
         }
 
         private bool DocumentExists(int id)

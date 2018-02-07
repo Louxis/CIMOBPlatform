@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace CIMOBProject.Models
 {
@@ -31,6 +28,7 @@ namespace CIMOBProject.Models
         [Display(Name = "Data Criação")]
         public DateTime CreationDate { get; set; }
 
+        [Display(Name = "Publicada")]
         public bool Valid { get; set; }
     }
 }

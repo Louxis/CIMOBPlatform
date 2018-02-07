@@ -80,7 +80,7 @@ namespace XUnitTesting
                     UserAddress = "Avenida para teste1",
                     PostalCode = "2912-124",
                     BirthDate = new DateTime(1995, 2, 1),
-                    EmployeeNumber = 123123321
+                    EmployeeNumber = "123123321"
                 };
             _context.Employees.Add(user2);
             _context.SaveChanges();

@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace CIMOBProject.Models
 {
@@ -13,7 +10,7 @@ namespace CIMOBProject.Models
     /// </summary>
     public class TroubleTicketAnswer
     {
-        public int TroubleTicketAnswerId { get; set;}
+        public int TroubleTicketAnswerId { get; set; }
 
         [Required]
         [Display(Name = "Resposta")]

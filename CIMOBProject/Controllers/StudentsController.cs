@@ -10,14 +10,21 @@ using CIMOBProject.Models;
 
 
 namespace CIMOBProject.Controllers {
+
+    /// <summary>
+    /// This controller is responsible for all the actions related to the students.
+    /// </summary>
     public class StudentsController : Controller {
         private readonly ApplicationDbContext _context;
 
+        /// <summary>
+        /// Initializes controller with the pretended context.
+        /// </summary>
+        /// <param name="context"></param>
         public StudentsController(ApplicationDbContext context) {
             _context = context;
         }
 
-        // GET: Students
         public async Task<IActionResult> Index() {
             var applicationDbContext = _context.Students.Include(s => s.CollegeSubject);
             return View(await applicationDbContext.ToListAsync());
@@ -29,7 +36,6 @@ namespace CIMOBProject.Controllers {
         /// <param name="searchType">Type of search: Can be Student's number, name or college</param>
         /// <param name="searchString">Specification of what will be searched: name, number or college</param>
         /// <returns> A view with the search result listed</returns>
-        // GET: Students
         [HttpGet]
         public async Task<IActionResult> Search(string searchType, string searchString) {
 
@@ -61,7 +67,6 @@ namespace CIMOBProject.Controllers {
             return View(await students.ToListAsync());
         }
 
-        // GET: Students/Details/5
         public async Task<IActionResult> Details(string id) {
             if (id == null) {
                 return NotFound();
@@ -106,7 +111,7 @@ namespace CIMOBProject.Controllers {
             return View(student);
         }
 
-        // GET: Students/Create
+
         public IActionResult Create() {
             ViewData["CollegeID"] = new SelectList(_context.Colleges, "Id", "CollegeName");
             ViewData["CollegeSubjectId"] = new SelectList(_context.CollegeSubjects, "Id", "SubjectName");
@@ -143,9 +148,6 @@ namespace CIMOBProject.Controllers {
             return View(student);
         }
 
-        // POST: Students/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(string id, [Bind("StudentNumber,ALOGrade,CollegeID,UserFullname,PostalCode,BirthDate,UserAddress,UserCc,Id,UserName,NormalizedUserName,Email,NormalizedEmail,EmailConfirmed,PasswordHash,SecurityStamp,ConcurrencyStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEnd,LockoutEnabled,AccessFailedCount")] Student student) {
@@ -204,6 +206,11 @@ namespace CIMOBProject.Controllers {
             return RedirectToAction(nameof(Index));
         }
 
+        /// <summary>
+        /// WIP
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public async Task<IActionResult> Dashboard(string id)
         {
             if (id == null)

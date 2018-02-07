@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace CIMOBProject.Models
 {
@@ -11,8 +8,8 @@ namespace CIMOBProject.Models
     ///The most important atributes of this class are the Documents and the CollegeSubject since they represent the relationship that
     ///this class within the data base.
     ///</summary>  
-    public class Student : ApplicationUser {
-
+    public class Student : ApplicationUser
+    {
         [Required(ErrorMessage = "Número de estudante é obrigatório.")]
         [RegularExpression(@"^[0-9]{9}$", ErrorMessage = "O número de estudante não é válido.")]
         [Display(Name = "Número de Estudante")]

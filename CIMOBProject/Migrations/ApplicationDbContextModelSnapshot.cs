@@ -42,9 +42,9 @@ namespace CIMOBProject.Migrations
 
                     b.Property<string>("EmployeeId");
 
-                    b.Property<double?>("Enterview");
-
                     b.Property<double?>("FinalGrade");
+
+                    b.Property<double?>("Interview");
 
                     b.Property<double?>("MotivationLetter");
 
@@ -119,6 +119,8 @@ namespace CIMOBProject.Migrations
                         .HasMaxLength(256);
 
                     b.Property<bool>("EmailConfirmed");
+
+                    b.Property<bool>("IsBanned");
 
                     b.Property<bool>("IsNotified");
 
@@ -548,7 +550,7 @@ namespace CIMOBProject.Migrations
                 {
                     b.HasBaseType("CIMOBProject.Models.ApplicationUser");
 
-                    b.Property<int>("EmployeeNumber");
+                    b.Property<string>("EmployeeNumber");
 
                     b.ToTable("Employee");
 

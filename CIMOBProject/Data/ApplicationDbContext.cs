@@ -1,21 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using CIMOBProject.Models;
 
 namespace CIMOBProject.Data
 {
-    public class ApplicationDbContext : IdentityDbContext<ApplicationUser> {
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
+    {
         ///<summary>
         ///The main objective of this class can be described as beeing the bridge between the application and it's data base.
         ///This class is the one that will handle the communication with the DB meaing it will handle all the CRUDs.
         ///It also takes care of relationships between the tables.
         /// </summary>
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
-            : base(options) {
+            : base(options)
+        {
         }
 
         public DbSet<Document> Documents { get; set; }
@@ -30,12 +28,14 @@ namespace CIMOBProject.Data
         public DbSet<Application> Applications { get; set; }
         public DbSet<News> News { get; set; }
         public DbSet<Edital> Editals { get; set; }
-        public DbSet<BilateralProtocol> BilateralProtocols { get; set;}
+        public DbSet<BilateralProtocol> BilateralProtocols { get; set; }
         public DbSet<Quizz> Quizzs { get; set; }
         public DbSet<TroubleTicket> TroubleTickets { get; set; }
         public DbSet<TroubleTicketAnswer> TroubleTicketAnswers { get; set; }
         public DbSet<Testemony> Testemonies { get; set; }
         public DbSet<Interview> Interviews { get; set; }
+        public DbSet<ApplicationStatHistory> ApplicationStatHistory { get; set; }
+        public DbSet<TroubleTicket> TroubleTicket { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -45,8 +45,6 @@ namespace CIMOBProject.Data
             // Add your customizations after calling base.OnModelCreating(builder);
         }
 
-        public DbSet<CIMOBProject.Models.ApplicationStatHistory> ApplicationStatHistory { get; set; }
 
-        public DbSet<CIMOBProject.Models.TroubleTicket> TroubleTicket { get; set; }
     }
 }

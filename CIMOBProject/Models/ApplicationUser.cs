@@ -1,13 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using System.ComponentModel.DataAnnotations;
 
 namespace CIMOBProject.Models
 {
     // Add profile data for application users by adding properties to the ApplicationUser class
+    /// <summary>
+    /// This class will save the personal info of a user.
+    /// </summary>
     public class ApplicationUser : IdentityUser
     {
         [Required]
@@ -26,7 +26,7 @@ namespace CIMOBProject.Models
 
         [Required(ErrorMessage = "A morada é obrigatória.")]
         [Display(Name = "Morada")]
-        [StringLength(450,MinimumLength = 5,ErrorMessage = "A morada precisa de conter pelo menos 5 digitos.")]
+        [StringLength(450, MinimumLength = 5, ErrorMessage = "A morada precisa de conter pelo menos 5 digitos.")]
         public String UserAddress { get; set; }
 
         [Required(ErrorMessage = "O CC é obrigatório.")]
@@ -38,6 +38,9 @@ namespace CIMOBProject.Models
         [Display(Name = "Número de Telemóvel")]
         [RegularExpression(@"^[2356789]{1}[0-9]{8}$", ErrorMessage = "Não é um número válido.")]
         public override string PhoneNumber { get => base.PhoneNumber; set => base.PhoneNumber = value; }
+
+        [Display(Name = "Banido")]
+        public bool IsBanned { get; set; }
 
         public bool IsNotified { get; set; }
 

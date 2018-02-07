@@ -134,7 +134,7 @@ namespace XUnitTesting
                     UserAddress = "RuaTeste",
                     PostalCode = "2900-000",
                     BirthDate = new DateTime(1996, 1, 1),
-                    EmployeeNumber = 150221055
+                    EmployeeNumber = "150221055"
                 });
 
                 _context.Employees.Add(new Employee
@@ -147,7 +147,7 @@ namespace XUnitTesting
                     UserAddress = "RuaTeste",
                     PostalCode = "2900-000",
                     BirthDate = new DateTime(1996, 1, 1),
-                    EmployeeNumber = 150221055
+                    EmployeeNumber = "150221055"
                 });
                 _context.SaveChanges();
             }
@@ -167,7 +167,7 @@ namespace XUnitTesting
                     ArithmeticMean = 20.0,
                     ECTS = 120,
                     MotivationLetter = 20.0,
-                    Enterview = 20.0,
+                    Interview = 20.0,
                     FinalGrade = 20.0
                 });
 
@@ -183,7 +183,7 @@ namespace XUnitTesting
                     ArithmeticMean = 10.0,
                     ECTS = 120,
                     MotivationLetter = 10.0,
-                    Enterview = 10.0,
+                    Interview = 10.0,
                     FinalGrade = 10.0
                 });
 
@@ -227,15 +227,10 @@ namespace XUnitTesting
                 ArithmeticMean = 15.0,
                 ECTS = 66,
                 MotivationLetter = 15.0,
-                Enterview = 15.0,
+                Interview = 15.0,
                 FinalGrade = 15.0
             };
             var result = await controller.Edit(appTest.ApplicationId, appModelTest);
-
-            // Assert
-            /*var viewResult = Assert.IsType<ViewResult>(result);
-            var model = Assert.IsAssignableFrom<IEnumerable<Employee>>(
-                viewResult.ViewData.Model);*/
             _context.Entry(appTest).State = EntityState.Detached;
             appTest = _context.Applications.SingleOrDefault(a => a.ApplicationId == 1);
             Assert.Equal(15, appTest.FinalGrade);
@@ -292,12 +287,11 @@ namespace XUnitTesting
         [Fact]
         public async Task TestingSeriationSuccessfull()
         {
+            InitializeDatabaseWithDataTest();
             ApplicationsController controller = new ApplicationsController(_context);
             // Act
-            var result = await controller.Seriation();
-
+            await controller.Seriation();
             // Assert
-
             Assert.Equal(0, _context.Applications.Count(a => a.ApplicationStatId == 3));
         }
 
@@ -393,7 +387,6 @@ namespace XUnitTesting
         {
             ApplicationsController controller = new ApplicationsController(_context);
             // Act
-            String studentId = _context.Students.Where(s => s.UserFullname.Equals("Teste User 1")).FirstOrDefault().Id;
             var application = await _context.Applications.SingleOrDefaultAsync(a => a.ApplicationId == 1);
             application.ApplicationStatId = 4;
             _context.SaveChanges();
@@ -413,7 +406,6 @@ namespace XUnitTesting
         {
             ApplicationsController controller = new ApplicationsController(_context);
             // Act
-            String studentId = _context.Students.Where(s => s.UserFullname.Equals("Teste User 1")).FirstOrDefault().Id;
             var application = await _context.Applications.SingleOrDefaultAsync(a => a.ApplicationId == 1);
             application.ApplicationStatId = 2;
             _context.SaveChanges();
