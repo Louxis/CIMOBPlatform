@@ -1,6 +1,6 @@
 ﻿body {
-    padding-top: 40px;
-    background-color: #F1F1F1;
+    padding-top: 35px;
+    background-color: #F8F8F8;
 }
 
 h1 {
@@ -23,10 +23,14 @@ h4 {
 /* Wrapping element */
 /* Set some basic padding to keep content from hitting the edges */
 .body-content {
-    padding-left: 2%;
-    padding-right: 2%;
-    padding-bottom: 2%;
+    padding: 2%;
     min-height: 55vh;
+    margin-right: 5%;
+    margin-left: 5%;
+}
+
+.body-content h1{
+    margin-top: 0px;
 }
 
 /* Carousel */
@@ -47,7 +51,7 @@ h4 {
 
 /* Nav properties*/
 nav {
-    background-color: #FFC261;
+    background-color: #ffd587;
 }
 
 .navbar-nav li a {
@@ -55,9 +59,9 @@ nav {
 }
 
 /* Nav hover properties*/
-.navbar-nav li a:hover {
-    background-color: #FF9D00;
-}
+    .navbar-nav li a:hover {
+        background-color: #FFC261;
+    }
 
 /* Header properties*/
 header {
@@ -72,10 +76,11 @@ header {
 
 div.banner {
     width: auto;
-    height: 31.79vh;
+    min-height: 31.04vh;
+    max-height: 31.04vh;
     background-image: url('../images/banner.png');
     background-repeat: no-repeat;
-    background-size: contain;
+    background-size: cover;
 }
 
 .title {
@@ -141,10 +146,10 @@ div.title h2 {
     padding-right: 5%;
     max-width: 100%;
     height: 2.5em;
-    background-color: #FFC261;
+    background-color: #ffd587;
     border-top: 1px solid #9E9B96;
     border-bottom: 1px solid #9E9B96;
-    border-left:1px solid #9E9B96;
+    border-left: 1px solid #9E9B96;
     list-style-type: none;
     text-align: center;
 }
@@ -173,13 +178,13 @@ div.title h2 {
             .menubar li a.midmenuright{
                 border-left: 1px;
             }
-            
+
             .menubar li a:hover {
-                background-color: #FF9D00;
+                background-color: #FFC261;
             }
 
 .breadcrumb {
-    background-color: #FEDBA3;
+    background-color: #ffebba;
     margin: 0;
     padding-top: 2px;
     padding-bottom: 2px;
@@ -195,7 +200,7 @@ body {
 
 footer {
     width: 100%;
-    background-color: #FFC261;
+    background-color: #ffd587;
     border-top: 1px solid #9E9B96;
     height: 40px;
 }
@@ -205,7 +210,7 @@ footer {
 }
 
 .footer-contacts p {
-    margin: 0;
+    margin: 0px;
     line-height: 1.25;
 }
 
@@ -320,7 +325,7 @@ li .btn{
     background-color: white;
     margin-left: 5%;
     margin-right: 5%;
-    padding: 7px, 20px, 14px, 20px;
+    padding: 10px 20px 14px 20px;
 }
 
 .recent-news h1 {
@@ -331,12 +336,12 @@ li .btn{
     border: 1px solid #BBBBBB;
     border-radius: 15px;
     background-color: white;
-    padding: 7px, 20px, 20px, 7px;
+    padding: 10px 20px 20px 7px;
 }
 
 .trouble-ticket-answer-response {
     border: 1px solid #BBBBBB;
     border-radius: 15px;
     background-color: #FEDBA3;
-    padding: 7px, 20px, 20px, 7px;
+    padding: 10px 20px 20px 7px;
 }

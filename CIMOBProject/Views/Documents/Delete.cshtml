@@ -10,7 +10,6 @@
 <h3 class="description">Tem a certeza que quer eliminar este documento?</h3>
 <div>
     <h4>Document</h4>
-    <hr />
     <dl class="dl-horizontal">
         <dt>
             @Html.DisplayNameFor(model => model.Description)
@@ -34,7 +33,7 @@
     
     <form asp-action="Delete">
         <input type="hidden" asp-for="DocumentId" />
-        <input type="submit" value="Delete" class="btn btn-default" /> |
-        <a asp-action="Index" asp-route-applicationId="@Model.ApplicationId" class="btn btn-default">Back to List</a>
+        <input type="submit" value="Delete" class="btn btn-default" />
+        <a asp-action="Index" asp-route-applicationId="@Model.ApplicationId" class="btn btn-default">Voltar Atrás</a>
     </form>
 </div>
