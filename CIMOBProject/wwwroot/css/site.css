@@ -71,19 +71,11 @@ header {
 }
 
 div.banner {
-    padding-left: 5%;
-    padding-right: 5%;
-    max-width: 100%;
-}
-
-
-div.ipslogo {
-    background-image: url('../images/_ips-logotipo-site.png');
-    min-height: 25vh;
-    width: 27%;
-    background-size: contain;
+    width: auto;
+    height: 31.79vh;
+    background-image: url('../images/banner.png');
     background-repeat: no-repeat;
-    float:left;
+    background-size: contain;
 }
 
 .title {
@@ -328,10 +320,7 @@ li .btn{
     background-color: white;
     margin-left: 5%;
     margin-right: 5%;
-    padding-top: 7px;
-    padding-bottom: 14px;
-    padding-left: 20px;
-    padding-right: 20px;
+    padding: 7px, 20px, 14px, 20px;
 }
 
 .recent-news h1 {
@@ -342,18 +331,12 @@ li .btn{
     border: 1px solid #BBBBBB;
     border-radius: 15px;
     background-color: white;
-    padding-top: 7px;
-    padding-bottom: 7px;
-    padding-left: 20px;
-    padding-right: 20px;
+    padding: 7px, 20px, 20px, 7px;
 }
 
 .trouble-ticket-answer-response {
     border: 1px solid #BBBBBB;
     border-radius: 15px;
     background-color: #FEDBA3;
-    padding-top: 7px;
-    padding-bottom: 7px;
-    padding-left: 20px;
-    padding-right: 20px;
+    padding: 7px, 20px, 20px, 7px;
 }
