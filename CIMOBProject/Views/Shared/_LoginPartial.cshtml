@@ -17,7 +17,7 @@
                 }
                 else if (User.IsInRole("Employee"))
                 {
-                    <a asp-area="" asp-controller="Employees" asp-action="Details" asp-route-id=@UserManager.GetUserId(User) title="Manage">Bem Vindo @UserManager.GetUserName(User)!</a>
+                    <a asp-area="" asp-controller="Employees" asp-action="Details" asp-route-id=@UserManager.GetUserId(User) title="Manage">@await Component.InvokeAsync("UserFullName", new { id = @UserManager.GetUserId(User)})</a>
                 }
             </li>
             <li>
