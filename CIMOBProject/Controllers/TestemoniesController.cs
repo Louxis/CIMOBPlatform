@@ -26,12 +26,25 @@ namespace CIMOBProject.Controllers
 
         public async Task<IActionResult> Index(string userId)
         {
+
             var currentUser = _context.ApplicationUsers.Where(m => m.Id.Equals(userId)).SingleOrDefault();
+            ViewData["currentStudentApplication"] = "";
             var applicationDbContext = _context.Testemonies.Include(t => t.Student).OrderByDescending(t => t.CreationDate);
-            var currentStudentApplication = _context.Applications.Include(s => s.ApplicationStat)
-                .Where(a => a.StudentId.Equals(currentUser.Id)).OrderBy(a => a.ApplicationId).LastOrDefault();
-            ViewData["currentStudentApplication"] = currentStudentApplication;
+
+            if(currentUser != null)
+            {
+                var currentStudentApplication = _context.Applications.Include(s => s.ApplicationStat)
+                            .Where(a => a.StudentId.Equals(currentUser.Id)).OrderBy(a => a.ApplicationId).LastOrDefault();
+
+                if (currentStudentApplication != null)
+                {
+                    ViewData["currentStudentApplication"] = currentStudentApplication;
+                }
+            }
+
+
             return View(await applicationDbContext.ToListAsync());
+
         }
 
         /// <summary>

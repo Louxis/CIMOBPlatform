@@ -12,8 +12,8 @@ using System;
 namespace CIMOBProject.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20180206142638_StressTest")]
-    partial class StressTest
+    [Migration("20180207141523_NewMig")]
+    partial class NewMig
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -428,11 +428,15 @@ namespace CIMOBProject.Migrations
 
                     b.Property<DateTime>("CreationDate");
 
+                    b.Property<int?>("DocumentId");
+
                     b.Property<int>("TroubleTicketId");
 
                     b.HasKey("TroubleTicketAnswerId");
 
                     b.HasIndex("ApplicationUserId");
+
+                    b.HasIndex("DocumentId");
 
                     b.HasIndex("TroubleTicketId");
 
@@ -698,6 +702,10 @@ namespace CIMOBProject.Migrations
                     b.HasOne("CIMOBProject.Models.ApplicationUser", "ApplicationUser")
                         .WithMany()
                         .HasForeignKey("ApplicationUserId");
+
+                    b.HasOne("CIMOBProject.Models.Document", "Document")
+                        .WithMany()
+                        .HasForeignKey("DocumentId");
 
                     b.HasOne("CIMOBProject.Models.TroubleTicket", "TroubleTicket")
                         .WithMany("Answers")

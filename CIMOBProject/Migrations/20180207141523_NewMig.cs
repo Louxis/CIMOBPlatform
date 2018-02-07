@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace CIMOBProject.Migrations
 {
-    public partial class StressTest : Migration
+    public partial class NewMig : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -401,34 +401,6 @@ namespace CIMOBProject.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "TroubleTicketAnswers",
-                columns: table => new
-                {
-                    TroubleTicketAnswerId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    ApplicationUserId = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    Content = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    CreationDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    TroubleTicketId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_TroubleTicketAnswers", x => x.TroubleTicketAnswerId);
-                    table.ForeignKey(
-                        name: "FK_TroubleTicketAnswers_AspNetUsers_ApplicationUserId",
-                        column: x => x.ApplicationUserId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_TroubleTicketAnswers_TroubleTicket_TroubleTicketId",
-                        column: x => x.TroubleTicketId,
-                        principalTable: "TroubleTicket",
-                        principalColumn: "TroubleTicketId",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "ApplicationStatHistory",
                 columns: table => new
                 {
@@ -535,6 +507,41 @@ namespace CIMOBProject.Migrations
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "TroubleTicketAnswers",
+                columns: table => new
+                {
+                    TroubleTicketAnswerId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    ApplicationUserId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    Content = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CreationDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    DocumentId = table.Column<int>(type: "int", nullable: true),
+                    TroubleTicketId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TroubleTicketAnswers", x => x.TroubleTicketAnswerId);
+                    table.ForeignKey(
+                        name: "FK_TroubleTicketAnswers_AspNetUsers_ApplicationUserId",
+                        column: x => x.ApplicationUserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_TroubleTicketAnswers_Documents_DocumentId",
+                        column: x => x.DocumentId,
+                        principalTable: "Documents",
+                        principalColumn: "DocumentId",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_TroubleTicketAnswers_TroubleTicket_TroubleTicketId",
+                        column: x => x.TroubleTicketId,
+                        principalTable: "TroubleTicket",
+                        principalColumn: "TroubleTicketId",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
@@ -675,6 +682,11 @@ namespace CIMOBProject.Migrations
                 name: "IX_TroubleTicketAnswers_ApplicationUserId",
                 table: "TroubleTicketAnswers",
                 column: "ApplicationUserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TroubleTicketAnswers_DocumentId",
+                table: "TroubleTicketAnswers",
+                column: "DocumentId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_TroubleTicketAnswers_TroubleTicketId",
