@@ -9,11 +9,11 @@
 
    <form asp-area="" asp-controller="Account" asp-action="Logout" method="post" id="logoutForm" class="navbar-right">
         <ul class="nav navbar-nav navbar-right">
-            <li><a asp-action="Index" asp-controller="TroubleTickets" asp-route-userId="@UserManager.GetUserId(User)" class="btn btn-default">Trouble Ticket</a></li>
+            <li><a asp-action="Index" asp-controller="TroubleTickets" asp-route-userId="@UserManager.GetUserId(User)" class="btn btn-default">@await Component.InvokeAsync("TtNotification", new { id = @UserManager.GetUserId(User) })</a></li>
             <li>
                 @if (User.IsInRole("Student"))
                 {
-                    <a asp-area="" asp-controller="Students" asp-action="Details" asp-route-id=@UserManager.GetUserId(User) title="Manage" id="Details">Bem Vindo @UserManager.GetUserName(User)!</a>
+                    <a asp-area="" asp-controller="Students" asp-action="Details" asp-route-id=@UserManager.GetUserId(User) title="Manage" id="Details">@await Component.InvokeAsync("UserFullName", new { id = @UserManager.GetUserId(User) })</a>
                 }
                 else if (User.IsInRole("Employee"))
                 {
