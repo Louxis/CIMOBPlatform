@@ -23,5 +23,8 @@ namespace CIMOBProject.Models
 
         [Display(Name = "Data de Envio")]
         public DateTime CreationDate { get; set; }
+
+        public int? DocumentId { get; set; }
+        public Document Document { get; set; }
     }
 }

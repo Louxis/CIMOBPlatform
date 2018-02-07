@@ -29,6 +29,8 @@
             <br />
             <label>Repondido por:&nbsp;</label>@Html.DisplayFor(modelItem => item.ApplicationUser.UserFullname)
             <br />
+            <label>Anexo:&nbsp;</label><a href="@Html.DisplayFor(modelItem => item.Document.FileUrl)">@Html.DisplayFor(modelItem => item.Document.FileUrl)</a>
+            <br />
             <label>@Html.DisplayNameFor(model => model.CreationDate):&nbsp;</label>@Html.DisplayFor(modelItem => item.CreationDate)
         </div>
         <br />
