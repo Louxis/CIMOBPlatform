@@ -29,6 +29,14 @@
                 <textarea asp-for="Content" class="form-control"> </textarea>
                 <span asp-validation-for="Content" class="text-danger"></span>
             </div>
+            @if ((User.IsInRole("Student") && !ViewData["Application"].Equals("")) || (User.IsInRole("Employee")))
+            {
+                <div class="form-group">
+                    <label for="link-text" class="control-label">Link do documento</label>  <div class="tooltip">(?)<span class="tooltiptext">@ViewData["DocumentTip"]</span></div><br />
+                    <input id="link-text" type="text" name="link" class="form-control" />
+                </div>
+            }
+
             @Html.Hidden("TroubleTicketId")
             @Html.Hidden("ApplicationUserId")
             @Html.Hidden("CreationDate")

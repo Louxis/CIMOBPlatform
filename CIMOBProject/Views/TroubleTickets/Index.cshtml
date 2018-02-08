@@ -25,12 +25,12 @@ else
         <option value="NoFilter">Sem filtro</option>
         <option value="Sent">Tickets Enviados</option>
         <option value="Received">Tickets Recebidos</option>
+        <option value="OlderFirst">Antigos Primeiro</option>
     </select>
 
     <input class="search-box" hidden="hidden" type="text" name="userId" value="@UserManager.GetUserId(User)" />
 
     <input type="submit" class="btn btn-default" value="Filtrar"> &nbsp;
-    <a asp-action="Index" asp-route-userId="@UserManager.GetUserId(User)" asp-route-listOrder="OlderFirst" class="btn btn-default">Mostrar Mais Antigos Primeiro</a>
 </form>
 
      

@@ -1,0 +1,15 @@
+﻿@if(ViewData["Notified"] != null)
+{
+    @if ((bool)ViewData["Notified"])
+    {
+        <p>NOTICE ME</p>
+    }
+    else
+    {
+        <p>UGUUU</p>
+    }
+}
+else
+{
+    <p>Trouble Ticket</p>
+}

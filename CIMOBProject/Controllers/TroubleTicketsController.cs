@@ -26,25 +26,19 @@ namespace CIMOBProject.Controllers
             _context = context;
         }
 
-        public async Task<IActionResult> Index(string userId, string ticketFilter, string listOrder)
+        public async Task<IActionResult> Index(string userId, string ticketFilter)
         {
-            
+            ViewData["Students"] = _context.Students.ToList();
             var applicationDbContext = _context.TroubleTickets.Include(t => t.ApplicationUser).Include(t =>t.Answers);
             if (User.IsInRole("Student"))
             {
                 var student = _context.Students.Where(s => s.Id == userId).SingleOrDefault();
+                student.IsNotified = false;
+                await _context.SaveChangesAsync();
                 var studentTroubleTickets = applicationDbContext.Where(t => t.ApplicationUserId == userId || t.StudentNumber == student.StudentNumber);
                 if (String.IsNullOrEmpty(ticketFilter))
                 {
-                    if (String.IsNullOrEmpty(listOrder))
-                    {
-                        return View(await studentTroubleTickets.OrderByDescending(t => t.CreationDate).ToListAsync());
-                    }
-                    else
-                    {
-                        return View(await studentTroubleTickets.OrderBy(t => t.CreationDate).ToListAsync());
-                    }
-                    
+                    return View(await studentTroubleTickets.OrderByDescending(t => t.CreationDate).ToListAsync());
                 }
                 if (ticketFilter.Equals("Sent"))
                 {
@@ -62,29 +56,26 @@ namespace CIMOBProject.Controllers
                 {
                     studentTroubleTickets = studentTroubleTickets.Where(t => t.Solved == true);
                 }
-                if (String.IsNullOrEmpty(listOrder))
-                {
-                    return View(await studentTroubleTickets.OrderByDescending(t => t.CreationDate).ToListAsync());
-                }
-                else
+                if (ticketFilter.Equals("OlderFirst") || String.IsNullOrEmpty(ticketFilter))
                 {
                     return View(await studentTroubleTickets.OrderBy(t => t.CreationDate).ToListAsync());
                 }
+                else
+                {
+                    return View(await studentTroubleTickets.OrderByDescending(t => t.CreationDate).ToListAsync());
+                }
             }
             else if (User.IsInRole("Employee"))
-            { 
+            {
+                var employee = _context.Employees.Where(e => e.Id.Equals(userId)).SingleOrDefault();
+                employee.IsNotified = false;
+                await _context.SaveChangesAsync();
                 var troubleTickets = applicationDbContext.Where(t => t.ApplicationUserId == userId || String.IsNullOrEmpty(t.StudentNumber));
-                if (String.IsNullOrEmpty(ticketFilter))
+                if(String.IsNullOrEmpty(ticketFilter))
                 {
-                    if (String.IsNullOrEmpty(listOrder))
-                    {
-                        return View(await troubleTickets.OrderByDescending(t => t.CreationDate).ToListAsync());
-                    }
-                    else
-                    {
-                        return View(await troubleTickets.OrderBy(t => t.CreationDate).ToListAsync());
-                    }
+                    return View(await troubleTickets.OrderByDescending(t => t.CreationDate).ToListAsync());
                 }
+
                 if (ticketFilter.Equals("Sent"))
                 {
                     troubleTickets = troubleTickets.Where(t => t.ApplicationUserId == userId);
@@ -96,18 +87,17 @@ namespace CIMOBProject.Controllers
                 {
                     troubleTickets = troubleTickets.Where(t => t.Solved == true);
                 }
-                if (String.IsNullOrEmpty(listOrder))
+                if (ticketFilter.Equals("OlderFirst"))
                 {
-                    return View(await troubleTickets.OrderByDescending(t => t.CreationDate).ToListAsync());
+                    return View(await troubleTickets.OrderBy(t => t.CreationDate).ToListAsync());
                 }
                 else
                 {
-                    return View(await troubleTickets.OrderBy(t => t.CreationDate).ToListAsync());
+                    return View(await troubleTickets.OrderByDescending(t => t.CreationDate).ToListAsync());
                 }
             }
             else
             {
-                //to error this.
                 return View();
             }
         }
@@ -132,7 +122,7 @@ namespace CIMOBProject.Controllers
             var troubleTicket = await _context.TroubleTicket
                 .Include(t => t.ApplicationUser)
                 .SingleOrDefaultAsync(m => m.TroubleTicketId == id);
-            var answersList = _context.TroubleTicketAnswers.Include(t => t.ApplicationUser).Include(t => t.TroubleTicket).Where(t => t.TroubleTicketId == id).ToList();
+            var answersList = _context.TroubleTicketAnswers.Include(t => t.ApplicationUser).Include(t => t.TroubleTicket).Include(t => t.Document).Where(t => t.TroubleTicketId == id).ToList();
             ViewData["AnswersList"] = answersList;
             if (troubleTicket == null)
             {
@@ -160,10 +150,11 @@ namespace CIMOBProject.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("TroubleTicketId,Title,Description,CreationDate,Solved,ApplicationUserId,StudentNumber")] TroubleTicket troubleTicket)
         {
-            
+            var student = _context.Students.Where(a => a.StudentNumber.Equals(troubleTicket.StudentNumber)).FirstOrDefault();
             if (User.IsInRole("Employee"))
             {
-               if( _context.Students.Where(a => a.StudentNumber.Equals(troubleTicket.StudentNumber)).FirstOrDefault() == null)
+               
+               if ( student == null)
                 {
                     ViewData["ApplicationUserId"] = _context.ApplicationUsers.Where(a => a.Id == troubleTicket.ApplicationUserId).SingleOrDefault();
                     ViewData["ErrorMessage"] = "Não existe um estudante com esse número";
@@ -172,6 +163,18 @@ namespace CIMOBProject.Controllers
             }
             if (ModelState.IsValid)
             {
+                if (User.IsInRole("Employee"))
+                {
+                    student.IsNotified = true;
+                }
+                if (User.IsInRole("Student"))
+                {
+                    var employees = _context.Employees.ToList();
+                    foreach(Employee e in employees)
+                    {
+                        e.IsNotified = true;
+                    }
+                }
                 troubleTicket.Answers = new List<TroubleTicketAnswer>();
                 _context.Add(troubleTicket);
                 await _context.SaveChangesAsync();

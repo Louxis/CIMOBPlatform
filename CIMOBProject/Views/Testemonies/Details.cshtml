@@ -1,4 +1,6 @@
 ﻿@model CIMOBProject.Models.Testemony
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
 
 @{
     ViewData["Title"] = "Detalhes de Testemunho";
@@ -15,4 +17,5 @@
 <hr />
 <div>
     <a asp-action="Index" class="btn btn-default">Voltar Atrás</a>
+    <a class="btn btn-default" asp-controller="Testemonies" asp-action="ValidateTestemony" asp-route-testemonyId="@Model.TestemonyId" asp-route-userId=@UserManager.GetUserId(User)>Validar Publicação</a>
 </div>

@@ -9,6 +9,7 @@
 @{ 
     ViewData["OpenTTs"] = Model.Where(t => t.Solved == false);
     ViewData["ClosedTTs"] = Model.Where(t => t.Solved == true);
+    IEnumerable<Student> students = ViewData["Students"] as IEnumerable<Student>;
 }
 <table class="table">
     <thead>
@@ -17,7 +18,10 @@
                 @Html.DisplayNameFor(model => model.Title)
             </th>
             <th>
-                Origem
+                Remetente
+            </th>
+            <th>
+                Destinatário
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.CreationDate)
@@ -38,6 +42,18 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.ApplicationUser.UserFullname)
                 </td>
+                @if (item.StudentNumber != null)
+                {
+                    <td>
+                        @students.Where(s => s.StudentNumber == item.StudentNumber).SingleOrDefault().UserFullname
+                    </td>
+                }
+                else 
+                {
+                    <td>
+                        Suporte CIMOB
+                    </td>
+                }
                 <td>
                     @Html.DisplayFor(modelItem => item.CreationDate)
                 </td>
@@ -66,7 +82,10 @@
                 @Html.DisplayNameFor(model => model.Title)
             </th>
             <th>
-                Origem
+                Remetente
+            </th>
+            <th>
+                Destinatário
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.CreationDate)
@@ -87,6 +106,18 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.ApplicationUser.UserFullname)
                 </td>
+                @if (item.StudentNumber != null)
+                {
+                    <td>
+                        @students.Where(s => s.StudentNumber == item.StudentNumber).SingleOrDefault().UserFullname
+                    </td>
+                }
+                else
+                {
+                    <td>
+                        Suporte CIMOB
+                    </td>
+                }
                 <td>
                     @Html.DisplayFor(modelItem => item.CreationDate)
                 </td>

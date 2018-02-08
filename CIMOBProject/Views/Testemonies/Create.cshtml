@@ -1,5 +1,8 @@
 ﻿@model CIMOBProject.Models.Testemony
 
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
 @{
     ViewData["Title"] = "Novo Testemunho";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -26,7 +29,7 @@
             <hr />
             <div class="form-group">
                 <input type="submit" value="Criar" class="btn btn-default" />
-                <a asp-action="Index" class="btn btn-default">Voltar Atrás</a>
+                <a asp-action="Index" asp-route-userId=@UserManager.GetUserId(User) class="btn btn-default">Voltar Atrás</a>
             </div>
         </form>
     </div>

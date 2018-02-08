@@ -26,12 +26,38 @@ namespace CIMOBProject.Controllers
 
         public async Task<IActionResult> Index(string userId)
         {
+
             var currentUser = _context.ApplicationUsers.Where(m => m.Id.Equals(userId)).SingleOrDefault();
+            ViewData["currentStudentApplication"] = "";
             var applicationDbContext = _context.Testemonies.Include(t => t.Student).OrderByDescending(t => t.CreationDate);
-            var currentStudentApplication = _context.Applications.Include(s => s.ApplicationStat)
-                .Where(a => a.StudentId.Equals(currentUser.Id)).OrderBy(a => a.ApplicationId).LastOrDefault();
-            ViewData["currentStudentApplication"] = currentStudentApplication;
+
+            if(currentUser != null)
+            {
+                
+                var currentStudentApplication = _context.Applications.Include(s => s.ApplicationStat)
+                            .Where(a => a.StudentId.Equals(currentUser.Id)).OrderBy(a => a.ApplicationId).LastOrDefault();
+                ViewData["currentStudentApplication"] = "";
+                ViewData["testemony"] = "";
+                if (currentStudentApplication != null)
+                {
+
+                    var latestEdital = _context.Editals.Where(e => e.OpenDate <= currentStudentApplication.CreationDate && e.CloseDate >= currentStudentApplication.CreationDate).LastOrDefault();
+                    var userTestemony = _context.Testemonies.Include(t => t.Student).Where(t => t.Student.Id.Equals(currentUser.Id)
+                                                        && ((latestEdital.OpenDate <= t.CreationDate)
+                                                        || (latestEdital.CloseDate <= t.CreationDate))).SingleOrDefault();
+                    
+                    if (userTestemony != null)
+                    {
+                        ViewData["testemony"] = userTestemony;
+                    }
+                    
+                    ViewData["currentStudentApplication"] = currentStudentApplication;
+                }
+            }
+
+
             return View(await applicationDbContext.ToListAsync());
+
         }
 
         /// <summary>

@@ -18,7 +18,7 @@ namespace CIMOBProject.Models
         public virtual Application Application { get; set; }
 
         [ValidateDay]
-        [DataType(DataType.Date)]
+        [DataType(DataType.DateTime)]
         [Display(Name = "Data da entrevista")]
         public DateTime InterviewDate { get; set; }
     }

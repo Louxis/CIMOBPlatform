@@ -33,7 +33,6 @@ namespace CIMOBProject.Models
         public string EmployeeId { get; set; }
 
         public virtual Employee Employee { get; set; }
-
         
 
     }
