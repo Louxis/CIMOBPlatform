@@ -4,66 +4,70 @@
     ViewData["Title"] = "Seriation";
 }
 
-<h1>Seriação</h1>
-<h3 class="description">Listagem de todos os alunos que concorreram ao programa de mobilidade Erasmus.</h3>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Student.UserFullname)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Student.CollegeSubject.College.CollegeName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Student.CollegeSubject.SubjectName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.FinalGrade)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.BilateralProtocol1Id)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ApplicationStat.Name)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
+<div>
+    <h1>Seriação</h1>
+    <h3 class="description">Listagem de todos os alunos que concorreram ao programa de mobilidade Erasmus.</h3>
+    <table class="table">
+        <thead>
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Student.UserFullname)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Student.CollegeSubject.College.CollegeName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Student.CollegeSubject.SubjectName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.FinalGrade)
-                </td>
-                <td>
-                    @if (item.BilateralProtocol1 != null)
-                    {
-                        @Html.DisplayFor(modelItem => item.BilateralProtocol1.Destination)
-                    }
-                    else if (item.BilateralProtocol2 != null)
-                    {
-                        @Html.DisplayFor(modelItem => item.BilateralProtocol2.Destination)
-                    }
-                    else
-                    {
-                        @Html.DisplayFor(modelItem => item.BilateralProtocol3.Destination)
-                    }
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ApplicationStat.Name)
-                </td>
+                <th>
+                    @Html.DisplayNameFor(model => model.Student.UserFullname)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Student.CollegeSubject.College.CollegeName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Student.CollegeSubject.SubjectName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FinalGrade)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.BilateralProtocol1Id)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ApplicationStat.Name)
+                </th>
+                <th></th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Student.UserFullname)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Student.CollegeSubject.College.CollegeName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Student.CollegeSubject.SubjectName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FinalGrade)
+                    </td>
+                    <td>
+                        @if (item.BilateralProtocol1 != null)
+                        {
+                            @Html.DisplayFor(modelItem => item.BilateralProtocol1.Destination)
+                        }
+                        else if (item.BilateralProtocol2 != null)
+                        {
+                            @Html.DisplayFor(modelItem => item.BilateralProtocol2.Destination)
+                        }
+                        else
+                        {
+                            @Html.DisplayFor(modelItem => item.BilateralProtocol3.Destination)
+                        }
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ApplicationStat.Name)
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <hr />
+    <a href='javascript:history.go(-1)' class="btn btn-default">Voltar Atrás</a>
+</div>

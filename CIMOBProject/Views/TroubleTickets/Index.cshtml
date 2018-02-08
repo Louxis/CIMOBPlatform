@@ -20,7 +20,6 @@ else
 
 <h1>Trouble Tickets</h1>
 <h3 class="description">Aqui poderá encontrar todos os seu Trouble Tickets.</h3>
-
 <form asp-controller="TroubleTickets" asp-action="Index" method="get">
     <select class="search-options" for="ticketFilter" name="ticketFilter">
         <option value="NoFilter">Sem filtro</option>
@@ -37,7 +36,6 @@ else
      
  <br />
  @Html.Partial("_IndexPartial", Model)
-
     <hr />
     <div>
         <a class="btn btn-default" asp-action="Create" asp-route-userId="@UserManager.GetUserId(User)">Novo Trouble Ticket</a>

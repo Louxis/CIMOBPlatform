@@ -53,9 +53,11 @@ else
     </tbody>
 </table>
 }
+<hr />
 @if (ViewData["EvaluationApp"].Equals("false")) {
     <a asp-action="Create" asp-controller="Documents" asp-route-applicationId="@ViewData["ApplicationId"]" class="btn btn-default">Novo documento</a>
 }
+<a href='javascript:history.go(-1)' class="btn btn-default">Voltar Atrás</a>
     
 
 
