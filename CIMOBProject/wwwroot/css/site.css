@@ -149,7 +149,6 @@ div.title h2 {
     background-color: #ffd587;
     border-top: 1px solid #9E9B96;
     border-bottom: 1px solid #9E9B96;
-    border-left: 1px solid #9E9B96;
     list-style-type: none;
     text-align: center;
 }
@@ -158,6 +157,7 @@ div.title h2 {
         height: 2.3em;
         width: 25%;
         float: left;
+        align-content:center;
     }
 
         .menubar li:first-child {
@@ -343,3 +343,46 @@ li .btn{
     background-color: #FEDBA3;
     padding: 10px 20px 20px 7px;
 }
+
+.dropdown {
+    float: left;
+    overflow: hidden;
+}
+
+    .dropdown:hover {
+        overflow: initial;
+    }
+
+.dropdown-content {
+    background-color: #ffebba;
+    position: relative;
+    left: -1.5px;
+    min-width: calc(100% + 1.5px);
+    z-index: 1;
+    border-left: 1px solid #9E9B96;
+}
+
+    .dropdown-content a {
+        border-bottom: 1px solid #9E9B96;
+    }
+
+        .dropdown-content a:first-child {
+            border-top: 1px solid #9E9B96;
+        }
+
+.dropdown-content-applications {
+    background-color: #ffebba;
+    position: relative;
+    left: -1px;
+    min-width: calc(100% + 1px);
+    z-index: 1;
+    border-left: 1px solid #9E9B96;
+}
+
+.dropdown-content-applications a {
+    border-bottom: 1px solid #9E9B96;
+}
+
+    .dropdown-content-applications a:first-child {
+        border-top: 1px solid #9E9B96;
+    }

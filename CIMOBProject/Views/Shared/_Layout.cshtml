@@ -45,23 +45,53 @@
         <div class="banner"></div>
         <div class="menu-container">
             <ul class="menubar">
-                <li><a asp-area="" asp-controller="Home" asp-action="Index">Início</a></li>
+                <li class="dropdown">
+                    <a asp-area="" asp-controller="Home" asp-action="Index">Início</a>
+                </li>
                 @if (User.IsInRole("Employee"))
                 {
-                    <li><a asp-area="" asp-controller="News" asp-action="Index" id="News">Publicações</a></li>
+                    <li class="dropdown">
+                        <a asp-area="" asp-controller="News" asp-action="Index" id="News">Publicações</a>
+                        <div class="dropdown-content">
+                            <a asp-area="" asp-controller="News" asp-action="Index">Todas as Publicações</a>
+                            <a asp-area="" asp-controller="News" asp-action="RecentNews">Publicações Recentes</a>
+                            <a href="#">Testemunhos</a>
+                        </div>
+                    </li>
                 }
                 else
                 {
-                    <li><a asp-area="" asp-controller="News" asp-action="RecentNews" id="News">Publicações</a></li>
+                    <li class="dropdown">
+                        <a asp-area="" asp-controller="News" asp-action="RecentNews" id="News">Publicações</a>
+                        <div class="dropdown-content">
+                            <a asp-area="" asp-controller="News" asp-action="Index">Todas as Publicações</a>
+                            <a asp-area="" asp-controller="News" asp-action="RecentNews">Publicações Recentes</a>
+                            <a href="#">Testemunhos</a>
+                        </div>
+                    </li>
                 }
                 @if (User.IsInRole("Employee"))
                 {
-                    <li><a asp-area="" asp-controller="Applications" asp-action="Index" asp-route-employeeId = "@UserManager.GetUserId(User)" id="Application">Candidaturas</a></li>
+                    <li class="dropdown">
+                        <a asp-area="" asp-controller="Applications" asp-action="Index" asp-route-employeeId = "@UserManager.GetUserId(User)" id="Application">Candidaturas</a>
+                        <div class="dropdown-content-applications">
+                            <a href="#">Link 1</a>
+                            <a href="#">Link 2</a>
+                            <a href="#">Link 3</a>
+                        </div>
+                    </li>
                 }
                 else if (User.IsInRole("Student"))
                 {
                     
-                    <li><a asp-area="" asp-controller="Home" asp-action="Application" asp-route-userId="@UserManager.GetUserId(User)" id="Application">Candidaturas</a></li>
+                    <li class="dropdown">
+                        <a asp-area="" asp-controller="Home" asp-action="Application" asp-route-userId="@UserManager.GetUserId(User)" id="Application">Candidaturas</a>
+                        <div class="dropdown-content-applications">
+                            <a href="#">Link 1</a>
+                            <a href="#">Link 2</a>
+                            <a href="#">Link 3</a>
+                        </div>
+                    </li>
                 }
                 else
                 {
