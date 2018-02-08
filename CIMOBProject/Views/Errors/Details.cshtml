@@ -1,12 +1,11 @@
 ﻿@model CIMOBProject.Models.Error
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Detalhes de Erro";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Details</h2>
-
+<h1>Detalhes de Erro</h1>
 <div>
     <h4>Error</h4>
     <hr />
@@ -25,7 +24,8 @@
         </dd>
     </dl>
 </div>
+<hr />
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-default">Editar</a>
+    <a asp-action="Index" class="btn btn-default">Voltar Atrás</a>
 </div>

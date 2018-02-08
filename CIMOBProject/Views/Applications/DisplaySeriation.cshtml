@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<CIMOBProject.Models.Application>
 
 @{
-    ViewData["Title"] = "Seriation";
+    ViewData["Title"] = "Seriação";
 }
 
 <div>
@@ -69,5 +69,5 @@
         </tbody>
     </table>
     <hr />
-    <a href='javascript:history.go(-1)' class="btn btn-default">Voltar Atrás</a>
+    <a asp-area="" asp-controller="News" asp-action="RecentNews" id="News" class="btn btn-default">Voltar Atrás</a>
 </div>

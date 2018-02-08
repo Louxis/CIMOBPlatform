@@ -2,6 +2,10 @@
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
 
+@{
+    ViewData["Title"] = "Terminar Candidatura";
+}
+
 <h1>Terminar a candaidatura do estudante @Model.Student.UserFullname</h1>
 <div class="applications">
     <h3>Tem a certeza que deseja terminar a candidatura do estudante @Model.Student.UserFullname</h3>

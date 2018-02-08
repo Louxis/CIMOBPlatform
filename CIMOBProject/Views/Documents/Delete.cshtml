@@ -1,12 +1,11 @@
 ﻿@model CIMOBProject.Models.Document
 
 @{
-    ViewData["Title"] = "Delete";
+    ViewData["Title"] = "Eliminar Documento";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h1>Apagar Documento</h1>
-
 <h3 class="description">Tem a certeza que quer eliminar este documento?</h3>
 <div>
     <h4>Document</h4>
@@ -33,7 +32,7 @@
     <hr />
     <form asp-action="Delete">
         <input type="hidden" asp-for="DocumentId" />
-        <input type="submit" value="Delete" class="btn btn-default" />
+        <input type="submit" value="Apagar" class="btn btn-default" />
         <a asp-action="Index" asp-route-applicationId="@Model.ApplicationId" class="btn btn-default">Voltar Atrás</a>
     </form>
 </div>

@@ -1,7 +1,7 @@
 ﻿@model CIMOBProject.Models.Document
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Novo Documento";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -23,12 +23,13 @@
             </div>
             @Html.Hidden("ApplicationId")
             <div class="form-group">
+                <hr />
+                <a href='javascript:history.go(-1)' class="btn btn-default">Voltar Atrás</a>
                 <input type="submit" value="Adicionar Documento" class="btn btn-default" />
             </div>
         </form>
     </div>
-    <hr />
-    <a href='javascript:history.go(-1)' class="btn btn-default">Voltar Atrás</a>
+    
 </div>
 
 @section Scripts {

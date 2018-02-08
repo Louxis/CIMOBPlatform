@@ -1,15 +1,11 @@
 ﻿@model IEnumerable<CIMOBProject.Models.Error>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Erros";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
-
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+<h1>Erros</h1>
 <table class="table">
     <thead>
         <tr>
@@ -32,11 +28,13 @@
                 @Html.DisplayFor(modelItem => item.ErrorDescription)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-default">Editar</a>
+                <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-default">Detalhes</a>
+                <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-default">Apagar</a>
             </td>
         </tr>
 }
     </tbody>
 </table>
+<hr />
+<a asp-action="Create" class="btn btn-default">Novo Erro</a>
