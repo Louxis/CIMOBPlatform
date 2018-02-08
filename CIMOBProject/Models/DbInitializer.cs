@@ -294,7 +294,7 @@ namespace CIMOBProject.Models
                     ArithmeticMean = 7.0,
                     ECTS = 78,
                     MotivationLetter = 8.0,
-                    Enterview = 9.0,
+                    Interview = 9.0,
                     FinalGrade = 8.0
                 });*/
                 context.Applications.Add(new Application

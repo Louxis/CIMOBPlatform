@@ -4,6 +4,9 @@ using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using CIMOBProject.Models;
 using CIMOBProject.Data;
+using Microsoft.AspNetCore.Hosting.Server;
+using StackExchange.Redis;
+using System.IO;
 
 namespace CIMOBProject.Controllers
 {
