@@ -85,11 +85,17 @@ else
 <div>
     @if (User.IsInRole("Student"))
     {
-        Application currentStudentApplication = ViewData["currentStudentApplication"] as Application;
-        if (currentStudentApplication.ApplicationStatId == 6)
+
+
+        if (!ViewData["currentStudentApplication"].ToString().Equals(""))
         {
-            <a class="btn btn-default" asp-action="Create" asp-route-userId="@UserManager.GetUserId(User)">Novo Testemunho</a>
+            Application currentStudentApplication = ViewData["currentStudentApplication"] as Application;
+            if (currentStudentApplication.ApplicationStatId == 6 && ViewData["testemony"].ToString().Equals(""))
+            {
+                <a class="btn btn-default" asp-action="Create" asp-route-userId="@UserManager.GetUserId(User)">Novo Testemunho</a>
+            }
         }
+
     }
     <a class="btn btn-default" asp-controller="News" asp-action="Index">Publicações</a>
 </div>

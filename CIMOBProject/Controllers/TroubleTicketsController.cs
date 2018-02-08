@@ -28,12 +28,13 @@ namespace CIMOBProject.Controllers
 
         public async Task<IActionResult> Index(string userId, string ticketFilter)
         {
-            
+            ViewData["Students"] = _context.Students.ToList();
             var applicationDbContext = _context.TroubleTickets.Include(t => t.ApplicationUser).Include(t =>t.Answers);
             if (User.IsInRole("Student"))
             {
                 var student = _context.Students.Where(s => s.Id == userId).SingleOrDefault();
                 student.IsNotified = false;
+                await _context.SaveChangesAsync();
                 var studentTroubleTickets = applicationDbContext.Where(t => t.ApplicationUserId == userId || t.StudentNumber == student.StudentNumber);
                 if (String.IsNullOrEmpty(ticketFilter))
                 {
@@ -68,6 +69,7 @@ namespace CIMOBProject.Controllers
             {
                 var employee = _context.Employees.Where(e => e.Id.Equals(userId)).SingleOrDefault();
                 employee.IsNotified = false;
+                await _context.SaveChangesAsync();
                 var troubleTickets = applicationDbContext.Where(t => t.ApplicationUserId == userId || String.IsNullOrEmpty(t.StudentNumber));
                 if(String.IsNullOrEmpty(ticketFilter))
                 {

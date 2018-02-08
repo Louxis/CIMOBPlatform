@@ -56,6 +56,31 @@ namespace CIMOBProject.Controllers
                 {
                     troubleTicketAnswer.Document = CreateAndValidateDocument(troubleTicketAnswer, link);
                 }
+                if (User.IsInRole("Student"))
+                {
+                    var employees = _context.Employees.ToList();
+                    foreach (Employee e in employees)
+                    {
+                        e.IsNotified = true;
+                    }
+                }
+                if (User.IsInRole("Employee"))
+                {
+                    var troubleTicket = _context.TroubleTickets.Where(t => t.TroubleTicketId == troubleTicketAnswer.TroubleTicketId).SingleOrDefault();
+                    
+                    if (troubleTicket.StudentNumber != null)
+                    {
+                       var student = _context.Students.Where(s => s.StudentNumber == troubleTicket.StudentNumber).SingleOrDefault();
+                       student.IsNotified = true;
+                    }
+                    else
+                    {
+                        var student = _context.Students.Where(s => s.Id.Equals(troubleTicket.ApplicationUserId)).SingleOrDefault();
+                        student.IsNotified = true; 
+                    }
+                    
+                    
+                }
                 _context.Add(troubleTicketAnswer);
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Details", "TroubleTickets", new { id = troubleTicketAnswer.TroubleTicketId });
