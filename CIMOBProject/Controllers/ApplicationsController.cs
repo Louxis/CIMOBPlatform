@@ -9,6 +9,7 @@ using CIMOBProject.Models;
 using Microsoft.AspNetCore.Authorization;
 using CIMOBProject.Services;
 using System.Security.Claims;
+using System.Collections.Generic;
 
 namespace CIMOBProject.Controllers
 {
@@ -39,24 +40,29 @@ namespace CIMOBProject.Controllers
         [Authorize(Roles = "Employee")]
         public async Task<IActionResult> Index(String employeeId)
         {
-            DateTime openDate = _context.Editals.Last().OpenDate;
-            DateTime closeDate = _context.Editals.Last().CloseDate;
+            Edital lastEdital = _context.Editals.Last();
+            if(lastEdital == null)
+            {
+                return View(new List<Application>());
+            }
+            DateTime lastOpenDate = lastEdital.OpenDate;
+            DateTime lastCloseDate = lastEdital.CloseDate;
             var applications = _context.Applications.Include(a => a.ApplicationStat)
                 .Include(a => a.Employee).Include(a => a.Student).Include(a => a.BilateralProtocol1)
                 .Include(a => a.BilateralProtocol2).Include(a => a.BilateralProtocol3)
-                .Where(a => a.CreationDate >= openDate && a.CreationDate <= closeDate);
+                .Where(a => a.CreationDate >= lastOpenDate && a.CreationDate <= lastCloseDate);
 
             if(_context.Editals.Count() > 1)
             {
-                DateTime lastOpenDate = _context.Editals.Reverse().Skip(1).Take(1).FirstOrDefault().OpenDate;
-                DateTime lastCloseDate = _context.Editals.Reverse().Skip(1).Take(1).FirstOrDefault().CloseDate;
+                Edital pendingEdital = _context.Editals.OrderByDescending(e => e.CloseDate).Skip(1).Take(1).FirstOrDefault();
+                DateTime pendingOpenDate = pendingEdital.OpenDate;
+                DateTime pendingCloseDate = pendingEdital.CloseDate;
                 var lastApplications = _context.Applications.Include(a => a.ApplicationStat)
                     .Include(a => a.Employee).Include(a => a.Student).Include(a => a.BilateralProtocol1)
                     .Include(a => a.BilateralProtocol2).Include(a => a.BilateralProtocol3)
-                    .Where(a => a.CreationDate >= lastOpenDate && a.CreationDate <= lastCloseDate);
+                    .Where(a => a.CreationDate >= pendingOpenDate && a.CreationDate <= pendingCloseDate);
                 ViewData["lastApplications"] = lastApplications;
-            }
-            
+            }            
 
             var interviews = _context.Interviews.Include(i => i.Application).ThenInclude(a => a.Student)
                 .Include(i => i.Employee).Where(i => i.InterviewDate >= DateTime.Now)
@@ -334,8 +340,8 @@ namespace CIMOBProject.Controllers
 
                 if (_context.Editals.Count() > 1)
                 {
-                    DateTime lastOpenDate = _context.Editals.Reverse().Skip(1).Take(1).FirstOrDefault().OpenDate;
-                    DateTime lastCloseDate = _context.Editals.Reverse().Skip(1).Take(1).FirstOrDefault().CloseDate;
+                    DateTime lastOpenDate = _context.Editals.OrderByDescending(e => e.CloseDate).Skip(1).Take(1).FirstOrDefault().OpenDate;
+                    DateTime lastCloseDate = _context.Editals.OrderByDescending(e => e.CloseDate).Skip(1).Take(1).FirstOrDefault().CloseDate;
                     var lastApplications = _context.Applications.Include(a => a.ApplicationStat)
                         .Include(a => a.Employee).Include(a => a.Student).Include(a => a.BilateralProtocol1)
                         .Include(a => a.BilateralProtocol2).Include(a => a.BilateralProtocol3)
@@ -352,8 +358,8 @@ namespace CIMOBProject.Controllers
 
                 if (_context.Editals.Count() > 1)
                 {
-                    DateTime lastOpenDate = _context.Editals.Reverse().Skip(1).Take(1).FirstOrDefault().OpenDate;
-                    DateTime lastCloseDate = _context.Editals.Reverse().Skip(1).Take(1).FirstOrDefault().CloseDate;
+                    DateTime lastOpenDate = _context.Editals.OrderByDescending(e => e.CloseDate).Skip(1).Take(1).FirstOrDefault().OpenDate;
+                    DateTime lastCloseDate = _context.Editals.OrderByDescending(e => e.CloseDate).Skip(1).Take(1).FirstOrDefault().CloseDate;
                     var lastApplications = _context.Applications.Include(a => a.ApplicationStat)
                         .Include(a => a.Employee).Include(a => a.Student).Include(a => a.BilateralProtocol1)
                         .Include(a => a.BilateralProtocol2).Include(a => a.BilateralProtocol3)
