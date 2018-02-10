@@ -28,43 +28,35 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @if (item.GetType() == typeof(Edital))
-                {
-                    <a asp-action="Details" asp-controller="Editals" asp-route-id="@item.Id"> @Html.DisplayFor(modelItem => item.Title)</a>
-                }
-                else
-                {
-                    <a asp-action="Details" asp-route-id="@item.Id"> @Html.DisplayFor(modelItem => item.Title)</a>
-                }
-                
+                <h4>@Html.DisplayFor(modelItem => item.Title)</h4>
             </td>
+            
 @if (SignInManager.IsSignedIn(User) && User.IsInRole("Employee"))
 {
                 @if (item.IsPublished == true)
                 {
-                    <td>Sim</td>
+                    <td><img src="~/images/check.png" /></td>
                 }
                 else
                 {
-                    <td>Não</td>
+                    <td><img src="~/images/cross.png" /></td>
                 }
             <td align="center">
                 @if (item.IsPublished == false)
                 {
-                    <a class="btn btn-default" asp-action="Publish" asp-controller="News" asp-route-id="@item.Id" id="Publish">Publicar</a>
+                    <a class="icon-hover" asp-action="Publish" asp-controller="News" asp-route-id="@item.Id" id="Publish"><img src="~/images/publish.png" /></a>
                 }
                 @if (item.GetType() == typeof(Edital))
                 {
-                    <a class="btn btn-default" asp-action="Edit" asp-controller="Editals" asp-route-id="@item.Id">Editar</a>
-
-                    <a class="btn btn-default" asp-action="Delete" asp-controller="News" asp-route-id="@item.Id">Eliminar</a>
+                    <a class="icon-hover" asp-action="Edit" asp-controller="Editals" asp-route-id="@item.Id"><img src="~/images/Edit.png" /></a>
+                    <a class="icon-hover" asp-action="Details" asp-controller="Editals" asp-route-id="@item.Id"><img src="~/images/details.png" /></a>
                 }
                 else
                 {
-                    <a class="btn btn-default" asp-action="Edit" asp-route-id="@item.Id">Editar</a>
-                    <a class="btn btn-default" asp-action="Delete" asp-route-id="@item.Id">Eliminar</a>
+                    <a class="icon-hover" asp-action="Edit" asp-route-id="@item.Id"><img src="~/images/Edit.png" /></a>
+                    <a class="icon-hover" asp-action="Details" asp-route-id="@item.Id"><img src="~/images/details.png" /></a>
                 }
-            </td>
+</td>
 }
         </tr>
 }
@@ -77,8 +69,6 @@
         <a class="btn btn-default" asp-area="" asp-controller="News" asp-action="Create" asp-route-userId="@UserManager.GetUserId(User)" id="CreateNews">Nova Publicação</a>
         <a class="btn btn-default" asp-area="" asp-controller="Editals" asp-action="Create" asp-route-userId="@UserManager.GetUserId(User)" id="CreateEdital">Novo Edital</a>
     }
-    <a class="btn btn-default" asp-controller="Testemonies" asp-action="Index" asp-route-userId=@UserManager.GetUserId(User)>Testemunhos de Mobilidade</a>
-    <a class="btn btn-default" asp-area="" asp-controller="News" asp-action="RecentNews" id="News">Publicações Recentes</a>
 </div>
 
 

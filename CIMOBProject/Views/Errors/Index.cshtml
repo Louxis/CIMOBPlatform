@@ -28,9 +28,9 @@
                 @Html.DisplayFor(modelItem => item.ErrorDescription)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-default">Editar</a>
-                <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-default">Detalhes</a>
-                <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-default">Apagar</a>
+                <a asp-action="Edit" asp-route-id="@item.Id" class="icon-hover"><img src="~/images/Edit.png" /></a>
+                <a asp-action="Details" asp-route-id="@item.Id" class="icon-hover"><img src="~/images/details.png" /></a>
+                <a asp-action="Delete" asp-route-id="@item.Id" class="icon-hover"><img src="~/images/delete.png" /></a>
             </td>
         </tr>
 }

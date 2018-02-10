@@ -11,8 +11,7 @@
 
 <div class="trouble-ticket-answer-origin">
     @Html.DisplayFor(model => model.Description)
-    <br />
-    <br />
+    <hr />
     <label>Enviado por:&nbsp;</label>@Html.DisplayFor(model => model.ApplicationUser.UserFullname)
     <br />
     <label>@Html.DisplayNameFor(model => model.CreationDate):&nbsp;</label>@Html.DisplayFor(model => model.CreationDate)

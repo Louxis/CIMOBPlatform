@@ -46,7 +46,9 @@ else
                 @Html.DisplayFor(modelItem => item.UploadDate)
             </td>
             <td>
-                <a asp-action="Delete" asp-route-id="@item.DocumentId">Delete</a>
+                <a class="icon-hover" asp-action="Delete" asp-route-id="@item.DocumentId">
+                    <img src="~/images/delete.png" />
+                </a>
             </td>
         </tr>
 }

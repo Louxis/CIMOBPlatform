@@ -15,9 +15,10 @@
 
     <input class="search-box" hidden="hidden" type="text" name="employeeId" value="@UserManager.GetUserId(User)" />
 
-    <input type="submit" class="btn btn-default" value="Filter">
+    <input type="submit" class="btn btn-default" value="Filtrar">
 </form>
 <br />
+<h4>Edital Atual</h4>
 <table class="table" id="table">
     <thead>
         <tr>
@@ -37,49 +38,110 @@
         @{
             IEnumerable<Interview> interviews = ViewData["Interviews"] as IEnumerable<Interview>;
         }
-@foreach (var item in Model) {
-        <tr>
-            <td id="UserFullName">
-                @Html.DisplayFor(modelItem => item.Student.UserFullname)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Employee.UserFullname)
-            </td>
-            <td id="ApplicationStat">
-                @Html.DisplayFor(modelItem => item.ApplicationStat.Name)
-            </td>
-            <td>
-                @if (item.EmployeeId != null) {
-                    if (item.EmployeeId == @UserManager.GetUserId(User)) {
-                        if (item.ApplicationStatId < 3) {
-                            <a class="btn btn-default" asp-action="Edit" asp-route-id="@item.ApplicationId" id="Edit">Editar</a>
-
-                            if (interviews.Where(i => i.ApplicationId == item.ApplicationId).FirstOrDefault() == null)
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td id="UserFullName">
+                    @Html.DisplayFor(modelItem => item.Student.UserFullname)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Employee.UserFullname)
+                </td>
+                <td id="ApplicationStat">
+                    @Html.DisplayFor(modelItem => item.ApplicationStat.Name)
+                </td>
+                <td>
+                    @if (item.EmployeeId != null)
+                    {
+                        if (item.EmployeeId == @UserManager.GetUserId(User))
+                        {
+                            if (item.ApplicationStatId < 3)
                             {
-                                <a class="btn btn-default" asp-action="Create" asp-controller="Interviews" asp-route-applicationId="@item.ApplicationId" asp-route-employeeId="@UserManager.GetUserId(User)">Marcar Entrevista</a>
+                                <a class="icon-hover" asp-action="Edit" asp-route-id="@item.ApplicationId" id="Edit">
+                                    <img src="~/images/Edit.png" />
+                                </a>
+                                if (interviews.Where(i => i.ApplicationId == item.ApplicationId).FirstOrDefault() == null)
+                                {
+                                    <a class="icon-hover" asp-action="Create" asp-controller="Interviews" asp-route-applicationId="@item.ApplicationId" asp-route-employeeId="@UserManager.GetUserId(User)">
+                                        <img src="~/images/Schedule Interview.png" />
+                                    </a>
+                                }
                             }
                         }
                     }
-                }
-                <a class="btn btn-default" asp-action="Details" asp-route-id="@item.ApplicationId">Detalhes</a>
-                @if (item.EmployeeId == null && User.IsInRole("Employee"))
+                    <a class="icon-hover" asp-action="Details" asp-route-id="@item.ApplicationId">
+                        <img src="~/images/details.png" />
+                    </a>
+                    @if (item.EmployeeId == null && User.IsInRole("Employee"))
                 {
-                    <a class="btn btn-default" asp-action="AssignEmployee" asp-route-employeeId="@UserManager.GetUserId(User)" asp-route-applicationId ="@item.ApplicationId" id="Evaluate">Avaliar</a>
-                }
-                @if (item.ApplicationStatId == 4)
+                        <a class="icon-hover" asp-action="AssignEmployee" asp-route-employeeId="@UserManager.GetUserId(User)" asp-route-applicationId="@item.ApplicationId" id="Evaluate">
+                            <img src="~/images/Employee.png" />
+                        </a>
+                    }
+                    @if (item.ApplicationStatId == 4)
                 {
-                    <a class="btn btn-default" asp-controller="Applications" asp-action="CloseApplication" asp-route-studentId="@item.StudentId" id="Finish">Finalizar</a>
-                }
-            </td>
-        </tr>
-}
+                        <a class="icon-hover" asp-controller="Applications" asp-action="CloseApplication" asp-route-studentId="@item.StudentId" id="Finish">
+                            <img src="~/images/end application.png" />
+                        </a>
+                    }
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
+@{
+            IEnumerable<Application> lastApplications = ViewData["lastApplications"] as IEnumerable<Application>;
+}
+@if (lastApplications != null)
+{
+    <hr />
+    <h4>Edital Anterior</h4>
+    <table class="table" id="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Student)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Employee)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ApplicationStat)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td id="UserFullName">
+                        @Html.DisplayFor(modelItem => item.Student.UserFullname)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Employee.UserFullname)
+                    </td>
+                    <td id="ApplicationStat">
+                        @Html.DisplayFor(modelItem => item.ApplicationStat.Name)
+                    </td>
+                    <td>
+                        <a class="icon-hover" asp-action="Details" asp-route-id="@item.ApplicationId">
+                            <img src="~/images/details.png" />
+                        </a>
+                        @if (item.ApplicationStatId == 4)
+                    {
+                            <a class="icon-hover" asp-controller="Applications" asp-action="CloseApplication" asp-route-studentId="@item.StudentId" id="Finish">
+                                <img src="~/images/end application.png" />
+                            </a>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
 <hr />
 @if (Model.Count() == Model.Where(a => a.ApplicationStatId == 3).Count())
 {
     <a class="btn btn-default" asp-controller="Applications" asp-action="Seriation" id="Seriation">Lançar Seriação</a>
 }
-<a class="btn btn-default" asp-controller="Quizzs" asp-action="Index">Questionários</a>
-<a class="btn btn-default" asp-controller="Interviews" asp-action="Index">Entrevistas marcadas</a>
-    

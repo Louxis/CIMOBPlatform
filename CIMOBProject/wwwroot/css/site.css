@@ -334,14 +334,14 @@ li .btn{
     border: 1px solid #BBBBBB;
     border-radius: 15px;
     background-color: white;
-    padding: 10px 20px 20px 7px;
+    padding: 10px 20px 14px 20px;
 }
 
 .trouble-ticket-answer-response {
     border: 1px solid #BBBBBB;
     border-radius: 15px;
     background-color: #FEDBA3;
-    padding: 10px 20px 20px 7px;
+    padding: 10px 20px 14px 20px;
 }
 
 .dropdown {
@@ -386,3 +386,10 @@ li .btn{
     .dropdown-content-applications a:first-child {
         border-top: 1px solid #9E9B96;
     }
+
+.icon-hover{
+    padding: 12px 12px;
+}
+.icon-hover:hover {
+    background-color: #d4d4d4;
+}

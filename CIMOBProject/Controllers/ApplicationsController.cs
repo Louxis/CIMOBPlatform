@@ -46,6 +46,18 @@ namespace CIMOBProject.Controllers
                 .Include(a => a.BilateralProtocol2).Include(a => a.BilateralProtocol3)
                 .Where(a => a.CreationDate >= openDate && a.CreationDate <= closeDate);
 
+            if(_context.Editals.Count() > 1)
+            {
+                DateTime lastOpenDate = _context.Editals.Reverse().Skip(1).Take(1).FirstOrDefault().OpenDate;
+                DateTime lastCloseDate = _context.Editals.Reverse().Skip(1).Take(1).FirstOrDefault().CloseDate;
+                var lastApplications = _context.Applications.Include(a => a.ApplicationStat)
+                    .Include(a => a.Employee).Include(a => a.Student).Include(a => a.BilateralProtocol1)
+                    .Include(a => a.BilateralProtocol2).Include(a => a.BilateralProtocol3)
+                    .Where(a => a.CreationDate >= lastOpenDate && a.CreationDate <= lastCloseDate);
+                ViewData["lastApplications"] = lastApplications;
+            }
+            
+
             var interviews = _context.Interviews.Include(i => i.Application).ThenInclude(a => a.Student)
                 .Include(i => i.Employee).Where(i => i.InterviewDate >= DateTime.Now)
                 .OrderByDescending(i => i.InterviewDate);
@@ -315,14 +327,41 @@ namespace CIMOBProject.Controllers
             DateTime openDate = _context.Editals.Last().OpenDate;
             DateTime closeDate = _context.Editals.Last().CloseDate;
             var allApplications = _context.Applications.Include(a => a.ApplicationStat).Include(a => a.Employee).Include(a => a.Student).Where(a => a.CreationDate >= openDate && a.CreationDate <= closeDate);
+
             if (filterType.Equals("CurrentlySupervising"))
             {
                 var filteredApplications = allApplications.Where(a => a.EmployeeId.Equals(employeeId));
+
+                if (_context.Editals.Count() > 1)
+                {
+                    DateTime lastOpenDate = _context.Editals.Reverse().Skip(1).Take(1).FirstOrDefault().OpenDate;
+                    DateTime lastCloseDate = _context.Editals.Reverse().Skip(1).Take(1).FirstOrDefault().CloseDate;
+                    var lastApplications = _context.Applications.Include(a => a.ApplicationStat)
+                        .Include(a => a.Employee).Include(a => a.Student).Include(a => a.BilateralProtocol1)
+                        .Include(a => a.BilateralProtocol2).Include(a => a.BilateralProtocol3)
+                        .Where(a => a.CreationDate >= lastOpenDate && a.CreationDate <= lastCloseDate);
+                    var lastFilteredApplications = lastApplications.Where(a => a.EmployeeId.Equals(employeeId));
+                    ViewData["lastApplications"] = lastFilteredApplications;
+                }
+
                 return View(await filteredApplications.ToListAsync());
             }
             if (filterType.Equals("NotSupervising"))
             {
                 var filteredApplications = allApplications.Where(a => a.EmployeeId.Equals(null));
+
+                if (_context.Editals.Count() > 1)
+                {
+                    DateTime lastOpenDate = _context.Editals.Reverse().Skip(1).Take(1).FirstOrDefault().OpenDate;
+                    DateTime lastCloseDate = _context.Editals.Reverse().Skip(1).Take(1).FirstOrDefault().CloseDate;
+                    var lastApplications = _context.Applications.Include(a => a.ApplicationStat)
+                        .Include(a => a.Employee).Include(a => a.Student).Include(a => a.BilateralProtocol1)
+                        .Include(a => a.BilateralProtocol2).Include(a => a.BilateralProtocol3)
+                        .Where(a => a.CreationDate >= lastOpenDate && a.CreationDate <= lastCloseDate);
+                    var lastFilteredApplications = lastApplications.Where(a => a.EmployeeId.Equals(null));
+                    ViewData["lastApplications"] = lastFilteredApplications;
+                }
+
                 return View(await filteredApplications.ToListAsync());
             }
             else

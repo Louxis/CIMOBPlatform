@@ -55,7 +55,7 @@
                         <div class="dropdown-content">
                             <a asp-area="" asp-controller="News" asp-action="Index">Todas as Publicações</a>
                             <a asp-area="" asp-controller="News" asp-action="RecentNews">Publicações Recentes</a>
-                            <a href="#">Testemunhos</a>
+                            <a asp-controller="Testemonies" asp-action="Index" asp-route-userId=@UserManager.GetUserId(User)>Testemunhos de Mobilidade</a>
                         </div>
                     </li>
                 }
@@ -66,7 +66,7 @@
                         <div class="dropdown-content">
                             <a asp-area="" asp-controller="News" asp-action="Index">Todas as Publicações</a>
                             <a asp-area="" asp-controller="News" asp-action="RecentNews">Publicações Recentes</a>
-                            <a href="#">Testemunhos</a>
+                            <a asp-controller="Testemonies" asp-action="Index" asp-route-userId=@UserManager.GetUserId(User)>Testemunhos de Mobilidade</a>
                         </div>
                     </li>
                 }
@@ -75,23 +75,15 @@
                     <li class="dropdown">
                         <a asp-area="" asp-controller="Applications" asp-action="Index" asp-route-employeeId = "@UserManager.GetUserId(User)" id="Application">Candidaturas</a>
                         <div class="dropdown-content-applications">
-                            <a href="#">Link 1</a>
-                            <a href="#">Link 2</a>
-                            <a href="#">Link 3</a>
+                            <a asp-area="" asp-controller="Applications" asp-action="Index" asp-route-employeeId="@UserManager.GetUserId(User)" id="Application">Todas as Candidaturas</a>
+                            <a asp-controller="Interviews" asp-action="Index">Entrevistas</a>
+                            <a asp-controller="Quizzs" asp-action="Index">Questionários</a>
                         </div>
                     </li>
                 }
                 else if (User.IsInRole("Student"))
-                {
-                    
-                    <li class="dropdown">
-                        <a asp-area="" asp-controller="Home" asp-action="Application" asp-route-userId="@UserManager.GetUserId(User)" id="Application">Candidaturas</a>
-                        <div class="dropdown-content-applications">
-                            <a href="#">Link 1</a>
-                            <a href="#">Link 2</a>
-                            <a href="#">Link 3</a>
-                        </div>
-                    </li>
+                {                    
+                    <li class="dropdown"><a asp-area="" asp-controller="Home" asp-action="Application" asp-route-userId="@UserManager.GetUserId(User)" id="Application">Candidaturas</a></li>
                 }
                 else
                 {
