@@ -38,7 +38,9 @@
                         @Html.DisplayFor(modelItem => item.UserFullname)
                     </td>
                     <td>
-                        <input type="button" class="btn btn-default" value="Ver Perfil" onclick="location.href='@Url.Action("Details", "Students", new {id = item.Id})'" />
+                        <a class="icon-hover" asp-action="Details" asp-route-id="@item.Id">
+                            <img src="~/images/details.png" />
+                        </a>
                     </td>
                 </tr>
             }
