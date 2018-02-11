@@ -192,7 +192,7 @@ namespace XUnitTesting
 
             if (!_context.Editals.Any())
             {
-                _context.Editals.Add(new Edital { Title = "Edital teste", TextContent = "Edital publicado", OpenDate = new DateTime(2017, 11, 10), CloseDate = new DateTime(2018, 02, 03) });
+                _context.Editals.Add(new Edital { Title = "Edital teste", TextContent = "Edital publicado", OpenDate = new DateTime(2017, 11, 10), CloseDate = new DateTime(2018, 04, 03) });
                 _context.SaveChanges();
             }
 

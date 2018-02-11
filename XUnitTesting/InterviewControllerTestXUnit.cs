@@ -194,7 +194,7 @@ namespace XUnitTesting
                 {
                     EmployeeId = _context.Employees.Where(s => s.UserFullname.Equals("Empregado Teste")).FirstOrDefault().Id,
                     ApplicationId = 1,
-                    InterviewDate = new DateTime(2018, 02, 03)
+                    InterviewDate = new DateTime(2018, 04, 04)
                 });
                 _context.SaveChanges();
             }

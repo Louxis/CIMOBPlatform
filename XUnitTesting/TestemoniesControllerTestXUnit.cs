@@ -213,7 +213,7 @@ namespace XUnitTesting
 
             if (!_context.Editals.Any())
             {
-                _context.Editals.Add(new Edital { Title = "Edital teste", TextContent = "Edital publicado", OpenDate = new DateTime(2017, 11, 10), CloseDate = new DateTime(2018, 02, 03) });
+                _context.Editals.Add(new Edital { Title = "Edital teste", TextContent = "Edital publicado", OpenDate = new DateTime(2017, 11, 10), CloseDate = new DateTime(2018, 03, 03) });
                 _context.SaveChanges();
             }
         }
@@ -247,11 +247,12 @@ namespace XUnitTesting
         public async Task TestingIndexTestemony()
         {
             InitializeDatabaseWithDataTest();
-            InterviewsController controller = new InterviewsController(_context);
+            TestemoniesController controller = new TestemoniesController(_context);
+            string studentId = _context.Students.Where(s => s.UserFullname.Equals("Teste User 1")).FirstOrDefault().Id;
             // Act
-            var result = await controller.Index();
+            var result = await controller.Index(studentId);
             var viewResult = Assert.IsType<ViewResult>(result);
-            var model = Assert.IsAssignableFrom<IEnumerable<Interview>>(
+            var model = Assert.IsAssignableFrom<IEnumerable<Testemony>>(
                 viewResult.ViewData.Model);
 
             Assert.Single(model);

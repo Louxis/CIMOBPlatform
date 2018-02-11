@@ -260,7 +260,7 @@ namespace CIMOBProject.Controllers
                 emailSender.SendStateEmail(item.ApplicationStatId, studentEmail);
             }
             //->NEEDS TO BE CHECKED<-
-            publishSeriationNews();
+            //publishSeriationNews();
             return RedirectToAction("DisplaySeriation", "Applications");
         }
 

@@ -12,10 +12,9 @@ using System;
 namespace CIMOBProject.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20180210005228_stresstest")]
-    partial class stresstest
+    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -151,7 +150,7 @@ namespace CIMOBProject.Migrations
 
                     b.Property<string>("UserAddress")
                         .IsRequired()
-                        .HasMaxLength(450);
+                        .HasMaxLength(200);
 
                     b.Property<string>("UserCc")
                         .IsRequired();

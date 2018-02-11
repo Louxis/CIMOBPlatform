@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace CIMOBProject.Migrations
 {
-    public partial class stresstest : Migration
+    public partial class initMig : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -159,7 +159,7 @@ namespace CIMOBProject.Migrations
                     PostalCode = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     SecurityStamp = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     TwoFactorEnabled = table.Column<bool>(type: "bit", nullable: false),
-                    UserAddress = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: false),
+                    UserAddress = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
                     UserCc = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     UserFullname = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),

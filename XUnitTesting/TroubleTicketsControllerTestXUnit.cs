@@ -221,57 +221,6 @@ namespace XUnitTesting
             }
         }
 
-
-
-        //[Fact]
-        //public async Task TestingCreateTroubleTicketSuccessfull()
-        //{
-        //    InitializeDatabaseWithDataTest();
-        //    TroubleTicketsController controller = new TroubleTicketsController(_context);
-        //    // Act
-        //    TroubleTicket troubleTicketTest = new TroubleTicket
-        //    {
-        //        Title = "Testing",
-        //        Description = "Testing",
-        //        CreationDate = new DateTime(2018, 02, 05),
-        //        Solved = false,
-        //        ApplicationUserId = _context.Students.Where(s => s.UserFullname.Equals("Teste User 1")).FirstOrDefault().Id,
-        //        StudentNumber = _context.Students.Where(s => s.UserFullname.Equals("Teste User 1")).FirstOrDefault().StudentNumber,  
-        //    };
-
-        //    await controller.Create(troubleTicketTest);
-        //    int currentTTNumber = _context.TroubleTicket.Count();
-
-        //    Assert.Equal(2, currentTTNumber);
-
-        //}
-
-
-        //[Fact]
-        //public async Task TestingEditTroubleTicket()
-        //{
-        //    InitializeDatabaseWithDataTest();
-        //    TroubleTicketsController controller = new TroubleTicketsController(_context);
-        //    // Act
-        //    var userIdQuery = _context.Students.Where(s => s.UserFullname.Equals("Teste User 2")).FirstOrDefault();
-        //    TroubleTicket troubleTicketTest = new TroubleTicket
-        //    {
-        //        TroubleTicketId = 1,
-        //        Title = "Testing",
-        //        Description = "Testing12345",
-        //        CreationDate = new DateTime(2018, 02, 05),
-        //        Solved = false,
-        //        ApplicationUserId = userIdQuery.Id,
-        //        StudentNumber = _context.Students.Where(s => s.UserFullname.Equals("Teste User 2")).FirstOrDefault().StudentNumber,
-        //    };
-        //    _context.Entry(userIdQuery).State = EntityState.Detached;
-        //    await controller.Edit(1, troubleTicketTest);
-        //    String currentDescription = "Testing12345";
-        //    var firstTT = _context.TroubleTicket.First();
-
-        //    Assert.Equal(currentDescription, firstTT.Description);
-        //}
-
         [Fact]
         public async Task TestingCloseTroubleTicketSuccessfull()
         {
@@ -284,28 +233,6 @@ namespace XUnitTesting
 
             Assert.True(currenTTNumber.Solved);
         }
-
-        //Este não funciona agora porque adicionei a string "link" no create. teste deve ser feito da mesma maneira que
-        //o teste do create das News.
-
-        //[Fact]
-        //public async Task TestingCreateTroubleTicketAnswerSuccessfull()
-        //{
-        //    InitializeDatabaseWithDataTest();
-        //    TroubleTicketAnswersController controller = new TroubleTicketAnswersController(_context);
-        //    // Act
-        //    TroubleTicketAnswer troubleTicketTest = new TroubleTicketAnswer
-        //    {
-        //        Content = "Testing",
-        //        TroubleTicketId = 1,
-        //        ApplicationUserId = _context.Students.Where(s => s.UserFullname.Equals("Teste User 2")).FirstOrDefault().Id,
-        //        CreationDate = new DateTime(2018, 02, 05),
-        //    };
-        //    await controller.Create(troubleTicketTest);
-        //    int currentTTAnswerCount = _context.TroubleTicketAnswers.Count();
-
-        //    Assert.Equal(1, currentTTAnswerCount);
-        //}
 
         [Fact]
         public async Task TestingRemoveTroubleTicketSuccessfull()
