@@ -1,14 +1,12 @@
 ﻿@model CIMOBProject.Models.Error
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Novo Erro";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Create</h2>
-
-<h4>Error</h4>
-<hr />
+<h1>Novo Erro</h1>
+<h3 class="description">Erro!</h3>
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create">
@@ -23,14 +21,11 @@
                 <input asp-for="ErrorDescription" class="form-control" />
                 <span asp-validation-for="ErrorDescription" class="text-danger"></span>
             </div>
+            <hr />
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <input type="submit" value="Criar" class="btn btn-default" />
+                <a asp-action="Index" class="btn btn-default">Voltar Atrás</a>
             </div>
         </form>
     </div>
 </div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-

@@ -1,7 +1,7 @@
 ﻿@model CIMOBProject.Models.Interview
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Remarcar Entrevista";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -19,7 +19,7 @@
                 <input asp-for="InterviewDate" class="form-control" />
                 <span asp-validation-for="InterviewDate" class="text-danger"></span>
             </div>
-            <br />
+            <hr />
             <div class="form-group">
                 <input type="submit" value="Guardar Alterações" class="btn btn-default" />
                 <a class="btn btn-default" asp-action="Index">Voltar Atrás</a>

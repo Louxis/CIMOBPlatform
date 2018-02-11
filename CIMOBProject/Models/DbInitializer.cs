@@ -43,10 +43,10 @@ namespace CIMOBProject.Models
             {
                 context.CollegeSubjects.Add(new CollegeSubject { SubjectAlias = "EI", SubjectName = "Engenharia Informática", CollegeId = 1 });
                 context.CollegeSubjects.Add(new CollegeSubject { SubjectAlias = "EM", SubjectName = "Engenharia Mecânica", CollegeId = 1 });
-                context.CollegeSubjects.Add(new CollegeSubject { SubjectAlias = "T1", SubjectName = "CursoTeste1", CollegeId = 2 });
-                context.CollegeSubjects.Add(new CollegeSubject { SubjectAlias = "T2", SubjectName = "CursoTeste2", CollegeId = 3 });
-                context.CollegeSubjects.Add(new CollegeSubject { SubjectAlias = "T3", SubjectName = "CursoTeste3", CollegeId = 3 });
-                context.CollegeSubjects.Add(new CollegeSubject { SubjectAlias = "T4", SubjectName = "CursoTeste4", CollegeId = 4 });
+                context.CollegeSubjects.Add(new CollegeSubject { SubjectAlias = "TB", SubjectName = "Técnologia Biomédica", CollegeId = 2 });
+                context.CollegeSubjects.Add(new CollegeSubject { SubjectAlias = "LEM", SubjectName = "Enfermagem", CollegeId = 3 });
+                context.CollegeSubjects.Add(new CollegeSubject { SubjectAlias = "FIS", SubjectName = "Fisioterapia", CollegeId = 3 });
+                context.CollegeSubjects.Add(new CollegeSubject { SubjectAlias = "MKT", SubjectName = "Marketing", CollegeId = 4 });
                 context.SaveChanges();
             }
 
@@ -73,20 +73,7 @@ namespace CIMOBProject.Models
                 context.BilateralProtocols.Add(new BilateralProtocol { SubjectId = 4, Destination = "Londres", OpenSlots = 1 });
                 context.BilateralProtocols.Add(new BilateralProtocol { SubjectId = 1, Destination = "Irlanda", OpenSlots = 1 });
                 context.BilateralProtocols.Add(new BilateralProtocol { SubjectId = 2, Destination = "Turquia", OpenSlots = 1 });
-                context.BilateralProtocols.Add(new BilateralProtocol { SubjectId = 3, Destination = "França", OpenSlots = 1 });
-                context.BilateralProtocols.Add(new BilateralProtocol { SubjectId = 4, Destination = "Alemanha", OpenSlots = 1 });
-                context.BilateralProtocols.Add(new BilateralProtocol { SubjectId = 1, Destination = "França", OpenSlots = 1 });
-                context.BilateralProtocols.Add(new BilateralProtocol { SubjectId = 2, Destination = "Espanha", OpenSlots = 1 });
-                context.BilateralProtocols.Add(new BilateralProtocol { SubjectId = 3, Destination = "Italia", OpenSlots = 1 });
-                context.BilateralProtocols.Add(new BilateralProtocol { SubjectId = 4, Destination = "Romenia", OpenSlots = 1 });
-                context.BilateralProtocols.Add(new BilateralProtocol { SubjectId = 1, Destination = "Lituania", OpenSlots = 1 });
-                context.BilateralProtocols.Add(new BilateralProtocol { SubjectId = 2, Destination = "Polónia", OpenSlots = 1 });
-                context.BilateralProtocols.Add(new BilateralProtocol { SubjectId = 3, Destination = "Russia", OpenSlots = 1 });
-                context.BilateralProtocols.Add(new BilateralProtocol { SubjectId = 4, Destination = "Londres", OpenSlots = 1 });
-                context.BilateralProtocols.Add(new BilateralProtocol { SubjectId = 1, Destination = "Irlanda", OpenSlots = 1 });
-                context.BilateralProtocols.Add(new BilateralProtocol { SubjectId = 2, Destination = "Turquia", OpenSlots = 1 });
-                context.BilateralProtocols.Add(new BilateralProtocol { SubjectId = 3, Destination = "França", OpenSlots = 1 });
-                context.BilateralProtocols.Add(new BilateralProtocol { SubjectId = 4, Destination = "Alemanha", OpenSlots = 1 });
+                context.BilateralProtocols.Add(new BilateralProtocol { SubjectId = 4, Destination = "Alemanha", OpenSlots = 1 });               
                 context.SaveChanges();
             }
 

@@ -1,7 +1,7 @@
 ﻿@model CIMOBProject.Models.News
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Nova Publicação";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -26,7 +26,7 @@
                 <label for="link-text" class="control-label">Link do documento</label>  <div class="tooltip">(?)<span class="tooltiptext">@ViewData["DocumentTip"]</span></div><br />
                 <input id="link-text" type="text" name="link" class="form-control"/>                
             </div>
-            
+            <hr />
             <div class="form-group">
                 <input type="submit" value="Criar Publicação" id="NewsSubmit" class="btn btn-default" />
                 <a class="btn btn-default" asp-action="Index">Voltar Atrás</a>

@@ -4,7 +4,7 @@
 @inject UserManager<ApplicationUser> UserManager
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Novo Testemunho";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -26,7 +26,7 @@
             </div>
             @Html.Hidden("StudentId")
             @Html.Hidden("CreationDate")
-            <br />
+            <hr />
             <div class="form-group">
                 <input type="submit" value="Criar" class="btn btn-default" />
                 <a asp-action="Index" asp-route-userId=@UserManager.GetUserId(User) class="btn btn-default">Voltar Atrás</a>

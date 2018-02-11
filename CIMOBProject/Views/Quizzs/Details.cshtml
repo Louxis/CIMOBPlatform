@@ -1,7 +1,7 @@
 ﻿@model CIMOBProject.Models.Quizz
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Detalhes de Questionário";
 }
 
 <h1>Questionários</h1>
@@ -13,7 +13,7 @@
     <label>@Html.DisplayNameFor(model => model.QuizzUrl):&nbsp;</label><a href="@Html.DisplayFor(model => model.QuizzUrl)">@Html.DisplayFor(model => model.QuizzUrl)</a>
     <br />      
 </div>
-<br />
+<hr />
 <div>
     <a asp-action="Index" class="btn btn-default">Voltar Atrás</a>
 </div>

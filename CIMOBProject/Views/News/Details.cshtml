@@ -3,7 +3,7 @@
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Detalhes de Publicação";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -16,7 +16,7 @@
     <br />
     <label>Publicado por:&nbsp;</label>@Html.DisplayFor(model => model.Employee.UserFullname)
 </div>
-<br />
+<hr />
 
 @if (SignInManager.IsSignedIn(User) && User.IsInRole("Employee"))
 {

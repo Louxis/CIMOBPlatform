@@ -4,7 +4,7 @@
 @inject UserManager<ApplicationUser> UserManager
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Detalhes de Candidatura";
 }
 
 <h1>Candidatura de @Html.DisplayFor(model => model.Student.UserFullname)</h1>
@@ -42,12 +42,12 @@
         <label>@Html.DisplayNameFor(model => model.Employee):&nbsp;</label>@Html.DisplayFor(model => model.Employee.UserFullname)
     </div>
 </div>
-<br />
+<hr />
 <div>
-    <a class="btn btn-default" asp-action="Index" asp-controller="Documents" asp-route-applicationId="@Model.ApplicationId">Documentos</a>
-    <a class="btn btn-default" asp-action="Edit" asp-route-id="@Model.ApplicationId">Editar</a>
+    <a class="btn btn-default" asp-action="Index" asp-controller="Documents" asp-route-applicationId="@Model.ApplicationId">Documentos</a>    
     @if (SignInManager.IsSignedIn(User) && User.IsInRole("Employee"))
     {
+        <a class="btn btn-default" asp-action="Edit" asp-route-id="@Model.ApplicationId">Editar</a>
         <a class="btn btn-default" asp-area="" asp-controller="Applications" asp-action="Index" asp-route-employeeId="@UserManager.GetUserId(User)">Voltar Atrás</a>
     }
     else

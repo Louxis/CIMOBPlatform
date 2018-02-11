@@ -1,29 +1,38 @@
 ﻿@model IEnumerable<CIMOBProject.Models.ApplicationStatHistory>
 
+@{
+    ViewData["Title"] = "Histórico da Candidatura";
+}
+
 <h1>Hístorico da candidatura</h1>
 <h3 class="description">Mantenha-se a par das alterações que foram feitos ao seu estado de mobilização.</h3>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.ApplicationStat)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DateOfUpdate)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.ApplicationStat)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DateOfUpdate)
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+<div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.ApplicationStat)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DateOfUpdate)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ApplicationStat)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DateOfUpdate)
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <hr />
+    <a href='javascript:history.go(-1)' class="btn btn-default">Voltar Atrás</a>
+</div>

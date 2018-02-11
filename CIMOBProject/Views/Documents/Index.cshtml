@@ -5,7 +5,7 @@
 
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Documentos";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -46,13 +46,16 @@ else
                 @Html.DisplayFor(modelItem => item.UploadDate)
             </td>
             <td>
-                <a asp-action="Delete" asp-route-id="@item.DocumentId">Delete</a>
+                <a class="icon-hover" asp-action="Delete" asp-route-id="@item.DocumentId">
+                    <img src="~/images/delete.png" />
+                </a>
             </td>
         </tr>
 }
     </tbody>
 </table>
 }
+<hr />
 @if (ViewData["EvaluationApp"].Equals("false")) {
     <a asp-action="Create" asp-controller="Documents" asp-route-applicationId="@ViewData["ApplicationId"]" class="btn btn-default">Novo documento</a>
 }

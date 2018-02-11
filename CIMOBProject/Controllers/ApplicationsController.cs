@@ -9,6 +9,7 @@ using CIMOBProject.Models;
 using Microsoft.AspNetCore.Authorization;
 using CIMOBProject.Services;
 using System.Security.Claims;
+using System.Collections.Generic;
 
 namespace CIMOBProject.Controllers
 {
@@ -39,12 +40,29 @@ namespace CIMOBProject.Controllers
         [Authorize(Roles = "Employee")]
         public async Task<IActionResult> Index(String employeeId)
         {
-            DateTime openDate = _context.Editals.Last().OpenDate;
-            DateTime closeDate = _context.Editals.Last().CloseDate;
+            Edital lastEdital = _context.Editals.Last();
+            if(lastEdital == null)
+            {
+                return View(new List<Application>());
+            }
+            DateTime lastOpenDate = lastEdital.OpenDate;
+            DateTime lastCloseDate = lastEdital.CloseDate;
             var applications = _context.Applications.Include(a => a.ApplicationStat)
                 .Include(a => a.Employee).Include(a => a.Student).Include(a => a.BilateralProtocol1)
                 .Include(a => a.BilateralProtocol2).Include(a => a.BilateralProtocol3)
-                .Where(a => a.CreationDate >= openDate && a.CreationDate <= closeDate);
+                .Where(a => a.CreationDate >= lastOpenDate && a.CreationDate <= lastCloseDate);
+
+            if(_context.Editals.Count() > 1)
+            {
+                Edital pendingEdital = _context.Editals.OrderByDescending(e => e.CloseDate).Skip(1).Take(1).FirstOrDefault();
+                DateTime pendingOpenDate = pendingEdital.OpenDate;
+                DateTime pendingCloseDate = pendingEdital.CloseDate;
+                var lastApplications = _context.Applications.Include(a => a.ApplicationStat)
+                    .Include(a => a.Employee).Include(a => a.Student).Include(a => a.BilateralProtocol1)
+                    .Include(a => a.BilateralProtocol2).Include(a => a.BilateralProtocol3)
+                    .Where(a => a.CreationDate >= pendingOpenDate && a.CreationDate <= pendingCloseDate);
+                ViewData["lastApplications"] = lastApplications;
+            }            
 
             var interviews = _context.Interviews.Include(i => i.Application).ThenInclude(a => a.Student)
                 .Include(i => i.Employee).Where(i => i.InterviewDate >= DateTime.Now)
@@ -144,7 +162,7 @@ namespace CIMOBProject.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ApplicationId,StudentId,ApplicationStatId,EmployeeId,BilateralProtocol1Id,BilateralProtocol2Id,BilateralProtocol3Id,CreationDate,ArithmeticMean,ECTS,MotivationLetter,Interview,FinalGrade,Documents,Motivations")] Application application)
+        public async Task<IActionResult> Create([Bind("ApplicationId,StudentId,ApplicationStatId,EmployeeId,BilateralProtocol1Id,BilateralProtocol2Id,BilateralProtocol3Id,CreationDate,ArithmeticMean,ECTS,MotivationLetter,Interview,FinalGrade,Documents,Documents,Motivations")] Application application)
         {
             var student = _context.Students.Include(s => s.CollegeSubject).Where(s => s.Id == application.StudentId).SingleOrDefault();
             if (ModelState.IsValid)
@@ -153,7 +171,8 @@ namespace CIMOBProject.Controllers
                 await _context.SaveChangesAsync();
                 Student newStudent = await _context.Students.Where(s => s.Id.Equals(application.StudentId)).FirstOrDefaultAsync();
                 await emailSender.Execute("Candidatura Submetida", "Saudações, a sua candidatura foi submetida no sistema com sucesso, boa sorte!", newStudent.Email);
-                _context.ApplicationStatHistory.Add(new ApplicationStatHistory { ApplicationId = _context.Applications.Last().ApplicationId, ApplicationStat = "Pending Evaluation", DateOfUpdate = DateTime.Now });
+                _context.ApplicationStatHistory.Add(new ApplicationStatHistory { ApplicationId = _context.Applications.Last().ApplicationId
+                    , ApplicationStat = _context.ApplicationStats.FirstOrDefault(s => s.Id == 1).Name, DateOfUpdate = DateTime.Now });
                 _context.SaveChanges();
                 return RedirectToAction("Details", "Applications", new { id = application.ApplicationId });
             }
@@ -315,14 +334,41 @@ namespace CIMOBProject.Controllers
             DateTime openDate = _context.Editals.Last().OpenDate;
             DateTime closeDate = _context.Editals.Last().CloseDate;
             var allApplications = _context.Applications.Include(a => a.ApplicationStat).Include(a => a.Employee).Include(a => a.Student).Where(a => a.CreationDate >= openDate && a.CreationDate <= closeDate);
+
             if (filterType.Equals("CurrentlySupervising"))
             {
                 var filteredApplications = allApplications.Where(a => a.EmployeeId.Equals(employeeId));
+
+                if (_context.Editals.Count() > 1)
+                {
+                    DateTime lastOpenDate = _context.Editals.OrderByDescending(e => e.CloseDate).Skip(1).Take(1).FirstOrDefault().OpenDate;
+                    DateTime lastCloseDate = _context.Editals.OrderByDescending(e => e.CloseDate).Skip(1).Take(1).FirstOrDefault().CloseDate;
+                    var lastApplications = _context.Applications.Include(a => a.ApplicationStat)
+                        .Include(a => a.Employee).Include(a => a.Student).Include(a => a.BilateralProtocol1)
+                        .Include(a => a.BilateralProtocol2).Include(a => a.BilateralProtocol3)
+                        .Where(a => a.CreationDate >= lastOpenDate && a.CreationDate <= lastCloseDate);
+                    var lastFilteredApplications = lastApplications.Where(a => a.EmployeeId.Equals(employeeId));
+                    ViewData["lastApplications"] = lastFilteredApplications;
+                }
+
                 return View(await filteredApplications.ToListAsync());
             }
             if (filterType.Equals("NotSupervising"))
             {
                 var filteredApplications = allApplications.Where(a => a.EmployeeId.Equals(null));
+
+                if (_context.Editals.Count() > 1)
+                {
+                    DateTime lastOpenDate = _context.Editals.OrderByDescending(e => e.CloseDate).Skip(1).Take(1).FirstOrDefault().OpenDate;
+                    DateTime lastCloseDate = _context.Editals.OrderByDescending(e => e.CloseDate).Skip(1).Take(1).FirstOrDefault().CloseDate;
+                    var lastApplications = _context.Applications.Include(a => a.ApplicationStat)
+                        .Include(a => a.Employee).Include(a => a.Student).Include(a => a.BilateralProtocol1)
+                        .Include(a => a.BilateralProtocol2).Include(a => a.BilateralProtocol3)
+                        .Where(a => a.CreationDate >= lastOpenDate && a.CreationDate <= lastCloseDate);
+                    var lastFilteredApplications = lastApplications.Where(a => a.EmployeeId.Equals(null));
+                    ViewData["lastApplications"] = lastFilteredApplications;
+                }
+
                 return View(await filteredApplications.ToListAsync());
             }
             else
@@ -387,6 +433,7 @@ namespace CIMOBProject.Controllers
             ViewData["EmployeeId"] = application.EmployeeId;
             ViewData["StudentId"] = application.StudentId;
             ViewData["CreationDate"] = application.CreationDate;
+            ViewData["Motivations"] = application.Motivations;
             loadHelp();
 
             return View(application);
@@ -394,7 +441,7 @@ namespace CIMOBProject.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ApplicationId,StudentId,ApplicationStatId,EmployeeId,BilateralProtocol1Id,BilateralProtocol2Id,BilateralProtocol3Id,CreationDate,ArithmeticMean,ECTS,MotivationLetter,Interview,FinalGrade")] Application application)
+        public async Task<IActionResult> Edit(int id, [Bind("ApplicationId,StudentId,ApplicationStatId,EmployeeId,BilateralProtocol1Id,BilateralProtocol2Id,BilateralProtocol3Id,CreationDate,ArithmeticMean,ECTS,MotivationLetter,Interview,FinalGrade,Motivations")] Application application)
         {
             if (id != application.ApplicationId)
             {
@@ -430,7 +477,6 @@ namespace CIMOBProject.Controllers
                 }
                 return RedirectToAction("Index", "Applications", new { employeeId = application.EmployeeId });
             }
-
             ViewData["BilateralProtocol1Id"] = application.BilateralProtocol1Id;
             ViewData["BilateralProtocol2Id"] = application.BilateralProtocol2Id;
             ViewData["BilateralProtocol3Id"] = application.BilateralProtocol3Id;

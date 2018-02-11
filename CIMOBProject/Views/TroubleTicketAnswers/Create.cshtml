@@ -4,7 +4,7 @@
 @inject UserManager<ApplicationUser> UserManager
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Responder a Trouble Ticket";
     Layout = "~/Views/Shared/_Layout.cshtml";
     TroubleTicket tt = ViewData["TroubleTicket"] as TroubleTicket;
 }
@@ -40,9 +40,9 @@
             @Html.Hidden("TroubleTicketId")
             @Html.Hidden("ApplicationUserId")
             @Html.Hidden("CreationDate")
-            <br />
+            <hr />
             <div class="form-group">
-                <input type="submit" value="Criar" class="btn btn-default" />
+                <input type="submit" value="Responder" class="btn btn-default" />
                 <a class="btn btn-default" asp-area="" asp-controller="TroubleTickets" asp-action="Details" asp-route-id="@tt.TroubleTicketId">Voltar Atrás</a>
             </div>
         </form>

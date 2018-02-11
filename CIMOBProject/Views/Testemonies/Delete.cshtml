@@ -1,7 +1,7 @@
 ﻿@model CIMOBProject.Models.Testemony
 
 @{
-    ViewData["Title"] = "Delete";
+    ViewData["Title"] = "Eliminar Testemunho";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -14,12 +14,12 @@
     <hr />
     <label>-&nbsp;</label>@Html.DisplayFor(model => model.Student.UserFullname)
 </div>
-<br />
+<hr />
 <div>
     <form asp-action="Delete">
         <input type="hidden" asp-for="TestemonyId" />
         @Html.Hidden("userId");
-        <input type="submit" value="Delete" class="btn btn-default" />
+        <input type="submit" value="Apagar" class="btn btn-default" />
         <a asp-action="Index" class="btn btn-default">Voltar Atrás</a>
     </form>
 </div>

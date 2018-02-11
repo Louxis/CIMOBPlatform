@@ -4,7 +4,7 @@
 @inject UserManager<ApplicationUser> UserManager
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Novo Trouble Ticket";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -40,7 +40,7 @@
                     <h5 style="color: red">@ViewData["ErrorMessage"]</h5>
                 }
             </div>
-            <br />
+            <hr />
             <div class="form-group">
                 <input type="submit" value="Criar" class="btn btn-default" />
                 <a asp-action="Index" asp-route-userId="@UserManager.GetUserId(User)" class="btn btn-default">Voltar Atrás</a>

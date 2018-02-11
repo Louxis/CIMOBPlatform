@@ -9,7 +9,7 @@
 
    <form asp-area="" asp-controller="Account" asp-action="Logout" method="post" id="logoutForm" class="navbar-right">
         <ul class="nav navbar-nav navbar-right">
-            <li><a asp-action="Index" asp-controller="TroubleTickets" asp-route-userId="@UserManager.GetUserId(User)" class="btn btn-default">@await Component.InvokeAsync("TtNotification", new { id = @UserManager.GetUserId(User) })</a></li>
+            <li><a style="padding-top: 5px" asp-action="Index" asp-controller="TroubleTickets" asp-route-userId="@UserManager.GetUserId(User)">@await Component.InvokeAsync("TtNotification", new { id = @UserManager.GetUserId(User) })</a></li>
             <li>
                 @if (User.IsInRole("Student"))
                 {
@@ -21,7 +21,7 @@
                 }
             </li>
             <li>
-                <button type="submit" class="btn btn-link navbar-btn navbar-link" id="LogOut">Log out</button>
+                <button type="submit" class="btn btn-link navbar-btn navbar-link" id="LogOut">Sair</button>
             </li>
         </ul>   
     </form>
@@ -30,6 +30,6 @@ else
 {
     <ul class="nav navbar-nav navbar-right">
         <li><a asp-area="" asp-controller="Account" asp-action="Register">Registar</a></li>
-        <li><a asp-area="" asp-controller="Account" asp-action ="Login" id="LogIn">Log in</a></li>
+        <li><a asp-area="" asp-controller="Account" asp-action ="Login" id="LogIn">Autenticar</a></li>
     </ul>
 }

@@ -1600,7 +1600,7 @@ pre code {
 }
 @media (min-width: 1200px) {
   .container {
-    width: 1170px;
+    width: 90%;
   }
 }
 .container-fluid {
@@ -3420,7 +3420,7 @@ fieldset[disabled] .btn-link {
 }
     .btn-link:hover,
     .btn-link:focus {
-        background-color: #FF9D00;
+        background-color: #FFC261;
     }
 .btn-link[disabled]:hover,
 fieldset[disabled] .btn-link:hover,

@@ -3,7 +3,7 @@
 @inject UserManager<ApplicationUser> UserManager
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Detalhes de Testemunho";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -14,7 +14,7 @@
     <hr />
     <label>-&nbsp;</label>@Html.DisplayFor(model => model.Student.UserFullname)
 </div>
-<br />
+<hr />
 <div>
     <a asp-action="Index" class="btn btn-default">Voltar Atrás</a>
     <a class="btn btn-default" asp-controller="Testemonies" asp-action="ValidateTestemony" asp-route-testemonyId="@Model.TestemonyId" asp-route-userId=@UserManager.GetUserId(User)>Validar Publicação</a>

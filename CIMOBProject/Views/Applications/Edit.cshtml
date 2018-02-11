@@ -2,7 +2,7 @@
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Editar Candidatura";
 }
 
 <h1>Candidatura do aluno @Model.Student.UserFullname</h1>
@@ -17,6 +17,7 @@
             @Html.Hidden("BilateralProtocol2Id")
             @Html.Hidden("BilateralProtocol3Id")
             @Html.Hidden("CreationDate")
+            @Html.Hidden("Motivations")
             <div class="edit-application-grades">
                 <h4>Avaliação da Candidatura</h4>
                 <input type="hidden" asp-for="ApplicationId" />
