@@ -41,7 +41,10 @@
                 {
                     <td><img src="~/images/cross.png" /></td>
                 }
+}
             <td align="center">
+@if (SignInManager.IsSignedIn(User) && User.IsInRole("Employee"))
+{
                 @if (item.IsPublished == false)
                 {
                     <a class="icon-hover" asp-action="Publish" asp-controller="News" asp-route-id="@item.Id" id="Publish"><img src="~/images/publish.png" /></a>
@@ -49,14 +52,23 @@
                 @if (item.GetType() == typeof(Edital))
                 {
                     <a class="icon-hover" asp-action="Edit" asp-controller="Editals" asp-route-id="@item.Id"><img src="~/images/Edit.png" /></a>
-                    <a class="icon-hover" asp-action="Details" asp-controller="Editals" asp-route-id="@item.Id"><img src="~/images/details.png" /></a>
+
                 }
                 else
                 {
                     <a class="icon-hover" asp-action="Edit" asp-route-id="@item.Id"><img src="~/images/Edit.png" /></a>
-                    <a class="icon-hover" asp-action="Details" asp-route-id="@item.Id"><img src="~/images/details.png" /></a>
                 }
-</td>
+}
+@if (item.GetType() == typeof(Edital))
+{
+    <a class="icon-hover" asp-action="Details" asp-controller="Editals" asp-route-id="@item.Id"><img src="~/images/details.png" /></a>
+}
+else
+{
+    <a class="icon-hover" asp-action="Details" asp-route-id="@item.Id"><img src="~/images/details.png" /></a>
+}
+                
+            </td>
 }
         </tr>
 }
