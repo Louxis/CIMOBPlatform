@@ -15,63 +15,63 @@
             <th>
                 @Html.DisplayNameFor(model => model.Title) da Publicação
             </th>
-        @if (SignInManager.IsSignedIn(User) && User.IsInRole("Employee"))
-        {
-            <th>
-                Publicado
-            </th>
-        }
+            @if (SignInManager.IsSignedIn(User) && User.IsInRole("Employee"))
+            {
+                <th>
+                    Publicado
+                </th>
+            }
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                <h4>@Html.DisplayFor(modelItem => item.Title)</h4>
-            </td>
-            
-@if (SignInManager.IsSignedIn(User) && User.IsInRole("Employee"))
-{
-                @if (item.IsPublished == true)
-                {
-                    <td><img src="~/images/check.png" /></td>
-                }
-                else
-                {
-                    <td><img src="~/images/cross.png" /></td>
-                }
-}
-            <td align="center">
-@if (SignInManager.IsSignedIn(User) && User.IsInRole("Employee"))
-{
-                @if (item.IsPublished == false)
-                {
-                    <a class="icon-hover" asp-action="Publish" asp-controller="News" asp-route-id="@item.Id" id="Publish"><img src="~/images/publish.png" /></a>
-                }
-                @if (item.GetType() == typeof(Edital))
-                {
-                    <a class="icon-hover" asp-action="Edit" asp-controller="Editals" asp-route-id="@item.Id"><img src="~/images/Edit.png" /></a>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    <h4>@Html.DisplayFor(modelItem => item.Title)</h4>
+                </td>
 
-                }
-                else
+                @if (SignInManager.IsSignedIn(User) && User.IsInRole("Employee"))
                 {
-                    <a class="icon-hover" asp-action="Edit" asp-route-id="@item.Id"><img src="~/images/Edit.png" /></a>
+                    @if (item.IsPublished == true)
+                    {
+                        <td><img src="~/images/check.png" /></td>
+                    }
+                    else
+                    {
+                        <td><img src="~/images/cross.png" /></td>
+                    }
                 }
-}
-@if (item.GetType() == typeof(Edital))
-{
-    <a class="icon-hover" asp-action="Details" asp-controller="Editals" asp-route-id="@item.Id"><img src="~/images/details.png" /></a>
-}
-else
-{
-    <a class="icon-hover" asp-action="Details" asp-route-id="@item.Id"><img src="~/images/details.png" /></a>
-}
-                
-            </td>
-}
-        </tr>
-}
+                <td align="center">
+                    @if (SignInManager.IsSignedIn(User) && User.IsInRole("Employee"))
+                    {
+                        @if (item.IsPublished == false)
+                        {
+                            <a class="icon-hover" asp-action="Publish" asp-controller="News" asp-route-id="@item.Id" id="Publish"><img src="~/images/publish.png" /></a>
+                        }
+                        @if (item.GetType() == typeof(Edital))
+                        {
+                            <a class="icon-hover" asp-action="Edit" asp-controller="Editals" asp-route-id="@item.Id"><img src="~/images/Edit.png" /></a>
+
+                        }
+                        else
+                        {
+                            <a class="icon-hover" asp-action="Edit" asp-route-id="@item.Id"><img src="~/images/Edit.png" /></a>
+                        }
+                    }
+                    @if (item.GetType() == typeof(Edital))
+                    {
+                        <a class="icon-hover" asp-action="Details" asp-controller="Editals" asp-route-id="@item.Id"><img src="~/images/details.png" /></a>
+                    }
+                    else
+                    {
+                        <a class="icon-hover" asp-action="Details" asp-route-id="@item.Id"><img src="~/images/details.png" /></a>
+                    }
+
+                </td>                
+            </tr>
+        }
     </tbody>
 </table>
 <hr />
