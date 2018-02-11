@@ -162,7 +162,7 @@ namespace CIMOBProject.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ApplicationId,StudentId,ApplicationStatId,EmployeeId,BilateralProtocol1Id,BilateralProtocol2Id,BilateralProtocol3Id,CreationDate,ArithmeticMean,ECTS,MotivationLetter,Interview,FinalGrade,Documents,Motivations")] Application application)
+        public async Task<IActionResult> Create([Bind("ApplicationId,StudentId,ApplicationStatId,EmployeeId,BilateralProtocol1Id,BilateralProtocol2Id,BilateralProtocol3Id,CreationDate,ArithmeticMean,ECTS,MotivationLetter,Interview,FinalGrade,Documents,Documents,Motivations")] Application application)
         {
             var student = _context.Students.Include(s => s.CollegeSubject).Where(s => s.Id == application.StudentId).SingleOrDefault();
             if (ModelState.IsValid)
@@ -171,7 +171,8 @@ namespace CIMOBProject.Controllers
                 await _context.SaveChangesAsync();
                 Student newStudent = await _context.Students.Where(s => s.Id.Equals(application.StudentId)).FirstOrDefaultAsync();
                 await emailSender.Execute("Candidatura Submetida", "Saudações, a sua candidatura foi submetida no sistema com sucesso, boa sorte!", newStudent.Email);
-                _context.ApplicationStatHistory.Add(new ApplicationStatHistory { ApplicationId = _context.Applications.Last().ApplicationId, ApplicationStat = "Pending Evaluation", DateOfUpdate = DateTime.Now });
+                _context.ApplicationStatHistory.Add(new ApplicationStatHistory { ApplicationId = _context.Applications.Last().ApplicationId
+                    , ApplicationStat = _context.ApplicationStats.FirstOrDefault(s => s.Id == 1).Name, DateOfUpdate = DateTime.Now });
                 _context.SaveChanges();
                 return RedirectToAction("Details", "Applications", new { id = application.ApplicationId });
             }
@@ -432,6 +433,7 @@ namespace CIMOBProject.Controllers
             ViewData["EmployeeId"] = application.EmployeeId;
             ViewData["StudentId"] = application.StudentId;
             ViewData["CreationDate"] = application.CreationDate;
+            ViewData["Motivations"] = application.Motivations;
             loadHelp();
 
             return View(application);
@@ -439,7 +441,7 @@ namespace CIMOBProject.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ApplicationId,StudentId,ApplicationStatId,EmployeeId,BilateralProtocol1Id,BilateralProtocol2Id,BilateralProtocol3Id,CreationDate,ArithmeticMean,ECTS,MotivationLetter,Interview,FinalGrade")] Application application)
+        public async Task<IActionResult> Edit(int id, [Bind("ApplicationId,StudentId,ApplicationStatId,EmployeeId,BilateralProtocol1Id,BilateralProtocol2Id,BilateralProtocol3Id,CreationDate,ArithmeticMean,ECTS,MotivationLetter,Interview,FinalGrade,Motivations")] Application application)
         {
             if (id != application.ApplicationId)
             {
@@ -475,7 +477,6 @@ namespace CIMOBProject.Controllers
                 }
                 return RedirectToAction("Index", "Applications", new { employeeId = application.EmployeeId });
             }
-
             ViewData["BilateralProtocol1Id"] = application.BilateralProtocol1Id;
             ViewData["BilateralProtocol2Id"] = application.BilateralProtocol2Id;
             ViewData["BilateralProtocol3Id"] = application.BilateralProtocol3Id;

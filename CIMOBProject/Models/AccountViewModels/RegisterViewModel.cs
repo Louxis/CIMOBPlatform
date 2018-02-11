@@ -20,7 +20,7 @@ namespace CIMOBProject.Models.AccountViewModels
         public string Email { get; set; }
 
         [Required(ErrorMessage = "A password é obrigatória.")]
-        [StringLength(16, ErrorMessage = "A {0} password tem de ter no minimo {2} e no máximo {1} caracteres.",
+        [StringLength(16, ErrorMessage = "A {0} tem de ter no minimo {2} e no máximo {1} caracteres.",
             MinimumLength = 6)]
         [DataType(DataType.Password)]
         [Display(Name = "Password")]
@@ -49,7 +49,7 @@ namespace CIMOBProject.Models.AccountViewModels
         public String PostalCode { get; set; }
 
         [DataType(DataType.Date)]
-        [Required(ErrorMessage = "A data de nascimento é obrigatória.")]
+        [Required(ErrorMessage = "A data de nascimento é obrigatória e tem de ser válida.")]
         [Display(Name = "Data de Nascimento")]
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         [RegisterAge(17, ErrorMessage = "A idade minima é 17 anos.")]

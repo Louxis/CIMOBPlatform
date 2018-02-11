@@ -31,9 +31,12 @@ namespace CIMOBProject.Models
         public DateTime CreationDate { get; set; }
 
         [Display(Name = "Média aritmética")]
-        [Range(minimum: 0.0, maximum: 20.0, ErrorMessage = "Média aritemética deve ser entre 0 e 20.")]
+        [Range(minimum: 0.0, maximum: 20.0, ErrorMessage = "Média aritmética deve ser entre 0 e 20.")]
+        [RegularExpression("([0-9]+)", ErrorMessage = "Por favor insira um número válido.")]
         public double? ArithmeticMean { get; set; }
 
+        [Display(Name = "ECTS")]
+        [Range(minimum: 0.0, maximum: 480.0, ErrorMessage = "ECTS precisam de ser positivos.")]
         public int? ECTS { get; set; }
 
         /// <summary>
@@ -48,6 +51,7 @@ namespace CIMOBProject.Models
         /// </summary>
         [Display(Name = "Entrevista")]
         [Range(minimum: 0.0, maximum: 20.0, ErrorMessage = "A entrevista deve ter uma nota de 0 e 20.")]
+        [RegularExpression("([0-9]+)", ErrorMessage = "Por favor insira um número válido.")]
         public double? Interview { get; set; }
 
         /// <summary>
@@ -55,6 +59,7 @@ namespace CIMOBProject.Models
         /// </summary>
         [Display(Name = "Nota final")]
         [Range(minimum: 0.0, maximum: 20.0, ErrorMessage = "A nota final deve ter uma nota de 0 e 20.")]
+        [RegularExpression("([0-9]+)", ErrorMessage = "Por favor insira um número válido.")]
         public double? FinalGrade { get; set; }
 
         /// <summary>

@@ -73,20 +73,7 @@ namespace CIMOBProject.Models
                 context.BilateralProtocols.Add(new BilateralProtocol { SubjectId = 4, Destination = "Londres", OpenSlots = 1 });
                 context.BilateralProtocols.Add(new BilateralProtocol { SubjectId = 1, Destination = "Irlanda", OpenSlots = 1 });
                 context.BilateralProtocols.Add(new BilateralProtocol { SubjectId = 2, Destination = "Turquia", OpenSlots = 1 });
-                context.BilateralProtocols.Add(new BilateralProtocol { SubjectId = 3, Destination = "França", OpenSlots = 1 });
-                context.BilateralProtocols.Add(new BilateralProtocol { SubjectId = 4, Destination = "Alemanha", OpenSlots = 1 });
-                context.BilateralProtocols.Add(new BilateralProtocol { SubjectId = 1, Destination = "França", OpenSlots = 1 });
-                context.BilateralProtocols.Add(new BilateralProtocol { SubjectId = 2, Destination = "Espanha", OpenSlots = 1 });
-                context.BilateralProtocols.Add(new BilateralProtocol { SubjectId = 3, Destination = "Italia", OpenSlots = 1 });
-                context.BilateralProtocols.Add(new BilateralProtocol { SubjectId = 4, Destination = "Romenia", OpenSlots = 1 });
-                context.BilateralProtocols.Add(new BilateralProtocol { SubjectId = 1, Destination = "Lituania", OpenSlots = 1 });
-                context.BilateralProtocols.Add(new BilateralProtocol { SubjectId = 2, Destination = "Polónia", OpenSlots = 1 });
-                context.BilateralProtocols.Add(new BilateralProtocol { SubjectId = 3, Destination = "Russia", OpenSlots = 1 });
-                context.BilateralProtocols.Add(new BilateralProtocol { SubjectId = 4, Destination = "Londres", OpenSlots = 1 });
-                context.BilateralProtocols.Add(new BilateralProtocol { SubjectId = 1, Destination = "Irlanda", OpenSlots = 1 });
-                context.BilateralProtocols.Add(new BilateralProtocol { SubjectId = 2, Destination = "Turquia", OpenSlots = 1 });
-                context.BilateralProtocols.Add(new BilateralProtocol { SubjectId = 3, Destination = "França", OpenSlots = 1 });
-                context.BilateralProtocols.Add(new BilateralProtocol { SubjectId = 4, Destination = "Alemanha", OpenSlots = 1 });
+                context.BilateralProtocols.Add(new BilateralProtocol { SubjectId = 4, Destination = "Alemanha", OpenSlots = 1 });               
                 context.SaveChanges();
             }
 

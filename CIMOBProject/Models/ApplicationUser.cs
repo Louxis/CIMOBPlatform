@@ -26,7 +26,7 @@ namespace CIMOBProject.Models
 
         [Required(ErrorMessage = "A morada é obrigatória.")]
         [Display(Name = "Morada")]
-        [StringLength(450, MinimumLength = 5, ErrorMessage = "A morada precisa de conter pelo menos 5 digitos.")]
+        [StringLength(200, MinimumLength = 5, ErrorMessage = "A morada precisa de conter pelo menos 5 digitos e no máximo 200.")]
         public String UserAddress { get; set; }
 
         [Required(ErrorMessage = "O CC é obrigatório.")]
