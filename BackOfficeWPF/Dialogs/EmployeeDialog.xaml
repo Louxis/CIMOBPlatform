@@ -5,9 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BackOfficeWPF.Dialogs"
         mc:Ignorable="d"
-        Title="Empregado" Height="475" Width="465" Closing="Window_Closing">
+        Title="Empregado" Height="530" Width="465" Closing="Window_Closing">
     <Grid Name="GridFormEmployee" DockPanel.Dock="Left"  Margin="10">
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
@@ -24,20 +25,22 @@
         </Grid.ColumnDefinitions>
         <Label Content="Nome" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left"   FontSize="12" Margin="10,10,0,10.4" />
         <Label Content="Email" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left"   FontSize="12" Margin="10,10,0,10.4" />
-        <Label Content="Cartão de Cidadão" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Left"   FontSize="12" Margin="10,10,0,10.4" />
-        <Label Content="Telemóvel" Grid.Row="3" Grid.Column="0" HorizontalAlignment="Left"   FontSize="12" Margin="10,10,0,10.4" />
-        <Label Content="Morada" Grid.Row="4" Grid.Column="0" HorizontalAlignment="Left"   FontSize="12" Margin="10,10,0,10.4" />
-        <Label Content="Código Postal" Grid.Row="5" Grid.Column="0" HorizontalAlignment="Left"   FontSize="12" Margin="10,10,0,10.4" />
-        <Label Content="Data Nascimento" Grid.Row="6" Grid.Column="0" HorizontalAlignment="Left"   FontSize="12" Margin="10,10,0,10.4" />
-        <Label Content="Número Empregado" Grid.Row="7" Grid.Column="0" HorizontalAlignment="Left"   FontSize="12" Margin="10,10,0,10.4" />
+        <Label Content="Password" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Left"   FontSize="12" Margin="10,10,0,10.4" />
+        <Label Content="Cartão de Cidadão" Grid.Row="3" Grid.Column="0" HorizontalAlignment="Left"   FontSize="12" Margin="10,10,0,10.4" />
+        <Label Content="Telemóvel" Grid.Row="4" Grid.Column="0" HorizontalAlignment="Left"   FontSize="12" Margin="10,10,0,10.4" />
+        <Label Content="Morada" Grid.Row="5" Grid.Column="0" HorizontalAlignment="Left"   FontSize="12" Margin="10,10,0,10.4" />
+        <Label Content="Código Postal" Grid.Row="6" Grid.Column="0" HorizontalAlignment="Left"   FontSize="12" Margin="10,10,0,10.4" />
+        <Label Content="Data Nascimento" Grid.Row="7" Grid.Column="0" HorizontalAlignment="Left"   FontSize="12" Margin="10,10,0,10.4" />
+        <Label Content="Número Empregado" Grid.Row="8" Grid.Column="0" HorizontalAlignment="Left"   FontSize="12" Margin="10,10,0,10.4" />
         <TextBox Grid.Row="0" Grid.Column="1" Name="employeeName" Text="{Binding Path=UserFullname}" HorizontalAlignment="Left" FontSize="12" Margin="11.8,10,0,10.4" Width="280"></TextBox>
         <TextBox Grid.Row="1" Grid.Column="1" Name="employeeEmail" Text="{Binding Path=UserName}" HorizontalAlignment="Left" FontSize="12" Margin="11.8,10,0,10.4" Width="300"></TextBox>
-        <TextBox Grid.Row="2" Grid.Column="1" Name="employeeCc" PreviewTextInput="NumberValidationTextBox" Text="{Binding Path=UserCc}" HorizontalAlignment="Left" FontSize="12" Margin="11.8,10,0,10.4" Width="300"></TextBox>
-        <TextBox Grid.Row="3" Grid.Column="1" Name="employeePhone" PreviewTextInput="NumberValidationTextBox" Text="{Binding Path=PhoneNumber}" HorizontalAlignment="Left" FontSize="12" Margin="11.8,10,0,10.4" Width="300"></TextBox>
-        <TextBox Grid.Row="4" Grid.Column="1" Name="employeeAddress" Text="{Binding Path=UserAddress}" HorizontalAlignment="Left" FontSize="12" Margin="11.8,10,0,10.4" Width="300"></TextBox>
-        <TextBox Grid.Row="5" Grid.Column="1" Name="employeePostal" PreviewTextInput="PostalCode" Text="{Binding Path=PostalCode}" HorizontalAlignment="Left" FontSize="12" Margin="11.8,10,0,10.4" Width="300"></TextBox>
-        <DatePicker Grid.Row="6" Grid.Column="1" Name="employeeBirth" Text="{Binding Path=BirthDate}" HorizontalAlignment="Left" FontSize="12" Margin="11.8,10,0,10.4" Width="200"></DatePicker>
-        <TextBox Grid.Row="7" Grid.Column="1" Name="employeeNumber" PreviewTextInput="NumberValidationTextBox" Text="{Binding Path=EmployeeNumber}" HorizontalAlignment="Left" FontSize="12" Margin="11.8,10,0,10.4" Width="300"></TextBox>
+        <PasswordBox Grid.Row="2" Grid.Column="1" Name="employeePassword" HorizontalAlignment="Left" FontSize="12" Margin="11.8,10,0,10.4" Width="300"></PasswordBox>
+        <TextBox Grid.Row="3" Grid.Column="1" Name="employeeCc" PreviewTextInput="NumberValidationTextBox" Text="{Binding Path=UserCc}" HorizontalAlignment="Left" FontSize="12" Margin="11.8,10,0,10.4" Width="300"></TextBox>
+        <TextBox Grid.Row="4" Grid.Column="1" Name="employeePhone" PreviewTextInput="NumberValidationTextBox" Text="{Binding Path=PhoneNumber}" HorizontalAlignment="Left" FontSize="12" Margin="11.8,10,0,10.4" Width="300"></TextBox>
+        <TextBox Grid.Row="5" Grid.Column="1" Name="employeeAddress" Text="{Binding Path=UserAddress}" HorizontalAlignment="Left" FontSize="12" Margin="11.8,10,0,10.4" Width="300"></TextBox>
+        <TextBox Grid.Row="6" Grid.Column="1" Name="employeePostal" PreviewTextInput="PostalCode" Text="{Binding Path=PostalCode}" HorizontalAlignment="Left" FontSize="12" Margin="11.8,10,0,10.4" Width="300"></TextBox>
+        <DatePicker Grid.Row="7" Grid.Column="1" Name="employeeBirth" Text="{Binding Path=BirthDate}" HorizontalAlignment="Left" FontSize="12" Margin="11.8,10,0,10.4" Width="200"></DatePicker>
+        <TextBox Grid.Row="8" Grid.Column="1" Name="employeeNumber" PreviewTextInput="NumberValidationTextBox" Text="{Binding Path=EmployeeNumber}" HorizontalAlignment="Left" FontSize="12" Margin="11.8,10,0,10.4" Width="300"></TextBox>
         <StackPanel Grid.Column="1" Grid.Row="8" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom" Height="20" Margin="0,0,0,0" Width="142">
             <Button x:Name="OkButton" Click="OkButton_Click" IsDefault="True" Width="60" Margin="1,0" Content="OK"/>
             <Button x:Name="CancelButton" IsCancel="True" Width="60" Margin="10,0" Click="CancelButton_Click" Content="Cancel"/>

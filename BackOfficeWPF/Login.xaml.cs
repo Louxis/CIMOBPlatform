@@ -17,7 +17,7 @@ using System.Windows.Shapes;
 
 namespace BackOfficeWPF.Auth {
     /// <summary>
-    /// Interaction logic for Login.xaml
+    /// Login window, verifies that only admins can authenticate in the backoffice.
     /// </summary>
     public partial class Login : Window {
         //change to admin

@@ -267,123 +267,6 @@ namespace CIMOBProject.Models
                 context.SaveChanges();
             }
 
-            if (!context.Applications.Any())
-            {
-                /*context.Applications.Add(new Application
-                {
-                    StudentId = context.Students.Where(s => s.UserFullname.Equals("Teste User 4")).FirstOrDefault().Id,
-                    ApplicationStatId = 3,
-                    BilateralProtocol1Id = 2,
-                    BilateralProtocol2Id = 6,
-                    BilateralProtocol3Id = 10,
-                    //EmployeeId = context.Employees.Where(s => s.UserFullname.Equals("Empregado Teste")).FirstOrDefault().Id,
-                    CreationDate = new DateTime(2017, 11, 11),
-                    ArithmeticMean = 7.0,
-                    ECTS = 78,
-                    MotivationLetter = 8.0,
-                    Interview = 9.0,
-                    FinalGrade = 8.0
-                });*/
-                context.Applications.Add(new Application
-                {
-                    StudentId = context.Students.Where(s => s.UserFullname.Equals("Teste User 2")).FirstOrDefault().Id,
-                    ApplicationStatId = 3,
-                    BilateralProtocol1Id = 1,
-                    BilateralProtocol2Id = 5,
-                    BilateralProtocol3Id = 9,
-                    EmployeeId = context.Employees.Where(s => s.UserFullname.Equals("Empregado Teste")).FirstOrDefault().Id,
-                    CreationDate = new DateTime(2017, 11, 12),
-                    ArithmeticMean = 10.0,
-                    ECTS = 90,
-                    MotivationLetter = 10.0,
-                    Interview = 10.0,
-                    FinalGrade = 10.0
-                });
-
-
-                context.Applications.Add(new Application
-                {
-                    StudentId = context.Students.Where(s => s.UserFullname.Equals("Teste User 3")).FirstOrDefault().Id,
-                    ApplicationStatId = 3,
-                    BilateralProtocol1Id = 2,
-                    BilateralProtocol2Id = 6,
-                    BilateralProtocol3Id = 10,
-                    //EmployeeId = context.Employees.Where(s => s.UserFullname.Equals("Empregado Teste")).FirstOrDefault().Id,
-                    CreationDate = new DateTime(2017, 11, 13),
-                    ArithmeticMean = 8.0,
-                    ECTS = 66,
-                    MotivationLetter = 9.0,
-                    Interview = 7.0,
-                    FinalGrade = 7.0
-                });
-
-
-                /*context.Applications.Add(new Application
-                {
-                    StudentId = context.Students.Where(s => s.UserFullname.Equals("Teste User 1")).FirstOrDefault().Id,
-                    ApplicationStatId = 3,
-                    BilateralProtocol1Id = 1,
-                    BilateralProtocol2Id = 5,
-                    BilateralProtocol3Id = 9,
-                    EmployeeId = context.Employees.Where(s => s.UserFullname.Equals("Empregado Teste")).FirstOrDefault().Id,
-                    CreationDate = new DateTime(2018, 01, 03),
-                    ArithmeticMean = 20.0,
-                    ECTS = 120,
-                    MotivationLetter = 20.0,
-                    Interview = 20.0,
-                    FinalGrade = 20.0
-                });*/
-
-                context.Applications.Add(new Application
-                {
-                    StudentId = context.Students.Where(s => s.UserFullname.Equals("Teste User 7")).FirstOrDefault().Id,
-                    ApplicationStatId = 3,
-                    BilateralProtocol1Id = 4,
-                    BilateralProtocol2Id = 8,
-                    BilateralProtocol3Id = 12,
-                    //EmployeeId = context.Employees.Where(s => s.UserFullname.Equals("Empregado Teste")).FirstOrDefault().Id,
-                    CreationDate = new DateTime(2017, 11, 15),
-                    ArithmeticMean = 12.0,
-                    ECTS = 120,
-                    MotivationLetter = 15.0,
-                    Interview = 9.0,
-                    FinalGrade = 11.0
-                });
-
-                context.Applications.Add(new Application
-                {
-                    StudentId = context.Students.Where(s => s.UserFullname.Equals("Teste User 5")).FirstOrDefault().Id,
-                    ApplicationStatId = 3,
-                    BilateralProtocol1Id = 4,
-                    BilateralProtocol2Id = 8,
-                    BilateralProtocol3Id = 12,
-                    //EmployeeId = context.Employees.Where(s => s.UserFullname.Equals("Empregado Teste")).FirstOrDefault().Id,
-                    CreationDate = new DateTime(2017, 11, 16),
-                    ArithmeticMean = 13.0,
-                    ECTS = 120,
-                    MotivationLetter = 8.0,
-                    Interview = 8.0,
-                    FinalGrade = 9.0
-                });
-
-                context.Applications.Add(new Application
-                {
-                    StudentId = context.Students.Where(s => s.UserFullname.Equals("Teste User 6")).FirstOrDefault().Id,
-                    ApplicationStatId = 3,
-                    BilateralProtocol1Id = 1,
-                    BilateralProtocol2Id = 5,
-                    BilateralProtocol3Id = 9,
-                    //EmployeeId = context.Employees.Where(s => s.UserFullname.Equals("Empregado Teste")).FirstOrDefault().Id,
-                    CreationDate = new DateTime(2016, 11, 10),
-                    ArithmeticMean = 8.0,
-                    ECTS = 120,
-                    MotivationLetter = 9.0,
-                    Interview = 6.0,
-                    FinalGrade = 7.0
-                });
-                context.SaveChanges();
-            }
-
             if (!context.Editals.Any())
             {
                 context.Editals.Add(new Edital
@@ -391,12 +274,11 @@ namespace CIMOBProject.Models
                     Title = "Edital teste",
                     TextContent = "Edital publicado",
                     OpenDate = new DateTime(2017, 11, 10),
-                    CloseDate = new DateTime(2018, 02, 03),
+                    CloseDate = new DateTime(2018, 04, 04),
                     IsPublished = true
                 });
                 context.SaveChanges();
             }
-
 
             if (!context.Helps.Any())
             {

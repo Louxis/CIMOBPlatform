@@ -49,7 +49,7 @@ namespace BackOfficeWPF {
         private void ButtonAdd_Click(object sender, RoutedEventArgs e) {
             EmployeeDialog employeeDialog = new EmployeeDialog() { Title = "Adicionar Funcionário" };
             if (employeeDialog.ShowDialog() == true) {
-                employees.Add(DbContextHelper.AddEmployee(_db, employeeDialog.Employee));
+                employees.Add(DbContextHelper.AddEmployee(_db, employeeDialog.Employee, employeeDialog.Password));
                 employeesGrd.SelectedIndex = employeesGrd.Items.Count - 1;
             }
         }
