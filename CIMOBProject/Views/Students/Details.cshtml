@@ -13,7 +13,7 @@
            <h4>Dados Pessoais</h4>
            <label>@Html.DisplayNameFor(model => model.UserFullname):&nbsp;</label>@Html.DisplayFor(model => model.UserFullname)
            <br />
-           <label>@Html.DisplayNameFor(model => model.BirthDate):&nbsp;</label>@Html.DisplayFor(model => model.BirthDate)
+           <label>@Html.DisplayNameFor(model => model.BirthDate):&nbsp;</label>@String.Format("{0:dd/MM/yyyy}", Model.BirthDate)
            <br />
            <label>@Html.DisplayNameFor(model => model.UserCc):&nbsp;</label>@Html.DisplayFor(model => model.UserCc)
        </div>

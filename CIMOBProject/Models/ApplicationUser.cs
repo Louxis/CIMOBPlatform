@@ -24,9 +24,11 @@ namespace CIMOBProject.Models
         [Display(Name = "Data de Nascimento")]
         public DateTime BirthDate { get; set; }
 
+        [DataType(DataType.Date)]
         [Required(ErrorMessage = "A morada é obrigatória.")]
         [Display(Name = "Morada")]
         [StringLength(200, MinimumLength = 5, ErrorMessage = "A morada precisa de conter pelo menos 5 digitos e no máximo 200.")]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public String UserAddress { get; set; }
 
         [Required(ErrorMessage = "O CC é obrigatório.")]
