@@ -12,11 +12,17 @@ namespace BackOfficeWPF.Dialogs {
     {
         private readonly ApplicationDbContext _db = new ApplicationDbContext();
         private bool mayClose;
+        private bool registerMode;
         public Employee Employee { get; set; }
+        public string Password { get; set; }
 
         public EmployeeDialog(Employee employee = null)
         {
             InitializeComponent();
+            if(employee == null)
+            {
+                registerMode = true;
+            }
             this.Employee = employee ?? new Employee();
             Employee.BirthDate = new DateTime(2000, 1, 1);
             GridFormEmployee.DataContext = Employee;
@@ -30,6 +36,11 @@ namespace BackOfficeWPF.Dialogs {
             {
                 mayClose = false;
             }
+            else
+            {
+                Password = employeePassword.Password;
+            }
+
             this.DialogResult = true;
         }
 

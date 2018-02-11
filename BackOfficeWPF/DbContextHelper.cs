@@ -6,6 +6,9 @@ using System.Linq;
 using System.Windows;
 
 namespace BackOfficeWPF {
+    /// <summary>
+    /// This class will be used as a support for the creation of the different objects in the database.
+    /// </summary>
     class DbContextHelper {
 
         public static void AddAdmin(ApplicationDbContext context, Employee applicationUser, string password) {
@@ -33,7 +36,7 @@ namespace BackOfficeWPF {
             MessageBox.Show("Admin Criado com sucesso.", "Sucesso");
         }
 
-        public static Employee AddEmployee(ApplicationDbContext context, Employee employee) {
+        public static Employee AddEmployee(ApplicationDbContext context, Employee employee, string password) {
             UserManager<Employee> userManager = new UserManager<Employee>(new UserStore<Employee>(new ApplicationDbContext()));
             Employee user = null;
             try {
@@ -51,7 +54,7 @@ namespace BackOfficeWPF {
                     NormalizedUserName = employee.UserName.ToUpper(),
                     EmailConfirmed = true
                 };
-                userManager.CreateAsync(user, "admin12").Wait();
+                userManager.CreateAsync(user, password).Wait();
                 context.SaveChanges();
                 var role = context.Roles.SingleOrDefault(m => m.Name == "Admin");
                 userManager.AddToRoleAsync(user.Id, role.Name).Wait();

@@ -34,17 +34,8 @@
             <Label Content="Média das notas finais das candidaturas" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center"  FontSize="12" Margin="2" />
             <Label Content="" Name="AverageApplication" Grid.Row="2" Grid.Column="1"  HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="12" Width="150" IsEnabled="False" Margin="0,6" />
 
-            <Label Content="Total dos TT e quantos é que foram resolvidos" Grid.Row="3" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="12" Margin="2"  />
-            <Label Content="Implemented soon..." Name="Soon1" Grid.Row="3" Grid.Column="1"  HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="12" Width="150" IsEnabled="False"/>
 
-            <Label Content="Funcionário que resolveu mais TTs" Grid.Row="4" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="12" Margin="2"  />
-            <Label Content="Implemented soon..." Name="Soon2" Grid.Row="4" Grid.Column="1"  HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="12" Width="150" IsEnabled="False"/>
 
-            <Label Content="Funcionário que avaliou mais candidaturas" Grid.Row="5" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="12" Margin="2"  />
-            <Label Content="" Name="EvaluatedByEmployee" Grid.Row="5" Grid.Column="1"  HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="12" Width="150" IsEnabled="False"/>
-
-            
-            
             <!--<Label Content="Email" Grid.Row="6" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="12" Margin="2"  />
             <Label Name="EmailTxt" Content="" Grid.Row="6" Grid.Column="1"  HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="12" Width="150" IsEnabled="False"/>-->
 

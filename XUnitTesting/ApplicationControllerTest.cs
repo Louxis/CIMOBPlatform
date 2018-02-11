@@ -209,31 +209,6 @@ namespace XUnitTesting {
                 }
 
                 driver.FindElement(By.Id("Finish")).Click();
-
-                foreach (IWebElement row in tableRows)
-                {
-                    rowTD = row.FindElements(By.TagName("td"));
-
-                    if (rowTD.First().FindElement(By.Id("UserFullName")).Text.Equals("Teste User 4"))
-                    {
-                        rowTD.Last().FindElement(By.Id("Finish")).Click();
-                        break;
-                    }
-                }
-
-                //table = driver.FindElement(By.TagName("tbody"));
-                //tableRows = table.FindElements(By.TagName("tr"));
-
-                //foreach (IWebElement row in tableRows)
-                //{
-                //    rowTD = row.FindElements(By.TagName("td"));
-
-                //    if (rowTD.First().FindElement(By.Id("UserFullName")).Text.Equals("Teste User 4"))
-                //    {
-                //        ExpectedConditions.TextToBePresentInElement(rowTD[2].FindElement(By.Id("ApplicationStat")), "Finalizado");
-                //        break;
-                //    }
-                //}
             }
         }
 

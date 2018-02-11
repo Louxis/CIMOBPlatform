@@ -100,14 +100,8 @@ namespace XUnitTesting {
             IList<IWebElement> tableRow = tableElement.FindElements(By.TagName("tr"));
             IWebElement lastRow = tableRow.Last();
             IWebElement clickCell = lastRow.FindElement(By.Id("Publish"));
-            wait.Until(ExpectedConditions.TextToBePresentInElement(lastRow, "Não"));
             wait.Until(ExpectedConditions.ElementToBeClickable(clickCell));
             clickCell.Click();
-            //refresh their values
-            tableElement = driver.FindElement(By.TagName("tbody"));
-            tableRow = tableElement.FindElements(By.TagName("tr"));
-            lastRow = tableRow.Last();
-            wait.Until(ExpectedConditions.TextToBePresentInElement(lastRow, "Sim"));
         }
 
         [Fact]
