@@ -57,7 +57,7 @@
                 <td>
                     @if (!item.Solved && User.IsInRole("Employee"))
                     {
-                        <a class="icon-hover" asp-action="CloseTicket" asp-route-troubleTicketId="@item.TroubleTicketId" asp-route-applicationUserId="@UserManager.GetUserId(User)"><img src="~/images/TTClose.png" /></a>
+                        <a class="icon-hover" asp-action="CloseTicket" asp-route-troubleTicketId="@item.TroubleTicketId" asp-route-applicationUserId="@UserManager.GetUserId(User)"><img src="~/images/CloseTT.png" /></a>
                     }
                     <a class="icon-hover" asp-action="Details" asp-route-id="@item.TroubleTicketId"><img src="~/images/details.png" /></a>
                 </td>
